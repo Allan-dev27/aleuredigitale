@@ -1,2 +1,2 @@
 The .scss (Sass) files are only available in the pro version.
-You can buy it from: https://bootstrapmade.com/bell-free-bootstrap-4-template/
+You can buy it from: https://bootstrapmade.com/impact-bootstrap-business-website-template/
