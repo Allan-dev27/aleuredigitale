@@ -1,1201 +1,1328 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Index - Impact Bootstrap Template</title>
-  <meta name="description" content="">
-  <meta name="keywords" content="">
-
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <title>A l'Eure Digitale – Apprendre · Partager · Construire ensemble</title>
+  <meta name="description" content="A l'Eure Digitale est une association locale qui accompagne l'apprentissage, la coopération et la création de projets numériques à impact social à Notre Dame du Hamel.">
+  <meta name="keywords" content="numérique, association, Eure, ateliers, open source, inclusion, digital">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
-  <!-- Main CSS File -->
-  <link href="assets/css/main.css" rel="stylesheet">
+  <style>
+    /* ===== DESIGN SYSTEM ===== */
+    :root {
+      --green-dark: #0d3d2b;
+      --green-mid: #1a6b42;
+      --green-accent: #2ec06a;
+      --green-light: #b8f0d0;
+      --cream: #f4f0e8;
+      --white: #ffffff;
+      --ink: #0a1a12;
+      --ink-soft: #2e4036;
+      --ink-muted: #5a7566;
+      --border: rgba(46, 192, 106, 0.25);
+      --font-mono: 'Space Mono', monospace;
+      --font-body: 'DM Sans', sans-serif;
+    }
 
-  <!-- =======================================================
-  * Template Name: Impact
-  * Template URL: https://bootstrapmade.com/impact-bootstrap-business-website-template/
-  * Updated: Aug 07 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--ink);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* ===== TYPOGRAPHY ===== */
+    h1, h2, h3, h4 { font-family: var(--font-mono); line-height: 1.15; }
+    p { font-family: var(--font-body); }
+
+    /* ===== NOISE TEXTURE OVERLAY ===== */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+    }
+
+    /* ===== TOPBAR ===== */
+    .topbar {
+      background: var(--green-dark);
+      padding: 8px 0;
+      font-size: 0.78rem;
+      font-family: var(--font-mono);
+      letter-spacing: 0.03em;
+      color: var(--green-light);
+    }
+    .topbar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .topbar a { color: var(--green-light); text-decoration: none; }
+    .topbar a:hover { color: var(--white); }
+    .topbar-contact { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+    .topbar-contact span { display: flex; align-items: center; gap: 6px; }
+
+    /* ===== HEADER / NAV ===== */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: var(--cream);
+      border-bottom: 2px solid var(--border);
+      backdrop-filter: blur(12px);
+      background: rgba(244, 240, 232, 0.92);
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .logo {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--green-dark);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .logo span { color: var(--green-accent); }
+    .navmenu ul {
+      list-style: none;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .navmenu a {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--ink-soft);
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      transition: all 0.2s;
+      letter-spacing: 0.03em;
+    }
+    .navmenu a:hover, .navmenu a.active { background: var(--green-dark); color: var(--green-light); }
+    .nav-cta {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      background: var(--green-accent);
+      color: var(--green-dark) !important;
+      font-weight: 700;
+      padding: 8px 16px !important;
+      border-radius: 4px;
+    }
+    .nav-cta:hover { background: var(--green-dark) !important; color: var(--green-light) !important; }
+    .mobile-toggle { display: none; cursor: pointer; font-size: 1.5rem; color: var(--green-dark); background: none; border: none; }
+
+    @media (max-width: 768px) {
+      .navmenu { display: none; position: absolute; top: 64px; left: 0; right: 0; background: var(--cream); border-bottom: 2px solid var(--border); padding: 16px 24px; }
+      .navmenu.open { display: block; }
+      .navmenu ul { flex-direction: column; gap: 4px; }
+      .navmenu a { display: block; font-size: 0.9rem; }
+      .mobile-toggle { display: block; }
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: calc(100vh - 96px);
+      display: flex;
+      align-items: center;
+      background: var(--green-dark);
+      position: relative;
+      overflow: hidden;
+      padding: 80px 0 60px;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse 60% 60% at 80% 50%, rgba(46, 192, 106, 0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 80% at 20% 100%, rgba(46, 192, 106, 0.08) 0%, transparent 50%);
+    }
+    /* Decorative grid lines */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(46,192,106,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(46,192,106,0.06) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .hero-tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--green-accent);
+      border: 1px solid var(--green-accent);
+      padding: 4px 10px;
+      border-radius: 2px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.2s forwards;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      color: var(--white);
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.4s forwards;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--green-accent);
+      display: block;
+    }
+    .hero-desc {
+      color: rgba(255,255,255,0.7);
+      font-size: 1.05rem;
+      margin-bottom: 36px;
+      max-width: 480px;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.6s forwards;
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.8s forwards;
+    }
+    .btn-primary {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 700;
+      background: var(--green-accent);
+      color: var(--green-dark);
+      padding: 12px 24px;
+      border-radius: 4px;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: all 0.25s;
+      border: 2px solid var(--green-accent);
+    }
+    .btn-primary:hover { background: transparent; color: var(--green-accent); }
+    .btn-outline {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      background: transparent;
+      color: rgba(255,255,255,0.8);
+      padding: 12px 24px;
+      border-radius: 4px;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: all 0.25s;
+      border: 2px solid rgba(255,255,255,0.25);
+    }
+    .btn-outline:hover { border-color: var(--green-accent); color: var(--green-accent); }
+
+    /* Hero visual side */
+    .hero-visual {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.5s forwards;
+    }
+    .hero-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(46,192,106,0.2);
+      border-radius: 8px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .hero-card-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(46, 192, 106, 0.15);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--green-accent);
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .hero-card h4 { font-family: var(--font-mono); font-size: 0.85rem; color: var(--white); margin-bottom: 4px; }
+    .hero-card p { font-size: 0.8rem; color: rgba(255,255,255,0.5); margin: 0; }
+
+    /* Hero badges */
+    .hero-badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+    .badge {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      background: rgba(46,192,106,0.1);
+      border: 1px solid rgba(46,192,106,0.2);
+      color: var(--green-light);
+      padding: 4px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.05em;
+    }
+
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+    }
+
+    /* ===== ICON BOXES (stats row) ===== */
+    .icon-boxes {
+      background: var(--ink);
+      padding: 40px 0;
+      border-bottom: 2px solid rgba(46,192,106,0.15);
+    }
+    .icon-boxes-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: rgba(46,192,106,0.1);
+    }
+    .icon-box {
+      background: var(--ink);
+      padding: 28px 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: background 0.25s;
+    }
+    .icon-box:hover { background: rgba(46,192,106,0.06); }
+    .icon-box .icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(46,192,106,0.12);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--green-accent);
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .icon-box h4 { font-family: var(--font-mono); font-size: 0.82rem; color: var(--white); margin: 0; }
+
+    @media (max-width: 700px) {
+      .icon-boxes-inner { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ===== SECTIONS ===== */
+    section { padding: 80px 0; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--green-mid);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-label::before {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 2px;
+      background: var(--green-accent);
+    }
+    .section-title { margin-bottom: 56px; }
+    .section-title h2 { font-size: clamp(1.8rem, 3vw, 2.6rem); color: var(--green-dark); margin-bottom: 12px; }
+    .section-title p { color: var(--ink-muted); max-width: 560px; }
+
+    /* ===== ABOUT ===== */
+    .about { background: var(--cream); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+    .about-text h3 {
+      font-size: 1.5rem;
+      color: var(--green-dark);
+      margin-bottom: 16px;
+    }
+    .about-text p { color: var(--ink-soft); margin-bottom: 14px; font-size: 0.97rem; }
+    .about-checklist { list-style: none; margin: 24px 0; }
+    .about-checklist li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-bottom: 10px;
+      color: var(--ink-soft);
+      font-size: 0.93rem;
+    }
+    .about-checklist li i { color: var(--green-accent); margin-top: 3px; flex-shrink: 0; }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 8px;
+    }
+    .value-chip {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--white);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .value-chip:hover { border-color: var(--green-accent); transform: translateY(-2px); }
+    .value-chip i { color: var(--green-mid); font-size: 1rem; }
+    .value-chip span { font-size: 0.88rem; font-weight: 500; color: var(--ink); font-family: var(--font-mono); }
+
+    .info-box {
+      background: var(--green-dark);
+      border-radius: 8px;
+      padding: 32px;
+      color: var(--white);
+      margin-top: 24px;
+    }
+    .info-box h4 { font-family: var(--font-mono); font-size: 0.85rem; color: var(--green-light); margin-bottom: 16px; letter-spacing: 0.08em; }
+    .info-row { display: flex; gap: 12px; align-items: center; margin-bottom: 10px; font-size: 0.88rem; color: rgba(255,255,255,0.75); }
+    .info-row i { color: var(--green-accent); width: 18px; flex-shrink: 0; }
+    .info-row a { color: rgba(255,255,255,0.75); text-decoration: none; }
+    .info-row a:hover { color: var(--green-accent); }
+
+    @media (max-width: 800px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .values-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===== SERVICES / ACTIONS ===== */
+    .services { background: var(--white); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .service-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 28px 24px;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+      background: var(--cream);
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--green-accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .service-card:hover { border-color: var(--green-accent); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(46,192,106,0.12); }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(46,192,106,0.12);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--green-mid);
+      font-size: 1.3rem;
+      margin-bottom: 16px;
+    }
+    .service-card h4 { font-family: var(--font-mono); font-size: 0.9rem; color: var(--green-dark); margin-bottom: 8px; }
+    .service-card p { font-size: 0.87rem; color: var(--ink-soft); line-height: 1.6; margin: 0; }
+
+    @media (max-width: 800px) {
+      .services-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 500px) {
+      .services-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===== MATCH'EMPLOI PROJECT ===== */
+    .project { background: var(--green-dark); padding: 80px 0; position: relative; overflow: hidden; }
+    .project::before {
+      content: '';
+      position: absolute;
+      right: -100px;
+      top: -100px;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: rgba(46,192,106,0.06);
+      border: 1px solid rgba(46,192,106,0.1);
+    }
+    .project-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .project-label { color: var(--green-accent); }
+    .project .section-title h2 { color: var(--white); }
+    .project .section-title p { color: rgba(255,255,255,0.6); }
+    .project-desc { color: rgba(255,255,255,0.75); font-size: 0.97rem; margin-bottom: 28px; }
+    .project-points { list-style: none; margin-bottom: 36px; }
+    .project-points li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 12px;
+      color: rgba(255,255,255,0.75);
+      font-size: 0.93rem;
+    }
+    .project-points li i { color: var(--green-accent); margin-top: 3px; flex-shrink: 0; }
+    .project-target-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .project-tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      background: rgba(46,192,106,0.12);
+      border: 1px solid rgba(46,192,106,0.25);
+      color: var(--green-light);
+      padding: 5px 12px;
+      border-radius: 20px;
+    }
+
+    .project-card-block {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(46,192,106,0.2);
+      border-radius: 10px;
+      padding: 36px;
+    }
+    .match-logo {
+      font-family: var(--font-mono);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--green-accent);
+      margin-bottom: 8px;
+    }
+    .match-tagline { font-size: 0.82rem; color: rgba(255,255,255,0.45); font-style: italic; margin-bottom: 28px; font-family: var(--font-mono); }
+    .problem-box {
+      background: rgba(46,192,106,0.08);
+      border-left: 3px solid var(--green-accent);
+      border-radius: 4px;
+      padding: 16px 20px;
+      margin-bottom: 16px;
+    }
+    .problem-box h5 { font-family: var(--font-mono); font-size: 0.78rem; color: var(--green-accent); margin-bottom: 6px; letter-spacing: 0.08em; }
+    .problem-box p { font-size: 0.86rem; color: rgba(255,255,255,0.65); margin: 0; }
+
+    @media (max-width: 800px) {
+      .project-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===== MEMBERSHIP / ADHÉRER ===== */
+    .membership { background: var(--cream); }
+    .membership-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+    }
+    .membership-card {
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      padding: 32px 28px;
+      text-align: center;
+      background: var(--white);
+      transition: all 0.3s;
+    }
+    .membership-card.featured {
+      border-color: var(--green-accent);
+      background: var(--green-dark);
+      color: var(--white);
+    }
+    .membership-card:hover:not(.featured) { border-color: var(--green-mid); transform: translateY(-3px); }
+    .membership-card .price {
+      font-family: var(--font-mono);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--green-dark);
+      margin: 12px 0;
+    }
+    .membership-card.featured .price { color: var(--green-accent); }
+    .membership-card .price-label { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); }
+    .membership-card.featured .price-label { color: rgba(255,255,255,0.5); }
+    .membership-card h3 { font-size: 1rem; margin-bottom: 4px; color: var(--green-dark); }
+    .membership-card.featured h3 { color: var(--white); }
+    .membership-card p { font-size: 0.86rem; color: var(--ink-muted); margin-top: 10px; }
+    .membership-card.featured p { color: rgba(255,255,255,0.6); }
+    .membership-card .btn-primary { display: block; margin-top: 20px; font-size: 0.8rem; }
+    .membership-card .btn-outline-dark {
+      display: block;
+      margin-top: 20px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      border: 2px solid var(--border);
+      color: var(--ink-soft);
+      padding: 10px 20px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.25s;
+      letter-spacing: 0.05em;
+    }
+    .membership-card .btn-outline-dark:hover { border-color: var(--green-mid); color: var(--green-mid); }
+
+    @media (max-width: 800px) {
+      .membership-grid { grid-template-columns: 1fr; max-width: 400px; }
+    }
+
+    /* ===== PARTENAIRES ===== */
+    .partners { background: var(--white); padding: 60px 0; }
+    .partners h3 {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-align: center;
+      color: var(--ink-muted);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+    }
+    .partners-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+    .partner-pill {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      padding: 8px 18px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--ink-muted);
+      background: var(--cream);
+      letter-spacing: 0.04em;
+    }
+
+    /* ===== TERRITOIRE ===== */
+    .territoire { background: var(--cream); }
+    .territoire-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+    .territoire-text h3 { font-size: 1.3rem; color: var(--green-dark); margin-bottom: 14px; }
+    .territoire-text p { color: var(--ink-soft); font-size: 0.93rem; margin-bottom: 14px; }
+    .territory-items { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .territory-item {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 18px;
+    }
+    .territory-item i { color: var(--green-accent); font-size: 1.2rem; margin-bottom: 8px; display: block; }
+    .territory-item p { font-size: 0.84rem; color: var(--ink-soft); margin: 0; }
+
+    .impact-stats { display: flex; flex-direction: column; gap: 16px; }
+    .impact-stat {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .impact-stat i { font-size: 1.4rem; color: var(--green-mid); flex-shrink: 0; }
+    .impact-stat span { font-size: 0.9rem; color: var(--ink-soft); }
+
+    @media (max-width: 800px) {
+      .territoire-grid { grid-template-columns: 1fr; }
+      .territory-items { grid-template-columns: 1fr; }
+    }
+
+    /* ===== CONTACT ===== */
+    .contact { background: var(--ink); }
+    .contact .section-label { color: var(--green-accent); }
+    .contact .section-title h2 { color: var(--white); }
+    .contact .section-title p { color: rgba(255,255,255,0.5); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 60px; }
+
+    .contact-info-block { display: flex; flex-direction: column; gap: 16px; }
+    .contact-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .contact-icon {
+      width: 42px;
+      height: 42px;
+      background: rgba(46,192,106,0.1);
+      border: 1px solid rgba(46,192,106,0.2);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--green-accent);
+      flex-shrink: 0;
+    }
+    .contact-item h4 { font-family: var(--font-mono); font-size: 0.8rem; color: rgba(255,255,255,0.5); margin-bottom: 4px; letter-spacing: 0.06em; }
+    .contact-item p, .contact-item a { font-size: 0.92rem; color: var(--white); margin: 0; text-decoration: none; }
+    .contact-item a:hover { color: var(--green-accent); }
+
+    .rna-box {
+      background: rgba(46,192,106,0.06);
+      border: 1px solid rgba(46,192,106,0.15);
+      border-radius: 6px;
+      padding: 16px 20px;
+      margin-top: 8px;
+    }
+    .rna-box p { font-family: var(--font-mono); font-size: 0.78rem; color: rgba(255,255,255,0.5); margin: 0; }
+    .rna-box strong { color: var(--green-light); }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px;
+      padding: 12px 16px;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+      margin-bottom: 12px;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus { border-color: var(--green-accent); }
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder { color: rgba(255,255,255,0.3); }
+    .contact-form textarea { min-height: 120px; resize: vertical; }
+    .contact-form .btn-primary { border: 2px solid var(--green-accent); cursor: pointer; font-family: var(--font-mono); }
+
+    @media (max-width: 800px) {
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--green-dark);
+      padding: 56px 0 32px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    .footer-brand .logo { margin-bottom: 14px; }
+    .footer-brand p { font-size: 0.87rem; color: rgba(255,255,255,0.5); line-height: 1.7; margin-bottom: 20px; }
+    .footer-links h4, .footer-contact h4 {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--green-light);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .footer-links ul { list-style: none; }
+    .footer-links li { margin-bottom: 8px; }
+    .footer-links a { font-size: 0.88rem; color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--green-accent); }
+    .footer-contact p { font-size: 0.88rem; color: rgba(255,255,255,0.55); margin-bottom: 6px; }
+    .footer-contact a { color: rgba(255,255,255,0.55); text-decoration: none; }
+    .footer-contact a:hover { color: var(--green-accent); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .footer-bottom p { font-size: 0.8rem; color: rgba(255,255,255,0.35); font-family: var(--font-mono); }
+    .footer-siren { font-family: var(--font-mono); font-size: 0.75rem; color: rgba(255,255,255,0.25); }
+
+    @media (max-width: 700px) {
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s, transform 0.6s; }
+    .fade-up.visible { opacity: 1; transform: none; }
+
+    /* ===== SCROLL TOP ===== */
+    #scroll-top {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 44px;
+      height: 44px;
+      background: var(--green-accent);
+      color: var(--green-dark);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 1.2rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      z-index: 500;
+    }
+    #scroll-top.visible { opacity: 1; pointer-events: auto; }
+    #scroll-top:hover { background: var(--green-dark); color: var(--green-accent); }
+  </style>
 </head>
 
-<body class="index-page">
+<body>
 
-  <header id="header" class="header fixed-top">
-
-    <div class="topbar d-flex align-items-center">
-      <div class="container d-flex justify-content-center justify-content-md-between">
-        <div class="contact-info d-flex align-items-center">
-          <i class="bi bi-envelope d-flex align-items-center"><a href="mailto:contact@example.com">contact@example.com</a></i>
-          <i class="bi bi-phone d-flex align-items-center ms-4"><span>+1 5589 55488 55</span></i>
-        </div>
-        <div class="social-links d-none d-md-flex align-items-center">
-          <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
-          <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-          <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-          <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-        </div>
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="topbar-contact">
+        <span><i class="bi bi-envelope-fill"></i><a href="mailto:aleuredudigitale@gmail.com">aleuredudigitale@gmail.com</a></span>
+        <span><i class="bi bi-telephone-fill"></i><a href="tel:0658209902">06 58 20 99 02</a></span>
+        <span><i class="bi bi-geo-alt-fill"></i>Notre Dame du Hamel</span>
       </div>
-    </div><!-- End Top Bar -->
-
-    <div class="branding d-flex align-items-cente">
-
-      <div class="container position-relative d-flex align-items-center justify-content-between">
-        <a href="index.html" class="logo d-flex align-items-center">
-          <!-- Uncomment the line below if you also wish to use an image logo -->
-          <!-- <img src="assets/img/logo.png" alt=""> -->
-          <h1 class="sitename">Impact</h1>
-          <span>.</span>
-        </a>
-
-        <nav id="navmenu" class="navmenu">
-          <ul>
-            <li><a href="#hero" class="active">Home<br></a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#portfolio">Portfolio</a></li>
-            <li><a href="#team">Team</a></li>
-            <li><a href="blog.html">Blog</a></li>
-            <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-              <ul>
-                <li><a href="#">Dropdown 1</a></li>
-                <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                  <ul>
-                    <li><a href="#">Deep Dropdown 1</a></li>
-                    <li><a href="#">Deep Dropdown 2</a></li>
-                    <li><a href="#">Deep Dropdown 3</a></li>
-                    <li><a href="#">Deep Dropdown 4</a></li>
-                    <li><a href="#">Deep Dropdown 5</a></li>
-                  </ul>
-                </li>
-                <li><a href="#">Dropdown 2</a></li>
-                <li><a href="#">Dropdown 3</a></li>
-                <li><a href="#">Dropdown 4</a></li>
-              </ul>
-            </li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-        </nav>
-
-      </div>
-
+      <div>RNA&nbsp;:&nbsp;W272007431&nbsp;·&nbsp;SIREN&nbsp;:&nbsp;101049781</div>
     </div>
+  </div>
 
+  <!-- HEADER -->
+  <header>
+    <nav class="nav-inner">
+      <a href="#hero" class="logo">A l'Eure<span>_</span>Digitale</a>
+      <nav class="navmenu" id="navmenu">
+        <ul>
+          <li><a href="#hero" class="active">Accueil</a></li>
+          <li><a href="#about">À propos</a></li>
+          <li><a href="#actions">Nos actions</a></li>
+          <li><a href="#projet">Match'Emploi</a></li>
+          <li><a href="#adherer">Adhérer</a></li>
+          <li><a href="#contact" class="nav-cta">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="mobile-toggle" onclick="document.getElementById('navmenu').classList.toggle('open')">
+        <i class="bi bi-list"></i>
+      </button>
+    </nav>
   </header>
 
-  <main class="main">
+  <main>
 
-    <!-- Hero Section -->
-    <section id="hero" class="hero section accent-background">
-
-      <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
-        <div class="row gy-5 justify-content-between">
-          <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
-            <h2><span>Welcome to </span><span class="accent">Impact</span></h2>
-            <p>Sed autem laudantium dolores. Voluptatem itaque ea consequatur eveniet. Eum quas beatae cumque eum quaerat.</p>
-            <div class="d-flex">
-              <a href="#about" class="btn-get-started">Get Started</a>
-              <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
+    <!-- HERO -->
+    <section id="hero" class="hero">
+      <div class="hero-inner">
+        <div class="hero-text">
+          <div class="hero-tag">Association loi 1901 · Eure (27)</div>
+          <h1>Apprendre.<br>Partager.<br><em>Construire ensemble.</em></h1>
+          <p class="hero-desc">Incubateur associatif de compétences numériques et de projets collaboratifs. Le numérique comme levier d'autonomie, d'inclusion et d'innovation locale.</p>
+          <div class="hero-buttons">
+            <a href="#actions" class="btn-primary">Découvrir nos actions</a>
+            <a href="#adherer" class="btn-outline">Rejoindre l'association</a>
+          </div>
+          <div class="hero-badges">
+            <span class="badge">Open Source</span>
+            <span class="badge">Inclusion numérique</span>
+            <span class="badge">Ateliers pratiques</span>
+            <span class="badge">Impact social</span>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-card">
+            <div class="hero-card-icon"><i class="bi bi-code-slash"></i></div>
+            <div>
+              <h4>Ateliers numériques</h4>
+              <p>Web · Git · Linux · Sécurité · Open Source</p>
             </div>
           </div>
-          <div class="col-lg-5 order-1 order-lg-2">
-            <img src="assets/img/hero-img.svg" class="img-fluid" alt="">
+          <div class="hero-card">
+            <div class="hero-card-icon"><i class="bi bi-people-fill"></i></div>
+            <div>
+              <h4>Sessions d'entraide</h4>
+              <p>Revue de code et projets collaboratifs</p>
+            </div>
+          </div>
+          <div class="hero-card">
+            <div class="hero-card-icon"><i class="bi bi-rocket-takeoff"></i></div>
+            <div>
+              <h4>Match'Emploi</h4>
+              <p>Le « Tinder de l'emploi » pour notre territoire</p>
+            </div>
+          </div>
+          <div class="hero-card">
+            <div class="hero-card-icon"><i class="bi bi-building-check"></i></div>
+            <div>
+              <h4>Accompagnement associatif</h4>
+              <p>Usages numériques des structures locales</p>
+            </div>
           </div>
         </div>
       </div>
+    </section>
 
-      <div class="icon-boxes position-relative" data-aos="fade-up" data-aos-delay="200">
-        <div class="container position-relative">
-          <div class="row gy-4 mt-5">
-
-            <div class="col-xl-3 col-md-6">
-              <div class="icon-box">
-                <div class="icon"><i class="bi bi-easel"></i></div>
-                <h4 class="title"><a href="" class="stretched-link">Lorem Ipsum</a></h4>
-              </div>
-            </div><!--End Icon Box -->
-
-            <div class="col-xl-3 col-md-6">
-              <div class="icon-box">
-                <div class="icon"><i class="bi bi-gem"></i></div>
-                <h4 class="title"><a href="" class="stretched-link">Sed ut perspiciatis</a></h4>
-              </div>
-            </div><!--End Icon Box -->
-
-            <div class="col-xl-3 col-md-6">
-              <div class="icon-box">
-                <div class="icon"><i class="bi bi-geo-alt"></i></div>
-                <h4 class="title"><a href="" class="stretched-link">Magni Dolores</a></h4>
-              </div>
-            </div><!--End Icon Box -->
-
-            <div class="col-xl-3 col-md-6">
-              <div class="icon-box">
-                <div class="icon"><i class="bi bi-command"></i></div>
-                <h4 class="title"><a href="" class="stretched-link">Nemo Enim</a></h4>
-              </div>
-            </div><!--End Icon Box -->
-
-          </div>
+    <!-- ICON BOXES -->
+    <div class="icon-boxes">
+      <div class="icon-boxes-inner">
+        <div class="icon-box">
+          <div class="icon"><i class="bi bi-laptop"></i></div>
+          <h4>Ateliers pratiques</h4>
+        </div>
+        <div class="icon-box">
+          <div class="icon"><i class="bi bi-heart-pulse"></i></div>
+          <h4>Impact social mesurable</h4>
+        </div>
+        <div class="icon-box">
+          <div class="icon"><i class="bi bi-globe2"></i></div>
+          <h4>Outils responsables</h4>
+        </div>
+        <div class="icon-box">
+          <div class="icon"><i class="bi bi-puzzle"></i></div>
+          <h4>Projets Open Source</h4>
         </div>
       </div>
+    </div>
 
-    </section><!-- /Hero Section -->
-
-    <!-- About Section -->
-    <section id="about" class="about section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>About Us<br></h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
-
+    <!-- ABOUT -->
+    <section id="about" class="about">
       <div class="container">
-
-        <div class="row gy-4">
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <h3>Voluptatem dignissimos provident laboris nisi ut aliquip ex ea commodo</h3>
-            <img src="assets/img/about.jpg" class="img-fluid rounded-4 mb-4" alt="">
-            <p>Ut fugiat ut sunt quia veniam. Voluptate perferendis perspiciatis quod nisi et. Placeat debitis quia recusandae odit et consequatur voluptatem. Dignissimos pariatur consectetur fugiat voluptas ea.</p>
-            <p>Temporibus nihil enim deserunt sed ea. Provident sit expedita aut cupiditate nihil vitae quo officia vel. Blanditiis eligendi possimus et in cum. Quidem eos ut sint rem veniam qui. Ut ut repellendus nobis tempore doloribus debitis explicabo similique sit. Accusantium sed ut omnis beatae neque deleniti repellendus.</p>
+        <div class="section-title fade-up">
+          <div class="section-label">À propos</div>
+          <h2>Qui sommes-nous ?</h2>
+          <p>Une association locale qui accompagne l'apprentissage, la coopération et la création de projets numériques à impact social.</p>
+        </div>
+        <div class="about-grid">
+          <div class="about-text fade-up">
+            <h3>Un espace pour apprendre, expérimenter et contribuer</h3>
+            <p>A l'Eure Digitale crée un lieu où chacun peut développer ses compétences numériques, expérimenter des solutions et transformer une idée en projet collectif — dans une logique de partage des connaissances et d'entraide.</p>
+            <p>Nous fonctionnons comme un <strong>laboratoire local d'apprentissage et d'innovation</strong>, favorisant une dynamique participative plutôt qu'une logique de prestation commerciale.</p>
+            <ul class="about-checklist">
+              <li><i class="bi bi-check-circle-fill"></i><span>Rendre les compétences numériques accessibles à tous</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span>Favoriser l'autonomie digitale des citoyens</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span>Accompagner les structures associatives dans leurs usages numériques</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span>Encourager l'émergence de projets collaboratifs open source</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span>Valoriser les talents et initiatives locales</span></li>
+            </ul>
+            <div class="info-box">
+              <h4>Coordonnées</h4>
+              <div class="info-row"><i class="bi bi-geo-alt-fill"></i><span>Notre Dame du Hamel, Eure (27)</span></div>
+              <div class="info-row"><i class="bi bi-telephone-fill"></i><a href="tel:0658209902">06 58 20 99 02</a></div>
+              <div class="info-row"><i class="bi bi-envelope-fill"></i><a href="mailto:aleuredudigitale@gmail.com">aleuredudigitale@gmail.com</a></div>
+              <div class="info-row"><i class="bi bi-globe"></i><span>Site en cours de développement</span></div>
+            </div>
           </div>
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="250">
-            <div class="content ps-0 ps-lg-5">
-              <p class="fst-italic">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                magna aliqua.
-              </p>
-              <ul>
-                <li><i class="bi bi-check-circle-fill"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></li>
-                <li><i class="bi bi-check-circle-fill"></i> <span>Duis aute irure dolor in reprehenderit in voluptate velit.</span></li>
-                <li><i class="bi bi-check-circle-fill"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</span></li>
-              </ul>
-              <p>
-                Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident
-              </p>
-
-              <div class="position-relative mt-4">
-                <img src="assets/img/about-2.jpg" class="img-fluid rounded-4" alt="">
-                <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox pulsating-play-btn"></a>
+          <div class="fade-up">
+            <h3 style="font-size:1.2rem;color:var(--green-dark);margin-bottom:20px;">Nos valeurs</h3>
+            <div class="values-grid">
+              <div class="value-chip"><i class="bi bi-heart-fill"></i><span>Bienveillance</span></div>
+              <div class="value-chip"><i class="bi bi-people-fill"></i><span>Inclusion</span></div>
+              <div class="value-chip"><i class="bi bi-book-fill"></i><span>Partage des connaissances</span></div>
+              <div class="value-chip"><i class="bi bi-star-fill"></i><span>Gestion désintéressée</span></div>
+              <div class="value-chip"><i class="bi bi-geo-alt-fill"></i><span>Ancrage local</span></div>
+              <div class="value-chip"><i class="bi bi-shield-check"></i><span>Numérique éthique</span></div>
+            </div>
+            <div style="margin-top: 32px;">
+              <h3 style="font-size:1.2rem;color:var(--green-dark);margin-bottom:20px;">À qui s'adresse le projet ?</h3>
+              <div class="project-target-list" style="gap:10px;">
+                <span class="project-tag" style="background:var(--green-dark);border-color:rgba(46,192,106,0.3);color:var(--green-light);padding:8px 14px;border-radius:6px;font-size:0.84rem;">🎓 Débutants et curieux du numérique</span>
+                <span class="project-tag" style="background:var(--green-dark);border-color:rgba(46,192,106,0.3);color:var(--green-light);padding:8px 14px;border-radius:6px;font-size:0.84rem;">🔄 Adultes en reconversion</span>
+                <span class="project-tag" style="background:var(--green-dark);border-color:rgba(46,192,106,0.3);color:var(--green-light);padding:8px 14px;border-radius:6px;font-size:0.84rem;">💻 Développeurs contributeurs</span>
+                <span class="project-tag" style="background:var(--green-dark);border-color:rgba(46,192,106,0.3);color:var(--green-light);padding:8px 14px;border-radius:6px;font-size:0.84rem;">🏢 Associations et structures ESS</span>
+                <span class="project-tag" style="background:var(--green-dark);border-color:rgba(46,192,106,0.3);color:var(--green-light);padding:8px 14px;border-radius:6px;font-size:0.84rem;">💡 Porteurs de projets à impact</span>
               </div>
             </div>
           </div>
         </div>
-
       </div>
+    </section>
 
-    </section><!-- /About Section -->
-
-    <!-- Clients Section -->
-    <section id="clients" class="clients section">
-
+    <!-- ACTIONS / SERVICES -->
+    <section id="actions" class="services">
       <div class="container">
-
-        <div class="swiper init-swiper">
-          <script type="application/json" class="swiper-config">
-            {
-              "loop": true,
-              "speed": 600,
-              "autoplay": {
-                "delay": 5000
-              },
-              "slidesPerView": "auto",
-              "pagination": {
-                "el": ".swiper-pagination",
-                "type": "bullets",
-                "clickable": true
-              },
-              "breakpoints": {
-                "320": {
-                  "slidesPerView": 2,
-                  "spaceBetween": 40
-                },
-                "480": {
-                  "slidesPerView": 3,
-                  "spaceBetween": 60
-                },
-                "640": {
-                  "slidesPerView": 4,
-                  "spaceBetween": 80
-                },
-                "992": {
-                  "slidesPerView": 6,
-                  "spaceBetween": 120
-                }
-              }
-            }
-          </script>
-          <div class="swiper-wrapper align-items-center">
-            <div class="swiper-slide"><img src="assets/img/clients/client-1.png" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="assets/img/clients/client-2.png" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="assets/img/clients/client-3.png" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="assets/img/clients/client-4.png" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="assets/img/clients/client-5.png" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="assets/img/clients/client-6.png" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="assets/img/clients/client-7.png" class="img-fluid" alt=""></div>
-            <div class="swiper-slide"><img src="assets/img/clients/client-8.png" class="img-fluid" alt=""></div>
+        <div class="section-title fade-up">
+          <div class="section-label">Ce que nous faisons</div>
+          <h2>Nos actions</h2>
+          <p>Des programmes concrets pour développer vos compétences et contribuer à des projets locaux à impact.</p>
+        </div>
+        <div class="services-grid">
+          <div class="service-card fade-up">
+            <div class="service-icon"><i class="bi bi-code-square"></i></div>
+            <h4>Ateliers Web</h4>
+            <p>Apprenez à créer des sites, des applications et à maîtriser les langages du web à travers des séances pratiques adaptées à tous les niveaux.</p>
+          </div>
+          <div class="service-card fade-up">
+            <div class="service-icon"><i class="bi bi-git"></i></div>
+            <h4>Git & Versioning</h4>
+            <p>Maîtrisez Git pour collaborer efficacement sur des projets de code, gérer les versions et contribuer à des dépôts open source.</p>
+          </div>
+          <div class="service-card fade-up">
+            <div class="service-icon"><i class="bi bi-terminal"></i></div>
+            <h4>Linux & Systèmes</h4>
+            <p>Découvrez l'environnement Linux, la ligne de commande et les bases de l'administration système pour une plus grande autonomie technique.</p>
+          </div>
+          <div class="service-card fade-up">
+            <div class="service-icon"><i class="bi bi-shield-lock"></i></div>
+            <h4>Sécurité numérique</h4>
+            <p>Initiation aux bonnes pratiques de sécurité : protection des données, navigation sécurisée, gestion des mots de passe et sensibilisation aux risques.</p>
+          </div>
+          <div class="service-card fade-up">
+            <div class="service-icon"><i class="bi bi-arrow-repeat"></i></div>
+            <h4>Sessions d'entraide & revue de code</h4>
+            <p>Des rendez-vous réguliers pour partager vos problèmes, faire relire votre code et progresser collectivement dans une ambiance bienveillante.</p>
+          </div>
+          <div class="service-card fade-up">
+            <div class="service-icon"><i class="bi bi-building-heart"></i></div>
+            <h4>Accompagnement associatif</h4>
+            <p>Aide aux associations et structures locales pour intégrer des outils numériques responsables dans leurs pratiques et développer leur présence en ligne.</p>
           </div>
         </div>
-
       </div>
+    </section>
 
-    </section><!-- /Clients Section -->
-
-    <!-- Stats Section -->
-    <section id="stats" class="stats section">
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row gy-4 align-items-center">
-
-          <div class="col-lg-5">
-            <img src="assets/img/stats-img.svg" alt="" class="img-fluid">
-          </div>
-
-          <div class="col-lg-7">
-
-            <div class="row gy-4">
-
-              <div class="col-lg-6">
-                <div class="stats-item d-flex">
-                  <i class="bi bi-emoji-smile flex-shrink-0"></i>
-                  <div>
-                    <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
-                    <p><strong>Happy Clients</strong> <span>consequuntur quae</span></p>
-                  </div>
-                </div>
-              </div><!-- End Stats Item -->
-
-              <div class="col-lg-6">
-                <div class="stats-item d-flex">
-                  <i class="bi bi-journal-richtext flex-shrink-0"></i>
-                  <div>
-                    <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
-                    <p><strong>Projects</strong> <span>adipisci atque cum quia aut</span></p>
-                  </div>
-                </div>
-              </div><!-- End Stats Item -->
-
-              <div class="col-lg-6">
-                <div class="stats-item d-flex">
-                  <i class="bi bi-headset flex-shrink-0"></i>
-                  <div>
-                    <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1" class="purecounter"></span>
-                    <p><strong>Hours Of Support</strong> <span>aut commodi quaerat</span></p>
-                  </div>
-                </div>
-              </div><!-- End Stats Item -->
-
-              <div class="col-lg-6">
-                <div class="stats-item d-flex">
-                  <i class="bi bi-people flex-shrink-0"></i>
-                  <div>
-                    <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1" class="purecounter"></span>
-                    <p><strong>Hard Workers</strong> <span>rerum asperiores dolor</span></p>
-                  </div>
-                </div>
-              </div><!-- End Stats Item -->
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section><!-- /Stats Section -->
-
-    <!-- Call To Action Section -->
-    <section id="call-to-action" class="call-to-action section dark-background">
-
+    <!-- TERRITOIRE -->
+    <section id="territoire" class="territoire">
       <div class="container">
-        <img src="assets/img/cta-bg.jpg" alt="">
-        <div class="content row justify-content-center" data-aos="zoom-in" data-aos-delay="100">
-          <div class="col-xl-10">
-            <div class="text-center">
-              <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox play-btn"></a>
-              <h3>Call To Action</h3>
-              <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-              <a class="cta-btn" href="#">Call To Action</a>
+        <div class="section-title fade-up">
+          <div class="section-label">Notre rôle</div>
+          <h2>Un tiers-lieu numérique associatif</h2>
+          <p>A l'Eure Digitale agit comme un laboratoire local d'apprentissage et d'innovation.</p>
+        </div>
+        <div class="territoire-grid">
+          <div class="territoire-text fade-up">
+            <h3>Ce que vous pouvez faire ici</h3>
+            <p>Que vous soyez débutant ou développeur confirmé, notre association vous offre un cadre pour progresser à votre rythme et contribuer à des projets collectifs concrets.</p>
+            <div class="territory-items">
+              <div class="territory-item">
+                <i class="bi bi-mortarboard-fill"></i>
+                <p>Développer ses compétences techniques par la pratique</p>
+              </div>
+              <div class="territory-item">
+                <i class="bi bi-diagram-3-fill"></i>
+                <p>Collaborer sur des projets concrets avec d'autres membres</p>
+              </div>
+              <div class="territory-item">
+                <i class="bi bi-lightbulb-fill"></i>
+                <p>Expérimenter des solutions numériques ouvertes et responsables</p>
+              </div>
+              <div class="territory-item">
+                <i class="bi bi-rocket-takeoff-fill"></i>
+                <p>Transformer une idée en projet collectif à impact local</p>
+              </div>
+            </div>
+          </div>
+          <div class="fade-up">
+            <div class="section-label" style="margin-bottom:20px;">Impact social mesurable</div>
+            <div class="impact-stats">
+              <div class="impact-stat"><i class="bi bi-graph-up-arrow"></i><span>Développer les compétences numériques locales</span></div>
+              <div class="impact-stat"><i class="bi bi-briefcase-fill"></i><span>Faciliter l'insertion et la reconversion professionnelle</span></div>
+              <div class="impact-stat"><i class="bi bi-buildings-fill"></i><span>Renforcer le tissu associatif territorial</span></div>
+              <div class="impact-stat"><i class="bi bi-hand-thumbs-up-fill"></i><span>Créer une communauté contributive et solidaire</span></div>
+              <div class="impact-stat"><i class="bi bi-globe2"></i><span>Promouvoir un numérique éthique et accessible</span></div>
             </div>
           </div>
         </div>
       </div>
+    </section>
 
-    </section><!-- /Call To Action Section -->
-
-    <!-- Services Section -->
-    <section id="services" class="services section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Our Services</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
-
+    <!-- MATCH'EMPLOI PROJECT -->
+    <section id="projet" class="project">
       <div class="container">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="service-item  position-relative">
-              <div class="icon">
-                <i class="bi bi-activity"></i>
-              </div>
-              <h3>Nesciunt Mete</h3>
-              <p>Provident nihil minus qui consequatur non omnis maiores. Eos accusantium minus dolores iure perferendis tempore et consequatur.</p>
-              <a href="service-details.html" class="readmore stretched-link">Read more <i class="bi bi-arrow-right"></i></a>
+        <div class="project-grid">
+          <div class="fade-up">
+            <div class="section-title">
+              <div class="section-label project-label">Notre projet phare</div>
+              <h2>Match'Emploi</h2>
+              <p>Un dispositif numérique à impact social pour fluidifier la rencontre entre compétences, projets et opportunités professionnelles à l'échelle locale.</p>
             </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="service-item position-relative">
-              <div class="icon">
-                <i class="bi bi-broadcast"></i>
+            <p class="project-desc">En s'appuyant sur une logique collaborative et inclusive, Match'Emploi propose une plateforme de mise en relation basée sur les compétences, les besoins et la proximité locale.</p>
+            <ul class="project-points">
+              <li><i class="bi bi-check2-circle"></i><span>Favoriser l'insertion professionnelle locale</span></li>
+              <li><i class="bi bi-check2-circle"></i><span>Valoriser les compétences du territoire</span></li>
+              <li><i class="bi bi-check2-circle"></i><span>Réduire l'isolement face à l'emploi</span></li>
+            </ul>
+            <div>
+              <p style="font-family:var(--font-mono);font-size:0.78rem;color:rgba(255,255,255,0.4);margin-bottom:12px;letter-spacing:0.08em;text-transform:uppercase;">À qui s'adresse Match'Emploi ?</p>
+              <div class="project-target-list">
+                <span class="project-tag">Jeunes en reconversion</span>
+                <span class="project-tag">Demandeurs d'emploi</span>
+                <span class="project-tag">Associations locales</span>
+                <span class="project-tag">Porteurs de projets</span>
+                <span class="project-tag">Entreprises de proximité</span>
               </div>
-              <h3>Eosle Commodi</h3>
-              <p>Ut autem aut autem non a. Sint sint sit facilis nam iusto sint. Libero corrupti neque eum hic non ut nesciunt dolorem.</p>
-              <a href="service-details.html" class="readmore stretched-link">Read more <i class="bi bi-arrow-right"></i></a>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-            <div class="service-item position-relative">
-              <div class="icon">
-                <i class="bi bi-easel"></i>
-              </div>
-              <h3>Ledo Markt</h3>
-              <p>Ut excepturi voluptatem nisi sed. Quidem fuga consequatur. Minus ea aut. Vel qui id voluptas adipisci eos earum corrupti.</p>
-              <a href="service-details.html" class="readmore stretched-link">Read more <i class="bi bi-arrow-right"></i></a>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
-            <div class="service-item position-relative">
-              <div class="icon">
-                <i class="bi bi-bounding-box-circles"></i>
-              </div>
-              <h3>Asperiores Commodit</h3>
-              <p>Non et temporibus minus omnis sed dolor esse consequatur. Cupiditate sed error ea fuga sit provident adipisci neque.</p>
-              <a href="service-details.html" class="readmore stretched-link">Read more <i class="bi bi-arrow-right"></i></a>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
-            <div class="service-item position-relative">
-              <div class="icon">
-                <i class="bi bi-calendar4-week"></i>
-              </div>
-              <h3>Velit Doloremque</h3>
-              <p>Cumque et suscipit saepe. Est maiores autem enim facilis ut aut ipsam corporis aut. Sed animi at autem alias eius labore.</p>
-              <a href="service-details.html" class="readmore stretched-link">Read more <i class="bi bi-arrow-right"></i></a>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
-            <div class="service-item position-relative">
-              <div class="icon">
-                <i class="bi bi-chat-square-text"></i>
-              </div>
-              <h3>Dolori Architecto</h3>
-              <p>Hic molestias ea quibusdam eos. Fugiat enim doloremque aut neque non et debitis iure. Corrupti recusandae ducimus enim.</p>
-              <a href="service-details.html" class="readmore stretched-link">Read more <i class="bi bi-arrow-right"></i></a>
-            </div>
-          </div><!-- End Service Item -->
-
-        </div>
-
-      </div>
-
-    </section><!-- /Services Section -->
-
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Testimonials</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="swiper init-swiper">
-          <script type="application/json" class="swiper-config">
-            {
-              "loop": true,
-              "speed": 600,
-              "autoplay": {
-                "delay": 5000
-              },
-              "slidesPerView": "auto",
-              "pagination": {
-                "el": ".swiper-pagination",
-                "type": "bullets",
-                "clickable": true
-              },
-              "breakpoints": {
-                "320": {
-                  "slidesPerView": 1,
-                  "spaceBetween": 40
-                },
-                "1200": {
-                  "slidesPerView": 3,
-                  "spaceBetween": 10
-                }
-              }
-            }
-          </script>
-          <div class="swiper-wrapper">
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
-                <h3>Saul Goodman</h3>
-                <h4>Ceo &amp; Founder</h4>
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
-                <h3>Sara Wilsson</h3>
-                <h4>Designer</h4>
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
-                <h3>Jena Karlis</h3>
-                <h4>Store Owner</h4>
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
-                <h3>Matt Brandon</h3>
-                <h4>Freelancer</h4>
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
-                <h3>John Larson</h3>
-                <h4>Entrepreneur</h4>
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                </div>
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-              </div>
-            </div><!-- End testimonial item -->
-
-          </div>
-          <div class="swiper-pagination"></div>
-        </div>
-
-      </div>
-
-    </section><!-- /Testimonials Section -->
-
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="portfolio section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Portfolio</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
-
-      <div class="container">
-
-        <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
-
-          <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
-            <li data-filter="*" class="filter-active">All</li>
-            <li data-filter=".filter-app">App</li>
-            <li data-filter=".filter-product">Product</li>
-            <li data-filter=".filter-branding">Branding</li>
-            <li data-filter=".filter-books">Books</li>
-          </ul><!-- End Portfolio Filters -->
-
-          <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-              <div class="portfolio-content h-100">
-                <a href="assets/img/portfolio/app-1.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/app-1.jpg" class="img-fluid" alt=""></a>
-                <div class="portfolio-info">
-                  <h4><a href="portfolio-details.html" title="More Details">App 1</a></h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
-              <div class="portfolio-content h-100">
-                <a href="assets/img/portfolio/product-1.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/product-1.jpg" class="img-fluid" alt=""></a>
-                <div class="portfolio-info">
-                  <h4><a href="portfolio-details.html" title="More Details">Product 1</a></h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
-              <div class="portfolio-content h-100">
-                <a href="assets/img/portfolio/branding-1.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/branding-1.jpg" class="img-fluid" alt=""></a>
-                <div class="portfolio-info">
-                  <h4><a href="portfolio-details.html" title="More Details">Branding 1</a></h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
-              <div class="portfolio-content h-100">
-                <a href="assets/img/portfolio/books-1.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/books-1.jpg" class="img-fluid" alt=""></a>
-                <div class="portfolio-info">
-                  <h4><a href="portfolio-details.html" title="More Details">Books 1</a></h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-              <div class="portfolio-content h-100">
-                <a href="assets/img/portfolio/app-2.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/app-2.jpg" class="img-fluid" alt=""></a>
-                <div class="portfolio-info">
-                  <h4><a href="portfolio-details.html" title="More Details">App 2</a></h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
-              <div class="portfolio-content h-100">
-                <a href="assets/img/portfolio/product-2.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/product-2.jpg" class="img-fluid" alt=""></a>
-                <div class="portfolio-info">
-                  <h4><a href="portfolio-details.html" title="More Details">Product 2</a></h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
-              <div class="portfolio-content h-100">
-                <a href="assets/img/portfolio/branding-2.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/branding-2.jpg" class="img-fluid" alt=""></a>
-                <div class="portfolio-info">
-                  <h4><a href="portfolio-details.html" title="More Details">Branding 2</a></h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
-              <div class="portfolio-content h-100">
-                <a href="assets/img/portfolio/books-2.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/books-2.jpg" class="img-fluid" alt=""></a>
-                <div class="portfolio-info">
-                  <h4><a href="portfolio-details.html" title="More Details">Books 2</a></h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-              <div class="portfolio-content h-100">
-                <a href="assets/img/portfolio/app-3.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/app-3.jpg" class="img-fluid" alt=""></a>
-                <div class="portfolio-info">
-                  <h4><a href="portfolio-details.html" title="More Details">App 3</a></h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
-              <div class="portfolio-content h-100">
-                <a href="assets/img/portfolio/product-3.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/product-3.jpg" class="img-fluid" alt=""></a>
-                <div class="portfolio-info">
-                  <h4><a href="portfolio-details.html" title="More Details">Product 3</a></h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
-              <div class="portfolio-content h-100">
-                <a href="assets/img/portfolio/branding-3.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/branding-3.jpg" class="img-fluid" alt=""></a>
-                <div class="portfolio-info">
-                  <h4><a href="portfolio-details.html" title="More Details">Branding 3</a></h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
-              <div class="portfolio-content h-100">
-                <a href="assets/img/portfolio/books-3.jpg" data-gallery="portfolio-gallery-app" class="glightbox"><img src="assets/img/portfolio/books-3.jpg" class="img-fluid" alt=""></a>
-                <div class="portfolio-info">
-                  <h4><a href="portfolio-details.html" title="More Details">Books 3</a></h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-          </div><!-- End Portfolio Container -->
-
-        </div>
-
-      </div>
-
-    </section><!-- /Portfolio Section -->
-
-    <!-- Team Section -->
-    <section id="team" class="team section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Our Team</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
-
-      <div class="container">
-
-        <div class="row gy-4">
-
-          <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="100">
-            <div class="member">
-              <img src="assets/img/team/team-1.jpg" class="img-fluid" alt="">
-              <h4>Walter White</h4>
-              <span>Web Development</span>
-              <div class="social">
-                <a href=""><i class="bi bi-twitter-x"></i></a>
-                <a href=""><i class="bi bi-facebook"></i></a>
-                <a href=""><i class="bi bi-instagram"></i></a>
-                <a href=""><i class="bi bi-linkedin"></i></a>
-              </div>
-            </div>
-          </div><!-- End Team Member -->
-
-          <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="200">
-            <div class="member">
-              <img src="assets/img/team/team-2.jpg" class="img-fluid" alt="">
-              <h4>Sarah Jhinson</h4>
-              <span>Marketing</span>
-              <div class="social">
-                <a href=""><i class="bi bi-twitter-x"></i></a>
-                <a href=""><i class="bi bi-facebook"></i></a>
-                <a href=""><i class="bi bi-instagram"></i></a>
-                <a href=""><i class="bi bi-linkedin"></i></a>
-              </div>
-            </div>
-          </div><!-- End Team Member -->
-
-          <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="300">
-            <div class="member">
-              <img src="assets/img/team/team-3.jpg" class="img-fluid" alt="">
-              <h4>William Anderson</h4>
-              <span>Content</span>
-              <div class="social">
-                <a href=""><i class="bi bi-twitter-x"></i></a>
-                <a href=""><i class="bi bi-facebook"></i></a>
-                <a href=""><i class="bi bi-instagram"></i></a>
-                <a href=""><i class="bi bi-linkedin"></i></a>
-              </div>
-            </div>
-          </div><!-- End Team Member -->
-
-          <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="400">
-            <div class="member">
-              <img src="assets/img/team/team-4.jpg" class="img-fluid" alt="">
-              <h4>Amanda Jepson</h4>
-              <span>Accountant</span>
-              <div class="social">
-                <a href=""><i class="bi bi-twitter-x"></i></a>
-                <a href=""><i class="bi bi-facebook"></i></a>
-                <a href=""><i class="bi bi-instagram"></i></a>
-                <a href=""><i class="bi bi-linkedin"></i></a>
-              </div>
-            </div>
-          </div><!-- End Team Member -->
-
-        </div>
-
-      </div>
-
-    </section><!-- /Team Section -->
-
-    <!-- Pricing Section -->
-    <section id="pricing" class="pricing section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Pricing</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="zoom-in" data-aos-delay="100">
-
-        <div class="row g-4">
-
-          <div class="col-lg-4">
-            <div class="pricing-item">
-              <h3>Free Plan</h3>
-              <div class="icon">
-                <i class="bi bi-box"></i>
-              </div>
-              <h4><sup>$</sup>0<span> / month</span></h4>
-              <ul>
-                <li><i class="bi bi-check"></i> <span>Quam adipiscing vitae proin</span></li>
-                <li><i class="bi bi-check"></i> <span>Nec feugiat nisl pretium</span></li>
-                <li><i class="bi bi-check"></i> <span>Nulla at volutpat diam uteera</span></li>
-                <li class="na"><i class="bi bi-x"></i> <span>Pharetra massa massa ultricies</span></li>
-                <li class="na"><i class="bi bi-x"></i> <span>Massa ultricies mi quis hendrerit</span></li>
-              </ul>
-              <div class="text-center"><a href="#" class="buy-btn">Buy Now</a></div>
-            </div>
-          </div><!-- End Pricing Item -->
-
-          <div class="col-lg-4">
-            <div class="pricing-item featured">
-              <h3>Business Plan</h3>
-              <div class="icon">
-                <i class="bi bi-rocket"></i>
-              </div>
-
-              <h4><sup>$</sup>29<span> / month</span></h4>
-              <ul>
-                <li><i class="bi bi-check"></i> <span>Quam adipiscing vitae proin</span></li>
-                <li><i class="bi bi-check"></i> <span>Nec feugiat nisl pretium</span></li>
-                <li><i class="bi bi-check"></i> <span>Nulla at volutpat diam uteera</span></li>
-                <li><i class="bi bi-check"></i> <span>Pharetra massa massa ultricies</span></li>
-                <li><i class="bi bi-check"></i> <span>Massa ultricies mi quis hendrerit</span></li>
-              </ul>
-              <div class="text-center"><a href="#" class="buy-btn">Buy Now</a></div>
-            </div>
-          </div><!-- End Pricing Item -->
-
-          <div class="col-lg-4">
-            <div class="pricing-item">
-              <h3>Developer Plan</h3>
-              <div class="icon">
-                <i class="bi bi-send"></i>
-              </div>
-              <h4><sup>$</sup>49<span> / month</span></h4>
-              <ul>
-                <li><i class="bi bi-check"></i> <span>Quam adipiscing vitae proin</span></li>
-                <li><i class="bi bi-check"></i> <span>Nec feugiat nisl pretium</span></li>
-                <li><i class="bi bi-check"></i> <span>Nulla at volutpat diam uteera</span></li>
-                <li><i class="bi bi-check"></i> <span>Pharetra massa massa ultricies</span></li>
-                <li><i class="bi bi-check"></i> <span>Massa ultricies mi quis hendrerit</span></li>
-              </ul>
-              <div class="text-center"><a href="#" class="buy-btn">Buy Now</a></div>
-            </div>
-          </div><!-- End Pricing Item -->
-
-        </div>
-
-      </div>
-
-    </section><!-- /Pricing Section -->
-
-    <!-- Faq Section -->
-    <section id="faq" class="faq section">
-
-      <div class="container">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-            <div class="content px-xl-5">
-              <h3><span>Frequently Asked </span><strong>Questions</strong></h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit
-              </p>
             </div>
           </div>
-
-          <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
-
-            <div class="faq-container">
-              <div class="faq-item faq-active">
-                <h3><span class="num">1.</span> <span>Non consectetur a erat nam at lectus urna duis?</span></h3>
-                <div class="faq-content">
-                  <p>Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.</p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
-
-              <div class="faq-item">
-                <h3><span class="num">2.</span> <span>Feugiat scelerisque varius morbi enim nunc faucibus a pellentesque?</span></h3>
-                <div class="faq-content">
-                  <p>Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.</p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
-
-              <div class="faq-item">
-                <h3><span class="num">3.</span> <span>Dolor sit amet consectetur adipiscing elit pellentesque?</span></h3>
-                <div class="faq-content">
-                  <p>Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis</p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
-
-              <div class="faq-item">
-                <h3><span class="num">4.</span> <span>Ac odio tempor orci dapibus. Aliquam eleifend mi in nulla?</span></h3>
-                <div class="faq-content">
-                  <p>Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.</p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
-
-              <div class="faq-item">
-                <h3><span class="num">5.</span> <span>Tempus quam pellentesque nec nam aliquam sem et tortor consequat?</span></h3>
-                <div class="faq-content">
-                  <p>Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing bibendum est. Purus gravida quis blandit turpis cursus in</p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
-
+          <div class="project-card-block fade-up">
+            <div class="match-logo">Match'Emploi</div>
+            <div class="match-tagline">Le Tinder de l'Emploi — pour notre territoire</div>
+            <div class="problem-box">
+              <h5>Le problème (impact social)</h5>
+              <p>De nombreuses personnes possèdent des compétences mais peinent à trouver des opportunités adaptées, tandis que des structures locales manquent de profils disponibles.</p>
             </div>
-
+            <div class="problem-box">
+              <h5>La solution (notre projet)</h5>
+              <p>Une plateforme de mise en relation basée sur les compétences, les besoins et la proximité locale — Match'Emploi vise à réduire ce décalage grâce au numérique.</p>
+            </div>
+            <div style="margin-top:24px;">
+              <p style="font-family:var(--font-mono);font-size:0.75rem;color:rgba(255,255,255,0.4);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:14px;">Soutenu par</p>
+              <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                <span class="project-tag">Évreux Portes de Normandie</span>
+                <span class="project-tag">CCI Portes de Normandie</span>
+                <span class="project-tag">Chambre des Métiers</span>
+                <span class="project-tag">France Travail</span>
+                <span class="project-tag">Académie de Normandie</span>
+                <span class="project-tag">FDVA</span>
+              </div>
+            </div>
           </div>
         </div>
-
       </div>
+    </section>
 
-    </section><!-- /Faq Section -->
-
-    <!-- Recent Posts Section -->
-    <section id="recent-posts" class="recent-posts section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Recent Blog Posts</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
-
+    <!-- PARTENAIRES -->
+    <section class="partners">
       <div class="container">
-
-        <div class="row gy-4">
-
-          <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-            <article>
-
-              <div class="post-img">
-                <img src="assets/img/blog/blog-1.jpg" alt="" class="img-fluid">
-              </div>
-
-              <p class="post-category">Politics</p>
-
-              <h2 class="title">
-                <a href="blog-details.html">Dolorum optio tempore voluptas dignissimos</a>
-              </h2>
-
-              <div class="d-flex align-items-center">
-                <img src="assets/img/blog/blog-author.jpg" alt="" class="img-fluid post-author-img flex-shrink-0">
-                <div class="post-meta">
-                  <p class="post-author">Maria Doe</p>
-                  <p class="post-date">
-                    <time datetime="2022-01-01">Jan 1, 2022</time>
-                  </p>
-                </div>
-              </div>
-
-            </article>
-          </div><!-- End post list item -->
-
-          <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-            <article>
-
-              <div class="post-img">
-                <img src="assets/img/blog/blog-2.jpg" alt="" class="img-fluid">
-              </div>
-
-              <p class="post-category">Sports</p>
-
-              <h2 class="title">
-                <a href="blog-details.html">Nisi magni odit consequatur autem nulla dolorem</a>
-              </h2>
-
-              <div class="d-flex align-items-center">
-                <img src="assets/img/blog/blog-author-2.jpg" alt="" class="img-fluid post-author-img flex-shrink-0">
-                <div class="post-meta">
-                  <p class="post-author">Allisa Mayer</p>
-                  <p class="post-date">
-                    <time datetime="2022-01-01">Jun 5, 2022</time>
-                  </p>
-                </div>
-              </div>
-
-            </article>
-          </div><!-- End post list item -->
-
-          <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-            <article>
-
-              <div class="post-img">
-                <img src="assets/img/blog/blog-3.jpg" alt="" class="img-fluid">
-              </div>
-
-              <p class="post-category">Entertainment</p>
-
-              <h2 class="title">
-                <a href="blog-details.html">Possimus soluta ut id suscipit ea ut in quo quia et soluta</a>
-              </h2>
-
-              <div class="d-flex align-items-center">
-                <img src="assets/img/blog/blog-author-3.jpg" alt="" class="img-fluid post-author-img flex-shrink-0">
-                <div class="post-meta">
-                  <p class="post-author">Mark Dower</p>
-                  <p class="post-date">
-                    <time datetime="2022-01-01">Jun 22, 2022</time>
-                  </p>
-                </div>
-              </div>
-
-            </article>
-          </div><!-- End post list item -->
-
-        </div><!-- End recent posts list -->
-
+        <h3>Nos partenaires et soutiens</h3>
+        <div class="partners-list">
+          <div class="partner-pill">Évreux Portes de Normandie</div>
+          <div class="partner-pill">CCI Portes de Normandie</div>
+          <div class="partner-pill">Chambre des Métiers et de l'Artisanat</div>
+          <div class="partner-pill">France Travail</div>
+          <div class="partner-pill">Académie de Normandie</div>
+          <div class="partner-pill">FDVA — Fonds de Développement de la Vie Associative</div>
+        </div>
       </div>
+    </section>
 
-    </section><!-- /Recent Posts Section -->
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Contact</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row gx-lg-0 gy-4">
-
-          <div class="col-lg-4">
-            <div class="info-container d-flex flex-column align-items-center justify-content-center">
-              <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
-                <i class="bi bi-geo-alt flex-shrink-0"></i>
-                <div>
-                  <h3>Address</h3>
-                  <p>A108 Adam Street, New York, NY 535022</p>
-                </div>
-              </div><!-- End Info Item -->
-
-              <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
-                <i class="bi bi-telephone flex-shrink-0"></i>
-                <div>
-                  <h3>Call Us</h3>
-                  <p>+1 5589 55488 55</p>
-                </div>
-              </div><!-- End Info Item -->
-
-              <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
-                <i class="bi bi-envelope flex-shrink-0"></i>
-                <div>
-                  <h3>Email Us</h3>
-                  <p>info@example.com</p>
-                </div>
-              </div><!-- End Info Item -->
-
-              <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="500">
-                <i class="bi bi-clock flex-shrink-0"></i>
-                <div>
-                  <h3>Open Hours:</h3>
-                  <p>Mon-Sat: 11AM - 23PM</p>
-                </div>
-              </div><!-- End Info Item -->
-
-            </div>
-
+    <!-- ADHÉRER -->
+    <section id="adherer" class="membership">
+      <div class="container">
+        <div class="section-title fade-up" style="text-align:center;">
+          <div class="section-label" style="justify-content:center;">Nous rejoindre</div>
+          <h2>Adhérer à l'association</h2>
+          <p>Une cotisation annuelle simple pour accéder à tous nos ateliers et contribuer au projet collectif.</p>
+        </div>
+        <div class="membership-grid" style="margin:0 auto;max-width:900px;" class="fade-up">
+          <div class="membership-card fade-up">
+            <div class="price-label">Cotisation</div>
+            <div class="price">20€</div>
+            <h3>Adhésion annuelle</h3>
+            <p>Devenez membre de l'association et participez à la gouvernance du projet.</p>
+            <a href="mailto:aleuredudigitale@gmail.com?subject=Demande+d'adhésion" class="btn-outline-dark">Demander le formulaire</a>
           </div>
+          <div class="membership-card featured fade-up">
+            <div class="price-label">Membre</div>
+            <div class="price">Gratuit</div>
+            <h3>Ateliers membres</h3>
+            <p>Accès gratuit à tous nos ateliers numériques : web, Git, Linux, sécurité, open source et plus.</p>
+            <a href="mailto:aleuredudigitale@gmail.com?subject=Demande+d'adhésion" class="btn-primary">Rejoindre maintenant</a>
+          </div>
+          <div class="membership-card fade-up">
+            <div class="price-label">Non-membre</div>
+            <div class="price">15€</div>
+            <h3>Atelier à la carte</h3>
+            <p>Participez à un atelier sans adhésion. Tarif par session, sans engagement.</p>
+            <a href="mailto:aleuredudigitale@gmail.com?subject=Participation+atelier" class="btn-outline-dark">Nous contacter</a>
+          </div>
+        </div>
+        <p style="text-align:center;margin-top:28px;font-family:var(--font-mono);font-size:0.82rem;color:var(--ink-muted);">
+          <i class="bi bi-envelope"></i>&nbsp; Formulaire d'adhésion à demander par mail :&nbsp;
+          <a href="mailto:aleuredudigitale@gmail.com" style="color:var(--green-mid);font-weight:700;">aleuredudigitale@gmail.com</a>
+        </p>
+      </div>
+    </section>
 
-          <div class="col-lg-8">
-            <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade" data-aos-delay="100">
-              <div class="row gy-4">
-
-                <div class="col-md-6">
-                  <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
-                </div>
-
-                <div class="col-md-6 ">
-                  <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
-                </div>
-
-                <div class="col-md-12">
-                  <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
-                </div>
-
-                <div class="col-md-12">
-                  <textarea class="form-control" name="message" rows="8" placeholder="Message" required=""></textarea>
-                </div>
-
-                <div class="col-md-12 text-center">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Your message has been sent. Thank you!</div>
-
-                  <button type="submit">Send Message</button>
-                </div>
-
+    <!-- CONTACT -->
+    <section id="contact" class="contact">
+      <div class="container">
+        <div class="section-title fade-up">
+          <div class="section-label">Nous écrire</div>
+          <h2>Contact</h2>
+          <p>Une question, une idée de projet ou envie de rejoindre la communauté ? N'hésitez pas.</p>
+        </div>
+        <div class="contact-grid">
+          <div class="contact-info-block fade-up">
+            <div class="contact-item">
+              <div class="contact-icon"><i class="bi bi-telephone-fill"></i></div>
+              <div>
+                <h4>Téléphone</h4>
+                <a href="tel:0658209902"><p>06 58 20 99 02</p></a>
               </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon"><i class="bi bi-envelope-fill"></i></div>
+              <div>
+                <h4>Email</h4>
+                <a href="mailto:aleuredudigitale@gmail.com"><p>aleuredudigitale@gmail.com</p></a>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon"><i class="bi bi-geo-alt-fill"></i></div>
+              <div>
+                <h4>Localisation</h4>
+                <p>Notre Dame du Hamel, Eure (27)</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon"><i class="bi bi-globe"></i></div>
+              <div>
+                <h4>Site web</h4>
+                <p>En cours de développement</p>
+              </div>
+            </div>
+            <div class="rna-box">
+              <p>RNA&nbsp;: <strong>W272007431</strong></p>
+              <p>SIREN&nbsp;: <strong>101049781</strong></p>
+            </div>
+          </div>
+          <div class="contact-form fade-up">
+            <form onsubmit="handleForm(event)">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                <input type="text" placeholder="Votre prénom et nom" required>
+                <input type="email" placeholder="Votre email" required>
+              </div>
+              <input type="text" placeholder="Sujet (adhésion, atelier, partenariat…)">
+              <textarea placeholder="Votre message…" required></textarea>
+              <button type="submit" class="btn-primary">Envoyer le message&nbsp;<i class="bi bi-send"></i></button>
             </form>
-          </div><!-- End Contact Form -->
-
+          </div>
         </div>
-
       </div>
-
-    </section><!-- /Contact Section -->
+    </section>
 
   </main>
 
-  <footer id="footer" class="footer accent-background">
-
-    <div class="container footer-top">
-      <div class="row gy-4">
-        <div class="col-lg-5 col-md-12 footer-about">
-          <a href="index.html" class="logo d-flex align-items-center">
-            <span class="sitename">Impact</span>
-          </a>
-          <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus.</p>
-          <div class="social-links d-flex mt-4">
-            <a href=""><i class="bi bi-twitter-x"></i></a>
-            <a href=""><i class="bi bi-facebook"></i></a>
-            <a href=""><i class="bi bi-instagram"></i></a>
-            <a href=""><i class="bi bi-linkedin"></i></a>
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#hero" class="logo" style="color:var(--white);">A l'Eure<span>_</span>Digitale</a>
+          <p>Incubateur associatif de compétences numériques et de projets collaboratifs à impact social. Ancré à Notre Dame du Hamel, ouvert à tout le territoire.</p>
+          <div style="font-family:var(--font-mono);font-size:0.72rem;color:rgba(255,255,255,0.3);">
+            *Apprendre – Partager – Construire ensemble
           </div>
         </div>
-
-        <div class="col-lg-2 col-6 footer-links">
-          <h4>Useful Links</h4>
+        <div class="footer-links">
+          <h4>Navigation</h4>
           <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About us</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Terms of service</a></li>
-            <li><a href="#">Privacy policy</a></li>
+            <li><a href="#hero">Accueil</a></li>
+            <li><a href="#about">À propos</a></li>
+            <li><a href="#actions">Nos actions</a></li>
+            <li><a href="#projet">Match'Emploi</a></li>
+            <li><a href="#adherer">Adhérer</a></li>
+            <li><a href="#contact">Contact</a></li>
           </ul>
         </div>
-
-        <div class="col-lg-2 col-6 footer-links">
-          <h4>Our Services</h4>
-          <ul>
-            <li><a href="#">Web Design</a></li>
-            <li><a href="#">Web Development</a></li>
-            <li><a href="#">Product Management</a></li>
-            <li><a href="#">Marketing</a></li>
-            <li><a href="#">Graphic Design</a></li>
-          </ul>
+        <div class="footer-contact">
+          <h4>Nous contacter</h4>
+          <p><a href="tel:0658209902">06 58 20 99 02</a></p>
+          <p><a href="mailto:aleuredudigitale@gmail.com">aleuredudigitale@gmail.com</a></p>
+          <p>Notre Dame du Hamel, Eure</p>
+          <p style="margin-top:12px;font-family:var(--font-mono);font-size:0.78rem;color:rgba(255,255,255,0.3);">RNA : W272007431<br>SIREN : 101049781</p>
         </div>
-
-        <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
-          <h4>Contact Us</h4>
-          <p>A108 Adam Street</p>
-          <p>New York, NY 535022</p>
-          <p>United States</p>
-          <p class="mt-4"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
-          <p><strong>Email:</strong> <span>info@example.com</span></p>
-        </div>
-
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 A l'Eure Digitale — Association loi 1901</p>
+        <p class="footer-siren">Numérique éthique · Open Source · Ancrage local</p>
       </div>
     </div>
-
-    <div class="container copyright text-center mt-4">
-      <p>© <span>Copyright</span> <strong class="px-1 sitename">Impact</strong> <span>All Rights Reserved</span></p>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you've purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> | <a href="https://bootstrapmade.com/tools/">DevTools</a>
-      </div>
-    </div>
-
   </footer>
 
-  <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <!-- SCROLL TOP -->
+  <a href="#hero" id="scroll-top"><i class="bi bi-arrow-up-short"></i></a>
 
-  <!-- Preloader -->
-  <div id="preloader"></div>
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    // Scroll top button
+    const scrollTop = document.getElementById('scroll-top');
+    window.addEventListener('scroll', () => {
+      scrollTop.classList.toggle('visible', window.scrollY > 400);
+    });
 
-  <!-- Main JS File -->
-  <script src="assets/js/main.js"></script>
+    // Nav active state on scroll
+    const sections = document.querySelectorAll('section[id], div[id="hero"]');
+    const navLinks = document.querySelectorAll('.navmenu a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+      navLinks.forEach(a => {
+        a.classList.remove('active');
+        if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+      });
+    });
+
+    // Contact form handler (placeholder)
+    function handleForm(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('button');
+      btn.textContent = '✓ Message envoyé — Merci !';
+      btn.style.background = 'var(--green-mid)';
+      btn.disabled = true;
+      setTimeout(() => { btn.textContent = 'Envoyer le message'; btn.style.background = ''; btn.disabled = false; e.target.reset(); }, 3000);
+    }
+
+    // Mobile nav close on link click
+    document.querySelectorAll('.navmenu a').forEach(a => {
+      a.addEventListener('click', () => document.getElementById('navmenu').classList.remove('open'));
+    });
+  </script>
 
 </body>
-
 </html>
