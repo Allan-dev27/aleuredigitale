@@ -1,0 +1,50 @@
+[
+  {
+    "id": "1",
+    "slug": "atelier-securite-numerique-mars-2025",
+    "titre": "Compte-rendu : Atelier Sécurité Numérique",
+    "categorie": "Atelier",
+    "date": "2025-03-15",
+    "auteur": "Allan Vy",
+    "resume": "Retour sur notre session dédiée aux bonnes pratiques de sécurité : mots de passe, phishing, navigation sécurisée. Une dizaine de membres réunis pour une soirée très instructive.",
+    "contenu": "Notre atelier sécurité numérique du 15 mars a réuni une dizaine de membres autour d'un sujet crucial : comment protéger ses données au quotidien.\n\nAu programme :\n- Comprendre les principales menaces (phishing, malwares, vol de données)\n- Créer et gérer des mots de passe solides avec un gestionnaire\n- Configurer l'authentification à deux facteurs\n- Naviguer de façon sécurisée et protéger sa vie privée\n\nLes échanges ont été riches et les participants repartent avec des outils concrets : KeePassXC pour les mots de passe, Bitwarden en alternative cloud, et une meilleure connaissance des extensions de navigateur utiles.\n\nProchain atelier sécurité : gestion des sauvegardes et chiffrement. Inscrivez-vous sur Discord !",
+    "tags": ["sécurité", "atelier", "compte-rendu"],
+    "image_emoji": "🔐"
+  },
+  {
+    "id": "2",
+    "slug": "guide-debutant-linux",
+    "titre": "Tutoriel : Premiers pas sous Linux",
+    "categorie": "Tutoriel",
+    "date": "2025-02-28",
+    "auteur": "Allan",
+    "resume": "Linux vous fait peur ? Ce guide pas-à-pas vous accompagne de l'installation à la prise en main de votre premier système libre. Accessible à tous, même sans expérience.",
+    "contenu": "Linux est un système d'exploitation libre, gratuit et respectueux de la vie privée. Ce guide vous accompagne dans vos premiers pas.\n\n## Pourquoi Linux ?\n\nLinux offre plusieurs avantages majeurs : gratuité, sécurité, rapidité sur les vieux PC, et une immense communauté d'entraide.\n\n## Quelle distribution choisir ?\n\nPour débuter, nous recommandons :\n- **Ubuntu** : la plus populaire, idéale pour les débutants\n- **Linux Mint** : encore plus proche de Windows visuellement\n- **Debian** : stable et robuste, notre choix à l'association\n\n## Installer Ubuntu en 5 étapes\n\n1. Télécharger l'ISO sur ubuntu.com\n2. Créer une clé USB bootable avec Balena Etcher\n3. Redémarrer sur la clé USB\n4. Suivre l'assistant d'installation\n5. Profiter de votre nouveau système !\n\n## Les commandes de base à connaître\n\n`ls` pour lister les fichiers, `cd` pour naviguer, `sudo` pour les droits administrateur. Venez pratiquer lors de nos ateliers Linux mensuels !",
+    "tags": ["linux", "tutoriel", "débutant", "open-source"],
+    "image_emoji": "🐧"
+  },
+  {
+    "id": "3",
+    "slug": "lancement-matchemploi-beta",
+    "titre": "Match'Emploi : lancement de la bêta publique",
+    "categorie": "Actualité",
+    "date": "2025-02-10",
+    "auteur": "Allan Vy",
+    "resume": "Grande nouvelle ! Notre projet phare Match'Emploi entre en phase bêta. Après plusieurs mois de développement collaboratif, la plateforme ouvre ses portes aux premiers utilisateurs du territoire.",
+    "contenu": "C'est une étape majeure pour notre association : Match'Emploi, notre « Tinder de l'emploi » local, est désormais disponible en bêta publique !\n\n## Qu'est-ce que Match'Emploi ?\n\nMatch'Emploi est une plateforme de mise en relation basée sur les compétences et la proximité géographique. L'idée : connecter les personnes qui cherchent des opportunités avec les structures locales qui ont des besoins — sans les frictions des grands portails d'emploi.\n\n## Ce que vous pouvez faire dès maintenant\n\n- Créer un profil de compétences\n- Exprimer vos disponibilités et envies\n- Découvrir les structures locales participantes\n- Recevoir des suggestions de match\n\n## Comment contribuer ?\n\nEn tant qu'association ouverte, nous accueillons les retours, les contributions code (le projet est open source) et les idées d'amélioration. Rejoignez notre Discord pour participer aux sprints hebdomadaires.\n\nMerci à tous les bénévoles qui ont rendu cela possible !",
+    "tags": ["match-emploi", "actualité", "projet", "lancement"],
+    "image_emoji": "💼"
+  },
+  {
+    "id": "4",
+    "slug": "atelier-git-github-debutants",
+    "titre": "Tutoriel : Git & GitHub pour les débutants",
+    "categorie": "Tutoriel",
+    "date": "2025-01-20",
+    "auteur": "Romain Rodriguez",
+    "resume": "Versionnez votre code et collaborez efficacement. Découvrez Git, l'outil incontournable du développeur, à travers ce guide illustré créé lors de notre atelier de janvier.",
+    "contenu": "Git est un outil de gestion de versions qui permet de suivre l'évolution de votre code et de collaborer sans se marcher dessus. Voici les bases.\n\n## Installer Git\n\nSous Linux : `sudo apt install git`\nSous Windows : téléchargez Git for Windows\n\n## Configurer son identité\n\n```\ngit config --global user.name \"Votre Nom\"\ngit config --global user.email \"votre@email.com\"\n```\n\n## Les commandes essentielles\n\n- `git init` : initialiser un dépôt\n- `git add .` : préparer les fichiers à enregistrer\n- `git commit -m \"message\"` : enregistrer une version\n- `git push` : envoyer vers GitHub\n- `git pull` : récupérer les modifications\n\n## Workflow collaboratif\n\nCreez une branche pour chaque fonctionnalité, ouvrez une Pull Request pour faire relire votre code. C'est exactement ce que nous pratiquons lors de nos sessions d'entraide !\n\nRetrouvez nos projets sur notre organisation GitHub.",
+    "tags": ["git", "github", "tutoriel", "développement"],
+    "image_emoji": "🌿"
+  }
+]

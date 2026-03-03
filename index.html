@@ -1007,9 +1007,11 @@
           <li><a href="#about">À propos</a></li>
           <li><a href="#actions">Nos actions</a></li>
           <li><a href="#projet">Match'Emploi</a></li>
-          <li><a href="#agence">Agora Comm'</a></li>
+          <li><a href="#agence">Agora Commmunication</a></li>
           <li><a href="#adherer">Adhérer</a></li>
           <li><a href="#contact" class="nav-cta">Contact</a></li>
+          <li><a href="blog.html">Blog</a></li>
+
         </ul>
       </nav>
       <button class="mobile-toggle" onclick="document.getElementById('navmenu').classList.toggle('open')">
@@ -1318,23 +1320,6 @@
             </div>
           </div>
 
-          <!-- Carte 5 -->
-          <div class="team-card fade-up">
-            <div class="team-photo-wrap">
-              <div class="team-photo-placeholder">
-                <div class="initials">C</div>
-                <span class="photo-hint">Ajouter une photo</span>
-              </div>
-            </div>
-            <div class="team-photo-bar"></div>
-            <div class="team-card-body">
-              <h4>Marie BERRIOT</h4>
-              <div class="team-role">Graphiste</div>
-              <div class="team-benevole"><i class="bi bi-heart-fill" style="font-size:0.6rem;"></i> Bénévole</div>
-              <p>Développement des outils numériques associatifs, dont Match’Emploi et le site de l’association.</p>
-            </div>
-          </div>
-
           <!-- Carte rejoindre -->
           <div class="team-join fade-up">
             <div class="team-join-icon"><i class="bi bi-plus-lg"></i></div>
@@ -1556,6 +1541,118 @@
     </section>
 
   </main>
+
+  <!-- ÉTAPE 2 : Insérez cette section dans le body de index.html -->
+<section id="blog" style="padding: 6rem 0;">
+  <div style="max-width:1200px; margin:0 auto; padding:0 2rem;">
+
+    <!-- En-tête de section (même style que les autres sections du site) -->
+    <div style="margin-bottom:3rem;">
+      <p style="font-size:0.75rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent, #c9a84c); margin-bottom:0.75rem; display:flex; align-items:center; gap:0.5rem;">
+        <span style="display:block; width:24px; height:1px; background:currentColor;"></span>
+        Ressources &amp; actualités
+      </p>
+      <h2 style="font-family:'Syne',sans-serif; font-size:clamp(1.8rem,4vw,2.8rem); font-weight:800; letter-spacing:-0.02em; line-height:1.15; margin-bottom:0.75rem;">
+        Le blog de l'association
+      </h2>
+      <p style="color:var(--text-muted,#8892a4); max-width:520px; font-size:1rem; font-weight:300;">
+        Tutoriels, comptes-rendus d'ateliers et actualités — les dernières publications de la communauté.
+      </p>
+    </div>
+
+    <!-- Grille des 3 derniers articles (chargés dynamiquement) -->
+    <div id="blog-preview-grid" style="
+      display:grid;
+      grid-template-columns:repeat(auto-fill, minmax(300px,1fr));
+      gap:1.25rem;
+      margin-bottom:2.5rem;
+    ">
+      <!-- Les cartes sont injectées par le script ci-dessous -->
+      <p style="color:#5a6478; font-size:0.9rem;">Chargement des articles…</p>
+    </div>
+
+    <!-- CTA vers la page blog complète -->
+    <div style="text-align:center; margin-top:2rem;">
+      <a href="blog.html" style="
+        display:inline-flex; align-items:center; gap:0.6rem;
+        background:transparent;
+        border:1px solid rgba(201,168,76,0.4);
+        color:#c9a84c;
+        padding:0.75rem 2rem;
+        border-radius:8px;
+        font-family:'Syne',sans-serif;
+        font-size:0.9rem; font-weight:600;
+        text-decoration:none;
+        transition:all 0.25s;
+      "
+      onmouseover="this.style.background='rgba(201,168,76,0.08)'; this.style.borderColor='#c9a84c';"
+      onmouseout="this.style.background='transparent'; this.style.borderColor='rgba(201,168,76,0.4)';"
+      >
+        Voir tous les articles →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ÉTAPE 3 : Ajoutez ce script AVANT la balise </body> de index.html -->
+<script>
+(function() {
+  const grid = document.getElementById('blog-preview-grid');
+  if (!grid) return;
+
+  const badgeStyle = {
+    'Atelier':   'background:rgba(76,175,125,0.15); color:#4caf7d;',
+    'Tutoriel':  'background:rgba(201,168,76,0.15); color:#c9a84c;',
+    'Actualité': 'background:rgba(100,140,255,0.15); color:#7ca7ff;'
+  };
+
+  const fmt = iso => new Date(iso).toLocaleDateString('fr-FR', {day:'numeric',month:'long',year:'numeric'});
+
+  fetch('articles.json')
+    .then(r => r.json())
+    .then(articles => {
+      articles.sort((a,b) => new Date(b.date)-new Date(a.date));
+      const latest = articles.slice(0, 3);
+      grid.innerHTML = latest.map(art => `
+        <a href="blog.html#${art.slug}" style="
+          background:#13161e;
+          border:1px solid rgba(255,255,255,0.07);
+          border-radius:12px;
+          padding:1.5rem;
+          display:flex; flex-direction:column; gap:0.875rem;
+          text-decoration:none;
+          transition:background 0.25s, border-color 0.25s, transform 0.25s;
+          position:relative; overflow:hidden;
+        "
+        onmouseover="this.style.background='#181c26'; this.style.borderColor='rgba(255,255,255,0.15)'; this.style.transform='translateY(-3px)';"
+        onmouseout="this.style.background='#13161e'; this.style.borderColor='rgba(255,255,255,0.07)'; this.style.transform='translateY(0)';"
+        >
+          <div style="display:flex; align-items:center; gap:0.75rem;">
+            <span style="font-size:1.75rem;">${art.image_emoji}</span>
+            <span style="
+              font-size:0.7rem; font-weight:600; letter-spacing:0.08em;
+              text-transform:uppercase; padding:0.2rem 0.6rem; border-radius:100px;
+              ${badgeStyle[art.categorie] || badgeStyle['Actualité']}
+            ">${art.categorie}</span>
+          </div>
+          <h3 style="
+            font-family:'Syne',sans-serif; font-size:1rem; font-weight:700;
+            line-height:1.35; letter-spacing:-0.01em; color:#e8eaf0;
+          ">${art.titre}</h3>
+          <p style="font-size:0.82rem; color:#8892a4; line-height:1.6; font-weight:300; flex:1;">
+            ${art.resume.slice(0, 110)}…
+          </p>
+          <div style="font-size:0.75rem; color:#5a6478; margin-top:auto;">
+            ${fmt(art.date)} · ${art.auteur}
+          </div>
+        </a>
+      `).join('');
+    })
+    .catch(() => {
+      grid.innerHTML = '<p style="color:#5a6478;">Les articles seront disponibles prochainement.</p>';
+    });
+})();
+</script>
 
   <!-- FOOTER -->
   <footer>
