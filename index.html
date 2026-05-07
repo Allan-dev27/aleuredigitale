@@ -661,6 +661,235 @@ footer {
   padding: 5px 14px;
 }
 
+/* MODALES */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(5,10,25,0.88);
+  backdrop-filter: blur(8px);
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.modal-overlay.open {
+  display: flex;
+  animation: fadeIn 0.25s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.modal {
+  background: var(--navy2);
+  border: 1px solid rgba(255,255,255,0.09);
+  max-width: 780px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: slideUp 0.35s cubic-bezier(.22,.68,0,1.2);
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.modal-close {
+  position: absolute;
+  top: 20px; right: 24px;
+  background: none;
+  border: 1px solid rgba(255,255,255,0.15);
+  color: var(--muted);
+  font-size: 20px;
+  width: 36px; height: 36px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.2s, color 0.2s;
+  z-index: 2;
+}
+.modal-close:hover { border-color: var(--orange); color: var(--orange); }
+
+.modal-header {
+  padding: 48px 50px 32px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  position: relative;
+}
+.modal-eyebrow {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--orange);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.modal-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 52px;
+  color: var(--white);
+  text-transform: uppercase;
+  line-height: 0.95;
+  letter-spacing: -1px;
+}
+.modal-title em { color: var(--orange); font-style: normal; }
+.modal-subtitle {
+  font-size: 15px;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: 12px;
+}
+
+.modal-body {
+  padding: 40px 50px;
+}
+.modal-section {
+  margin-bottom: 36px;
+}
+.modal-section-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(230,126,34,0.2);
+}
+.modal-text {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--text);
+}
+.modal-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+.modal-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 16px;
+}
+.modal-stat-box {
+  background: rgba(230,126,34,0.08);
+  border: 1px solid rgba(230,126,34,0.2);
+  padding: 20px;
+  text-align: center;
+}
+.modal-stat-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 40px;
+  color: var(--orange);
+  line-height: 1;
+}
+.modal-stat-label {
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 6px;
+}
+.modal-info-box {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-left: 3px solid var(--orange);
+  padding: 18px 20px;
+}
+.modal-info-title {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+.modal-info-text {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.modal-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.modal-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.5;
+}
+.modal-list li::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--orange);
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 7px;
+}
+.modal-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.modal-timeline-item {
+  display: flex;
+  gap: 20px;
+  padding-bottom: 24px;
+  position: relative;
+}
+.modal-timeline-item:last-child { padding-bottom: 0; }
+.modal-timeline-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 15px; top: 30px;
+  width: 1px;
+  bottom: 0;
+  background: rgba(230,126,34,0.25);
+}
+.modal-timeline-dot {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: var(--orange);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 13px;
+  color: #fff;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+.modal-timeline-content {
+  padding-top: 4px;
+}
+.modal-timeline-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+.modal-timeline-text {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.modal-footer {
+  padding: 24px 50px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
 /* ANIMATIONS */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(24px); }
@@ -827,7 +1056,7 @@ footer {
   <div class="section-eyebrow reveal">03 — Nos projets</div>
   <h2 class="section-title reveal">NOS <em>PROJETS</em></h2>
   <div class="projects-wrapper">
-    <div class="project-card reveal">
+    <div class="project-card reveal" onclick="openModal('modal-matchemploi')" style="cursor:pointer;">
       <div>
         <div class="project-label">Projet phare</div>
         <div class="project-name">Match'Emploi</div>
@@ -841,7 +1070,7 @@ footer {
           <span class="tag">3 axes</span>
         </div>
       </div>
-      <div class="project-arrow">→</div>
+      <div class="project-arrow" style="color: var(--orange);">→</div>
     </div>
     <div class="project-card reveal">
       <div>
@@ -865,7 +1094,7 @@ footer {
 <section id="events">
   <div class="section-eyebrow reveal">04 — Événements</div>
   <h2 class="section-title reveal">HACKATHON <em>ÉTÉ 2026</em></h2>
-  <div class="event-featured reveal">
+  <div class="event-featured reveal" onclick="openModal('modal-hackathon')" style="cursor:pointer; transition: border-color 0.3s;" onmouseover="this.style.borderColor='var(--orange)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.07)'">
     <div class="event-left">
       <div class="event-date-big">27<br>30</div>
       <div class="event-month">Août 2026</div>
@@ -954,6 +1183,229 @@ footer {
   <div class="footer-badge">100% Open Source</div>
 </footer>
 
+<!-- MODALE MATCH'EMPLOI -->
+<div class="modal-overlay" id="modal-matchemploi" onclick="closeOnOverlay(event, 'modal-matchemploi')">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-matchemploi')">✕</button>
+    <div class="modal-header">
+      <div class="modal-eyebrow">Projet phare · Open source · Local</div>
+      <div class="modal-title">MATCH'<em>EMPLOI</em></div>
+      <div class="modal-subtitle">Le Tinder de l'Emploi — pour notre territoire de l'Eure</div>
+    </div>
+    <div class="modal-body">
+
+      <div class="modal-section">
+        <div class="modal-section-title">Le problème</div>
+        <p class="modal-text">De nombreuses personnes peinent à trouver des opportunités adaptées à leurs compétences et à leur localisation, tandis que des structures locales — associations, commerces, collectivités — manquent de profils disponibles et motivés. Ce décalage freine le développement économique et social du territoire.</p>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">La solution</div>
+        <p class="modal-text">Match'Emploi est une plateforme numérique de mise en relation basée sur les compétences, les besoins et la proximité locale. Comme une application de rencontres, elle permet à chaque utilisateur de "matcher" avec des opportunités qui lui correspondent vraiment — stages, bénévolat, emplois, missions ponctuelles.</p>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Les 3 axes principaux</div>
+        <div class="modal-grid-3">
+          <div class="modal-stat-box">
+            <div class="modal-stat-num">1</div>
+            <div class="modal-stat-label">Mise en relation compétences / besoins</div>
+          </div>
+          <div class="modal-stat-box">
+            <div class="modal-stat-num">2</div>
+            <div class="modal-stat-label">Ancrage territorial et proximité</div>
+          </div>
+          <div class="modal-stat-box">
+            <div class="modal-stat-num">3</div>
+            <div class="modal-stat-label">Réduction du décalage par le numérique</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Fonctionnalités prévues</div>
+        <ul class="modal-list">
+          <li>Profil candidat avec compétences, disponibilités et zone géographique</li>
+          <li>Profil structure avec besoins, offres et localisation</li>
+          <li>Algorithme de matching basé sur les compétences et la proximité</li>
+          <li>Messagerie intégrée pour faciliter la mise en relation</li>
+          <li>Événements locaux : job datings, forums emploi, ateliers CV</li>
+          <li>Interface simple, accessible sur mobile et ordinateur</li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Caractéristiques du projet</div>
+        <div class="modal-grid-2">
+          <div class="modal-info-box">
+            <div class="modal-info-title">100% Open source</div>
+            <div class="modal-info-text">Le code est libre, consultable et réutilisable. N'importe quelle collectivité rurale peut déployer sa propre version.</div>
+          </div>
+          <div class="modal-info-box">
+            <div class="modal-info-title">Ancrage local</div>
+            <div class="modal-info-text">Conçu spécifiquement pour le territoire de l'Eure, avec l'ambition d'être dupliqué dans d'autres zones rurales.</div>
+          </div>
+          <div class="modal-info-box">
+            <div class="modal-info-title">Impact social</div>
+            <div class="modal-info-text">Réduire le chômage de proximité, valoriser les compétences locales, renforcer le tissu associatif et économique.</div>
+          </div>
+          <div class="modal-info-box">
+            <div class="modal-info-title">Participatif</div>
+            <div class="modal-info-text">Développé en collaboration avec les habitants, associations et structures du territoire lors d'ateliers et du hackathon.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Feuille de route</div>
+        <div class="modal-timeline">
+          <div class="modal-timeline-item">
+            <div class="modal-timeline-dot">1</div>
+            <div class="modal-timeline-content">
+              <div class="modal-timeline-title">Conception & prototypage</div>
+              <div class="modal-timeline-text">Ateliers de co-conception avec les futurs utilisateurs, définition des besoins, maquettes UX/UI.</div>
+            </div>
+          </div>
+          <div class="modal-timeline-item">
+            <div class="modal-timeline-dot">2</div>
+            <div class="modal-timeline-content">
+              <div class="modal-timeline-title">Hackathon Été 2026</div>
+              <div class="modal-timeline-text">Développement collaboratif du prototype lors du hackathon du 27 au 30 août 2026, avec des équipes mixtes.</div>
+            </div>
+          </div>
+          <div class="modal-timeline-item">
+            <div class="modal-timeline-dot">3</div>
+            <div class="modal-timeline-content">
+              <div class="modal-timeline-title">Pilote sur l'Eure</div>
+              <div class="modal-timeline-text">Déploiement en version bêta sur le territoire de l'Eure avec un groupe d'utilisateurs pionniers.</div>
+            </div>
+          </div>
+          <div class="modal-timeline-item">
+            <div class="modal-timeline-dot">4</div>
+            <div class="modal-timeline-content">
+              <div class="modal-timeline-title">Duplication en milieu rural</div>
+              <div class="modal-timeline-text">Mise à disposition de l'outil en open source pour d'autres territoires ruraux en France.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <a href="mailto:aleuredudigitale@gmail.com" class="btn-primary">Contribuer au projet</a>
+      <a href="#contact" class="btn-outline" onclick="closeModal('modal-matchemploi')">En savoir plus</a>
+    </div>
+  </div>
+</div>
+
+<!-- MODALE HACKATHON -->
+<div class="modal-overlay" id="modal-hackathon" onclick="closeOnOverlay(event, 'modal-hackathon')">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-hackathon')">✕</button>
+    <div class="modal-header">
+      <div class="modal-eyebrow">Événement · Du 27 au 30 août 2026 · En ligne · Discord</div>
+      <div class="modal-title">HACKATHON<br><em>ÉTÉ 2026</em></div>
+      <div class="modal-subtitle">4 jours pour créer des projets numériques utiles au territoire de l'Eure</div>
+    </div>
+    <div class="modal-body">
+
+      <div class="modal-section">
+        <div class="modal-section-title">En quelques chiffres</div>
+        <div class="modal-grid-3">
+          <div class="modal-stat-box">
+            <div class="modal-stat-num">4</div>
+            <div class="modal-stat-label">Jours de création intensive</div>
+          </div>
+          <div class="modal-stat-box">
+            <div class="modal-stat-num">30+</div>
+            <div class="modal-stat-label">Participants visés</div>
+          </div>
+          <div class="modal-stat-box">
+            <div class="modal-stat-num">100%</div>
+            <div class="modal-stat-label">En ligne & accessible</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">C'est quoi un hackathon ?</div>
+        <p class="modal-text">Un hackathon est un événement collaboratif où des équipes pluridisciplinaires se réunissent pendant un temps limité pour créer des projets concrets. Ici, l'objectif est de produire des solutions numériques open source utiles aux associations, commerces et citoyens du territoire de l'Eure.</p>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Format & déroulement</div>
+        <div class="modal-timeline">
+          <div class="modal-timeline-item">
+            <div class="modal-timeline-dot" style="font-size:11px;">J1</div>
+            <div class="modal-timeline-content">
+              <div class="modal-timeline-title">Jeudi 27 août — Lancement</div>
+              <div class="modal-timeline-text">Présentation des défis, constitution des équipes, brainstorming, choix du projet, mise en place des outils.</div>
+            </div>
+          </div>
+          <div class="modal-timeline-item">
+            <div class="modal-timeline-dot" style="font-size:11px;">J2</div>
+            <div class="modal-timeline-content">
+              <div class="modal-timeline-title">Vendredi 28 août — Conception</div>
+              <div class="modal-timeline-text">Maquettes, architecture, premières lignes de code. Accompagnement des mentors en ligne.</div>
+            </div>
+          </div>
+          <div class="modal-timeline-item">
+            <div class="modal-timeline-dot" style="font-size:11px;">J3</div>
+            <div class="modal-timeline-content">
+              <div class="modal-timeline-title">Samedi 29 août — Développement</div>
+              <div class="modal-timeline-text">Sprint de développement, tests utilisateurs, itérations. Mentors disponibles tout au long de la journée.</div>
+            </div>
+          </div>
+          <div class="modal-timeline-item">
+            <div class="modal-timeline-dot" style="font-size:11px;">J4</div>
+            <div class="modal-timeline-content">
+              <div class="modal-timeline-title">Dimanche 30 août — Présentation finale</div>
+              <div class="modal-timeline-text">Démonstration des projets devant un jury, retours, célébration. Tous les projets sont publiés en open source.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Qui peut participer ?</div>
+        <ul class="modal-list">
+          <li><strong style="color:var(--white)">Débutants bienvenus</strong> — pas besoin de savoir coder, les équipes sont mixtes</li>
+          <li>Développeurs, designers, chefs de projet, communicants, porteurs d'idées</li>
+          <li>Étudiants, professionnels, bénévoles, demandeurs d'emploi</li>
+          <li>Toute personne motivée à créer quelque chose d'utile pour le territoire</li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Informations pratiques</div>
+        <div class="modal-grid-2">
+          <div class="modal-info-box">
+            <div class="modal-info-title">📅 Dates</div>
+            <div class="modal-info-text">Du jeudi 27 au dimanche 30 août 2026 — 4 jours consécutifs.</div>
+          </div>
+          <div class="modal-info-box">
+            <div class="modal-info-title">💻 Plateforme</div>
+            <div class="modal-info-text">100% en ligne sur Discord. Un serveur dédié sera créé pour l'événement.</div>
+          </div>
+          <div class="modal-info-box">
+            <div class="modal-info-title">🎯 Objectif</div>
+            <div class="modal-info-text">Créer des projets open source concrets et utiles aux citoyens, associations et commerces de l'Eure.</div>
+          </div>
+          <div class="modal-info-box">
+            <div class="modal-info-title">🏆 Résultats</div>
+            <div class="modal-info-text">Tous les projets sont publiés en open source. Présentation devant jury avec retours constructifs.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <a href="mailto:aleuredudigitale@gmail.com?subject=Inscription Hackathon Été 2026" class="btn-primary">S'inscrire au hackathon</a>
+      <a href="https://aleuredigitale.netlify.app" class="btn-outline" target="_blank">Site de l'association</a>
+    </div>
+  </div>
+</div>
+
 <script>
 // Navbar scroll
 const navbar = document.getElementById('navbar');
@@ -972,6 +1424,27 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.1 });
 reveals.forEach(el => observer.observe(el));
+
+// Modales
+function openModal(id) {
+  document.getElementById(id).classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeOnOverlay(e, id) {
+  if (e.target === document.getElementById(id)) closeModal(id);
+}
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.open').forEach(m => {
+      m.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  }
+});
 </script>
 </body>
 </html>
