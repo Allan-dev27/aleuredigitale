@@ -1072,7 +1072,7 @@ footer {
       </div>
       <div class="project-arrow" style="color: var(--orange);">→</div>
     </div>
-    <div class="project-card reveal">
+    <div class="project-card reveal" onclick="openModal('modal-tierslieu')" style="cursor:pointer;">
       <div>
         <div class="project-label">Vision 5–10 ans</div>
         <div class="project-name">Tiers-lieu numérique</div>
@@ -1085,7 +1085,7 @@ footer {
           <span class="tag">Formation</span>
         </div>
       </div>
-      <div class="project-arrow">→</div>
+      <div class="project-arrow" style="color: var(--orange);">→</div>
     </div>
   </div>
 </section>
@@ -1420,6 +1420,137 @@ footer {
         <svg width="18" height="14" viewBox="0 0 36 28" fill="none"><path d="M30.5 2.5C28.2 1.4 25.7 0.6 23.1 0.1C22.8 0.7 22.4 1.5 22.1 2.2C19.4 1.8 16.6 1.8 13.9 2.2C13.6 1.5 13.2 0.7 12.9 0.1C10.3 0.6 7.8 1.4 5.5 2.5C0.8 9.6 -0.5 16.5 0.2 23.3C3.1 25.5 5.9 26.8 8.7 27.7C9.4 26.7 10 25.6 10.5 24.5C9.4 24.1 8.3 23.5 7.3 22.9C7.6 22.7 7.9 22.4 8.1 22.2C14.2 25.1 20.8 25.1 26.9 22.2C27.2 22.4 27.4 22.7 27.7 22.9C26.7 23.5 25.6 24.1 24.5 24.5C25 25.6 25.6 26.7 26.3 27.7C29.1 26.8 31.9 25.5 34.8 23.3C35.6 15.4 33.5 8.6 30.5 2.5ZM11.9 19.1C10.1 19.1 8.6 17.4 8.6 15.4C8.6 13.4 10.1 11.7 11.9 11.7C13.7 11.7 15.3 13.4 15.2 15.4C15.2 17.4 13.7 19.1 11.9 19.1ZM24.1 19.1C22.3 19.1 20.8 17.4 20.8 15.4C20.8 13.4 22.3 11.7 24.1 11.7C25.9 11.7 27.4 13.4 27.4 15.4C27.4 17.4 25.9 19.1 24.1 19.1Z" fill="currentColor"/></svg>
         Discord
       </a>
+    </div>
+  </div>
+</div>
+
+<!-- MODALE TIERS-LIEU -->
+<div class="modal-overlay" id="modal-tierslieu" onclick="closeOnOverlay(event, 'modal-tierslieu')">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-tierslieu')">✕</button>
+    <div class="modal-header">
+      <div class="modal-eyebrow">Vision 5–10 ans · Axe 3 · Territoire de l'Eure</div>
+      <div class="modal-title">TIERS-LIEU<br><em>NUMÉRIQUE</em></div>
+      <div class="modal-subtitle">Un espace d'apprentissage, de collaboration et de création ouverte pour tous les citoyens de l'Eure</div>
+    </div>
+    <div class="modal-body">
+
+      <div class="modal-section">
+        <div class="modal-section-title">C'est quoi un tiers-lieu ?</div>
+        <p class="modal-text">Un tiers-lieu est un espace qui n'est ni le domicile (premier lieu), ni le travail (deuxième lieu) — c'est un endroit neutre, ouvert et convivial où les gens se retrouvent pour apprendre, créer, échanger et collaborer. Pour À l'Eure Digitale, ce tiers-lieu serait entièrement dédié au numérique associatif et à l'innovation sociale.</p>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Les 3 piliers du projet</div>
+        <div class="modal-grid-3">
+          <div class="modal-stat-box">
+            <div style="font-size:32px; margin-bottom:10px;">🎓</div>
+            <div class="modal-stat-label">Axe 1<br>Développement des compétences</div>
+          </div>
+          <div class="modal-stat-box">
+            <div style="font-size:32px; margin-bottom:10px;">🚀</div>
+            <div class="modal-stat-label">Axe 2<br>Incubation de projets à impact</div>
+          </div>
+          <div class="modal-stat-box">
+            <div style="font-size:32px; margin-bottom:10px;">🏛️</div>
+            <div class="modal-stat-label">Axe 3<br>Gouvernance participative</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Axe 1 — Développement des compétences</div>
+        <ul class="modal-list">
+          <li>Ateliers pratiques sur le web, Git, la cybersécurité, la bureautique</li>
+          <li>Parcours progressifs adaptés à tous les niveaux — du grand débutant à l'avancé</li>
+          <li>Communauté contributive d'apprentissage : apprendre en faisant, entre pairs</li>
+          <li>Formations certifiantes et passerelles vers l'emploi numérique</li>
+          <li>Accès libre à du matériel informatique et à une connexion haut débit</li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Axe 2 — Incubation de projets à impact</div>
+        <ul class="modal-list">
+          <li>Accompagnement de porteurs de projets numériques à impact social</li>
+          <li>Match'Emploi comme premier projet incubé, puis d'autres solutions locales</li>
+          <li>Mise à disposition d'outils : imprimante 3D, équipement audiovisuel, serveurs</li>
+          <li>Réseau de mentors bénévoles (développeurs, designers, entrepreneurs)</li>
+          <li>Duplication des projets open source en milieu rural dans d'autres territoires</li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Axe 3 — Tiers-lieu & gouvernance</div>
+        <ul class="modal-list">
+          <li>Espace physique ouvert à tous : tables de travail, salle de réunion, coin détente</li>
+          <li>Passerelle entre bénévolat, formation et emploi — un lieu de transition</li>
+          <li>Gouvernance participative et ouverte : les membres décident ensemble des orientations</li>
+          <li>Partenariats avec les collectivités, les entreprises ESS et les établissements scolaires</li>
+          <li>Modèle économique hybride : adhésions, subventions, prestations associatives</li>
+        </ul>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Feuille de route 5–10 ans</div>
+        <div class="modal-timeline">
+          <div class="modal-timeline-item">
+            <div class="modal-timeline-dot" style="font-size:10px;">2026</div>
+            <div class="modal-timeline-content">
+              <div class="modal-timeline-title">Fondation & premiers ateliers</div>
+              <div class="modal-timeline-text">Structuration de l'association, lancement des premiers ateliers numériques, hackathon fondateur, prototype de Match'Emploi.</div>
+            </div>
+          </div>
+          <div class="modal-timeline-item">
+            <div class="modal-timeline-dot" style="font-size:10px;">2027</div>
+            <div class="modal-timeline-content">
+              <div class="modal-timeline-title">Recherche d'un espace physique</div>
+              <div class="modal-timeline-text">Identification d'un local sur le territoire de l'Eure, partenariats avec les collectivités locales, premières subventions.</div>
+            </div>
+          </div>
+          <div class="modal-timeline-item">
+            <div class="modal-timeline-dot" style="font-size:10px;">2028</div>
+            <div class="modal-timeline-content">
+              <div class="modal-timeline-title">Ouverture du tiers-lieu</div>
+              <div class="modal-timeline-text">Inauguration de l'espace physique, lancement du programme d'incubation, accueil des premiers résidents et porteurs de projets.</div>
+            </div>
+          </div>
+          <div class="modal-timeline-item">
+            <div class="modal-timeline-dot" style="font-size:10px;">2030+</div>
+            <div class="modal-timeline-content">
+              <div class="modal-timeline-title">Rayonnement territorial</div>
+              <div class="modal-timeline-text">Modèle reconnu à l'échelle normande, duplication dans d'autres communes rurales, impact mesurable sur l'emploi et l'inclusion numérique.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Comment contribuer dès maintenant ?</div>
+        <div class="modal-grid-2">
+          <div class="modal-info-box">
+            <div class="modal-info-title">🤝 Devenir bénévole</div>
+            <div class="modal-info-text">Animez des ateliers, mentorer des projets, contribuez au code open source — chaque compétence est utile.</div>
+          </div>
+          <div class="modal-info-box">
+            <div class="modal-info-title">🏢 Devenir partenaire</div>
+            <div class="modal-info-text">Collectivités, entreprises, associations : rejoignez l'écosystème et aidez à construire ce lieu unique.</div>
+          </div>
+          <div class="modal-info-box">
+            <div class="modal-info-title">💡 Proposer un local</div>
+            <div class="modal-info-text">Vous avez un espace disponible sur le territoire de l'Eure ? Contactez-nous, nous serions ravis d'en discuter.</div>
+          </div>
+          <div class="modal-info-box">
+            <div class="modal-info-title">📣 Ambassadeur</div>
+            <div class="modal-info-text">Parlez du projet autour de vous, partagez nos événements, aidez-nous à faire connaître l'association.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <a href="mailto:aleuredudigitale@gmail.com?subject=Tiers-lieu numérique — Je veux contribuer" class="btn-primary">Contribuer au projet</a>
+      <a href="mailto:aleuredudigitale@gmail.com?subject=Proposition de local" class="btn-outline">Proposer un local</a>
     </div>
   </div>
 </div>
