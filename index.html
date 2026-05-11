@@ -769,7 +769,7 @@
     <div class="hero-visual animate delay-2">
       <div class="hero-counters">
         <div class="hero-counter">
-          <div class="counter-num"><span class="cnt" data-target="10">0</span><span class="suf">+</span></div>
+          <div class="counter-num"><span class="cnt" data-target="24">0</span><span class="suf">+</span></div>
           <div class="counter-label">Membres actifs</div>
         </div>
         <div class="hero-counter">
@@ -777,11 +777,11 @@
           <div class="counter-label">Ateliers gratuits</div>
         </div>
         <div class="hero-counter">
-          <div class="counter-num"><span class="cnt" data-target="5">2</span></div>
+          <div class="counter-num"><span class="cnt" data-target="2">0</span></div>
           <div class="counter-label">Projets open source</div>
         </div>
         <div class="hero-counter">
-          <div class="counter-num"><span class="cnt" data-target="6">0</span></div>
+          <div class="counter-num"><span class="cnt" data-target="4">0</span></div>
           <div class="counter-label">Mois d'activité</div>
         </div>
       </div>
@@ -1363,7 +1363,7 @@ const counterObs = new IntersectionObserver(entries=>{
       counterObs.unobserve(e.target);
     }
   });
-},{threshold:.4});
+},{threshold:0.05, rootMargin:'0px 0px -50px 0px'});
 document.querySelectorAll('.hero-counters').forEach(el=>counterObs.observe(el));
 
 /* ── SCROLL REVEAL ────────────────────────────────── */
@@ -1452,9 +1452,7 @@ document.querySelectorAll('.faq-q').forEach(q=>{
 });
 
 /* ── CONTACT FORM ─────────────────────────────────── */
-// Formspree : créez un compte sur https://formspree.io, créez un formulaire
-// pour l'email aleuredudigitale@gmail.com, puis remplacez VOTRE_ID ci-dessous.
-const FORMSPREE_ID = 'mnjwlvvn'; // ex: "xpwzgrkb"
+const FORMSPREE_ID = 'mnjwlvvn';
 
 function validate(id, check){
   const el = document.getElementById(id);
