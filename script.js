@@ -195,9 +195,7 @@ document.querySelectorAll('.faq-q').forEach(q=>{
 });
 
 /* ── CONTACT FORM ─────────────────────────────────── */
-// Formspree : créez un compte sur https://formspree.io, créez un formulaire
-// pour l'email aleuredudigitale@gmail.com, puis remplacez VOTRE_ID ci-dessous.
-const FORMSPREE_ID = 'VOTRE_ID'; // ex: "xpwzgrkb"
+const FORMSPREE_ID = 'mnjwlvvn'; 
 
 function validate(id, check){
   const el = document.getElementById(id);
