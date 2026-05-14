@@ -315,18 +315,33 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
   });
 });
 
-/* ── ONLINE MEMBER COUNT (simulated) ─────────────── */
-function randomOnline(){
-  const base = 8, variance = 7;
-  return base + Math.floor(Math.random() * variance);
+/* ── ONLINE MEMBER COUNT (Discord API réelle) ─────── */
+// ID du serveur Discord (extrait de l'invite discord.gg/yHCAgYKwk)
+// Pour obtenir votre GUILD_ID : activez le mode développeur Discord
+// → Paramètres > Avancés > Mode développeur, puis clic droit sur le serveur > Copier l'identifiant
+const DISCORD_GUILD_ID = 'REMPLACEZ_PAR_VOTRE_GUILD_ID'; // ex: '1234567890123456789'
+
+async function fetchDiscordOnline(){
+  const onlineEl = document.getElementById('onlineCount');
+  if(!onlineEl) return;
+  try {
+    const res = await fetch(`https://discord.com/api/guilds/${DISCORD_GUILD_ID}/widget.json`);
+    if(!res.ok) throw new Error('Widget désactivé ou ID invalide');
+    const data = await res.json();
+    const count = data.presence_count ?? data.members?.length ?? '?';
+    onlineEl.textContent = count;
+  } catch(err) {
+    // En cas d'échec, on affiche un fallback discret sans mentir
+    onlineEl.textContent = '?';
+    const badge = document.getElementById('discordBadge');
+    if(badge) badge.title = 'Activez le widget Discord dans les paramètres du serveur';
+    console.warn('Discord widget:', err.message);
+  }
 }
-const onlineEl = document.getElementById('onlineCount');
-if(onlineEl){
-  onlineEl.textContent = randomOnline();
-  setInterval(()=>{
-    onlineEl.textContent = randomOnline();
-  }, 12000);
-}
+
+fetchDiscordOnline();
+// Rafraîchissement toutes les 2 minutes
+setInterval(fetchDiscordOnline, 2 * 60 * 1000);
 
 /* ── TOAST DE BIENVENUE ───────────────────────────── */
 setTimeout(()=>{
@@ -417,13 +432,46 @@ function filterFaq(query){
 
 /* ── AGENDA DYNAMIQUE ─────────────────────────────── */
 (function buildAgenda(){
-  const events = [
-    { label:'Sam', date:'17 mai', title:'Permanence numérique', detail:'14h–16h · En ligne · Gratuit' },
-    { label:'Sam', date:'24 mai', title:'Permanence numérique', detail:'14h–16h · En ligne · Gratuit' },
-    { label:'Août', date:'27–30', title:'Hackathon Associatif', detail:'En présentiel · Tous profils' },
-  ];
   const list = document.getElementById('agendaList');
   if(!list) return;
+
+  // Génère les N prochains samedis à partir d'aujourd'hui
+  function nextSaturdays(n){
+    const dates = [];
+    const d = new Date();
+    d.setHours(0,0,0,0);
+    // Avance jusqu'au prochain samedi (6 = samedi)
+    const daysUntilSat = (6 - d.getDay() + 7) % 7 || 7;
+    d.setDate(d.getDate() + daysUntilSat);
+    for(let i = 0; i < n; i++){
+      dates.push(new Date(d));
+      d.setDate(d.getDate() + 7);
+    }
+    return dates;
+  }
+
+  const MOIS = ['jan.','fév.','mar.','avr.','mai','juin','juil.','août','sep.','oct.','nov.','déc.'];
+
+  // Permanences : 2 prochains samedis
+  const samedis = nextSaturdays(2);
+  const events = samedis.map(d => ({
+    label: 'Sam.',
+    date: `${d.getDate()} ${MOIS[d.getMonth()]}`,
+    title: 'Permanence numérique',
+    detail: '14h–16h · En ligne · Gratuit'
+  }));
+
+  // Hackathon fixe (août 2026) — à mettre à jour manuellement après l'événement
+  const hackathon = new Date('2026-08-27');
+  if(hackathon > new Date()){
+    events.push({
+      label: 'Août',
+      date: '27–30',
+      title: 'Hackathon Associatif',
+      detail: 'En présentiel · Tous profils'
+    });
+  }
+
   events.forEach(ev=>{
     list.insertAdjacentHTML('beforeend',`
       <div class="agenda-event">

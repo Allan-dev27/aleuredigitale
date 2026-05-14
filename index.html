@@ -4,6 +4,33 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>À l'Eure Digitale — Communauté numérique en Normandie</title>
+
+  <!-- ══ SEO & OPEN GRAPH ══════════════════════════════ -->
+  <meta name="description" content="À l'Eure Digitale est une communauté numérique bienveillante et inclusive en Normandie. Ateliers gratuits, entraide, projets open source et permanences hebdomadaires — ouverts à tous les niveaux."/>
+  <meta name="keywords" content="numérique, Normandie, Eure, communauté, ateliers, open source, association, Discord, formation, entraide"/>
+  <meta name="author" content="À l'Eure Digitale"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://aleuredigitale.netlify.app/"/>
+
+  <!-- Open Graph (partage réseaux sociaux) -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://aleuredigitale.netlify.app/"/>
+  <meta property="og:title" content="À l'Eure Digitale — Communauté numérique en Normandie"/>
+  <meta property="og:description" content="Une communauté numérique bienveillante et inclusive, ouverte à tous les niveaux. Ateliers gratuits, entraide, projets open source — département de l'Eure, Normandie."/>
+  <meta property="og:image" content="https://aleuredigitale.netlify.app/og-image.png"/>
+  <meta property="og:locale" content="fr_FR"/>
+  <meta property="og:site_name" content="À l'Eure Digitale"/>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="À l'Eure Digitale — Communauté numérique en Normandie"/>
+  <meta name="twitter:description" content="Une communauté numérique bienveillante et inclusive en Normandie. Ateliers gratuits, entraide, projets open source."/>
+  <meta name="twitter:image" content="https://aleuredigitale.netlify.app/og-image.png"/>
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+  <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
+
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
@@ -74,7 +101,10 @@
       <p class="hero-desc">Une communauté numérique bienveillante et inclusive, ouverte à tous les niveaux. On se retrouve pour <strong style="color:#fff">apprendre, partager, s'entraider</strong> et construire ensemble</p>
       <div class="hero-cta">
         <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="btn-discord"><i class="fab fa-discord"></i> Rejoindre le Discord</a>
-        <span class="online-badge"><span class="online-dot"></span> <span id="onlineCount">12</span> en ligne</span>
+        <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="online-badge" id="discordBadge" title="Membres Discord en ligne">
+          <span class="online-dot"></span>
+          <span id="onlineCount">…</span> en ligne
+        </a>
         <a href="#about" class="btn-outline"><i class="fas fa-arrow-down"></i> Découvrir</a>
       </div>
     </div>
