@@ -291,7 +291,7 @@ window.addEventListener('scroll', ()=>{
 }, {passive:true});
 
 /* ── NAV ACTIVE SECTION ───────────────────────────── */
-const navSections = ['about','pour-qui','discord','hackathon','temoignages','territoire','faq','contact'];
+const navSections = ['about','pour-qui','discord','hackathon','proposer','temoignages','territoire','faq','contact'];
 const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
 const sectionObs = new IntersectionObserver(entries=>{
   entries.forEach(e=>{
@@ -592,6 +592,175 @@ const totop = document.getElementById('totop');
 window.addEventListener('scroll',()=>{
   totop.classList.toggle('show', window.scrollY > 400);
 });
+
+/* ── FORMULAIRE PROPOSITION D'ATELIER ────────────── */
+(function initProposerForm(){
+
+  // ── État ──
+  const state = { subject:'', desc:'', level:'', format:'', dispos:[], pseudo:'', prenom:'', email:'' };
+  let currentStep = 1;
+  const FORMSPREE_ATELIER_ID = 'mnjwlvvn'; // Remplacez par un ID dédié si vous créez un 2e endpoint Formspree
+
+  // ── Helpers ──
+  const $ = id => document.getElementById(id);
+  function showStep(n){
+    [1,2,3].forEach(i=>{
+      $('pstep'+i)?.classList.toggle('hidden', i!==n);
+    });
+    document.querySelectorAll('#proposerSteps .pstep').forEach(el=>{
+      const s = +el.dataset.step;
+      el.classList.toggle('active', s === n);
+      el.classList.toggle('done',   s < n);
+    });
+    currentStep = n;
+  }
+
+  function fieldErr(id, msg, show){
+    const el = $(id);
+    const err = $('perr-'+id);
+    if(!el || !err) return;
+    el.classList.toggle('err', show);
+    err.classList.toggle('show', show);
+    if(show) err.textContent = msg;
+  }
+
+  // ── Compteur caractères ──
+  const psubjectEl = $('psubject');
+  const psubjectCount = $('psubject-count');
+  if(psubjectEl && psubjectCount){
+    psubjectEl.addEventListener('input', ()=>{
+      psubjectCount.textContent = `${psubjectEl.value.length} / 80`;
+    });
+  }
+
+  // ── Étape 1 → 2 ──
+  $('pnext1')?.addEventListener('click', ()=>{
+    const subject = $('psubject')?.value.trim() || '';
+    const desc    = $('pdesc')?.value.trim()    || '';
+    const level   = $('plevel')?.value          || '';
+    let ok = true;
+    if(subject.length < 3){ fieldErr('psubject','Veuillez saisir un titre (3 caractères min.).',true); ok=false; } else fieldErr('psubject','',false);
+    if(desc.length < 20)  { fieldErr('pdesc','Veuillez écrire une description (20 caractères min.).',true); ok=false; } else fieldErr('pdesc','',false);
+    if(!level)            { fieldErr('plevel','Veuillez choisir un niveau.',true); ok=false; } else fieldErr('plevel','',false);
+    if(!ok) return;
+    state.subject = subject; state.desc = desc; state.level = level;
+    showStep(2);
+  });
+
+  // ── Format cards ──
+  document.querySelectorAll('.format-card').forEach(card=>{
+    card.addEventListener('click', ()=>{
+      document.querySelectorAll('.format-card').forEach(c=>c.classList.remove('selected'));
+      card.classList.add('selected');
+      $('pformat').value = card.dataset.value;
+      fieldErr('pformat','',false);
+    });
+    card.setAttribute('tabindex','0');
+    card.setAttribute('role','button');
+    card.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); card.click(); }});
+  });
+
+  // ── Étape 2 → 3 ──
+  $('pnext2')?.addEventListener('click', ()=>{
+    const format = $('pformat')?.value || '';
+    const dispos = Array.from(document.querySelectorAll('input[name="dispo"]:checked')).map(el=>el.value);
+    let ok = true;
+    if(!format){ fieldErr('pformat','Veuillez choisir un format.',true); ok=false; } else fieldErr('pformat','',false);
+    if(!dispos.length){ fieldErr('pdispo','Veuillez cocher au moins une disponibilité.',true); ok=false; } else fieldErr('pdispo','',false);
+    if(!ok) return;
+    state.format = format; state.dispos = dispos;
+    buildRecap();
+    showStep(3);
+  });
+
+  // ── Retours ──
+  $('pback2')?.addEventListener('click', ()=>showStep(1));
+  $('pback3')?.addEventListener('click', ()=>showStep(2));
+
+  // ── Récap ──
+  const levelLabels = { debutant:'Débutant', intermediaire:'Intermédiaire', avance:'Avancé', tous:'Tous niveaux' };
+  const formatLabels = { 'en-ligne':'En ligne', 'presentiel':'En présentiel', 'hybride':'Hybride', 'peu-importe':'Peu importe' };
+  const dispoLabels  = { 'semaine-soir':'Soirs semaine', 'samedi-aprem':'Sam. après-midi', 'samedi-matin':'Sam. matin', 'dimanche':'Dimanche', 'flexible':'Flexible' };
+
+  function buildRecap(){
+    const recap = $('proposerRecap');
+    if(!recap) return;
+    recap.innerHTML = `
+      <div class="recap-title"><i class="fas fa-eye"></i> Récapitulatif</div>
+      <div class="recap-row"><span>Sujet</span><strong>${state.subject}</strong></div>
+      <div class="recap-row"><span>Niveau</span><strong>${levelLabels[state.level]||state.level}</strong></div>
+      <div class="recap-row"><span>Format</span><strong>${formatLabels[state.format]||state.format}</strong></div>
+      <div class="recap-row"><span>Disponibilités</span><strong>${state.dispos.map(d=>dispoLabels[d]||d).join(', ')}</strong></div>`;
+  }
+
+  // ── Soumission ──
+  $('psubmitBtn')?.addEventListener('click', async ()=>{
+    const pseudo = $('ppseudo')?.value.trim() || '';
+    const prenom = $('ppresnom')?.value.trim() || '';
+    const email  = $('pemail')?.value.trim()  || '';
+    if(!pseudo){ fieldErr('ppseudo','Veuillez saisir votre pseudo Discord.',true); return; }
+    fieldErr('ppseudo','',false);
+    state.pseudo = pseudo; state.prenom = prenom; state.email = email;
+
+    const btn = $('psubmitBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours…';
+
+    const payload = {
+      _subject: `[Atelier proposé] ${state.subject}`,
+      Sujet:          state.subject,
+      Description:    state.desc,
+      Niveau:         levelLabels[state.level] || state.level,
+      Format:         formatLabels[state.format] || state.format,
+      Disponibilités: state.dispos.map(d=>dispoLabels[d]||d).join(', '),
+      Discord:        pseudo,
+      Prénom:         prenom || '(non renseigné)',
+      Email:          email  || '(non renseigné)',
+    };
+
+    try {
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ATELIER_ID}`, {
+        method:'POST',
+        headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body: JSON.stringify(payload)
+      });
+
+      if(res.ok){
+        $('proposerForm').classList.add('hidden');
+        const successEl = $('proposerSuccess');
+        successEl.classList.remove('hidden');
+        $('psuccess-name').textContent   = prenom || 'vous';
+        $('psuccess-pseudo').textContent = pseudo;
+        // Confetti 🎉
+        if(typeof confetti==='function'){
+          confetti({ particleCount:100, spread:70, origin:{y:0.6}, colors:['#2ecc71','#6c3fc5','#60a5fa','#e67e22'] });
+        }
+      } else {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-paper-plane"></i> Envoyer ma proposition';
+        alert('Une erreur est survenue. Vérifiez votre connexion et réessayez.');
+      }
+    } catch(e){
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-paper-plane"></i> Envoyer ma proposition';
+      alert('Impossible de contacter le serveur. Vérifiez votre connexion.');
+    }
+  });
+
+  // ── Réinitialiser ──
+  $('proposerReset')?.addEventListener('click', ()=>{
+    ['psubject','pdesc','ppseudo','ppresnom','pemail'].forEach(id=>{ const el=$(id); if(el) el.value=''; });
+    const levelEl=$('plevel'); if(levelEl) levelEl.value='';
+    $('pformat').value='';
+    document.querySelectorAll('.format-card').forEach(c=>c.classList.remove('selected'));
+    document.querySelectorAll('input[name="dispo"]').forEach(c=>c.checked=false);
+    if(psubjectCount) psubjectCount.textContent='0 / 80';
+    $('proposerSuccess').classList.add('hidden');
+    $('proposerForm').classList.remove('hidden');
+    showStep(1);
+  });
+
+})();
 
 /* ── RÉSEAU TABS FILTER ───────────────────────────── */
 (function(){

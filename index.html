@@ -96,6 +96,7 @@
     <a href="#temoignages">Témoignages</a>
     <a href="#reseau">Réseau</a>
     <a href="#hackathon">Hackathon</a>
+    <a href="#proposer">Proposer</a>
     <a href="#faq">FAQ</a>
     <a href="#contact">Contact</a>
     <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="nav-disc"><i class="fab fa-discord"></i> Rejoindre</a>
@@ -116,6 +117,7 @@
   <a href="#temoignages" onclick="closeMobile()"><i class="fas fa-quote-left"></i> Témoignages</a>
   <a href="#reseau" onclick="closeMobile()"><i class="fas fa-network-wired"></i> Réseau</a>
   <a href="#hackathon" onclick="closeMobile()"><i class="fas fa-trophy"></i> Hackathon</a>
+  <a href="#proposer" onclick="closeMobile()"><i class="fas fa-lightbulb"></i> Proposer un atelier</a>
   <a href="#faq" onclick="closeMobile()"><i class="fas fa-question-circle"></i> FAQ</a>
   <a href="#contact" onclick="closeMobile()"><i class="fas fa-envelope"></i> Contact</a>
   <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="mob-disc"><i class="fab fa-discord"></i> Rejoindre le Discord</a>
@@ -620,6 +622,196 @@
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ══ PROPOSER UN ATELIER ════════════════════════════ -->
+<section id="proposer">
+  <div class="section-inner">
+    <div class="section-label">Contribuer à la communauté</div>
+    <h2 class="section-title">Proposer un <em>atelier</em></h2>
+    <p class="section-desc">Une idée de sujet à explorer ensemble ? Remplissez ce formulaire et l'équipe reviendra vers vous sur Discord pour co-construire la session.</p>
+
+    <div class="proposer-layout">
+
+      <!-- Panneau gauche : pourquoi proposer -->
+      <div class="proposer-info">
+        <div class="proposer-why">
+          <h3><i class="fas fa-star" style="color:var(--aed-orange)"></i> Pourquoi proposer ?</h3>
+          <ul class="proposer-why-list">
+            <li><i class="fas fa-check-circle"></i> Partager votre expertise ou curiosité</li>
+            <li><i class="fas fa-check-circle"></i> Faire monter la communauté en compétences</li>
+            <li><i class="fas fa-check-circle"></i> Tous les niveaux sont les bienvenus</li>
+            <li><i class="fas fa-check-circle"></i> Vous êtes accompagné·e pour préparer la session</li>
+            <li><i class="fas fa-check-circle"></i> L'atelier est annoncé sur Discord &amp; le site</li>
+          </ul>
+        </div>
+        <div class="proposer-ideas">
+          <h3><i class="fas fa-lightbulb" style="color:var(--aed-green)"></i> Idées de sujets</h3>
+          <div class="ideas-grid">
+            <span class="idea-tag">Git & GitHub</span>
+            <span class="idea-tag">Figma</span>
+            <span class="idea-tag">Linux</span>
+            <span class="idea-tag">Accessibilité web</span>
+            <span class="idea-tag">API REST</span>
+            <span class="idea-tag">No-code</span>
+            <span class="idea-tag">Sécurité</span>
+            <span class="idea-tag">IA générative</span>
+            <span class="idea-tag">Python</span>
+            <span class="idea-tag">CSS avancé</span>
+            <span class="idea-tag">Votre idée →</span>
+          </div>
+        </div>
+        <div class="proposer-stat-row">
+          <div class="proposer-stat">
+            <span class="pstat-num">8+</span>
+            <span class="pstat-label">Ateliers organisés</span>
+          </div>
+          <div class="proposer-stat">
+            <span class="pstat-num">~15</span>
+            <span class="pstat-label">Participants en moyenne</span>
+          </div>
+          <div class="proposer-stat">
+            <span class="pstat-num">100%</span>
+            <span class="pstat-label">Gratuit & bienveillant</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panneau droit : formulaire -->
+      <div class="proposer-form-box">
+
+        <!-- Étapes -->
+        <div class="proposer-steps" id="proposerSteps">
+          <div class="pstep active" data-step="1"><span class="pstep-num">1</span><span class="pstep-label">Le sujet</span></div>
+          <div class="pstep-line"></div>
+          <div class="pstep" data-step="2"><span class="pstep-num">2</span><span class="pstep-label">Le format</span></div>
+          <div class="pstep-line"></div>
+          <div class="pstep" data-step="3"><span class="pstep-num">3</span><span class="pstep-label">Vous</span></div>
+        </div>
+
+        <div id="proposerForm">
+
+          <!-- ÉTAPE 1 : sujet -->
+          <div class="pform-step" id="pstep1">
+            <h4 class="pstep-title">Quel sujet souhaitez-vous proposer ?</h4>
+            <div class="fg">
+              <label for="psubject">Titre de l'atelier <span class="req">*</span></label>
+              <input type="text" id="psubject" placeholder="ex : Introduction à Docker, Accessibilité web…" maxlength="80" autocomplete="off"/>
+              <span class="field-err" id="perr-psubject">Veuillez saisir un titre (3 caractères min.).</span>
+              <span class="char-counter" id="psubject-count">0 / 80</span>
+            </div>
+            <div class="fg">
+              <label for="pdesc">Description &amp; objectifs <span class="req">*</span></label>
+              <textarea id="pdesc" placeholder="Décrivez l'atelier en quelques lignes : de quoi ça parle, ce que les participants vont apprendre, pourquoi ce sujet vous tient à cœur…" rows="5"></textarea>
+              <span class="field-err" id="perr-pdesc">Veuillez écrire une description (20 caractères min.).</span>
+            </div>
+            <div class="fg">
+              <label for="plevel">Niveau ciblé <span class="req">*</span></label>
+              <select id="plevel">
+                <option value="">— Choisissez un niveau —</option>
+                <option value="debutant">Débutant — aucune connaissance préalable</option>
+                <option value="intermediaire">Intermédiaire — quelques bases nécessaires</option>
+                <option value="avance">Avancé — profil technique confirmé</option>
+                <option value="tous">Tous niveaux — accessible à tout le monde</option>
+              </select>
+              <span class="field-err" id="perr-plevel">Veuillez choisir un niveau.</span>
+            </div>
+            <div class="pform-nav">
+              <span></span>
+              <button class="pbtn-next" id="pnext1">Suivant <i class="fas fa-arrow-right"></i></button>
+            </div>
+          </div>
+
+          <!-- ÉTAPE 2 : format -->
+          <div class="pform-step hidden" id="pstep2">
+            <h4 class="pstep-title">Comment imaginez-vous cet atelier ?</h4>
+            <div class="fg">
+              <label>Format souhaité <span class="req">*</span></label>
+              <div class="format-cards" id="pformatCards">
+                <div class="format-card" data-value="en-ligne">
+                  <i class="fas fa-video"></i>
+                  <strong>En ligne</strong>
+                  <span>Via Discord ou visio</span>
+                </div>
+                <div class="format-card" data-value="presentiel">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <strong>En présentiel</strong>
+                  <span>Dans l'Eure</span>
+                </div>
+                <div class="format-card" data-value="hybride">
+                  <i class="fas fa-laptop-house"></i>
+                  <strong>Hybride</strong>
+                  <span>Les deux à la fois</span>
+                </div>
+                <div class="format-card" data-value="peu-importe">
+                  <i class="fas fa-random"></i>
+                  <strong>Peu importe</strong>
+                  <span>Au choix de l'asso</span>
+                </div>
+              </div>
+              <input type="hidden" id="pformat" value=""/>
+              <span class="field-err" id="perr-pformat">Veuillez choisir un format.</span>
+            </div>
+            <div class="fg">
+              <label for="pdispo">Vos disponibilités <span class="req">*</span></label>
+              <div class="dispo-checkboxes" id="pdispoGroup">
+                <label class="dispo-check"><input type="checkbox" value="semaine-soir" name="dispo"> Soirs en semaine (après 18h)</label>
+                <label class="dispo-check"><input type="checkbox" value="samedi-aprem" name="dispo"> Samedi après-midi</label>
+                <label class="dispo-check"><input type="checkbox" value="samedi-matin" name="dispo"> Samedi matin</label>
+                <label class="dispo-check"><input type="checkbox" value="dimanche" name="dispo"> Dimanche</label>
+                <label class="dispo-check"><input type="checkbox" value="flexible" name="dispo"> Flexible / à définir</label>
+              </div>
+              <span class="field-err" id="perr-pdispo">Veuillez cocher au moins une disponibilité.</span>
+            </div>
+            <div class="pform-nav">
+              <button class="pbtn-back" id="pback2"><i class="fas fa-arrow-left"></i> Retour</button>
+              <button class="pbtn-next" id="pnext2">Suivant <i class="fas fa-arrow-right"></i></button>
+            </div>
+          </div>
+
+          <!-- ÉTAPE 3 : vous -->
+          <div class="pform-step hidden" id="pstep3">
+            <h4 class="pstep-title">Qui êtes-vous ?</h4>
+            <div class="fg">
+              <label for="ppseudo">Pseudo Discord <span class="req">*</span></label>
+              <input type="text" id="ppseudo" placeholder="ex : marie_dev ou marie#1234" autocomplete="off"/>
+              <span class="field-err" id="perr-ppseudo">Veuillez saisir votre pseudo Discord.</span>
+              <small class="field-hint"><i class="fab fa-discord"></i> On vous contactera sur Discord pour discuter de l'atelier.</small>
+            </div>
+            <div class="fg">
+              <label for="ppresnom">Prénom (optionnel)</label>
+              <input type="text" id="ppresnom" placeholder="Marie" autocomplete="given-name"/>
+            </div>
+            <div class="fg">
+              <label for="pemail">E-mail (optionnel)</label>
+              <input type="email" id="pemail" placeholder="marie@exemple.fr" autocomplete="email"/>
+              <small class="field-hint">Uniquement si vous préférez être contacté·e par mail.</small>
+            </div>
+
+            <!-- Récap -->
+            <div class="proposer-recap" id="proposerRecap"></div>
+
+            <div class="pform-nav">
+              <button class="pbtn-back" id="pback3"><i class="fas fa-arrow-left"></i> Retour</button>
+              <button class="pbtn-submit" id="psubmitBtn">
+                <i class="fas fa-paper-plane"></i> Envoyer ma proposition
+              </button>
+            </div>
+          </div>
+
+        </div><!-- /#proposerForm -->
+
+        <!-- Succès -->
+        <div class="proposer-success hidden" id="proposerSuccess">
+          <div class="psuccess-icon">🎉</div>
+          <h4>Proposition envoyée !</h4>
+          <p>Merci <strong id="psuccess-name"></strong> ! L'équipe va lire votre idée et vous recontactera sur Discord (<strong id="psuccess-pseudo"></strong>) très prochainement pour co-construire l'atelier ensemble.</p>
+          <button class="pbtn-reset" id="proposerReset"><i class="fas fa-plus"></i> Proposer un autre atelier</button>
+        </div>
+
+      </div><!-- /.proposer-form-box -->
+    </div><!-- /.proposer-layout -->
   </div>
 </section>
 
