@@ -38,6 +38,40 @@
 </head>
 <body>
 
+<!-- ══ BANNIÈRE RGPD ═══════════════════════════════════ -->
+<div id="cookieBanner" class="cookie-banner" role="dialog" aria-label="Consentement cookies" aria-live="polite">
+  <div class="cookie-inner">
+    <div class="cookie-text">
+      <span class="cookie-ico">🍪</span>
+      <div>
+        <strong>Ce site respecte votre vie privée</strong>
+        <p>Nous n'utilisons aucun cookie tiers ni analytics. Seules des données techniques indispensables au bon fonctionnement du site (préférence de thème) sont stockées localement sur votre appareil.</p>
+      </div>
+    </div>
+    <div class="cookie-actions">
+      <button class="cookie-btn-ok" id="cookieAccept">J'ai compris ✓</button>
+      <button class="cookie-btn-more" id="cookieMore">En savoir plus</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL ATELIER ════════════════════════════════════ -->
+<div id="eventModal" class="event-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+  <div class="event-modal">
+    <button class="modal-close" id="modalClose" aria-label="Fermer"><i class="fas fa-times"></i></button>
+    <div class="modal-type-badge" id="modalBadge"></div>
+    <h3 class="modal-title" id="modalTitle"></h3>
+    <div class="modal-date" id="modalDate"></div>
+    <p class="modal-desc" id="modalDesc"></p>
+    <div class="modal-meta" id="modalMeta"></div>
+    <div class="modal-actions">
+      <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="modal-btn-discord">
+        <i class="fab fa-discord"></i> Rejoindre sur Discord
+      </a>
+    </div>
+  </div>
+</div>
+
 <!-- Read progress bar -->
 <div id="read-progress"></div>
 
@@ -139,6 +173,12 @@
       <!-- Agenda dynamique -->
       <div class="agenda-card">
         <div class="agenda-title"><i class="fas fa-calendar-check"></i> Prochains événements</div>
+        <div class="agenda-filters" id="agendaFilters">
+          <button class="agenda-filter-btn active" data-type="all">Tous</button>
+          <button class="agenda-filter-btn" data-type="permanence"><i class="fas fa-headset"></i> Permanence</button>
+          <button class="agenda-filter-btn" data-type="atelier"><i class="fas fa-chalkboard-teacher"></i> Atelier</button>
+          <button class="agenda-filter-btn" data-type="hackathon"><i class="fas fa-trophy"></i> Hackathon</button>
+        </div>
         <div class="agenda-list" id="agendaList"></div>
       </div>
     </div>
@@ -374,6 +414,29 @@
         <div class="section-label">20 au 22 Juillet 2026</div>
         <h2 class="section-title">Hackathon <em style="color:var(--aed-orange)">Associatif</em></h2>
         <p class="section-desc">Quatre jours pour imaginer, prototyper et présenter des projets numériques à impact local, en équipe et dans l'esprit open source.</p>
+        <!-- Compte à rebours -->
+        <div class="hackathon-countdown" id="hackathonCountdown">
+          <div class="countdown-label"><i class="fas fa-clock"></i> Temps restant avant le hackathon</div>
+          <div class="countdown-timer">
+            <div class="countdown-unit"><span class="countdown-num" id="cdDays">--</span><span class="countdown-unit-label">jours</span></div>
+            <div class="countdown-sep">:</div>
+            <div class="countdown-unit"><span class="countdown-num" id="cdHours">--</span><span class="countdown-unit-label">heures</span></div>
+            <div class="countdown-sep">:</div>
+            <div class="countdown-unit"><span class="countdown-num" id="cdMinutes">--</span><span class="countdown-unit-label">min</span></div>
+            <div class="countdown-sep">:</div>
+            <div class="countdown-unit"><span class="countdown-num" id="cdSeconds">--</span><span class="countdown-unit-label">sec</span></div>
+          </div>
+        </div>
+        <!-- Boutons de partage social -->
+        <div class="hackathon-share">
+          <span class="share-label"><i class="fas fa-share-alt"></i> Partager l'événement</span>
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Faleuredigitale.netlify.app%2F%23hackathon&title=Hackathon%20Associatif%20%E2%80%94%20%C3%80%20l%E2%80%99Eure%20Digitale&summary=Rejoignez%20le%20Hackathon%20Associatif%20du%2020%20au%2022%20juillet%202026%20en%20Normandie%20!%20Projets%20open%20source%2C%20%C3%A9quipes%20pluridisciplinaires%2C%20impact%20local." target="_blank" rel="noopener" class="share-btn share-linkedin" aria-label="Partager sur LinkedIn">
+            <i class="fab fa-linkedin-in"></i> LinkedIn
+          </a>
+          <a href="https://twitter.com/intent/tweet?text=🏆%20Hackathon%20Associatif%20%E2%80%94%20À%20l%E2%80%99Eure%20Digitale%20%7C%2020-22%20juillet%202026%20en%20Normandie%20!%20Projets%20numériques%20open%20source%20à%20impact%20local.%20Rejoins-nous%20!&url=https%3A%2F%2Faleuredigitale.netlify.app%2F%23hackathon" target="_blank" rel="noopener" class="share-btn share-twitter" aria-label="Partager sur X / Twitter">
+            <i class="fab fa-x-twitter"></i> Twitter / X
+          </a>
+        </div>
       </div>
       <div class="hackathon-date-card">
         <div class="date-num">20–22</div>
@@ -727,6 +790,8 @@
 
 <!-- ══ LEAFLET ════════════════════════════════════════ -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<!-- canvas-confetti -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

@@ -248,6 +248,12 @@ async function submitForm(e){
     if(res.ok){
       document.getElementById('contactForm').style.display = 'none';
       document.getElementById('formSuccess').classList.add('show');
+      // 🎉 Confetti !
+      if(typeof confetti === 'function'){
+        confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 }, colors: ['#2ecc71','#6c3fc5','#60a5fa','#e67e22','#fff'] });
+        setTimeout(()=>confetti({ particleCount: 60, angle: 120, spread: 55, origin: { x: 0, y: 0.65 }, colors:['#2ecc71','#a78bfa'] }), 300);
+        setTimeout(()=>confetti({ particleCount: 60, angle: 60, spread: 55, origin: { x: 1, y: 0.65 }, colors:['#60a5fa','#e67e22'] }), 500);
+      }
     } else {
       const data = await res.json();
       const msg = data.errors ? data.errors.map(e=>e.message).join(', ') : 'Erreur inconnue.';
@@ -435,12 +441,10 @@ function filterFaq(query){
   const list = document.getElementById('agendaList');
   if(!list) return;
 
-  // Génère les N prochains samedis à partir d'aujourd'hui
   function nextSaturdays(n){
     const dates = [];
     const d = new Date();
     d.setHours(0,0,0,0);
-    // Avance jusqu'au prochain samedi (6 = samedi)
     const daysUntilSat = (6 - d.getDay() + 7) % 7 || 7;
     d.setDate(d.getDate() + daysUntilSat);
     for(let i = 0; i < n; i++){
@@ -452,37 +456,131 @@ function filterFaq(query){
 
   const MOIS = ['jan.','fév.','mar.','avr.','mai','juin','juil.','août','sep.','oct.','nov.','déc.'];
 
-  // Permanences : 2 prochains samedis
   const samedis = nextSaturdays(2);
   const events = samedis.map(d => ({
     label: 'Sam.',
     date: `${d.getDate()} ${MOIS[d.getMonth()]}`,
     title: 'Permanence numérique',
-    detail: '14h–16h · En ligne · Gratuit'
+    detail: '14h–16h · En ligne · Gratuit',
+    type: 'permanence',
+    description: 'Rendez-vous hebdomadaire en ligne chaque samedi de 14h à 16h. Posez vos questions tech, obtenez de l\'aide sur un projet, ou discutez simplement avec d\'autres membres. Aucune inscription, accès libre et gratuit.',
+    niveau: 'Tous niveaux',
+    discord: 'https://discord.gg/yHCAgYKwk',
+    fullDate: d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'})
   }));
 
-  // Hackathon fixe (août 2026) — à mettre à jour manuellement après l'événement
-  const hackathon = new Date('2026-08-27');
-  if(hackathon > new Date()){
+  // Atelier exemple
+  const nextMonth = new Date();
+  nextMonth.setDate(nextMonth.getDate() + 18);
+  events.push({
+    label: MOIS[nextMonth.getMonth()],
+    date: `${nextMonth.getDate()}`,
+    title: 'Atelier Git & GitHub',
+    detail: '18h–20h · En ligne · Gratuit',
+    type: 'atelier',
+    description: 'Apprenez à versionner vos projets avec Git et à collaborer sur GitHub. Au programme : branches, pull requests, résolution de conflits. Idéal pour les débutants comme pour ceux souhaitant consolider leurs bases.',
+    niveau: 'Débutant / Intermédiaire',
+    discord: 'https://discord.gg/yHCAgYKwk',
+    fullDate: nextMonth.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'})
+  });
+
+  // Hackathon fixe
+  const hackDate = new Date('2026-07-20');
+  if(hackDate > new Date()){
     events.push({
-      label: 'Août',
-      date: '27–30',
+      label: 'Juil.',
+      date: '20–22',
       title: 'Hackathon Associatif',
-      detail: 'En présentiel · Tous profils'
+      detail: 'En présentiel · Tous profils',
+      type: 'hackathon',
+      description: 'Trois jours pour imaginer, prototyper et présenter des projets numériques à impact local, en équipe et dans l\'esprit open source. Mentors présents, ambiance bienveillante, projets publiés en open source.',
+      niveau: 'Tous profils',
+      discord: 'https://discord.gg/yHCAgYKwk',
+      fullDate: '20 au 22 juillet 2026'
     });
   }
 
-  events.forEach(ev=>{
-    list.insertAdjacentHTML('beforeend',`
-      <div class="agenda-event">
-        <div class="agenda-date">${ev.label}<br>${ev.date}</div>
+  const typeConfig = {
+    permanence: { color: '#2ecc71', icon: 'fa-headset',          label: 'Permanence' },
+    atelier:    { color: '#6c3fc5', icon: 'fa-chalkboard-teacher', label: 'Atelier' },
+    hackathon:  { color: '#e67e22', icon: 'fa-trophy',            label: 'Hackathon' },
+  };
+
+  function renderEvents(filter){
+    list.innerHTML = '';
+    const filtered = filter === 'all' ? events : events.filter(ev => ev.type === filter);
+    if(filtered.length === 0){
+      list.innerHTML = '<p style="font-size:.8rem;color:var(--text-muted);text-align:center;padding:12px 0;">Aucun événement dans cette catégorie.</p>';
+      return;
+    }
+    filtered.forEach((ev, idx)=>{
+      const cfg = typeConfig[ev.type] || typeConfig.permanence;
+      const el = document.createElement('div');
+      el.className = 'agenda-event';
+      el.setAttribute('role','button');
+      el.setAttribute('tabindex','0');
+      el.setAttribute('aria-label',`${ev.title} — ${ev.date} — Cliquer pour les détails`);
+      el.dataset.idx = events.indexOf(ev);
+      el.innerHTML = `
+        <div class="agenda-date" style="background:${cfg.color}">${ev.label}<br>${ev.date}</div>
         <div class="agenda-info">
           <strong>${ev.title}</strong>
           <span>${ev.detail}</span>
         </div>
-      </div>`);
+        <div class="agenda-type-pill" style="background:${cfg.color}20;color:${cfg.color};border:1px solid ${cfg.color}40;">
+          <i class="fas ${cfg.icon}"></i> ${cfg.label}
+        </div>
+        <div class="agenda-chevron"><i class="fas fa-chevron-right"></i></div>`;
+      el.addEventListener('click', ()=> openEventModal(events[el.dataset.idx]));
+      el.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openEventModal(events[el.dataset.idx]); }});
+      list.appendChild(el);
+    });
+  }
+
+  // Filter buttons
+  document.querySelectorAll('.agenda-filter-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.agenda-filter-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      renderEvents(btn.dataset.type);
+    });
   });
+
+  renderEvents('all');
 })();
+
+/* ── MODAL ÉVÉNEMENT ─────────────────────────────────── */
+function openEventModal(ev){
+  const modal   = document.getElementById('eventModal');
+  const cfg     = { permanence:{color:'#2ecc71',icon:'fa-headset',label:'Permanence'}, atelier:{color:'#6c3fc5',icon:'fa-chalkboard-teacher',label:'Atelier'}, hackathon:{color:'#e67e22',icon:'fa-trophy',label:'Hackathon'} };
+  const c       = cfg[ev.type] || cfg.permanence;
+
+  document.getElementById('modalBadge').innerHTML = `<i class="fas ${c.icon}"></i> ${c.label}`;
+  document.getElementById('modalBadge').style.cssText = `background:${c.color}20;color:${c.color};border:1px solid ${c.color}50;`;
+  document.getElementById('modalTitle').textContent  = ev.title;
+  document.getElementById('modalDate').innerHTML     = `<i class="fas fa-calendar-alt"></i> ${ev.fullDate} &nbsp;·&nbsp; ${ev.detail}`;
+  document.getElementById('modalDesc').textContent   = ev.description;
+  document.getElementById('modalMeta').innerHTML     = `
+    <div class="modal-meta-item"><i class="fas fa-signal"></i><span>Niveau requis : <strong>${ev.niveau}</strong></span></div>
+    <div class="modal-meta-item"><i class="fab fa-discord"></i><span>Accès via <strong>Discord</strong> — lien dans le canal #événements</span></div>`;
+
+  modal.hidden = false;
+  document.body.style.overflow = 'hidden';
+  setTimeout(()=>modal.classList.add('open'),10);
+  document.getElementById('modalClose').focus();
+}
+
+function closeEventModal(){
+  const modal = document.getElementById('eventModal');
+  modal.classList.remove('open');
+  setTimeout(()=>{ modal.hidden = true; document.body.style.overflow = ''; }, 280);
+}
+
+document.getElementById('modalClose').addEventListener('click', closeEventModal);
+document.getElementById('eventModal').addEventListener('click', e=>{
+  if(e.target === document.getElementById('eventModal')) closeEventModal();
+});
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeEventModal(); });
 
 /* ── PREFERS-REDUCED-MOTION ───────────────────────── */
 if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
@@ -510,5 +608,106 @@ window.addEventListener('scroll',()=>{
         if(show) card.classList.add('scroll-reveal-visible');
       });
     });
+  });
+})();
+
+/* ── FAQ KEYBOARD NAVIGATION ──────────────────────── */
+(function initFaqKeyboard(){
+  const faqList = document.querySelector('.faq-list');
+  if(!faqList) return;
+
+  function getVisibleItems(){
+    return Array.from(faqList.querySelectorAll('.faq-item')).filter(el=>el.style.display!=='none');
+  }
+
+  // Make items focusable
+  function updateFocusable(){
+    getVisibleItems().forEach((item,i)=>{
+      const q = item.querySelector('.faq-q');
+      q.setAttribute('tabindex','0');
+      q.setAttribute('aria-expanded', item.classList.contains('open') ? 'true' : 'false');
+      q.setAttribute('role','button');
+    });
+  }
+  updateFocusable();
+
+  // Keyboard handler on the faq-list container
+  faqList.addEventListener('keydown', e=>{
+    const items = getVisibleItems();
+    const focused = document.activeElement?.closest('.faq-item');
+    if(!focused) return;
+    const idx = items.indexOf(focused);
+
+    if(e.key === 'ArrowDown'){
+      e.preventDefault();
+      const next = items[idx + 1];
+      if(next) next.querySelector('.faq-q').focus();
+    } else if(e.key === 'ArrowUp'){
+      e.preventDefault();
+      const prev = items[idx - 1];
+      if(prev) prev.querySelector('.faq-q').focus();
+    } else if(e.key === 'Enter' || e.key === ' '){
+      e.preventDefault();
+      focused.querySelector('.faq-q').click();
+    } else if(e.key === 'Home'){
+      e.preventDefault();
+      items[0]?.querySelector('.faq-q').focus();
+    } else if(e.key === 'End'){
+      e.preventDefault();
+      items[items.length-1]?.querySelector('.faq-q').focus();
+    }
+  });
+
+  // Update aria-expanded when state changes
+  faqList.addEventListener('click', ()=>{ setTimeout(updateFocusable, 50); });
+  // Re-run after FAQ filter
+  const origFilter = window.filterFaq;
+  window.filterFaq = function(q){ origFilter(q); setTimeout(updateFocusable, 50); };
+})();
+
+/* ── COMPTE À REBOURS HACKATHON ───────────────────── */
+(function initCountdown(){
+  const target = new Date('2026-07-20T00:00:00');
+  const cdEl = document.getElementById('hackathonCountdown');
+  if(!cdEl) return;
+
+  function pad(n){ return String(n).padStart(2,'0'); }
+
+  function tick(){
+    const now  = new Date();
+    const diff = target - now;
+    if(diff <= 0){
+      cdEl.innerHTML = '<div class="countdown-over">🎉 Le hackathon a débuté — rejoignez-nous !</div>';
+      return;
+    }
+    const days  = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins  = Math.floor((diff % 3600000) / 60000);
+    const secs  = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cdDays').textContent    = days;
+    document.getElementById('cdHours').textContent   = pad(hours);
+    document.getElementById('cdMinutes').textContent = pad(mins);
+    document.getElementById('cdSeconds').textContent = pad(secs);
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+
+/* ── BANNIÈRE RGPD ────────────────────────────────── */
+(function initCookieBanner(){
+  const banner = document.getElementById('cookieBanner');
+  if(!banner) return;
+  if(localStorage.getItem('aed-rgpd-ok')) return;
+
+  setTimeout(()=>banner.classList.add('show'), 1200);
+
+  document.getElementById('cookieAccept').addEventListener('click',()=>{
+    localStorage.setItem('aed-rgpd-ok','1');
+    banner.classList.remove('show');
+    setTimeout(()=>banner.remove(), 400);
+  });
+
+  document.getElementById('cookieMore').addEventListener('click',()=>{
+    alert('À l\'Eure Digitale ne dépose aucun cookie tiers ni tracker. Seule votre préférence de thème (clair/sombre) est sauvegardée dans localStorage de votre navigateur. Aucune donnée n\'est transmise à des tiers.');
   });
 })();
