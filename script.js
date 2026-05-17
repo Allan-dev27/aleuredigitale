@@ -494,3 +494,21 @@ const totop = document.getElementById('totop');
 window.addEventListener('scroll',()=>{
   totop.classList.toggle('show', window.scrollY > 400);
 });
+
+/* ── RÉSEAU TABS FILTER ───────────────────────────── */
+(function(){
+  const tabs  = document.querySelectorAll('.reseau-tab');
+  const cards = document.querySelectorAll('.reseau-card[data-cat]');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const filter = tab.dataset.filter;
+      cards.forEach(card => {
+        const show = filter === 'all' || card.dataset.cat === filter;
+        card.style.display = show ? '' : 'none';
+        if(show) card.classList.add('scroll-reveal-visible');
+      });
+    });
+  });
+})();

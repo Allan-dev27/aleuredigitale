@@ -60,6 +60,7 @@
   <div class="nav-links">
     <a href="#about">Association</a>
     <a href="#temoignages">Témoignages</a>
+    <a href="#reseau">Réseau</a>
     <a href="#hackathon">Hackathon</a>
     <a href="#faq">FAQ</a>
     <a href="#contact">Contact</a>
@@ -79,6 +80,7 @@
 <div class="nav-mobile" id="navMobile">
   <a href="#about" onclick="closeMobile()"><i class="fas fa-info-circle"></i> Association</a>
   <a href="#temoignages" onclick="closeMobile()"><i class="fas fa-quote-left"></i> Témoignages</a>
+  <a href="#reseau" onclick="closeMobile()"><i class="fas fa-network-wired"></i> Réseau</a>
   <a href="#hackathon" onclick="closeMobile()"><i class="fas fa-trophy"></i> Hackathon</a>
   <a href="#faq" onclick="closeMobile()"><i class="fas fa-question-circle"></i> FAQ</a>
   <a href="#contact" onclick="closeMobile()"><i class="fas fa-envelope"></i> Contact</a>
@@ -230,6 +232,135 @@
       </div>
       <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="btn-discord-big"><i class="fab fa-discord"></i> Rejoindre le serveur</a>
       <p class="discord-free"><i class="fas fa-check-circle"></i> 100% Gratuit · Sans inscription préalable</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ RÉSEAU ══════════════════════════════════════ -->
+<section id="reseau">
+  <div class="section-inner">
+    <div class="section-label">Réseau professionnel</div>
+    <h2 class="section-title">Le réseau des <em>talents</em></h2>
+    <p class="section-desc">Développeurs, designers, communicants… la communauté regroupe des profils complémentaires prêts à collaborer, s'entraider et co-construire des projets à impact local.</p>
+
+    <div class="reseau-tabs" id="reseauTabs">
+      <button class="reseau-tab active" data-filter="all">Tous les profils</button>
+      <button class="reseau-tab" data-filter="dev"><i class="fas fa-code"></i> Développeurs</button>
+      <button class="reseau-tab" data-filter="design"><i class="fas fa-pen-nib"></i> Designers</button>
+      <button class="reseau-tab" data-filter="com"><i class="fas fa-bullhorn"></i> Communicants</button>
+    </div>
+
+    <div class="reseau-grid" id="reseauGrid">
+
+      <!-- DEVS -->
+      <div class="reseau-card scroll-reveal" data-cat="dev">
+        <div class="reseau-avatar ra-blue">TL</div>
+        <div class="reseau-meta">
+          <strong>Thomas L.</strong>
+          <span class="reseau-role role-dev"><i class="fas fa-code"></i> Développeur Web</span>
+          <span class="reseau-loc"><i class="fas fa-map-marker-alt"></i> Évreux</span>
+        </div>
+        <div class="reseau-tags">
+          <span class="rtag">React</span><span class="rtag">Node.js</span><span class="rtag">PostgreSQL</span>
+        </div>
+        <p class="reseau-bio">Passionné de JAMstack et d'architecture serverless, je contribue aux projets open source de l'asso et aide les membres en reconversion.</p>
+        <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="reseau-cta"><i class="fab fa-discord"></i> Me contacter</a>
+      </div>
+
+      <div class="reseau-card scroll-reveal" data-cat="dev">
+        <div class="reseau-avatar ra-purple">AL</div>
+        <div class="reseau-meta">
+          <strong>Amina L.</strong>
+          <span class="reseau-role role-dev"><i class="fas fa-code"></i> Dev Fullstack</span>
+          <span class="reseau-loc"><i class="fas fa-map-marker-alt"></i> Le Neubourg</span>
+        </div>
+        <div class="reseau-tags">
+          <span class="rtag">Python</span><span class="rtag">Django</span><span class="rtag">Vue.js</span>
+        </div>
+        <p class="reseau-bio">Développeuse fullstack en reconversion depuis 2 ans, j'anime des ateliers d'initiation au code chaque mois au sein de l'association.</p>
+        <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="reseau-cta"><i class="fab fa-discord"></i> Me contacter</a>
+      </div>
+
+      <div class="reseau-card scroll-reveal" data-cat="dev">
+        <div class="reseau-avatar ra-teal">RB</div>
+        <div class="reseau-meta">
+          <strong>Raphaël B.</strong>
+          <span class="reseau-role role-dev"><i class="fas fa-code"></i> Dev Mobile</span>
+          <span class="reseau-loc"><i class="fas fa-map-marker-alt"></i> Saint-André-de-l'Eure</span>
+        </div>
+        <div class="reseau-tags">
+          <span class="rtag">Flutter</span><span class="rtag">Firebase</span><span class="rtag">Swift</span>
+        </div>
+        <p class="reseau-bio">Spécialisé en applications mobiles, je cherche à connecter les besoins des associations locales avec des solutions numériques concrètes.</p>
+        <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="reseau-cta"><i class="fab fa-discord"></i> Me contacter</a>
+      </div>
+
+      <!-- DESIGNERS -->
+      <div class="reseau-card scroll-reveal" data-cat="design">
+        <div class="reseau-avatar ra-orange">CM</div>
+        <div class="reseau-meta">
+          <strong>Clara M.</strong>
+          <span class="reseau-role role-design"><i class="fas fa-pen-nib"></i> UX/UI Designer</span>
+          <span class="reseau-loc"><i class="fas fa-map-marker-alt"></i> Évreux</span>
+        </div>
+        <div class="reseau-tags">
+          <span class="rtag">Figma</span><span class="rtag">Design System</span><span class="rtag">Accessibilité</span>
+        </div>
+        <p class="reseau-bio">Designer centrée utilisateur, je propose des revues UX gratuites aux projets de la communauté et anime des ateliers de wireframing.</p>
+        <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="reseau-cta"><i class="fab fa-discord"></i> Me contacter</a>
+      </div>
+
+      <div class="reseau-card scroll-reveal" data-cat="design">
+        <div class="reseau-avatar ra-green">NF</div>
+        <div class="reseau-meta">
+          <strong>Nicolas F.</strong>
+          <span class="reseau-role role-design"><i class="fas fa-pen-nib"></i> Graphiste</span>
+          <span class="reseau-loc"><i class="fas fa-map-marker-alt"></i> Bernay</span>
+        </div>
+        <div class="reseau-tags">
+          <span class="rtag">Illustrator</span><span class="rtag">Branding</span><span class="rtag">Motion</span>
+        </div>
+        <p class="reseau-bio">Graphiste indépendant, j'aide les associations et petites structures locales à se doter d'une identité visuelle cohérente et professionnelle.</p>
+        <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="reseau-cta"><i class="fab fa-discord"></i> Me contacter</a>
+      </div>
+
+      <!-- COMMUNICANTS -->
+      <div class="reseau-card scroll-reveal" data-cat="com">
+        <div class="reseau-avatar ra-pink">LR</div>
+        <div class="reseau-meta">
+          <strong>Léa R.</strong>
+          <span class="reseau-role role-com"><i class="fas fa-bullhorn"></i> Community Manager</span>
+          <span class="reseau-loc"><i class="fas fa-map-marker-alt"></i> Louviers</span>
+        </div>
+        <div class="reseau-tags">
+          <span class="rtag">Réseaux sociaux</span><span class="rtag">Newsletter</span><span class="rtag">Copywriting</span>
+        </div>
+        <p class="reseau-bio">CM depuis 5 ans, je partage mes méthodes pour aider les associations et porteurs de projet à gagner en visibilité digitale sans budget publicitaire.</p>
+        <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="reseau-cta"><i class="fab fa-discord"></i> Me contacter</a>
+      </div>
+
+      <div class="reseau-card scroll-reveal" data-cat="com">
+        <div class="reseau-avatar ra-blue">KD</div>
+        <div class="reseau-meta">
+          <strong>Karim D.</strong>
+          <span class="reseau-role role-com"><i class="fas fa-bullhorn"></i> Chargé de com'</span>
+          <span class="reseau-loc"><i class="fas fa-map-marker-alt"></i> Gisors</span>
+        </div>
+        <div class="reseau-tags">
+          <span class="rtag">SEO</span><span class="rtag">WordPress</span><span class="rtag">Analytics</span>
+        </div>
+        <p class="reseau-bio">Spécialisé en communication territoriale, j'aide les collectivités et associations à exploiter le potentiel du numérique pour toucher leurs publics.</p>
+        <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="reseau-cta"><i class="fab fa-discord"></i> Me contacter</a>
+      </div>
+
+    </div>
+
+    <div class="reseau-cta-block scroll-reveal">
+      <div class="rcta-text">
+        <h3>🤝 Vous faites partie du réseau ?</h3>
+        <p>Rejoignez le Discord et présentez-vous dans le canal <strong>#présentations</strong> — votre profil sera mis en avant ici prochainement.</p>
+      </div>
+      <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="btn-discord"><i class="fab fa-discord"></i> Rejoindre & me présenter</a>
     </div>
   </div>
 </section>
