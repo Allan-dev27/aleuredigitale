@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mentions légales — À l'Eure Digitale</title>
+  <meta name="description" content="Mentions légales de l'association À l'Eure Digitale — Association loi 1901, Normandie."/>
+  <meta name="robots" content="noindex, follow"/>
+  <link rel="canonical" href="https://aleuredigitale.netlify.app/mentions-legales.html"/>
+  <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    /* ── Styles spécifiques à la page mentions légales ── */
+    .ml-page {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 120px 24px 80px;
+    }
+    .ml-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-head);
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--aed-purple);
+      margin-bottom: 40px;
+      transition: gap .2s;
+    }
+    .ml-back:hover { gap: 12px; }
+    .ml-header {
+      margin-bottom: 48px;
+      padding-bottom: 32px;
+      border-bottom: 2px solid var(--border-card);
+    }
+    .ml-label {
+      display: inline-block;
+      font-family: var(--font-head);
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--aed-purple);
+      background: rgba(108,63,197,.1);
+      border: 1px solid rgba(108,63,197,.25);
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+    .ml-title {
+      font-family: var(--font-head);
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 800;
+      color: var(--text-heading);
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .ml-date {
+      font-size: .82rem;
+      color: var(--text-muted);
+      font-family: var(--font-head);
+    }
+    .ml-section {
+      margin-bottom: 40px;
+    }
+    .ml-section h2 {
+      font-family: var(--font-head);
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text-heading);
+      margin-bottom: 16px;
+      padding-left: 14px;
+      border-left: 3px solid var(--aed-purple);
+      line-height: 1.3;
+    }
+    .ml-section h3 {
+      font-family: var(--font-head);
+      font-size: .9rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      margin: 20px 0 10px;
+    }
+    .ml-section p, .ml-section li {
+      font-size: .9rem;
+      color: var(--text-main);
+      line-height: 1.8;
+    }
+    .ml-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0;
+    }
+    .ml-section ul li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 6px 0;
+    }
+    .ml-section ul li::before {
+      content: '→';
+      color: var(--aed-purple);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .ml-section a {
+      color: var(--aed-purple);
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .ml-section a:hover { color: var(--aed-blue); }
+    .ml-info-box {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-card);
+      border-radius: 14px;
+      padding: 24px 28px;
+      margin: 16px 0;
+    }
+    .ml-info-box strong {
+      display: block;
+      font-family: var(--font-head);
+      font-size: .8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .ml-info-row {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 10px;
+      font-size: .88rem;
+      color: var(--text-main);
+    }
+    .ml-info-row i {
+      color: var(--aed-purple);
+      width: 18px;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+    .ml-notice {
+      background: rgba(108,63,197,.06);
+      border: 1.5px solid rgba(108,63,197,.2);
+      border-radius: 12px;
+      padding: 16px 20px;
+      font-size: .85rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin: 16px 0;
+    }
+    .ml-notice i { color: var(--aed-purple); flex-shrink: 0; margin-top: 3px; }
+    .ml-divider {
+      border: none;
+      border-top: 1.5px solid var(--border-card);
+      margin: 36px 0;
+    }
+    /* Theme toggle on this page */
+    .ml-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 64px;
+      background: var(--bg-nav);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-nav);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      z-index: 1000;
+    }
+    .ml-nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--text-heading);
+      text-decoration: none;
+    }
+    .ml-nav-logo .lico {
+      font-size: .95rem;
+      font-weight: 900;
+      color: var(--aed-purple);
+      background: rgba(108,63,197,.12);
+      border-radius: 6px;
+      padding: 4px 7px;
+    }
+    .ml-footer-note {
+      margin-top: 60px;
+      padding-top: 28px;
+      border-top: 1.5px solid var(--border-card);
+      font-size: .8rem;
+      color: var(--text-muted);
+      text-align: center;
+      line-height: 1.7;
+    }
+    .ml-footer-note a { color: var(--aed-purple); font-weight: 600; }
+  </style>
+</head>
+<body>
+
+<!-- Mini navbar -->
+<nav class="ml-nav">
+  <a href="index.html" class="ml-nav-logo">
+    <span class="lico">&lt;/&gt;</span>
+    <span>À l'<span style="color:#60a5fa">Eure</span> <span style="color:#2ecc71">Digitale</span></span>
+  </a>
+  <button class="dark-btn" id="darkToggle" title="Changer le thème" aria-label="Mode sombre">
+    <i class="fas fa-moon" id="darkIcon"></i>
+  </button>
+</nav>
+
+<main class="ml-page">
+
+  <a href="index.html" class="ml-back">
+    <i class="fas fa-arrow-left"></i> Retour au site
+  </a>
+
+  <header class="ml-header">
+    <div class="ml-label"><i class="fas fa-landmark"></i> Légal</div>
+    <h1 class="ml-title">Mentions légales</h1>
+    <p class="ml-date">Dernière mise à jour : mai 2026</p>
+  </header>
+
+  <!-- 1. Identification -->
+  <div class="ml-section">
+    <h2>1. Identification de l'association</h2>
+    <div class="ml-info-box">
+      <strong>Éditeur du site</strong>
+      <div class="ml-info-row"><i class="fas fa-landmark"></i><span><strong>À l'Eure Digitale</strong> — Association loi 1901</span></div>
+      <div class="ml-info-row"><i class="fas fa-map-marker-alt"></i><span>Département de l'Eure, Normandie, France</span></div>
+      <div class="ml-info-row"><i class="fas fa-globe"></i><span>Site web : <a href="https://aleuredigitale.netlify.app/" target="_blank">aleuredigitale.netlify.app</a></span></div>
+      <div class="ml-info-row"><i class="fab fa-discord"></i><span>Discord : <a href="https://discord.gg/yHCAgYKwk" target="_blank">discord.gg/yHCAgYKwk</a></span></div>
+      <div class="ml-info-row"><i class="fab fa-github"></i><span>GitHub : <a href="https://github.com/aleuredigitale" target="_blank">github.com/aleuredigitale</a></span></div>
+    </div>
+    <div class="ml-notice">
+      <i class="fas fa-info-circle"></i>
+      <span>En tant qu'association loi 1901 sans activité commerciale, À l'Eure Digitale n'est pas assujettie à la TVA et ne dispose pas de numéro SIRET. Les statuts complets sont disponibles <a href="statuts.pdf" target="_blank">en téléchargement ici</a>.</span>
+    </div>
+  </div>
+
+  <hr class="ml-divider"/>
+
+  <!-- 2. Hébergement -->
+  <div class="ml-section">
+    <h2>2. Hébergement</h2>
+    <div class="ml-info-box">
+      <strong>Hébergeur</strong>
+      <div class="ml-info-row"><i class="fas fa-server"></i><span><strong>Netlify, Inc.</strong></span></div>
+      <div class="ml-info-row"><i class="fas fa-map-marker-alt"></i><span>512 2nd Street, Suite 200, San Francisco, CA 94107, États-Unis</span></div>
+      <div class="ml-info-row"><i class="fas fa-globe"></i><span><a href="https://www.netlify.com" target="_blank" rel="noopener">www.netlify.com</a></span></div>
+    </div>
+  </div>
+
+  <hr class="ml-divider"/>
+
+  <!-- 3. Propriété intellectuelle -->
+  <div class="ml-section">
+    <h2>3. Propriété intellectuelle</h2>
+    <p>L'ensemble des contenus présents sur ce site (textes, code source, visuels, structure) est la propriété de l'association À l'Eure Digitale et de ses contributeurs, sauf mention contraire.</p>
+    <h3>Licence du code source</h3>
+    <p>Le code source de ce site est publié sous licence <strong>MIT</strong> et disponible sur le <a href="https://github.com/aleuredigitale" target="_blank" rel="noopener">dépôt GitHub de l'association</a>. Toute réutilisation doit conserver la mention de l'auteur original.</p>
+    <h3>Contenus tiers</h3>
+    <ul>
+      <li>Icônes : <strong>Font Awesome 6</strong> — licence SIL OFL 1.1 pour les icônes, MIT pour le code</li>
+      <li>Typographies : <strong>Sora</strong> et <strong>Inter</strong> via Google Fonts — licence Open Font License</li>
+      <li>Cartographie : <strong>OpenStreetMap</strong> — © contributeurs OpenStreetMap, licence ODbL</li>
+    </ul>
+  </div>
+
+  <hr class="ml-divider"/>
+
+  <!-- 4. Données personnelles -->
+  <div class="ml-section">
+    <h2>4. Données personnelles et confidentialité</h2>
+    <p>À l'Eure Digitale s'engage à respecter la vie privée des utilisateurs conformément au <strong>Règlement Général sur la Protection des Données (RGPD)</strong> et à la loi Informatique et Libertés.</p>
+
+    <h3>Données collectées</h3>
+    <ul>
+      <li><strong>Formulaire de contact</strong> : prénom, nom, adresse e-mail et message — transmis via <a href="https://formspree.io" target="_blank" rel="noopener">Formspree</a> à l'adresse de l'association, non stockés sur nos serveurs.</li>
+      <li><strong>Formulaire de proposition d'atelier</strong> : sujet, description, pseudo Discord, prénom et e-mail (optionnels) — mêmes conditions.</li>
+      <li><strong>Préférence de thème</strong> (clair/sombre) : stockée dans le <code>localStorage</code> de votre navigateur, uniquement sur votre appareil, jamais transmise.</li>
+    </ul>
+
+    <h3>Absence de cookies tiers et de traceurs</h3>
+    <div class="ml-notice">
+      <i class="fas fa-shield-alt"></i>
+      <span>Ce site n'utilise <strong>aucun cookie tiers</strong>, aucun outil d'analyse (Google Analytics, etc.) ni aucun pixel publicitaire. Aucune donnée de navigation n'est collectée ou revendue.</span>
+    </div>
+
+    <h3>Droits des utilisateurs</h3>
+    <p>Conformément au RGPD, vous disposez des droits suivants sur vos données :</p>
+    <ul>
+      <li>Droit d'accès et de rectification</li>
+      <li>Droit à l'effacement (« droit à l'oubli »)</li>
+      <li>Droit à la limitation du traitement</li>
+      <li>Droit d'opposition</li>
+    </ul>
+    <p>Pour exercer ces droits, contactez-nous via le <a href="index.html#contact">formulaire de contact</a> ou directement sur le <a href="https://discord.gg/yHCAgYKwk" target="_blank" rel="noopener">serveur Discord</a>.</p>
+
+    <h3>Sous-traitants</h3>
+    <ul>
+      <li><strong>Formspree</strong> (<a href="https://formspree.io/legal/privacy-policy" target="_blank" rel="noopener">politique de confidentialité</a>) — traitement des formulaires</li>
+      <li><strong>Netlify</strong> (<a href="https://www.netlify.com/privacy/" target="_blank" rel="noopener">politique de confidentialité</a>) — hébergement</li>
+      <li><strong>Discord</strong> (<a href="https://discord.com/privacy" target="_blank" rel="noopener">politique de confidentialité</a>) — plateforme communautaire</li>
+    </ul>
+  </div>
+
+  <hr class="ml-divider"/>
+
+  <!-- 5. Responsabilité -->
+  <div class="ml-section">
+    <h2>5. Limitation de responsabilité</h2>
+    <p>L'association s'efforce de maintenir les informations publiées sur ce site à jour et exactes, mais ne saurait être tenue responsable des erreurs ou omissions éventuelles. Les liens vers des sites tiers sont fournis à titre indicatif ; l'association n'est pas responsable de leur contenu.</p>
+  </div>
+
+  <hr class="ml-divider"/>
+
+  <!-- 6. Accessibilité -->
+  <div class="ml-section">
+    <h2>6. Accessibilité</h2>
+    <p>Ce site vise à être accessible à tous les utilisateurs, y compris ceux utilisant des technologies d'assistance. Si vous rencontrez des difficultés d'accès à un contenu, merci de nous le signaler via le <a href="index.html#contact">formulaire de contact</a>.</p>
+    <ul>
+      <li>Navigation au clavier complète (FAQ, formulaires, modale)</li>
+      <li>Attributs <code>aria</code> sur les éléments interactifs</li>
+      <li>Mode sombre respectant les préférences système (<code>prefers-color-scheme</code>)</li>
+      <li>Animations respectant <code>prefers-reduced-motion</code></li>
+    </ul>
+  </div>
+
+  <hr class="ml-divider"/>
+
+  <!-- 7. Contact -->
+  <div class="ml-section">
+    <h2>7. Contact</h2>
+    <p>Pour toute question relative aux présentes mentions légales ou à la politique de confidentialité :</p>
+    <ul>
+      <li>Via le <a href="index.html#contact">formulaire de contact</a> du site</li>
+      <li>Sur le <a href="https://discord.gg/yHCAgYKwk" target="_blank" rel="noopener">serveur Discord</a> de l'association</li>
+    </ul>
+  </div>
+
+  <div class="ml-footer-note">
+    <p>© 2026 À l'Eure Digitale — Association loi 1901 — Normandie<br>
+    <a href="index.html">Retour au site</a> · <a href="statuts.pdf" target="_blank">Statuts</a> · <a href="https://github.com/aleuredigitale" target="_blank" rel="noopener">GitHub</a></p>
+  </div>
+
+</main>
+
+<script>
+  // Dark mode (minimal, sans dépendance)
+  const html = document.documentElement;
+  const darkBtn = document.getElementById('darkToggle');
+  const darkIcon = document.getElementById('darkIcon');
+  function applyTheme(t){
+    html.setAttribute('data-theme', t);
+    darkIcon.className = t === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    localStorage.setItem('aed-theme', t);
+  }
+  darkBtn.addEventListener('click', ()=>{
+    applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+  const saved = localStorage.getItem('aed-theme');
+  if(saved) applyTheme(saved);
+  else if(window.matchMedia('(prefers-color-scheme: dark)').matches) applyTheme('dark');
+</script>
+</body>
+</html>

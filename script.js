@@ -879,4 +879,13 @@ window.addEventListener('scroll',()=>{
   document.getElementById('cookieMore').addEventListener('click',()=>{
     alert('À l\'Eure Digitale ne dépose aucun cookie tiers ni tracker. Seule votre préférence de thème (clair/sombre) est sauvegardée dans localStorage de votre navigateur. Aucune donnée n\'est transmise à des tiers.');
   });
+
+  // Lien "Politique de confidentialité" dans le footer → même info
+  const footerRgpd = document.getElementById('footerRgpd');
+  if(footerRgpd){
+    footerRgpd.addEventListener('click', e=>{
+      e.preventDefault();
+      alert('À l\'Eure Digitale ne dépose aucun cookie tiers ni tracker. Seule votre préférence de thème (clair/sombre) est sauvegardée dans localStorage de votre navigateur. Aucune donnée n\'est transmise à des tiers. Pour plus d\'informations, consultez les mentions légales.');
+    });
+  }
 })();
