@@ -636,6 +636,89 @@
 .form-success p { font-size: .9rem; color: var(--text-muted, #718096); line-height: 1.7; max-width: 460px; margin: 0 auto; }
 
 /* ════════════════════════════════════════════════
+   NOTRE ÉQUIPE
+════════════════════════════════════════════════ */
+.equipe-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+@media (max-width: 1000px) { .equipe-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px)  { .equipe-grid { grid-template-columns: 1fr; } }
+
+.equipe-card {
+  background: var(--bg-card, #fff);
+  border: 1.5px solid var(--border-card, #dde6fa);
+  border-radius: 20px;
+  padding: 32px 24px 26px;
+  text-align: center;
+  position: relative; overflow: hidden;
+  transition: transform .25s, box-shadow .25s, border-color .25s;
+}
+.equipe-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(0,0,0,.1);
+  border-color: var(--aed-green);
+}
+.equipe-card::before {
+  content: '';
+  position: absolute; top:0; left:0; right:0; height: 4px;
+  background: linear-gradient(90deg, var(--aed-green), var(--aed-teal));
+}
+.equipe-avatar {
+  width: 76px; height: 76px; border-radius: 50%;
+  margin: 0 auto 18px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem;
+  border: 3px solid var(--border-card, #dde6fa);
+  background: var(--bg-section-b, #f0f4ff);
+  transition: border-color .25s;
+}
+.equipe-card:hover .equipe-avatar { border-color: var(--aed-green); }
+
+.equipe-avatar.av-green  { background: rgba(46,204,113,.1);  border-color: rgba(46,204,113,.3); }
+.equipe-avatar.av-purple { background: rgba(108,63,197,.1);  border-color: rgba(108,63,197,.3); }
+.equipe-avatar.av-orange { background: rgba(230,126,34,.1);  border-color: rgba(230,126,34,.3); }
+.equipe-avatar.av-blue   { background: rgba(26,58,143,.08);  border-color: rgba(26,58,143,.25); }
+.equipe-avatar.av-teal   { background: rgba(26,188,156,.1);  border-color: rgba(26,188,156,.3); }
+.equipe-avatar.av-red    { background: rgba(224,90,90,.1);   border-color: rgba(224,90,90,.3); }
+
+.equipe-name {
+  font-family: var(--font-head); font-size: 1rem; font-weight: 800;
+  color: var(--text-heading, #0b1a3b); margin-bottom: 4px;
+}
+.equipe-role {
+  display: inline-block;
+  font-family: var(--font-head); font-size: .72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .07em;
+  padding: 3px 10px; border-radius: 100px; margin-bottom: 14px;
+}
+.equipe-role.green  { color: var(--aed-green);  background: rgba(46,204,113,.1); }
+.equipe-role.purple { color: var(--aed-purple); background: rgba(108,63,197,.1); }
+.equipe-role.orange { color: var(--aed-orange); background: rgba(230,126,34,.1); }
+.equipe-role.blue   { color: #3b6fd4;           background: rgba(26,58,143,.08); }
+.equipe-role.teal   { color: var(--aed-teal);   background: rgba(26,188,156,.1); }
+.equipe-role.red    { color: #e05a5a;            background: rgba(224,90,90,.1); }
+
+.equipe-bio {
+  font-size: .84rem; color: var(--text-muted, #718096);
+  line-height: 1.7; margin-bottom: 18px;
+}
+.equipe-socials { display: flex; justify-content: center; gap: 8px; }
+.equipe-soc {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: var(--bg-section-b, #f0f4ff);
+  border: 1px solid var(--border-card, #dde6fa);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-muted, #718096); font-size: .82rem;
+  text-decoration: none;
+  transition: background .2s, color .2s, border-color .2s;
+}
+.equipe-soc:hover { background: var(--aed-green); color: #fff; border-color: var(--aed-green); }
+.equipe-soc.discord:hover { background: #5865f2; border-color: #5865f2; }
+.equipe-soc.github:hover  { background: #1a1a2e; border-color: #1a1a2e; }
+
+/* ════════════════════════════════════════════════
    BANDEAU CTA (style discord-banner index)
 ════════════════════════════════════════════════ */
 .bv-cta-banner {
@@ -806,7 +889,7 @@
         <div class="fl-badge fb1">
           <div class="fl-badge-ico orange"><i class="fas fa-medal"></i></div>
           <div class="fl-badge-text">
-            <strong>60 bénévoles actifs</strong>
+            <strong>10 bénévoles actifs</strong>
             <span>dans tout l'Eure</span>
           </div>
         </div>
@@ -1151,6 +1234,71 @@
           <i class="fab fa-discord"></i> Rejoindre le Discord de l'asso
         </a>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ NOTRE ÉQUIPE ═══════════════════════════════════ -->
+<section class="bv-section">
+  <div class="bv-section-inner">
+    <div class="bv-section-head fade-up">
+      <div class="bv-eyebrow"><i class="fas fa-users"></i> Notre équipe</div>
+      <h2 class="bv-section-title">Les bénévoles qui font <em>vivre l'asso</em></h2>
+      <p class="bv-section-sub">Une équipe passionnée et bienveillante, répartie sur tout le département de l'Eure, prête à vous accueillir.</p>
+    </div>
+
+    <div class="equipe-grid">
+
+      <div class="equipe-card fade-up">
+        <div class="equipe-avatar av-green">🧑‍💻</div>
+        <div class="equipe-name">Allan</div>
+        <div class="equipe-role green">Président</div>
+        <p class="equipe-bio">Co-fondateur de l'asso, passionné d'open source et de développement web depuis 2019. Organise les ateliers à Évreux.</p>
+        <div class="equipe-socials">
+          <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="equipe-soc discord" aria-label="Discord"><i class="fab fa-discord"></i></a>
+          <a href="https://github.com/aleuredigitale" target="_blank" class="equipe-soc github" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+
+      <div class="equipe-card fade-up">
+        <div class="equipe-avatar av-purple">👩‍🏫</div>
+        <div class="equipe-name">Marie</div>
+        <div class="equipe-role purple">Graphiste</div>
+        <p class="equipe-bio">Ancienne formatrice, elle accueille et intègre chaque nouveau bénévole. Votre premier contact si vous souhaitez vous engager.</p>
+        <div class="equipe-socials">
+          <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="equipe-soc discord" aria-label="Discord"><i class="fab fa-discord"></i></a>
+          <a href="index.html#contact" class="equipe-soc" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+
+      <div class="equipe-card fade-up">
+        <div class="equipe-avatar av-orange">🛠️</div>
+        <div class="equipe-name">Romain</div>
+        <div class="equipe-role orange">Trésorier</div>
+        <p class="equipe-bio">Co-fondateur de l'asso, trésorier gère les bonnes finances de l'asso.</p>
+        <div class="equipe-socials">
+          <a href="https://github.com/aleuredigitale" target="_blank" class="equipe-soc github" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="equipe-soc discord" aria-label="Discord"><i class="fab fa-discord"></i></a>
+        </div>
+      </div>
+
+      <div class="equipe-card fade-up">
+        <div class="equipe-avatar av-teal">🗺️</div>
+        <div class="equipe-name">Sophie Martin</div>
+        <div class="equipe-role teal">Coordinatrice terrain</div>
+        <p class="equipe-bio">Cartographie les besoins des habitants et coordonne les permanences numériques sur les communes rurales du département.</p>
+        <div class="equipe-socials">
+          <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="equipe-soc discord" aria-label="Discord"><i class="fab fa-discord"></i></a>
+          <a href="cartes.html" class="equipe-soc" aria-label="Carte"><i class="fas fa-map"></i></a>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="text-align:center;margin-top:44px;" class="fade-up">
+      <a href="https://discord.gg/yHCAgYKwk" target="_blank" style="display:inline-flex;align-items:center;gap:9px;background:#5865f2;color:#fff;font-family:var(--font-head);font-weight:700;font-size:.92rem;padding:13px 26px;border-radius:12px;text-decoration:none;transition:background .2s,transform .2s;box-shadow:0 4px 18px rgba(88,101,242,.35);" onmouseover="this.style.background='#4752c4';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#5865f2';this.style.transform='none'">
+        <i class="fab fa-discord"></i> Rencontrez-nous sur Discord
+      </a>
     </div>
   </div>
 </section>

@@ -16,12 +16,34 @@
        TOKENS COMPLÉMENTAIRES
     ────────────────────────────────────────────── */
     :root {
-      --bg-nav:     rgba(11,26,59,.85);
+      --aed-navy:   #0b1a3b;
+      --aed-blue:   #1a3a8f;
+      --aed-purple: #6c3fc5;
+      --aed-green:  #2ecc71;
+      --aed-orange: #e67e22;
+      --aed-teal:   #1abc9c;
+      --font-head:  'Sora', sans-serif;
+      --font-body:  'Inter', sans-serif;
+      --bg-nav:     rgba(11,26,59,.88);
       --border-nav: rgba(255,255,255,.1);
     }
     [data-theme="dark"] {
-      --bg-nav:     rgba(10,18,34,.9);
-      --border-nav: rgba(255,255,255,.07);
+      --bg-nav:       rgba(10,18,34,.92);
+      --border-nav:   rgba(255,255,255,.07);
+      --bg-card:      #111f3c;
+      --border-card:  rgba(255,255,255,.08);
+      --text-heading: #f0f4ff;
+      --text-main:    #c8d8f8;
+      --text-muted:   #7a8eaa;
+      --bg-section-b: #0e1930;
+    }
+    [data-theme="light"] {
+      --bg-card:      #fff;
+      --border-card:  #dde6fa;
+      --text-heading: #0b1a3b;
+      --text-main:    #2d3748;
+      --text-muted:   #718096;
+      --bg-section-b: #f0f4ff;
     }
 
     /* ──────────────────────────────────────────────
@@ -60,18 +82,55 @@
       justify-content: center;
       font-size: .85rem;
     }
+    .ml-nav-links { display: flex; align-items: center; gap: 22px; }
+    .ml-nav-links a {
+      font-family: var(--font-head); font-size: .85rem; font-weight: 600;
+      color: rgba(255,255,255,.72); text-decoration: none; transition: color .2s;
+    }
+    .ml-nav-links a:hover { color: #fff; }
+    .ml-nav-links .nav-disc {
+      background: #5865f2; color: #fff !important;
+      font-weight: 700 !important; padding: 8px 16px; border-radius: 8px;
+      display: inline-flex; align-items: center; gap: 6px;
+      transition: background .2s !important;
+    }
+    .ml-nav-links .nav-disc:hover { background: #4752c4 !important; }
+    .ml-nav-right { display: flex; align-items: center; gap: 10px; }
     .dark-btn {
-      background: rgba(255,255,255,.1);
-      border: 1px solid rgba(255,255,255,.2);
-      color: #fff;
-      width: 36px; height: 36px;
-      border-radius: 8px;
+      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); color: #fff;
+      width: 36px; height: 36px; border-radius: 8px;
       display: flex; align-items: center; justify-content: center;
-      cursor: pointer;
-      font-size: .9rem;
-      transition: background .2s;
+      cursor: pointer; font-size: .9rem; transition: background .2s;
     }
     .dark-btn:hover { background: rgba(255,255,255,.2); }
+    .burger-btn {
+      display: none; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+      color: #fff; width: 36px; height: 36px; border-radius: 8px;
+      align-items: center; justify-content: center; cursor: pointer; font-size: 1rem;
+    }
+    .nav-mobile {
+      display: none; position: fixed; top: 64px; left:0; right:0;
+      background: #0d1e44; padding: 16px 24px; flex-direction: column; gap: 4px;
+      box-shadow: 0 12px 40px rgba(0,0,0,.5); z-index: 997;
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      font-family: var(--font-head); font-size: .95rem; font-weight: 600;
+      color: rgba(255,255,255,.8); padding: 13px 0;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      display: flex; align-items: center; gap: 10px; transition: color .2s; text-decoration: none;
+    }
+    .nav-mobile a:hover { color: var(--aed-green); }
+    .nav-mobile a:last-child { border-bottom: none; }
+    .mob-disc {
+      background: #5865f2 !important; color: #fff !important;
+      border-radius: 8px !important; padding: 13px 16px !important;
+      margin-top: 8px; justify-content: center !important; border: none !important;
+    }
+    @media (max-width: 860px) {
+      .ml-nav-links { display: none; }
+      .burger-btn { display: flex; }
+    }
 
     /* ──────────────────────────────────────────────
        HERO
@@ -494,6 +553,135 @@
         transform: translateY(0);
       }
     }
+
+    /* ──────────────────────────────────────────────
+       DISCORD BANNER WRAP (pleine largeur)
+    ────────────────────────────────────────────── */
+    .eh-discord-banner-wrap {
+      padding: 0 28px 72px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* ──────────────────────────────────────────────
+       FAQ SEARCH
+    ────────────────────────────────────────────── */
+    .faq-search-wrap { margin-bottom: 20px; }
+    .faq-search-inner {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .faq-search-ico {
+      position: absolute; left: 14px;
+      color: var(--text-muted); font-size: .85rem;
+      pointer-events: none;
+    }
+    .faq-search-input {
+      width: 100%;
+      padding: 11px 40px 11px 38px;
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-card);
+      border-radius: 12px;
+      font-family: var(--font-body);
+      font-size: .9rem;
+      color: var(--text-main);
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+      box-sizing: border-box;
+    }
+    .faq-search-input:focus {
+      border-color: rgba(108,63,197,.5);
+      box-shadow: 0 0 0 3px rgba(108,63,197,.1);
+    }
+    .faq-search-input::placeholder { color: var(--text-muted); }
+    .faq-search-clear {
+      position: absolute; right: 12px;
+      background: none; border: none; cursor: pointer;
+      color: var(--text-muted); font-size: .8rem;
+      padding: 4px; border-radius: 4px;
+      transition: color .2s;
+    }
+    .faq-search-clear:hover { color: var(--aed-purple); }
+    .faq-search-hint {
+      margin-top: 8px;
+      font-size: .82rem;
+      color: var(--text-muted);
+      font-family: var(--font-head);
+    }
+    .faq-item.hidden { display: none; }
+
+    /* ──────────────────────────────────────────────
+       FOOTER COMPLET
+    ────────────────────────────────────────────── */
+    .aed-footer { background: var(--aed-navy); color: rgba(255,255,255,.55); font-family: var(--font-head); }
+    .footer-top {
+      max-width: 1140px; margin: 0 auto; padding: 56px 28px 48px;
+      display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.1fr; gap: 40px;
+    }
+    @media (max-width: 900px) {
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .footer-col:first-child { grid-column: 1 / -1; }
+    }
+    @media (max-width: 540px) { .footer-top { grid-template-columns: 1fr; } }
+    .footer-brand-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-family: var(--font-head); font-weight: 800; font-size: 1rem; color: #fff; margin-bottom: 14px;
+    }
+    .footer-brand-logo .lico {
+      background: var(--aed-green); color: #fff; width: 32px; height: 32px;
+      border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; font-size: .85rem;
+    }
+    .footer-desc { font-size: .84rem; line-height: 1.65; color: rgba(255,255,255,.5); margin-bottom: 20px; }
+    .footer-socials { display: flex; gap: 8px; }
+    .fsoc {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: rgba(255,255,255,.08); color: rgba(255,255,255,.7);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .9rem; transition: background .2s, color .2s; text-decoration: none;
+    }
+    .fsoc:hover { background: var(--aed-green); color: #fff; }
+    .footer-col-title {
+      font-size: .78rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .1em; color: rgba(255,255,255,.5); margin-bottom: 16px;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .footer-links a {
+      color: rgba(255,255,255,.6); font-size: .85rem; text-decoration: none;
+      display: flex; align-items: center; gap: 6px; transition: color .2s;
+    }
+    .footer-links a:hover { color: var(--aed-green); }
+    .footer-links i { font-size: .7rem; }
+    .footer-badge-asso {
+      margin-top: 18px; display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+      color: rgba(255,255,255,.5); font-size: .75rem; font-weight: 600;
+      padding: 5px 12px; border-radius: 8px;
+    }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.08);
+      max-width: 1140px; margin: 0 auto; padding: 18px 28px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; flex-wrap: wrap;
+      font-size: .78rem; color: rgba(255,255,255,.3);
+    }
+    .footer-bottom-links { display: flex; align-items: center; gap: 10px; }
+    .footer-bottom-links a { color: rgba(255,255,255,.45); text-decoration: none; transition: color .2s; }
+    .footer-bottom-links a:hover { color: var(--aed-green); }
+    .footer-bottom-links .sep { color: rgba(255,255,255,.15); }
+
+    /* Scroll-to-top */
+    #totop {
+      position: fixed; bottom: 28px; right: 28px;
+      width: 42px; height: 42px; border-radius: 50%;
+      background: var(--aed-purple); color: #fff; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .9rem; box-shadow: 0 4px 16px rgba(108,63,197,.4);
+      opacity: 0; pointer-events: none; transition: opacity .3s, transform .3s;
+      z-index: 900;
+    }
+    #totop.show { opacity: 1; pointer-events: all; }
+    #totop:hover { transform: translateY(-2px); }
   </style>
 </head>
 <body>
@@ -501,13 +689,37 @@
 <!-- ── Navbar ───────────────────────────────────── -->
 <nav class="ml-nav">
   <a href="index.html" class="ml-nav-logo">
-    <span class="lico"><i class="fas fa-code"></i></span>
-    <span>À l'<span style="color:#60a5fa">Eure</span> <span style="color:#2ecc71">Digitale</span></span>
+    <span class="lico">&lt;/&gt;</span>
+    <span>À l'<span style="color:#60a5fa">Eure</span> <span style="color:var(--aed-green)">Digitale</span></span>
   </a>
-  <button class="dark-btn" id="darkToggle" title="Changer le thème" aria-label="Mode sombre">
-    <i class="fas fa-moon" id="darkIcon"></i>
-  </button>
+  <div class="ml-nav-links">
+    <a href="index.html#about">Association</a>
+    <a href="index.html#minecraft" style="display:inline-flex;align-items:center;gap:5px;"><i class="fas fa-cubes" style="font-size:.8rem;color:#4ade80"></i> Minecraft</a>
+    <a href="index.html#hackathon">Hackathon</a>
+    <a href="index.html#faq">FAQ</a>
+    <a href="adherer.html" style="background:var(--aed-green);color:#fff;font-weight:700;padding:8px 16px;border-radius:8px;display:inline-flex;align-items:center;gap:6px;" onmouseover="this.style.background='#27ae60'" onmouseout="this.style.background='var(--aed-green)'"><i class="fas fa-heart"></i> Adhérer</a>
+    <a href="benevoles.html"><i class="fas fa-hands-helping"></i> Bénévolat</a>
+    <a href="entraide.html" style="color:#fff!important;font-weight:700!important;"><i class="fas fa-circle-question"></i> Entraide</a>
+    <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="nav-disc"><i class="fab fa-discord"></i> Rejoindre</a>
+  </div>
+  <div class="ml-nav-right">
+    <button class="dark-btn" id="darkToggle" aria-label="Mode sombre"><i class="fas fa-moon" id="darkIcon"></i></button>
+    <button class="burger-btn" id="burgerBtn" aria-label="Menu"><i class="fas fa-bars" id="burgerIcon"></i></button>
+  </div>
 </nav>
+
+<!-- Menu mobile -->
+<div class="nav-mobile" id="navMobile">
+  <a href="index.html#about"     onclick="closeMobile()"><i class="fas fa-info-circle"></i> Association</a>
+  <a href="index.html#minecraft" onclick="closeMobile()"><i class="fas fa-cubes" style="color:#4ade80"></i> Minecraft</a>
+  <a href="index.html#hackathon" onclick="closeMobile()"><i class="fas fa-trophy"></i> Hackathon</a>
+  <a href="index.html#faq"       onclick="closeMobile()"><i class="fas fa-question-circle"></i> FAQ</a>
+  <a href="adherer.html"         onclick="closeMobile()"><i class="fas fa-heart"></i> Adhérer</a>
+  <a href="benevoles.html"       onclick="closeMobile()"><i class="fas fa-hands-helping"></i> Bénévolat</a>
+  <a href="entraide.html"        onclick="closeMobile()"><i class="fas fa-circle-question"></i> Entraide</a>
+  <a href="contact.html"         onclick="closeMobile()"><i class="fas fa-envelope"></i> Contact</a>
+  <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="mob-disc"><i class="fab fa-discord"></i> Rejoindre le Discord</a>
+</div>
 
 <!-- ── Hero ─────────────────────────────────────── -->
 <section class="eh-hero" aria-label="En-tête de l'espace d'entraide">
@@ -523,9 +735,9 @@
       pour tous les niveaux, en Normandie et au-delà.
     </p>
     <div class="eh-hero-pills">
-      <span class="eh-pill green"><i class="fas fa-circle-check"></i> Gratuit &amp; ouvert à tous</span>
-      <span class="eh-pill blue"><i class="fas fa-map-marker-alt"></i> Département de l'Eure</span>
-      <span class="eh-pill purple"><i class="fas fa-graduation-cap"></i> Tous niveaux</span>
+      <a href="#faq-title" class="eh-pill green"><i class="fas fa-circle-question"></i> Questions fréquentes</a>
+      <a href="#res-title" class="eh-pill blue"><i class="fas fa-bookmark"></i> Ressources sélectionnées</a>
+      <a href="https://discord.gg/yHCAgYKwk" target="_blank" rel="noopener" class="eh-pill purple"><i class="fab fa-discord"></i> Rejoindre Discord</a>
     </div>
   </div>
 </section>
@@ -541,7 +753,17 @@
       <p class="eh-section-sub">Tout ce qu'il faut savoir avant de rejoindre l'association ou d'assister à un atelier.</p>
     </div>
 
-    <div class="faq-list" role="list">
+    <!-- Recherche FAQ -->
+    <div class="faq-search-wrap fade-up">
+      <div class="faq-search-inner">
+        <i class="fas fa-search faq-search-ico"></i>
+        <input type="text" id="faqSearch" class="faq-search-input" placeholder="Rechercher dans la FAQ…" aria-label="Rechercher une question" oninput="filterFaq(this.value)"/>
+        <button class="faq-search-clear" id="faqClear" onclick="clearFaq()" aria-label="Effacer" style="display:none"><i class="fas fa-times"></i></button>
+      </div>
+      <p class="faq-search-hint" id="faqHint" style="display:none"></p>
+    </div>
+
+    <div class="faq-list" role="list" id="faqList">
 
       <!-- Q1 -->
       <div class="faq-item" role="listitem">
@@ -841,38 +1063,78 @@
     </div><!-- /res-grid -->
   </section>
 
-  <!-- ── Bandeau Discord ──────────────────────────── -->
-  <div class="eh-col-full fade-up">
-    <div class="eh-discord-banner" role="complementary" aria-label="Rejoindre Discord">
-      <div class="discord-banner-ico"><i class="fab fa-discord"></i></div>
-      <div class="discord-banner-text">
-        <h3>Votre question n'est pas ici ?</h3>
-        <p>Rejoignez le serveur Discord de l'association — la communauté est là pour vous aider,
-           que vous soyez débutant·e ou expérimenté·e.</p>
+</div><!-- /eh-page -->
+
+<!-- ── Bandeau Discord ──────────────────────────── -->
+<div class="eh-discord-banner-wrap">
+  <div class="eh-discord-banner" role="complementary" aria-label="Rejoindre Discord">
+    <div class="discord-banner-ico"><i class="fab fa-discord"></i></div>
+    <div class="discord-banner-text">
+      <h3>Votre question n'est pas ici ?</h3>
+      <p>Rejoignez le serveur Discord de l'association — la communauté est là pour vous aider,
+         que vous soyez débutant·e ou expérimenté·e.</p>
+    </div>
+    <a href="https://discord.gg/yHCAgYKwk" target="_blank" rel="noopener" class="discord-banner-btn">
+      <i class="fab fa-discord"></i> Rejoindre le Discord
+    </a>
+  </div>
+</div>
+
+<!-- ── Footer complet ───────────────────────────── -->
+<footer class="aed-footer">
+  <div class="footer-top">
+    <div class="footer-col">
+      <div class="footer-brand-logo">
+        <span class="lico">&lt;/&gt;</span>
+        <span>À l'<span style="color:#60a5fa">Eure</span> <span style="color:#2ecc71">Digitale</span></span>
       </div>
-      <a href="https://discord.gg/yHCAgYKwk" target="_blank" rel="noopener" class="discord-banner-btn">
-        <i class="fab fa-discord"></i> Rejoindre le Discord
-      </a>
+      <p class="footer-desc">Communauté numérique bienveillante et inclusive en Normandie. Ateliers gratuits, entraide, projets open source.</p>
+      <div class="footer-socials">
+        <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="fsoc" aria-label="Discord"><i class="fab fa-discord"></i></a>
+        <a href="https://github.com/aleuredigitale" target="_blank" class="fsoc" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4 class="footer-col-title">Navigation</h4>
+      <ul class="footer-links">
+        <li><a href="index.html#about"><i class="fas fa-chevron-right"></i> L'association</a></li>
+        <li><a href="index.html#discord"><i class="fas fa-chevron-right"></i> Discord</a></li>
+        <li><a href="index.html#hackathon"><i class="fas fa-chevron-right"></i> Hackathon</a></li>
+        <li><a href="index.html#proposer"><i class="fas fa-chevron-right"></i> Proposer un atelier</a></li>
+        <li><a href="index.html#faq"><i class="fas fa-chevron-right"></i> FAQ</a></li>
+        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4 class="footer-col-title">S'impliquer</h4>
+      <ul class="footer-links">
+        <li><a href="benevoles.html"><i class="fas fa-hands-helping"></i> Devenir bénévole</a></li>
+        <li><a href="adherer.html"><i class="fas fa-heart"></i> Adhérer à l'association</a></li>
+        <li><a href="cartes.html"><i class="fas fa-map"></i> Carte des lieux</a></li>
+        <li><a href="https://github.com/aleuredigitale" target="_blank"><i class="fab fa-github"></i> GitHub de l'asso</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4 class="footer-col-title">Légal</h4>
+      <ul class="footer-links">
+        <li><a href="mentions-legales.html"><i class="fas fa-chevron-right"></i> Mentions légales</a></li>
+        <li><a href="statuts.pdf" target="_blank"><i class="fas fa-chevron-right"></i> Statuts (loi 1901)</a></li>
+        <li><a href="politique-confidentialite.html"><i class="fas fa-chevron-right"></i> Politique de confidentialité</a></li>
+      </ul>
+      <div class="footer-badge-asso"><i class="fas fa-landmark"></i> Association loi 1901</div>
     </div>
   </div>
-
-  <!-- ── Footer ───────────────────────────────────── -->
-  <div class="eh-footer-note">
-    <p>
-      <a href="index.html"><i class="fas fa-arrow-left"></i> Retour au site</a>
-      &nbsp;·&nbsp;
-      <a href="adherer.html"><i class="fas fa-heart"></i> Adhérer</a>
-      &nbsp;·&nbsp;
+  <div class="footer-bottom">
+    <span>© 2026 À l'Eure Digitale — Association loi 1901 — Normandie</span>
+    <span class="footer-bottom-links">
       <a href="mentions-legales.html">Mentions légales</a>
-      &nbsp;·&nbsp;
-      <a href="politique-confidentialite.html">Confidentialité</a>
-      &nbsp;·&nbsp;
-      <a href="https://github.com/aleuredigitale" target="_blank" rel="noopener">GitHub</a>
-    </p>
-    <p style="margin-top:8px">© 2026 À l'Eure Digitale — Association loi 1901 — Normandie</p>
+      <span class="sep">·</span>
+      <a href="statuts.pdf" target="_blank">Statuts</a>
+      <span class="sep">·</span>
+      <a href="https://github.com/aleuredigitale" target="_blank">GitHub</a>
+    </span>
   </div>
-
-</div><!-- /eh-page -->
+</footer>
 
 <script>
   /* ── Dark mode ─────────────────────────────────── */
@@ -890,6 +1152,57 @@
   const saved = localStorage.getItem('aed-theme');
   if (saved) applyTheme(saved);
   else if (window.matchMedia('(prefers-color-scheme: dark)').matches) applyTheme('dark');
+
+  /* ── Burger menu ───────────────────────────────── */
+  const burgerBtn  = document.getElementById('burgerBtn');
+  const burgerIcon = document.getElementById('burgerIcon');
+  const navMobile  = document.getElementById('navMobile');
+  function closeMobile() {
+    navMobile.classList.remove('open');
+    burgerIcon.className = 'fas fa-bars';
+  }
+  burgerBtn.addEventListener('click', () => {
+    const open = navMobile.classList.toggle('open');
+    burgerIcon.className = open ? 'fas fa-times' : 'fas fa-bars';
+  });
+
+  /* ── FAQ Search ────────────────────────────────── */
+  function filterFaq(query) {
+    const q = query.trim().toLowerCase();
+    const items = document.querySelectorAll('#faqList .faq-item');
+    const clearBtn = document.getElementById('faqClear');
+    const hint = document.getElementById('faqHint');
+    let visible = 0;
+    items.forEach(item => {
+      const text = item.textContent.toLowerCase();
+      if (!q || text.includes(q)) {
+        item.classList.remove('hidden');
+        visible++;
+      } else {
+        item.classList.add('hidden');
+        if (item.classList.contains('open')) item.classList.remove('open');
+      }
+    });
+    clearBtn.style.display = q ? 'block' : 'none';
+    if (q) {
+      hint.style.display = 'block';
+      hint.textContent = visible === 0
+        ? 'Aucune question trouvée. Posez la vôtre sur Discord !'
+        : visible + ' question' + (visible > 1 ? 's' : '') + ' trouvée' + (visible > 1 ? 's' : '') + '.';
+    } else {
+      hint.style.display = 'none';
+    }
+  }
+  function clearFaq() {
+    document.getElementById('faqSearch').value = '';
+    filterFaq('');
+  }
+
+  /* ── Scroll-to-top ─────────────────────────────── */
+  const totop = document.getElementById('totop');
+  window.addEventListener('scroll', () => {
+    totop.classList.toggle('show', window.scrollY > 400);
+  });
 
   /* ── FAQ Accordion ─────────────────────────────── */
   document.querySelectorAll('.faq-trigger').forEach(btn => {
@@ -926,5 +1239,9 @@
     });
   }
 </script>
+<button id="totop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Retour en haut">
+  <i class="fas fa-arrow-up"></i>
+</button>
+
 </body>
 </html>

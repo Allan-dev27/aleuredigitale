@@ -35,6 +35,26 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
   <link rel="stylesheet" href="style.css"/>
+  <style>
+    /* ── Section Agenda intégrée ───────────────── */
+    #agenda {
+      padding: 100px 0 80px;
+      background: var(--bg-section, #f8fafc);
+    }
+    [data-theme="dark"] #agenda {
+      background: var(--bg-section, #0f1923);
+    }
+    #agenda .ag-filters-inline {
+      margin: 32px 0 0;
+      background: transparent;
+      border-bottom: none;
+      padding: 0;
+    }
+    #agenda .ag-filters-inner {
+      padding: 0;
+      max-width: 100%;
+    }
+  </style>
 </head>
 <body>
 
@@ -72,6 +92,27 @@
   </div>
 </div>
 
+<!-- ══ MODAL AGENDA ═════════════════════════════════════ -->
+<div id="agModal" class="ag-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="agModalTitle" hidden>
+  <div class="ag-modal">
+    <button class="ag-modal-close" id="agModalClose" aria-label="Fermer"><i class="fas fa-times"></i></button>
+    <div class="ag-modal-badge" id="agModalBadge"></div>
+    <h2 class="ag-modal-title" id="agModalTitle"></h2>
+    <div class="ag-modal-date" id="agModalDate"></div>
+    <p class="ag-modal-desc" id="agModalDesc"></p>
+    <div class="ag-modal-meta" id="agModalMeta"></div>
+    <div class="ag-modal-tags" id="agModalTags"></div>
+    <div class="ag-modal-actions">
+      <a href="https://discord.gg/yHCAgYKwk" target="_blank" rel="noopener" class="ag-modal-btn ag-modal-btn-disc">
+        <i class="fab fa-discord"></i> Participer sur Discord
+      </a>
+      <button class="ag-modal-btn ag-modal-btn-cal" id="agModalCalBtn" title="Ajouter au calendrier">
+        <i class="fas fa-calendar-plus"></i> Calendrier
+      </button>
+    </div>
+  </div>
+</div>
+
 <!-- Read progress bar -->
 <div id="read-progress"></div>
 
@@ -93,13 +134,14 @@
   </a>
   <div class="nav-links">
     <a href="#about">Association</a>
+    <a href="#agenda"><i class="fas fa-calendar-alt" style="font-size:.8rem;color:var(--aed-orange);"></i> Agenda</a>
     <a href="#temoignages">Témoignages</a>
     <a href="#minecraft" style="display:inline-flex;align-items:center;gap:5px;"><i class="fas fa-cubes" style="font-size:.8rem;color:#4ade80;"></i> Minecraft</a>
     <a href="#reseau">Réseau</a>
     <a href="#hackathon">Hackathon</a>
     <a href="#proposer">Proposer</a>
     <a href="#faq">FAQ</a>
-    <a href="#contact">Contact</a>      
+    <a href="#contact">Contact</a>
     <!-- <a href="cartes.html" class="mob-cartes"><i class="fas fa-map"></i> Cartes</a> -->
     <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="nav-disc"><i class="fab fa-discord"></i> Rejoindre</a>
       <a href="benevoles.html" onclick="closeMobile()"><i class="fas fa-hand-holding-heart"></i> Devenir bénévole</a>
@@ -118,6 +160,7 @@
 <!-- Mobile menu -->
 <div class="nav-mobile" id="navMobile">
   <a href="#about" onclick="closeMobile()"><i class="fas fa-info-circle"></i> Association</a>
+  <a href="#agenda" onclick="closeMobile()"><i class="fas fa-calendar-alt" style="color:var(--aed-orange)"></i> Agenda</a>
   <a href="#temoignages" onclick="closeMobile()"><i class="fas fa-quote-left"></i> Témoignages</a>
   <a href="#minecraft" onclick="closeMobile()"><i class="fas fa-cubes" style="color:#4ade80"></i> Minecraft</a>
   <a href="#reseau" onclick="closeMobile()"><i class="fas fa-network-wired"></i> Réseau</a>
@@ -1321,6 +1364,77 @@
   </div>
 </section>
 
+<!-- ══ AGENDA ═══════════════════════════════════════════ -->
+<section id="agenda">
+  <div class="section-inner">
+    <div class="section-label">Calendrier</div>
+    <h2 class="section-title">Nos <em>événements</em></h2>
+    <p class="section-desc">Tous nos événements sont <strong>gratuits</strong> et ouverts à tous les niveaux — débutants comme confirmés. Rejoignez la communauté et apprenez ensemble.</p>
+
+    <!-- Barre de filtres -->
+    <div class="ag-filters-bar ag-filters-inline">
+      <div class="ag-filters-inner">
+        <div class="ag-filter-group" role="group" aria-label="Filtrer les événements">
+          <button class="ag-filter-btn active" data-filter-inline="all"><i class="fas fa-th-list"></i> Tous</button>
+          <button class="ag-filter-btn" data-filter-inline="atelier"><span class="ag-dot" style="background:var(--aed-purple)"></span> Atelier</button>
+          <button class="ag-filter-btn" data-filter-inline="formation"><span class="ag-dot" style="background:var(--aed-blue)"></span> Formation</button>
+          <button class="ag-filter-btn" data-filter-inline="conf"><span class="ag-dot" style="background:var(--aed-orange)"></span> Conférence</button>
+          <button class="ag-filter-btn" data-filter-inline="perm"><span class="ag-dot" style="background:var(--aed-green)"></span> Permanence</button>
+          <button class="ag-filter-btn" data-filter-inline="hack"><span class="ag-dot" style="background:#dc2626"></span> Hackathon</button>
+        </div>
+        <span class="ag-results-count" id="agCountInline">— événements</span>
+        <div class="ag-view-toggle" role="group" aria-label="Mode d'affichage">
+          <button class="ag-view-btn active" id="btnListInline" title="Vue liste" aria-pressed="true"><i class="fas fa-list-ul"></i></button>
+          <button class="ag-view-btn" id="btnGridInline" title="Vue grille" aria-pressed="false"><i class="fas fa-th-large"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA abonnement -->
+    <div class="ag-subscribe-box">
+      <div class="ag-subscribe-text">
+        <h3><i class="fas fa-bell" style="color:var(--aed-green);margin-right:8px;"></i>Ne manquez aucun événement</h3>
+        <p>Rejoignez le serveur Discord pour recevoir les annonces en temps réel et discuter avec la communauté.</p>
+      </div>
+      <div class="ag-subscribe-actions">
+        <button class="ag-btn-cal" id="btnExportIcalInline" title="Exporter au format iCal">
+          <i class="fas fa-calendar-download"></i> Exporter iCal
+        </button>
+        <a href="https://discord.gg/yHCAgYKwk" target="_blank" rel="noopener" class="ag-btn-discord-sub">
+          <i class="fab fa-discord"></i> Rejoindre Discord
+        </a>
+      </div>
+    </div>
+
+    <!-- VUE LISTE -->
+    <div id="ag-list-view-inline">
+      <div id="ag-upcoming-months-inline"></div>
+      <div class="ag-past-toggle" id="agPastToggleInline" role="button" tabindex="0" aria-expanded="false">
+        <i class="fas fa-history"></i>
+        <span>Événements passés</span>
+        <span class="ag-past-count" id="agPastCountInline">0</span>
+        <i class="fas fa-chevron-down ag-pt-chevron"></i>
+      </div>
+      <div id="ag-past-section-inline">
+        <div id="ag-past-months-inline"></div>
+      </div>
+    </div>
+
+    <!-- VUE GRILLE -->
+    <div id="ag-grid-view-inline" style="display:none;">
+      <div class="ag-grid" id="ag-grid-container-inline"></div>
+    </div>
+
+    <!-- Empty state -->
+    <div class="ag-empty" id="agEmptyInline">
+      <div class="ag-empty-ico">🔍</div>
+      <h3>Aucun événement trouvé</h3>
+      <p>Essayez un autre filtre ou proposez vous-même un atelier !</p>
+    </div>
+
+  </div>
+</section>
+
 <!-- ══ FOOTER ═════════════════════════════════════════ -->
 <footer class="aed-footer">
   <div class="footer-top">
@@ -1341,6 +1455,8 @@
       <h4 class="footer-col-title">Navigation</h4>
       <ul class="footer-links">
         <li><a href="#about"><i class="fas fa-chevron-right"></i> L'association</a></li>
+        <li><a href="#agenda"><i class="fas fa-calendar-alt"></i> Agenda</a></li>
+        <li><a href="partenaires.html"><i class="fas fa-handshake"></i> Partenaires</a></li>
         <li><a href="#discord"><i class="fas fa-chevron-right"></i> Discord</a></li>
         <li><a href="#minecraft"><i class="fas fa-cubes" style="color:#4ade80"></i> Minecraft</a></li>
         <li><a href="#hackathon"><i class="fas fa-chevron-right"></i> Hackathon</a></li>
@@ -1403,7 +1519,268 @@
   </div>
 </footer>
 
-<!-- Scroll to top -->
+<!-- ══ AGENDA SCRIPT ════════════════════════════════════ -->
+<script>
+(function() {
+/* ── DONNÉES ── */
+const EVENTS = [
+  { id:1,  type:'perm',      title:'Permanence hebdomadaire',                   date:new Date(2026,2,1),   time:'14h–16h',             location:'En ligne (Discord)', level:'Tous niveaux',          desc:'Permanence régulière d\'entraide et de discussion. Posez vos questions, partagez vos projets, rencontrez la communauté.', tags:['Entraide','Communauté','Gratuit'], recurrent:true,  past:true },
+  { id:2,  type:'atelier',   title:'Introduction à Python',                     date:new Date(2026,2,14),  time:'14h–17h',             location:'En ligne (Discord)', level:'Débutants',             desc:'Découverte du langage Python : variables, conditions, boucles, fonctions. Aucun prérequis nécessaire — venez juste avec votre curiosité !', tags:['Python','Programmation','Débutants'], past:true },
+  { id:3,  type:'conf',      title:'IA & Éthique : tour d\'horizon',            date:new Date(2026,2,28),  time:'18h–19h30',           location:'En ligne (Discord)', level:'Tous niveaux',          desc:'Quelles questions éthiques soulève l\'intelligence artificielle ? Biais, emploi, vie privée, deepfakes — un débat ouvert animé par la communauté.', tags:['IA','Éthique','Débat'], past:true },
+  { id:4,  type:'formation', title:'Git & GitHub pour débutants',               date:new Date(2026,3,5),   time:'10h–13h',             location:'En ligne (Discord)', level:'Débutants',             desc:'Comprendre la gestion de versions avec Git : commits, branches, pull requests. Installation, configuration et premiers dépôts sur GitHub.', tags:['Git','GitHub','Open Source'], past:true },
+  { id:5,  type:'atelier',   title:'Créer son site web avec HTML & CSS',        date:new Date(2026,3,19),  time:'14h–17h',             location:'En ligne (Discord)', level:'Débutants',             desc:'Construisez votre première page web de A à Z. Structure HTML, mise en forme CSS, responsive design — en 3h vous aurez un vrai site !', tags:['HTML','CSS','Web'], past:true },
+  { id:6,  type:'perm',      title:'Permanence hebdomadaire',                   date:new Date(2026,4,3),   time:'14h–16h',             location:'En ligne (Discord)', level:'Tous niveaux',          desc:'Permanence régulière d\'entraide et de discussion. Posez vos questions, partagez vos projets, rencontrez la communauté.', tags:['Entraide','Communauté','Gratuit'], recurrent:true, past:true },
+  { id:7,  type:'perm',      title:'Permanence hebdomadaire',                   date:new Date(2026,4,24),  time:'14h–16h',             location:'En ligne (Discord)', level:'Tous niveaux',          desc:'Permanence régulière d\'entraide, de discussion et de partage de projets. Toutes les semaines, sans inscription.', tags:['Entraide','Communauté','Gratuit'], recurrent:true, past:false },
+  { id:8,  type:'formation', title:'Linux pour débutants — les bases du terminal', date:new Date(2026,4,30), time:'14h–17h',           location:'En ligne (Discord)', level:'Débutants',             desc:'Apprenez à naviguer dans un système Linux : commandes essentielles, gestion des fichiers, permissions, scripts bash. Formation pratique avec exercices en temps réel.', tags:['Linux','Terminal','Bash'], past:false },
+  { id:9,  type:'conf',      title:'Open Source : contribuer à un projet existant', date:new Date(2026,5,6), time:'18h–19h30',        location:'En ligne (Discord)', level:'Intermédiaire',         desc:'Comment franchir le pas et contribuer à un projet open source ? Trouver des issues accessibles, comprendre les conventions, soumettre sa première PR.', tags:['Open Source','GitHub','Contribution'], past:false },
+  { id:10, type:'atelier',   title:'Automatisation avec Python — les bases',    date:new Date(2026,5,14),  time:'10h–12h30',           location:'En ligne (Discord)', level:'Débutants–Intermédiaire', desc:'Automatisez vos tâches répétitives avec Python : renommage de fichiers, traitement de données CSV, envoi de mails.', tags:['Python','Automatisation','Scripts'], past:false },
+  { id:11, type:'perm',      title:'Permanence hebdomadaire',                   date:new Date(2026,5,20),  time:'14h–16h',             location:'En ligne (Discord)', level:'Tous niveaux',          desc:'Permanence régulière d\'entraide, de discussion et de partage de projets. Toutes les semaines, sans inscription.', tags:['Entraide','Communauté','Gratuit'], recurrent:true, past:false },
+  { id:12, type:'formation', title:'Docker : conteneurisation pour tous',       date:new Date(2026,5,28),  time:'10h–13h',             location:'En ligne (Discord)', level:'Intermédiaire',         desc:'Comprendre et utiliser Docker : images, conteneurs, Dockerfile, docker-compose. Déployer une application web dans un conteneur en 3h.', tags:['Docker','DevOps','Conteneurisation'], past:false },
+  { id:13, type:'atelier',   title:'Accessibilité web — RGAA & bonnes pratiques', date:new Date(2026,6,5), time:'14h–16h30',          location:'En ligne (Discord)', level:'Tous niveaux',          desc:'Pourquoi et comment rendre le web accessible à tous ? Tour du référentiel RGAA, outils de diagnostic, démonstration avec un lecteur d\'écran.', tags:['Accessibilité','RGAA','HTML'], past:false },
+  { id:14, type:'conf',      title:'Cybersécurité du quotidien — protégez-vous', date:new Date(2026,6,12), time:'18h–19h30',          location:'En ligne (Discord)', level:'Tous niveaux',          desc:'Mots de passe, phishing, 2FA, VPN, réseaux sociaux… Les réflexes essentiels pour protéger vos données au quotidien.', tags:['Cybersécurité','Vie privée','Sensibilisation'], past:false },
+  { id:15, type:'perm',      title:'Permanence hebdomadaire',                   date:new Date(2026,6,18),  time:'14h–16h',             location:'En ligne (Discord)', level:'Tous niveaux',          desc:'Permanence régulière d\'entraide, de discussion et de partage de projets. Toutes les semaines, sans inscription.', tags:['Entraide','Communauté','Gratuit'], recurrent:true, past:false },
+  { id:16, type:'formation', title:'SQL & bases de données relationnelles',     date:new Date(2026,6,26),  time:'10h–13h',             location:'En ligne (Discord)', level:'Débutants–Intermédiaire', desc:'Comprendre les bases de données relationnelles et écrire des requêtes SQL : SELECT, JOIN, GROUP BY, sous-requêtes. Exercices pratiques sur SQLite.', tags:['SQL','Bases de données','Développement'], past:false },
+  { id:17, type:'hack',      title:'Hackathon À l\'Eure Digitale 2026',         date:new Date(2026,7,22),  time:'48h — Sam 10h → Lun 10h', location:'En ligne (Discord) + Éventuellement présentiel Évreux', level:'Tous niveaux', desc:'48 heures pour coder, créer, innover ! En équipe de 2 à 5 personnes, réalisez un projet numérique sur un thème annoncé le jour J.', tags:['Hackathon','Équipe','48h','Concours'], past:false },
+  { id:18, type:'atelier',   title:'Créer une API REST avec FastAPI',           date:new Date(2026,8,6),   time:'10h–13h',             location:'En ligne (Discord)', level:'Intermédiaire',         desc:'Construisez une API REST complète avec FastAPI (Python) : endpoints, schémas Pydantic, documentation automatique Swagger, déploiement.', tags:['Python','FastAPI','API','Backend'], past:false },
+  { id:19, type:'conf',      title:'Le numérique responsable — impacts environnementaux', date:new Date(2026,8,20), time:'18h–19h30', location:'En ligne (Discord)', level:'Tous niveaux',          desc:'Empreinte carbone du numérique, éco-conception web, low-tech — comment réduire l\'impact environnemental de nos usages et productions numériques ?', tags:['Éco-conception','Numérique responsable','Environnement'], past:false },
+];
+
+const MONTHS       = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+const MONTHS_SHORT = ['Jan','Fév','Mar','Avr','Mai','Juin','Juil','Août','Sep','Oct','Nov','Déc'];
+const DAYS         = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+
+const TYPE_META = {
+  atelier:   { label:'Atelier',     icon:'fas fa-tools',          badgeCls:'ag-type-atelier',   accentCls:'ag-accent-atelier' },
+  formation: { label:'Formation',   icon:'fas fa-graduation-cap', badgeCls:'ag-type-formation', accentCls:'ag-accent-formation' },
+  conf:      { label:'Conférence',  icon:'fas fa-microphone',     badgeCls:'ag-type-conf',      accentCls:'ag-accent-conf' },
+  perm:      { label:'Permanence',  icon:'fas fa-headset',        badgeCls:'ag-type-perm',      accentCls:'ag-accent-perm' },
+  hack:      { label:'Hackathon',   icon:'fas fa-bolt',           badgeCls:'ag-type-hack',      accentCls:'ag-accent-hack' },
+};
+
+function fmtDate(d) {
+  return `${DAYS[d.getDay()]} ${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`;
+}
+
+let activeFilterInline = 'all';
+let activeViewInline   = 'list';
+
+/* ── RENDU LISTE ── */
+function buildListCard(ev) {
+  const m = TYPE_META[ev.type];
+  return `<article class="ag-event-card ${m.accentCls}${ev.past?' ag-card-past':''}"
+           data-type="${ev.type}" data-id-inline="${ev.id}"
+           role="button" tabindex="0" aria-label="Voir les détails : ${ev.title}">
+    <div class="ag-card-date">
+      <div class="ag-card-day">${ev.date.getDate()}</div>
+      <div class="ag-card-month">${MONTHS_SHORT[ev.date.getMonth()]}</div>
+    </div>
+    <div class="ag-card-body">
+      <div class="ag-card-header">
+        <span class="ag-type-badge ${m.badgeCls}"><i class="${m.icon}"></i> ${m.label}</span>
+        ${ev.recurrent ? '<span class="ag-recurrent"><i class="fas fa-redo"></i> Récurrent</span>' : ''}
+        ${ev.past ? '<span class="ag-past-label">Passé</span>' : ''}
+      </div>
+      <h3 class="ag-card-title">${ev.title}</h3>
+      <div class="ag-card-meta">
+        <span><i class="fas fa-clock"></i> ${ev.time}</span>
+        <span><i class="fas fa-map-marker-alt"></i> ${ev.location}</span>
+        <span><i class="fas fa-signal"></i> ${ev.level}</span>
+      </div>
+      <p class="ag-card-desc">${ev.desc}</p>
+      <div class="ag-card-footer">
+        <div class="ag-card-tags">${ev.tags.map(t=>`<span class="ag-tag">${t}</span>`).join('')}</div>
+        <i class="fas fa-chevron-right ag-card-arrow"></i>
+      </div>
+    </div>
+  </article>`;
+}
+
+function renderListInline(filtered) {
+  const upcoming = filtered.filter(e => !e.past);
+  const past     = filtered.filter(e => e.past);
+  const upGroups = {}, pastGroups = {};
+  upcoming.sort((a,b)=>a.date-b.date).forEach(ev => {
+    const key = `${ev.date.getFullYear()}-${ev.date.getMonth()}`;
+    if (!upGroups[key]) upGroups[key] = { label:`${MONTHS[ev.date.getMonth()]} ${ev.date.getFullYear()}`, evs:[] };
+    upGroups[key].evs.push(ev);
+  });
+  past.sort((a,b)=>b.date-a.date).forEach(ev => {
+    const key = `${ev.date.getFullYear()}-${ev.date.getMonth()}`;
+    if (!pastGroups[key]) pastGroups[key] = { label:`${MONTHS[ev.date.getMonth()]} ${ev.date.getFullYear()}`, evs:[] };
+    pastGroups[key].evs.push(ev);
+  });
+  let upHTML = upcoming.length === 0 ? '<p style="color:var(--text-muted);font-family:var(--font-head);padding:20px 0;">Aucun événement à venir pour ce filtre.</p>' : '';
+  Object.values(upGroups).forEach(g => {
+    upHTML += `<div class="ag-month-block"><div class="ag-month-title">${g.label}</div><div class="ag-events-stack">${g.evs.map(buildListCard).join('')}</div></div>`;
+  });
+  let pastHTML = '';
+  Object.values(pastGroups).forEach(g => {
+    pastHTML += `<div class="ag-month-block"><div class="ag-month-title">${g.label}</div><div class="ag-events-stack">${g.evs.map(buildListCard).join('')}</div></div>`;
+  });
+  document.getElementById('ag-upcoming-months-inline').innerHTML = upHTML;
+  document.getElementById('ag-past-months-inline').innerHTML = pastHTML;
+  document.getElementById('agPastCountInline').textContent = past.length;
+  attachCardListenersInline();
+}
+
+/* ── RENDU GRILLE ── */
+function buildGridCard(ev) {
+  const m = TYPE_META[ev.type];
+  return `<article class="ag-grid-card ${m.accentCls}${ev.past?' ag-card-past':''}"
+           data-type="${ev.type}" data-id-inline="${ev.id}"
+           role="button" tabindex="0" aria-label="Voir les détails : ${ev.title}">
+    <div class="ag-grid-top">
+      <div>
+        <span class="ag-type-badge ${m.badgeCls}" style="margin-bottom:8px;display:inline-flex;"><i class="${m.icon}"></i> ${m.label}</span>
+        <div class="ag-grid-title">${ev.title}</div>
+      </div>
+      <div class="ag-grid-date-box"><div class="day">${ev.date.getDate()}</div><div class="mon">${MONTHS_SHORT[ev.date.getMonth()]}</div></div>
+    </div>
+    <div class="ag-grid-meta">
+      <span><i class="fas fa-clock"></i> ${ev.time}</span>
+      <span><i class="fas fa-map-marker-alt"></i> ${ev.location}</span>
+      <span><i class="fas fa-signal"></i> ${ev.level}</span>
+    </div>
+    <p class="ag-card-desc">${ev.desc}</p>
+    <div class="ag-card-tags">${ev.tags.slice(0,3).map(t=>`<span class="ag-tag">${t}</span>`).join('')}</div>
+  </article>`;
+}
+
+function renderGridInline(filtered) {
+  const sorted = [...filtered].sort((a,b)=>{ if(a.past!==b.past) return a.past?1:-1; return a.date-b.date; });
+  document.getElementById('ag-grid-container-inline').innerHTML = sorted.map(buildGridCard).join('');
+  attachCardListenersInline();
+}
+
+/* ── MISE À JOUR ── */
+function updateDisplayInline() {
+  const filtered = activeFilterInline === 'all' ? EVENTS : EVENTS.filter(e => e.type === activeFilterInline);
+  const count = filtered.filter(e => !e.past).length;
+  document.getElementById('agCountInline').textContent = `${count} événement${count!==1?'s':''} à venir`;
+  const empty    = document.getElementById('agEmptyInline');
+  const listView = document.getElementById('ag-list-view-inline');
+  const gridView = document.getElementById('ag-grid-view-inline');
+  if (filtered.length === 0) {
+    empty.classList.add('show'); listView.style.display='none'; gridView.style.display='none'; return;
+  }
+  empty.classList.remove('show');
+  if (activeViewInline === 'list') {
+    listView.style.display='block'; gridView.style.display='none'; renderListInline(filtered);
+  } else {
+    listView.style.display='none'; gridView.style.display='block'; renderGridInline(filtered);
+  }
+}
+
+/* ── MODAL ── */
+function openModalInline(id) {
+  const ev = EVENTS.find(e => e.id === id);
+  if (!ev) return;
+  const m = TYPE_META[ev.type];
+  const overlay = document.getElementById('agModal');
+  document.getElementById('agModalBadge').className = `ag-modal-badge ${m.badgeCls}`;
+  document.getElementById('agModalBadge').innerHTML = `<i class="${m.icon}"></i> ${m.label}`;
+  document.getElementById('agModalTitle').textContent = ev.title;
+  document.getElementById('agModalDate').innerHTML = `<i class="fas fa-calendar"></i> ${fmtDate(ev.date)} &nbsp;·&nbsp; <i class="fas fa-clock"></i> ${ev.time}`;
+  document.getElementById('agModalDesc').textContent = ev.desc;
+  document.getElementById('agModalMeta').innerHTML = `
+    <div class="ag-modal-meta-item"><i class="fas fa-map-marker-alt"></i><span><strong>${ev.location}</strong></span></div>
+    <div class="ag-modal-meta-item"><i class="fas fa-signal"></i><span>Niveau : <strong>${ev.level}</strong></span></div>
+    <div class="ag-modal-meta-item"><i class="fas fa-euro-sign"></i><span><strong>Gratuit</strong> — aucune inscription requise</span></div>
+    ${ev.recurrent ? '<div class="ag-modal-meta-item"><i class="fas fa-redo"></i><span>Événement <strong>récurrent</strong> (toutes les semaines)</span></div>' : ''}
+  `;
+  document.getElementById('agModalTags').innerHTML = ev.tags.map(t=>`<span class="ag-tag">${t}</span>`).join('');
+  document.getElementById('agModalCalBtn').onclick = () => downloadIcsInline([ev]);
+  overlay.removeAttribute('hidden');
+  requestAnimationFrame(() => overlay.classList.add('open'));
+  document.body.style.overflow = 'hidden';
+  document.getElementById('agModalClose').focus();
+}
+
+function closeModalInline() {
+  const overlay = document.getElementById('agModal');
+  overlay.classList.remove('open');
+  setTimeout(() => { overlay.setAttribute('hidden',''); document.body.style.overflow=''; }, 280);
+}
+
+document.getElementById('agModalClose').addEventListener('click', closeModalInline);
+document.getElementById('agModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeModalInline(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalInline(); });
+
+/* ── CARD LISTENERS ── */
+function attachCardListenersInline() {
+  document.querySelectorAll('[data-id-inline]').forEach(el => {
+    const id = parseInt(el.dataset.idInline);
+    el.addEventListener('click', () => openModalInline(id));
+    el.addEventListener('keydown', e => { if (e.key==='Enter'||e.key===' ') { e.preventDefault(); openModalInline(id); } });
+  });
+}
+
+/* ── FILTRES ── */
+document.querySelectorAll('[data-filter-inline]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-filter-inline]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilterInline = btn.dataset.filterInline;
+    updateDisplayInline();
+  });
+});
+
+/* ── VUE ── */
+document.getElementById('btnListInline').addEventListener('click', () => {
+  activeViewInline = 'list';
+  document.getElementById('btnListInline').classList.add('active');
+  document.getElementById('btnGridInline').classList.remove('active');
+  document.getElementById('btnListInline').setAttribute('aria-pressed','true');
+  document.getElementById('btnGridInline').setAttribute('aria-pressed','false');
+  updateDisplayInline();
+});
+document.getElementById('btnGridInline').addEventListener('click', () => {
+  activeViewInline = 'grid';
+  document.getElementById('btnGridInline').classList.add('active');
+  document.getElementById('btnListInline').classList.remove('active');
+  document.getElementById('btnGridInline').setAttribute('aria-pressed','true');
+  document.getElementById('btnListInline').setAttribute('aria-pressed','false');
+  updateDisplayInline();
+});
+
+/* ── TOGGLE PASSÉS ── */
+const pastToggleInline  = document.getElementById('agPastToggleInline');
+const pastSectionInline = document.getElementById('ag-past-section-inline');
+pastToggleInline.addEventListener('click', () => {
+  const open = pastSectionInline.classList.toggle('open');
+  pastToggleInline.classList.toggle('open', open);
+  pastToggleInline.setAttribute('aria-expanded', String(open));
+});
+pastToggleInline.addEventListener('keydown', e => { if (e.key==='Enter'||e.key===' ') { e.preventDefault(); pastToggleInline.click(); } });
+
+/* ── EXPORT iCAL ── */
+function pad(n) { return String(n).padStart(2,'0'); }
+function toIcsDate(d) { return `${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}`; }
+function sanitizeIcs(s) { return s.replace(/[,;\\]/g,'\\$&').replace(/\n/g,'\\n'); }
+function downloadIcsInline(events) {
+  let ics = `BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//A l'Eure Digitale//Agenda//FR\r\nCALSCALE:GREGORIAN\r\n`;
+  events.forEach(ev => {
+    const dt = toIcsDate(ev.date);
+    ics += `BEGIN:VEVENT\r\nUID:aed-event-${ev.id}@aleuredigitale.netlify.app\r\nDTSTART;VALUE=DATE:${dt}\r\nDTEND;VALUE=DATE:${dt}\r\nSUMMARY:${sanitizeIcs(ev.title)}\r\nDESCRIPTION:${sanitizeIcs(ev.desc)}\r\nLOCATION:${sanitizeIcs(ev.location)}\r\nURL:https://discord.gg/yHCAgYKwk\r\nEND:VEVENT\r\n`;
+  });
+  ics += `END:VCALENDAR`;
+  const blob = new Blob([ics],{type:'text/calendar;charset=utf-8'});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href=url; a.download='agenda-aed.ics'; a.click(); URL.revokeObjectURL(url);
+}
+
+document.getElementById('btnExportIcalInline').addEventListener('click', () => {
+  const filtered = activeFilterInline === 'all' ? EVENTS : EVENTS.filter(e => e.type === activeFilterInline);
+  downloadIcsInline(filtered.filter(e => !e.past));
+});
+
+/* ── INIT ── */
+updateDisplayInline();
+})();
+</script>
+
+
 <button id="totop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Retour en haut">
   <i class="fas fa-arrow-up"></i>
 </button>
