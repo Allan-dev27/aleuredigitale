@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carte des Points d'Accès – À l'Eure Digitale</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+  :root {
+    --navy: #1a2e4a;
+    --teal: #1e8a7a;
+    --teal-light: #2ab5a0;
+    --orange: #f07d20;
+    --orange-light: #f9a65a;
+    --sky: #e8f6f4;
+    --white: #ffffff;
+    --gray: #6b7280;
+    --gray-light: #f4f6f8;
+    --text: #1a2e4a;
+    --green: #2a9d5c;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; color: var(--text); background: #fff; overflow-x: hidden; }
+  h1, h2, h3, h4, h5 { font-family: 'Sora', sans-serif; }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 1000;
+    background: #fff;
+    box-shadow: 0 2px 16px rgba(26,46,74,.08);
+    padding: 0 5vw;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px;
+  }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-icon {
+    width: 44px; height: 44px; background: var(--navy); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .logo-icon svg { width: 26px; height: 26px; }
+  .logo-text { line-height: 1.1; }
+  .logo-text .top { font-family: 'Sora', sans-serif; font-weight: 800; font-size: 14px; color: var(--navy); letter-spacing: .5px; }
+  .logo-text .bottom { font-size: 9px; letter-spacing: 2.5px; color: var(--teal); text-transform: uppercase; font-weight: 600; }
+  .nav-links { display: flex; align-items: center; gap: 0; list-style: none; }
+  .nav-links a {
+    display: block; padding: 0 18px; font-size: 14.5px; font-weight: 500;
+    color: var(--navy); text-decoration: none; position: relative; transition: color .2s;
+  }
+  .nav-links a.active { color: var(--teal); }
+  .nav-links a.active::after {
+    content: ''; position: absolute; bottom: -22px; left: 18px; right: 18px;
+    height: 2.5px; background: var(--orange); border-radius: 2px;
+  }
+  .nav-links a:hover { color: var(--teal); }
+  .nav-links .has-arrow span { font-size: 10px; margin-left: 3px; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 22px; border-radius: 25px;
+    font-family: 'Sora', sans-serif; font-weight: 600; font-size: 14px;
+    text-decoration: none; cursor: pointer; border: none;
+    transition: transform .2s, box-shadow .2s, background .2s;
+  }
+  .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,.15); }
+  .btn-orange { background: var(--orange); color: #fff; }
+  .btn-orange:hover { background: #e06a10; }
+  .btn-teal { background: var(--teal); color: #fff; }
+  .btn-teal:hover { background: #187065; }
+  .btn-outline { background: transparent; color: var(--navy); border: 2px solid var(--navy); }
+  .btn-outline:hover { background: var(--navy); color: #fff; }
+
+  /* ── PAGE HERO ── */
+  .page-hero {
+    background: linear-gradient(135deg, var(--navy) 0%, #25436b 100%);
+    padding: 52px 5vw 44px;
+    position: relative; overflow: hidden;
+  }
+  .page-hero::before {
+    content: '';
+    position: absolute; top: -80px; right: -80px;
+    width: 340px; height: 340px; border-radius: 50%;
+    border: 70px solid rgba(255,255,255,.04);
+    pointer-events: none;
+  }
+  .page-hero::after {
+    content: '';
+    position: absolute; bottom: -60px; left: 20%;
+    width: 200px; height: 200px; border-radius: 50%;
+    border: 40px solid rgba(30,138,122,.12);
+    pointer-events: none;
+  }
+  .page-hero-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between; gap: 40px;
+    position: relative; z-index: 1;
+  }
+  .page-hero h1 {
+    font-size: clamp(26px, 3.5vw, 42px);
+    font-weight: 800; color: #fff; margin-bottom: 12px; line-height: 1.2;
+  }
+  .page-hero h1 em { color: var(--teal-light); font-style: normal; }
+  .page-hero p {
+    font-size: 15.5px; color: rgba(255,255,255,.75); line-height: 1.7;
+    max-width: 520px; margin-bottom: 24px;
+  }
+  .hero-badges { display: flex; gap: 10px; flex-wrap: wrap; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18);
+    border-radius: 20px; padding: 6px 14px;
+    font-size: 13px; color: rgba(255,255,255,.9); font-weight: 500;
+  }
+  .hero-badge .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+  }
+  .hero-badge .dot.teal { background: var(--teal-light); }
+  .hero-badge .dot.orange { background: var(--orange-light); }
+  .hero-badge .dot.blue { background: #6cb4f0; }
+  .hero-badge .dot.green { background: #6ee7b7; }
+
+  .hero-stat-block {
+    flex-shrink: 0;
+    background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14);
+    border-radius: 20px; padding: 28px 32px;
+    text-align: center; min-width: 200px;
+  }
+  .hero-stat-block .big-num {
+    font-family: 'Sora', sans-serif; font-size: 52px; font-weight: 800;
+    color: #fff; line-height: 1;
+  }
+  .hero-stat-block .big-num span { color: var(--teal-light); }
+  .hero-stat-block p { font-size: 13px; color: rgba(255,255,255,.65); margin-top: 8px; }
+
+  /* ── SEARCH / FILTER BAR ── */
+  .filter-bar {
+    background: #fff;
+    border-bottom: 1px solid #eaedf1;
+    padding: 16px 5vw;
+    position: sticky; top: 68px; z-index: 900;
+    box-shadow: 0 2px 10px rgba(0,0,0,.05);
+  }
+  .filter-bar-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  }
+  .search-wrap {
+    flex: 1; min-width: 220px; position: relative;
+  }
+  .search-wrap svg {
+    position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+    width: 16px; height: 16px; stroke: var(--gray); fill: none; stroke-width: 2;
+  }
+  .search-input {
+    width: 100%; padding: 10px 14px 10px 40px;
+    border: 1.5px solid #dde1e8; border-radius: 25px;
+    font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--navy);
+    outline: none; transition: border-color .2s;
+    background: var(--gray-light);
+  }
+  .search-input:focus { border-color: var(--teal); background: #fff; }
+  .search-input::placeholder { color: var(--gray); }
+
+  .filter-chips { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 7px 16px; border-radius: 25px; border: 1.5px solid #dde1e8;
+    font-size: 13px; font-weight: 600; cursor: pointer;
+    background: #fff; color: var(--gray);
+    transition: all .2s; white-space: nowrap;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .chip:hover { border-color: var(--teal); color: var(--teal); }
+  .chip.active { background: var(--teal); border-color: var(--teal); color: #fff; }
+  .chip.all.active { background: var(--navy); border-color: var(--navy); }
+  .chip-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  .filter-count {
+    font-size: 13px; color: var(--gray); white-space: nowrap;
+    font-weight: 500; margin-left: auto;
+  }
+  .filter-count strong { color: var(--navy); }
+
+  /* ── MAIN LAYOUT ── */
+  .main-layout {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    height: calc(100vh - 68px - 64px);
+    max-height: 680px;
+  }
+
+  /* ── SIDEBAR LIST ── */
+  .sidebar {
+    overflow-y: auto; border-right: 1px solid #eaedf1;
+    scroll-behavior: smooth;
+  }
+  .sidebar::-webkit-scrollbar { width: 5px; }
+  .sidebar::-webkit-scrollbar-track { background: #f4f6f8; }
+  .sidebar::-webkit-scrollbar-thumb { background: #d0d5dd; border-radius: 10px; }
+
+  .sidebar-item {
+    padding: 18px 22px;
+    border-bottom: 1px solid #f0f2f5;
+    cursor: pointer;
+    transition: background .18s;
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+  .sidebar-item:hover { background: var(--sky); }
+  .sidebar-item.active { background: var(--sky); border-left: 3px solid var(--teal); }
+
+  .sidebar-icon {
+    width: 42px; height: 42px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .sidebar-icon svg { width: 20px; height: 20px; stroke-width: 2; fill: none; }
+  .sidebar-icon.mediatheque { background: #e6f7f5; }
+  .sidebar-icon.mediatheque svg { stroke: var(--teal); }
+  .sidebar-icon.france-services { background: #e8edf5; }
+  .sidebar-icon.france-services svg { stroke: var(--navy); }
+  .sidebar-icon.permanence { background: #fff3e6; }
+  .sidebar-icon.permanence svg { stroke: var(--orange); }
+  .sidebar-icon.espace-public { background: #e8f5ef; }
+  .sidebar-icon.espace-public svg { stroke: var(--green); }
+
+  .sidebar-info { flex: 1; min-width: 0; }
+  .sidebar-info h4 {
+    font-size: 14px; font-weight: 700; color: var(--navy);
+    margin-bottom: 3px; line-height: 1.3;
+  }
+  .sidebar-info .type-tag {
+    display: inline-block; padding: 2px 9px; border-radius: 12px;
+    font-size: 10.5px; font-weight: 700; letter-spacing: .5px;
+    text-transform: uppercase; margin-bottom: 6px;
+  }
+  .type-tag.mediatheque { background: #e6f7f5; color: var(--teal); }
+  .type-tag.france-services { background: #e8edf5; color: var(--navy); }
+  .type-tag.permanence { background: #fff3e6; color: var(--orange); }
+  .type-tag.espace-public { background: #e8f5ef; color: var(--green); }
+
+  .sidebar-info .address {
+    font-size: 12.5px; color: var(--gray); margin-bottom: 5px;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .sidebar-info .address svg { width: 12px; height: 12px; stroke: var(--gray); fill: none; stroke-width: 2; flex-shrink: 0; }
+  .sidebar-info .schedule {
+    font-size: 12px; color: var(--gray);
+    display: flex; align-items: center; gap: 5px;
+  }
+  .sidebar-info .schedule svg { width: 12px; height: 12px; stroke: var(--gray); fill: none; stroke-width: 2; flex-shrink: 0; }
+  .open-badge {
+    font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 10px;
+    margin-left: 6px;
+  }
+  .open-badge.open { background: #d1fae5; color: #065f46; }
+  .open-badge.closed { background: #fee2e2; color: #991b1b; }
+
+  .no-results {
+    padding: 60px 22px; text-align: center; color: var(--gray);
+    display: none;
+  }
+  .no-results svg { width: 48px; height: 48px; stroke: #d0d5dd; fill: none; stroke-width: 1.5; margin-bottom: 16px; }
+  .no-results p { font-size: 14px; }
+
+  /* ── MAP ── */
+  #map {
+    width: 100%; height: 100%;
+    z-index: 1;
+  }
+
+  /* Leaflet popup custom style */
+  .leaflet-popup-content-wrapper {
+    border-radius: 14px !important;
+    box-shadow: 0 8px 32px rgba(26,46,74,.18) !important;
+    border: none !important;
+    padding: 0 !important;
+    overflow: hidden;
+  }
+  .leaflet-popup-content {
+    margin: 0 !important;
+    width: 260px !important;
+  }
+  .leaflet-popup-tip-container { margin-top: -1px; }
+
+  .popup-header {
+    padding: 16px 18px 12px;
+    border-bottom: 1px solid #f0f2f5;
+  }
+  .popup-header .ptype {
+    font-size: 10px; font-weight: 700; letter-spacing: .8px;
+    text-transform: uppercase; margin-bottom: 5px;
+    display: block;
+  }
+  .popup-header h3 {
+    font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 700;
+    color: var(--navy); line-height: 1.25;
+  }
+  .popup-body { padding: 12px 18px 16px; }
+  .popup-row {
+    display: flex; align-items: flex-start; gap: 8px;
+    font-size: 12.5px; color: var(--gray); margin-bottom: 7px;
+    line-height: 1.4;
+  }
+  .popup-row svg { width: 13px; height: 13px; stroke: var(--teal); fill: none; stroke-width: 2; flex-shrink: 0; margin-top: 1px; }
+  .popup-row:last-child { margin-bottom: 0; }
+  .popup-btn {
+    display: block; margin: 14px 18px 16px;
+    background: var(--teal); color: #fff;
+    border-radius: 20px; padding: 9px 16px;
+    font-family: 'Sora', sans-serif; font-weight: 600; font-size: 13px;
+    text-align: center; text-decoration: none;
+    transition: background .2s;
+  }
+  .popup-btn:hover { background: #187065; }
+
+  /* Custom marker icons */
+  .custom-marker {
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    border: 3px solid #fff;
+    box-shadow: 0 3px 10px rgba(0,0,0,.2);
+    font-size: 16px;
+  }
+
+  /* ── INFO SECTION ── */
+  .info-section {
+    padding: 64px 5vw;
+    background: var(--gray-light);
+  }
+  .info-inner {
+    max-width: 1200px; margin: 0 auto;
+  }
+  .info-header {
+    text-align: center; margin-bottom: 48px;
+  }
+  .info-header h2 {
+    font-size: clamp(24px, 3vw, 34px); font-weight: 800;
+    color: var(--navy); margin-bottom: 12px;
+  }
+  .info-header p { font-size: 15.5px; color: var(--gray); max-width: 540px; margin: 0 auto; line-height: 1.7; }
+
+  .legend-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+    margin-bottom: 48px;
+  }
+  .legend-card {
+    background: #fff; border-radius: 16px;
+    padding: 24px 20px 20px;
+    box-shadow: 0 2px 12px rgba(0,0,0,.06);
+    text-align: center;
+    transition: transform .2s, box-shadow .2s;
+    cursor: pointer;
+  }
+  .legend-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,.1); }
+  .legend-emoji { font-size: 32px; margin-bottom: 12px; display: block; }
+  .legend-card h3 { font-size: 14.5px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+  .legend-card p { font-size: 13px; color: var(--gray); line-height: 1.55; }
+  .legend-count {
+    display: inline-block; margin-top: 10px;
+    padding: 3px 12px; border-radius: 20px;
+    font-size: 12px; font-weight: 700;
+  }
+  .legend-count.teal { background: #e6f7f5; color: var(--teal); }
+  .legend-count.navy { background: #e8edf5; color: var(--navy); }
+  .legend-count.orange { background: #fff3e6; color: var(--orange); }
+  .legend-count.green { background: #e8f5ef; color: var(--green); }
+
+  /* ── CTA BANNER ── */
+  .cta-banner {
+    background: var(--navy); padding: 56px 5vw;
+    position: relative; overflow: hidden;
+  }
+  .cta-banner::before {
+    content: ''; position: absolute; top: -80px; right: -80px;
+    width: 320px; height: 320px; border-radius: 50%;
+    border: 60px solid rgba(255,255,255,.04);
+  }
+  .cta-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between; gap: 40px;
+    position: relative; z-index: 1;
+  }
+  .cta-text h2 { font-size: clamp(20px, 2.5vw, 28px); font-weight: 800; color: #fff; margin-bottom: 8px; }
+  .cta-text p { font-size: 15px; color: rgba(255,255,255,.7); }
+  .cta-actions { display: flex; gap: 12px; flex-shrink: 0; flex-wrap: wrap; }
+  .btn-white { background: #fff; color: var(--navy); }
+  .btn-white:hover { background: var(--sky); }
+  .btn-ghost { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.35); }
+  .btn-ghost:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.6); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy);
+    color: rgba(255,255,255,.85);
+    padding: 60px 5vw 0;
+  }
+  .footer-grid {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.2fr;
+    gap: 40px; padding-bottom: 50px;
+  }
+  .footer-brand .tagline {
+    font-size: 13px; color: rgba(255,255,255,.6); line-height: 1.6;
+    margin-top: 8px; margin-bottom: 20px;
+  }
+  .socials { display: flex; gap: 10px; }
+  .social-btn {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(255,255,255,.12);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; text-decoration: none; font-size: 14px;
+    transition: background .2s;
+  }
+  .social-btn:hover { background: var(--teal); }
+  .social-btn svg { width: 16px; height: 16px; fill: #fff; }
+  .footer-col h4 {
+    font-family: 'Sora', sans-serif; font-size: 13px; font-weight: 700;
+    color: #fff; letter-spacing: .5px; text-transform: uppercase; margin-bottom: 16px;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 9px; }
+  .footer-col ul a {
+    color: rgba(255,255,255,.65); text-decoration: none;
+    font-size: 13.5px; transition: color .2s;
+  }
+  .footer-col ul a:hover { color: var(--teal-light); }
+  .contact-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 13.5px; color: rgba(255,255,255,.7);
+    margin-bottom: 10px; line-height: 1.5;
+  }
+  .contact-item svg { width: 15px; height: 15px; stroke: var(--teal-light); fill: none; stroke-width: 2; flex-shrink: 0; margin-top: 2px; }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,.1);
+    max-width: 1200px; margin: 0 auto;
+    padding: 18px 0;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-bottom p { font-size: 12.5px; color: rgba(255,255,255,.45); }
+  .back-top {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(255,255,255,.1); border: none;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: background .2s;
+  }
+  .back-top:hover { background: var(--teal); }
+  .back-top svg { width: 16px; height: 16px; stroke: #fff; fill: none; stroke-width: 2.5; }
+
+  /* ── ANIMATIONS ── */
+  [data-reveal] { opacity: 0; transform: translateY(24px); transition: opacity .6s, transform .6s; }
+  [data-reveal].revealed { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .main-layout { grid-template-columns: 1fr; height: auto; max-height: none; }
+    .sidebar { max-height: 380px; border-right: none; border-bottom: 1px solid #eaedf1; }
+    #map { height: 420px; }
+    .legend-grid { grid-template-columns: 1fr 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .cta-inner { flex-direction: column; }
+    .page-hero-inner { flex-direction: column; }
+    .hero-stat-block { width: 100%; }
+  }
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
+    .legend-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .filter-bar-inner { flex-wrap: wrap; }
+    .filter-count { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ NAV ═══════════════════ -->
+<nav>
+  <a href="aleure-digitale.html" class="logo">
+    <div class="logo-icon">
+      <svg viewBox="0 0 32 32" fill="none" stroke="white" stroke-width="2.2">
+        <circle cx="16" cy="16" r="6"/>
+        <path d="M16 4a12 12 0 0 1 12 12"/>
+        <path d="M16 4a12 12 0 0 0-12 12"/>
+        <path d="M28 16a12 12 0 0 1-12 12"/>
+        <path d="M4 16a12 12 0 0 0 12 12"/>
+      </svg>
+    </div>
+    <div class="logo-text">
+      <div class="top">À L'EURE<br><span style="color:var(--teal)">DIGITALE</span></div>
+    </div>
+  </a>
+
+  <ul class="nav-links">
+   <a href="#about">Association</a>
+    <a href="#temoignages">Témoignages</a>
+    <a href="#minecraft" style="display:inline-flex;align-items:center;gap:5px;"><i class="fas fa-cubes" style="font-size:.8rem;color:#4ade80;"></i> Minecraft</a>
+    <a href="#reseau">Réseau</a>
+    <a href="#hackathon">Hackathon</a>
+    <a href="#proposer">Proposer</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">Contact</a>
+    <a href="adherer.html"> Adhérer</a>
+      <a href="cartes.html" class="mob-cartes"><i class="fas fa-map"></i> Cartes</a>
+    <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="nav-disc"><i class="fab fa-discord"></i> Rejoindre</a>
+  </ul>
+
+  <a href="adhesion.html" class="btn btn-orange">
+    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    Adhérer
+  </a>
+</nav>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<section class="page-hero" data-reveal>
+  <div class="page-hero-inner">
+    <div>
+      <h1>Points d'accès<br>au numérique dans <em>l'Eure</em></h1>
+      <p>Trouvez le lieu d'accompagnement le plus proche de chez vous : médiathèques, maisons France Services, permanences numériques et espaces publics connectés.</p>
+      <div class="hero-badges">
+        <span class="hero-badge"><span class="dot teal"></span> Médiathèques</span>
+        <span class="hero-badge"><span class="dot blue"></span> France Services</span>
+        <span class="hero-badge"><span class="dot orange"></span> Permanences</span>
+        <span class="hero-badge"><span class="dot green"></span> EPN</span>
+      </div>
+    </div>
+    <div class="hero-stat-block">
+      <div class="big-num">40<span>+</span></div>
+      <p>lieux d'accueil<br>dans tout le département</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FILTER BAR ═══════════════════ -->
+<div class="filter-bar">
+  <div class="filter-bar-inner">
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" class="search-input" placeholder="Rechercher une commune, un lieu…" id="searchInput" oninput="filterPoints()">
+    </div>
+    <div class="filter-chips">
+      <button class="chip all active" onclick="setFilter('all', this)">Tous</button>
+      <button class="chip" onclick="setFilter('mediatheque', this)">
+        <span class="chip-dot" style="background:var(--teal)"></span> Médiathèques
+      </button>
+      <button class="chip" onclick="setFilter('france-services', this)">
+        <span class="chip-dot" style="background:#6cb4f0"></span> France Services
+      </button>
+      <button class="chip" onclick="setFilter('permanence', this)">
+        <span class="chip-dot" style="background:var(--orange)"></span> Permanences
+      </button>
+      <button class="chip" onclick="setFilter('espace-public', this)">
+        <span class="chip-dot" style="background:var(--green)"></span> EPN
+      </button>
+    </div>
+    <div class="filter-count" id="filterCount"><strong>22</strong> lieux affichés</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ MAP + LIST ═══════════════════ -->
+<div class="main-layout">
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <!-- Items injected by JS -->
+    <div class="no-results" id="noResults">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <p>Aucun lieu ne correspond à votre recherche.</p>
+    </div>
+  </div>
+
+  <!-- Map -->
+  <div id="map"></div>
+</div>
+
+<!-- ═══════════════════ INFO SECTION ═══════════════════ -->
+<section class="info-section">
+  <div class="info-inner">
+    <div class="info-header" data-reveal>
+      <h2>Quels types de lieux trouver ?</h2>
+      <p>Chaque point d'accès propose des services différents. Choisissez le lieu adapté à votre besoin.</p>
+    </div>
+
+    <div class="legend-grid">
+      <div class="legend-card" data-reveal onclick="setFilter('mediatheque', document.querySelector('.chip:nth-child(2)'))">
+        <span class="legend-emoji">📚</span>
+        <h3>Médiathèques</h3>
+        <p>Accès libre aux ordinateurs, Wi-Fi, ateliers numériques réguliers, aide à l'utilisation des services en ligne.</p>
+        <span class="legend-count teal">9 lieux</span>
+      </div>
+      <div class="legend-card" data-reveal style="transition-delay:.08s" onclick="setFilter('france-services', document.querySelector('.chip:nth-child(3)'))">
+        <span class="legend-emoji">🏛️</span>
+        <h3>France Services</h3>
+        <p>Accompagnement pour les démarches administratives en ligne : CAF, retraite, impôts, carte grise…</p>
+        <span class="legend-count navy">7 lieux</span>
+      </div>
+      <div class="legend-card" data-reveal style="transition-delay:.16s" onclick="setFilter('permanence', document.querySelector('.chip:nth-child(4)'))">
+        <span class="legend-emoji">🤝</span>
+        <h3>Permanences numériques</h3>
+        <p>Permanences assurées par nos bénévoles pour un accompagnement personnalisé sur rendez-vous ou en accueil libre.</p>
+        <span class="legend-count orange">4 lieux</span>
+      </div>
+      <div class="legend-card" data-reveal style="transition-delay:.24s" onclick="setFilter('espace-public', document.querySelector('.chip:nth-child(5)'))">
+        <span class="legend-emoji">💻</span>
+        <h3>Espaces Publics Numériques</h3>
+        <p>Espaces équipés d'ordinateurs en libre accès pour naviguer, imprimer, scanner ou suivre des formations en ligne.</p>
+        <span class="legend-count green">2 lieux</span>
+      </div>
+    </div>
+
+    <div style="background:#fff; border-radius:20px; padding:32px 36px; box-shadow:0 2px 12px rgba(0,0,0,.06); display:flex; gap:32px; align-items:center; flex-wrap:wrap;" data-reveal>
+      <div style="flex:1; min-width:220px;">
+        <h3 style="font-size:20px; font-weight:800; color:var(--navy); margin-bottom:10px;">Vous ne trouvez pas de lieu près de chez vous ?</h3>
+        <p style="font-size:14.5px; color:var(--gray); line-height:1.7;">Contactez-nous ! Nous pouvons orienter vers des aidants numériques partenaires non encore référencés, ou organiser une permanence dans votre commune.</p>
+      </div>
+      <div style="display:flex; gap:12px; flex-shrink:0;">
+        <a href="contact.html" class="btn btn-teal">Nous contacter →</a>
+        <a href="ateliers.html" class="btn btn-outline">Voir les ateliers</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ CTA BANNER ═══════════════════ -->
+<div class="cta-banner" data-reveal>
+  <div class="cta-inner">
+    <div class="cta-text">
+      <h2>Devenez aidant numérique bénévole</h2>
+      <p>Signalez un lieu manquant ou proposez d'animer une permanence dans votre commune.</p>
+    </div>
+    <div class="cta-actions">
+      <a href="contact.html" class="btn btn-white">Proposer un lieu →</a>
+      <a href="adhesion.html" class="btn btn-ghost">Rejoindre l'association</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+        <div class="logo-icon">
+          <svg viewBox="0 0 32 32" fill="none" stroke="white" stroke-width="2.2">
+            <circle cx="16" cy="16" r="6"/>
+            <path d="M16 4a12 12 0 0 1 12 12"/>
+            <path d="M16 4a12 12 0 0 0-12 12"/>
+            <path d="M28 16a12 12 0 0 1-12 12"/>
+            <path d="M4 16a12 12 0 0 0 12 12"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <div class="top" style="color:#fff">À L'EURE<br><span style="color:var(--teal-light)">DIGITALE</span></div>
+          <div class="bottom">Association</div>
+        </div>
+      </div>
+      <p class="tagline">Le numérique pour tous,<br>partout dans l'Eure.</p>
+      <div class="socials">
+        <a href="#" class="social-btn" title="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="#" class="social-btn" title="Instagram">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="#" class="social-btn" title="YouTube">
+          <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#1a2e4a"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="aleure-digitale.html">Accueil</a></li>
+        <li><a href="association.html">L'association</a></li>
+        <li><a href="ateliers.html">Ateliers &amp; Formations</a></li>
+        <li><a href="ressources.html">Ressources</a></li>
+        <li><a href="actualites.html">Actualités</a></li>
+        <li><a href="carte.html">Carte des lieux</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Infos pratiques</h4>
+      <ul>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Mentions légales</a></li>
+        <li><a href="#">Politique de confidentialité</a></li>
+        <li><a href="#">Plan du site</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Nous contacter</h4>
+      <div class="contact-item">
+        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>À l'Eure Digitale<br>1 rue de la Madeleine<br>27000 Évreux</span>
+      </div>
+      <div class="contact-item">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.32 2 2 0 0 1 3.57 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.54a16 16 0 0 0 5.55 5.55l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        02 32 00 00 00
+      </div>
+      <div class="contact-item">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        contact@aleuredigitale.fr
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 <strong style="color:rgba(255,255,255,.7)">À l'Eure Digitale</strong> – Tous droits réservés</p>
+    <button class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Retour en haut">
+      <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+    </button>
+  </div>
+</footer>
+
+<script>
+// ── DATA ──────────────────────────────────────────────
+const points = [
+  // Médiathèques
+  { id:1, name:"Médiathèque d'Évreux", type:"mediatheque", address:"1 rue de la Madeleine, 27000 Évreux", schedule:"Mar–Sam 10h–18h", lat:49.0232, lng:1.1502, open:true },
+  { id:2, name:"Médiathèque de Bernay", type:"mediatheque", address:"12 rue Thiers, 27300 Bernay", schedule:"Mar–Sam 9h–17h", lat:49.0892, lng:0.5987, open:true },
+  { id:3, name:"Médiathèque de Louviers", type:"mediatheque", address:"Place Ernest Thorel, 27400 Louviers", schedule:"Mar–Dim 10h–18h", lat:49.2176, lng:1.1699, open:true },
+  { id:4, name:"Médiathèque de Vernon", type:"mediatheque", address:"8 Place du Marché, 27200 Vernon", schedule:"Mer–Sam 10h–17h", lat:49.0929, lng:1.4827, open:false },
+  { id:5, name:"Médiathèque de Gisors", type:"mediatheque", address:"Rue de Vienne, 27140 Gisors", schedule:"Mar–Sam 10h–18h", lat:49.2827, lng:1.7737, open:true },
+  { id:6, name:"Médiathèque des Andelys", type:"mediatheque", address:"Place de la Mairie, 27700 Les Andelys", schedule:"Mer–Sam 10h–17h", lat:49.2466, lng:1.5754, open:true },
+  { id:7, name:"Médiathèque de Pont-Audemer", type:"mediatheque", address:"3 Rue de la République, 27500 Pont-Audemer", schedule:"Mar–Sam 9h–17h30", lat:49.3579, lng:0.5145, open:true },
+  { id:8, name:"Médiathèque de L'Aigle", type:"mediatheque", address:"Place Fulbert de Beina, 61300 L'Aigle", schedule:"Mar–Sam 10h–18h", lat:48.7649, lng:0.6291, open:false },
+  { id:9, name:"Médiathèque de Verneuil d'Avre et d'Iton", type:"mediatheque", address:"Rue de la Madeleine, 27130 Verneuil", schedule:"Mar–Sam 10h–17h", lat:48.7313, lng:0.9284, open:true },
+
+  // France Services
+  { id:10, name:"Maison France Services d'Évreux", type:"france-services", address:"2 Rue Charles Corbeau, 27000 Évreux", schedule:"Lun–Ven 9h–17h", lat:49.0271, lng:1.1562, open:true },
+  { id:11, name:"France Services de Bernay", type:"france-services", address:"15 Rue Thiers, 27300 Bernay", schedule:"Lun–Ven 9h–16h30", lat:49.0871, lng:0.5967, open:true },
+  { id:12, name:"France Services de Pont-Audemer", type:"france-services", address:"1 Rue Léon Sénat, 27500 Pont-Audemer", schedule:"Lun–Ven 9h–12h / 13h30–17h", lat:49.3591, lng:0.5127, open:true },
+  { id:13, name:"France Services de Gaillon", type:"france-services", address:"Rue Jean Jaurès, 27600 Gaillon", schedule:"Lun–Ven 9h–17h", lat:49.1613, lng:1.3336, open:false },
+  { id:14, name:"France Services de Breteuil", type:"france-services", address:"Place Saint-Michel, 27160 Breteuil", schedule:"Mar–Jeu 9h–12h30", lat:48.8309, lng:0.9147, open:true },
+  { id:15, name:"France Services de Nonancourt", type:"france-services", address:"Rue de la Mairie, 27320 Nonancourt", schedule:"Lun–Mer 9h–16h", lat:48.7758, lng:1.1906, open:true },
+  { id:16, name:"France Services de Rugles", type:"france-services", address:"2 Place du Gal de Gaulle, 27250 Rugles", schedule:"Lun, Mer, Ven 9h–12h", lat:48.8205, lng:0.7017, open:true },
+
+  // Permanences numériques
+  { id:17, name:"Permanence numérique – Damville", type:"permanence", address:"Salle des fêtes, 27240 Damville", schedule:"1er et 3e Mer du mois 14h–17h", lat:48.8696, lng:1.0790, open:false },
+  { id:18, name:"Permanence numérique – Bourgtheroulde", type:"permanence", address:"Mairie, 27520 Bourgtheroulde", schedule:"Chaque Ven 9h30–12h", lat:49.3057, lng:0.8726, open:true },
+  { id:19, name:"Permanence numérique – Pacy-sur-Eure", type:"permanence", address:"Médiathèque, 27120 Pacy-sur-Eure", schedule:"2e et 4e Jeu du mois 14h–17h", lat:49.0169, lng:1.3836, open:false },
+  { id:20, name:"Permanence numérique – Conches-en-Ouche", type:"permanence", address:"Centre social, 27190 Conches-en-Ouche", schedule:"Chaque Mar 10h–12h", lat:48.9595, lng:0.9319, open:true },
+
+  // EPN
+  { id:21, name:"Espace Public Numérique – Évreux", type:"espace-public", address:"10 Rue Joséphine, 27000 Évreux", schedule:"Lun–Ven 9h–18h", lat:49.0247, lng:1.1488, open:true },
+  { id:22, name:"Espace Public Numérique – Louviers", type:"espace-public", address:"Maison du citoyen, 27400 Louviers", schedule:"Mar–Sam 10h–17h", lat:49.2151, lng:1.1680, open:true },
+];
+
+// ── MAP ────────────────────────────────────────────────
+const map = L.map('map', { zoomControl: true }).setView([49.05, 1.0], 9);
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+  maxZoom: 18
+}).addTo(map);
+
+// Marker colors
+const markerColors = {
+  'mediatheque':   { bg:'#1e8a7a', border:'#187065', emoji:'📚' },
+  'france-services': { bg:'#1a2e4a', border:'#0f1d2f', emoji:'🏛️' },
+  'permanence':    { bg:'#f07d20', border:'#d4690e', emoji:'🤝' },
+  'espace-public': { bg:'#2a9d5c', border:'#1f7a46', emoji:'💻' },
+};
+
+const typeLabels = {
+  'mediatheque': 'Médiathèque',
+  'france-services': 'France Services',
+  'permanence': 'Permanence numérique',
+  'espace-public': 'Espace Public Numérique',
+};
+
+const typeIcons = {
+  'mediatheque': `<svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>`,
+  'france-services': `<svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
+  'permanence': `<svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+  'espace-public': `<svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="2" y1="20" x2="22" y2="20"/></svg>`,
+};
+
+const leafletMarkers = {};
+
+function createMarkerIcon(type) {
+  const c = markerColors[type];
+  return L.divIcon({
+    className: '',
+    html: `<div style="
+      width:38px;height:38px;border-radius:50%;
+      background:${c.bg};border:3px solid ${c.border};
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 3px 12px rgba(0,0,0,.25);
+      font-size:17px;cursor:pointer;
+      transition:transform .15s;
+    ">${c.emoji}</div>`,
+    iconSize: [38, 38],
+    iconAnchor: [19, 38],
+    popupAnchor: [0, -40],
+  });
+}
+
+function buildPopup(p) {
+  const typeCls = p.type;
+  const typeLabel = typeLabels[p.type];
+  const openHtml = p.open
+    ? `<span class="open-badge open">Ouvert</span>`
+    : `<span class="open-badge closed">Fermé</span>`;
+  return `
+    <div class="popup-header">
+      <span class="ptype type-tag ${typeCls}">${typeLabel}</span>
+      <h3>${p.name}</h3>
+    </div>
+    <div class="popup-body">
+      <div class="popup-row">
+        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        ${p.address}
+      </div>
+      <div class="popup-row">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        ${p.schedule} ${openHtml}
+      </div>
+    </div>
+    <a href="contact.html" class="popup-btn">Prendre rendez-vous →</a>
+  `;
+}
+
+// Place all markers
+points.forEach(p => {
+  const marker = L.marker([p.lat, p.lng], { icon: createMarkerIcon(p.type) })
+    .addTo(map)
+    .bindPopup(buildPopup(p), { maxWidth: 280 });
+  marker.on('click', () => highlightSidebarItem(p.id));
+  leafletMarkers[p.id] = marker;
+});
+
+// ── SIDEBAR ────────────────────────────────────────────
+let currentFilter = 'all';
+
+function buildSidebar(filtered) {
+  const sidebar = document.getElementById('sidebar');
+  const noResults = document.getElementById('noResults');
+  // Remove existing items (not noResults)
+  sidebar.querySelectorAll('.sidebar-item').forEach(el => el.remove());
+
+  if (filtered.length === 0) {
+    noResults.style.display = 'block';
+    return;
+  }
+  noResults.style.display = 'none';
+
+  filtered.forEach((p, i) => {
+    const item = document.createElement('div');
+    item.className = 'sidebar-item';
+    item.dataset.id = p.id;
+    const openHtml = p.open
+      ? `<span class="open-badge open">Ouvert</span>`
+      : `<span class="open-badge closed">Fermé</span>`;
+    item.innerHTML = `
+      <div class="sidebar-icon ${p.type}">${typeIcons[p.type]}</div>
+      <div class="sidebar-info">
+        <span class="type-tag ${p.type}">${typeLabels[p.type]}</span>
+        <h4>${p.name}</h4>
+        <div class="address">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          ${p.address}
+        </div>
+        <div class="schedule">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          ${p.schedule} ${openHtml}
+        </div>
+      </div>
+    `;
+    item.addEventListener('click', () => {
+      // Highlight item
+      document.querySelectorAll('.sidebar-item').forEach(el => el.classList.remove('active'));
+      item.classList.add('active');
+      // Fly map to marker
+      const marker = leafletMarkers[p.id];
+      map.flyTo([p.lat, p.lng], 13, { duration: 0.8 });
+      setTimeout(() => marker.openPopup(), 900);
+    });
+    sidebar.insertBefore(item, noResults);
+  });
+
+  document.getElementById('filterCount').innerHTML = `<strong>${filtered.length}</strong> lieu${filtered.length > 1 ? 'x' : ''} affiché${filtered.length > 1 ? 's' : ''}`;
+}
+
+function highlightSidebarItem(id) {
+  document.querySelectorAll('.sidebar-item').forEach(el => el.classList.remove('active'));
+  const item = document.querySelector(`.sidebar-item[data-id="${id}"]`);
+  if (item) {
+    item.classList.add('active');
+    item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+}
+
+function getFiltered() {
+  const q = document.getElementById('searchInput').value.toLowerCase().trim();
+  return points.filter(p => {
+    const matchType = currentFilter === 'all' || p.type === currentFilter;
+    const matchSearch = !q || p.name.toLowerCase().includes(q) || p.address.toLowerCase().includes(q);
+    return matchType && matchSearch;
+  });
+}
+
+function filterPoints() {
+  const filtered = getFiltered();
+  buildSidebar(filtered);
+  // Show/hide markers
+  points.forEach(p => {
+    const marker = leafletMarkers[p.id];
+    const isVisible = filtered.find(f => f.id === p.id);
+    if (isVisible) {
+      if (!map.hasLayer(marker)) marker.addTo(map);
+    } else {
+      if (map.hasLayer(marker)) map.removeLayer(marker);
+    }
+  });
+}
+
+function setFilter(type, btn) {
+  currentFilter = type;
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  else {
+    // Find matching chip
+    document.querySelectorAll('.chip').forEach(c => {
+      if (type === 'all' && c.classList.contains('all')) c.classList.add('active');
+    });
+  }
+  filterPoints();
+}
+
+// Init
+buildSidebar(points);
+
+// ── REVEAL ────────────────────────────────────────────
+const reveals = document.querySelectorAll('[data-reveal]');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); io.unobserve(e.target); } });
+}, { threshold: 0.1 });
+reveals.forEach(el => io.observe(el));
+document.querySelector('.page-hero').classList.add('revealed');
+</script>
+</body>
+</html>
