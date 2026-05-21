@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Devenir Bénévole — À l'Eure Digitale</title>
+<meta name="description" content="Rejoignez les bénévoles d'À l'Eure Digitale et devenez aidant numérique dans l'Eure. Formation offerte, engagement flexible, impact local."/>
+<link rel="canonical" href="https://aleuredigitale.netlify.app/benevoles.html"/>
+<link rel="icon" href="favicon.ico" type="image/x-icon"/>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<link rel="stylesheet" href="style.css"/>
+
+<style>
+/* ════════════════════════════════════════════════
+   TOKENS
+════════════════════════════════════════════════ */
+:root {
+  --aed-navy:   #0b1a3b;
+  --aed-blue:   #1a3a8f;
+  --aed-purple: #6c3fc5;
+  --aed-green:  #2ecc71;
+  --aed-orange: #e67e22;
+  --aed-teal:   #1abc9c;
+  --font-head:  'Sora', sans-serif;
+  --font-body:  'Inter', sans-serif;
+  --bg-nav:     rgba(11,26,59,.88);
+  --border-nav: rgba(255,255,255,.1);
+}
+[data-theme="dark"] {
+  --bg-nav:     rgba(10,18,34,.92);
+  --border-nav: rgba(255,255,255,.07);
+}
+
+/* ════════════════════════════════════════════════
+   NAVBAR
+════════════════════════════════════════════════ */
+.ml-nav {
+  position: fixed; top:0; left:0; right:0;
+  height: 64px;
+  background: var(--bg-nav);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border-nav);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 28px;
+  z-index: 1000;
+}
+.ml-nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--font-head); font-weight: 800; font-size: 1rem;
+  color: #fff; text-decoration: none;
+}
+.ml-nav-logo .lico {
+  background: var(--aed-green); color: #fff;
+  width: 32px; height: 32px; border-radius: 8px;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: .85rem;
+}
+.ml-nav-links { display: flex; align-items: center; gap: 22px; }
+.ml-nav-links a {
+  font-family: var(--font-head); font-size: .85rem; font-weight: 600;
+  color: rgba(255,255,255,.72); text-decoration: none; transition: color .2s;
+}
+.ml-nav-links a:hover { color: #fff; }
+.ml-nav-links .nav-disc {
+  background: #5865f2; color: #fff !important;
+  font-weight: 700 !important; padding: 8px 16px; border-radius: 8px;
+  display: inline-flex; align-items: center; gap: 6px;
+  transition: background .2s !important;
+}
+.ml-nav-links .nav-disc:hover { background: #4752c4 !important; }
+.ml-nav-right { display: flex; align-items: center; gap: 10px; }
+.dark-btn {
+  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); color: #fff;
+  width: 36px; height: 36px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: .9rem; transition: background .2s;
+}
+.dark-btn:hover { background: rgba(255,255,255,.2); }
+.burger-btn {
+  display: none; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+  color: #fff; width: 36px; height: 36px; border-radius: 8px;
+  align-items: center; justify-content: center; cursor: pointer; font-size: 1rem;
+}
+/* Menu mobile */
+.nav-mobile {
+  display: none; position: fixed; top: 64px; left:0; right:0;
+  background: #0d1e44; padding: 16px 24px; flex-direction: column; gap: 4px;
+  box-shadow: 0 12px 40px rgba(0,0,0,.5); z-index: 997;
+}
+.nav-mobile.open { display: flex; }
+.nav-mobile a {
+  font-family: var(--font-head); font-size: .95rem; font-weight: 600;
+  color: rgba(255,255,255,.8); padding: 13px 0;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  display: flex; align-items: center; gap: 10px; transition: color .2s; text-decoration: none;
+}
+.nav-mobile a:hover { color: var(--aed-green); }
+.nav-mobile a:last-child { border-bottom: none; }
+.mob-disc {
+  background: #5865f2 !important; color: #fff !important;
+  border-radius: 8px !important; padding: 13px 16px !important;
+  margin-top: 8px; justify-content: center !important; border: none !important;
+}
+@media (max-width: 860px) {
+  .ml-nav-links { display: none; }
+  .burger-btn { display: flex; }
+}
+
+/* ════════════════════════════════════════════════
+   HERO
+════════════════════════════════════════════════ */
+.bv-hero {
+  background: linear-gradient(135deg, var(--aed-navy) 0%, #0d2055 50%, #0f2a1a 100%);
+  padding: 110px 0 80px;
+  position: relative; overflow: hidden;
+}
+.bv-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 550px 380px at 90% 30%, rgba(46,204,113,.18) 0%, transparent 65%),
+    radial-gradient(ellipse 400px 300px at 5%  80%, rgba(108,63,197,.15) 0%, transparent 60%);
+  pointer-events: none;
+}
+.bv-hero-inner {
+  max-width: 1140px; margin: 0 auto; padding: 0 28px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 48px; align-items: center;
+  position: relative; z-index: 1;
+}
+.bv-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(46,204,113,.18); border: 1px solid rgba(46,204,113,.4);
+  color: #6ee7b7; font-family: var(--font-head); font-size: .75rem;
+  font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  padding: 5px 14px; border-radius: 100px; margin-bottom: 22px;
+}
+.bv-hero h1 {
+  font-family: var(--font-head); font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-weight: 800; color: #fff; line-height: 1.15; margin-bottom: 18px;
+}
+.bv-hero h1 .green { color: var(--aed-green); }
+.bv-hero-desc {
+  color: rgba(255,255,255,.72); font-size: 1.05rem; line-height: 1.75;
+  max-width: 500px; margin-bottom: 32px;
+}
+.bv-hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+.btn-green {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--aed-green); color: #fff;
+  font-family: var(--font-head); font-weight: 700; font-size: .95rem;
+  padding: 13px 24px; border-radius: 10px;
+  transition: background .2s, transform .2s, box-shadow .2s;
+  box-shadow: 0 4px 18px rgba(46,204,113,.35);
+}
+.btn-green:hover { background: #27ae60; transform: translateY(-2px); box-shadow: 0 6px 24px rgba(46,204,113,.45); }
+.btn-ghost-white {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: #fff;
+  font-family: var(--font-head); font-weight: 700; font-size: .95rem;
+  padding: 13px 24px; border-radius: 10px;
+  border: 2px solid rgba(255,255,255,.35);
+  transition: background .2s, border-color .2s;
+}
+.btn-ghost-white:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.65); }
+
+/* Hero visual – cluster d'avatars */
+.hero-visual { display: flex; justify-content: center; align-items: center; }
+.hero-avatar-cluster {
+  position: relative; width: 300px; height: 300px;
+}
+.avatar-ring {
+  position: absolute; width: 300px; height: 300px;
+  border-radius: 50%; border: 1.5px solid rgba(255,255,255,.1);
+  top:0; left:0;
+}
+.avatar-ring-inner {
+  position: absolute; width: 200px; height: 200px;
+  border-radius: 50%; border: 1.5px solid rgba(255,255,255,.07);
+  top: 50px; left: 50px;
+}
+.h-avatar {
+  position: absolute;
+  width: 60px; height: 60px; border-radius: 50%;
+  background: rgba(255,255,255,.1);
+  border: 2px solid rgba(255,255,255,.25);
+  display: flex; align-items: center; justify-content: center; font-size: 26px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.2);
+  animation: float-av 3s ease-in-out infinite;
+}
+.h-avatar.a1 { top:-10px; left:118px; animation-delay:0s; }
+.h-avatar.a2 { top:60px; right:-10px; animation-delay:.6s; }
+.h-avatar.a3 { bottom:30px; right:20px; animation-delay:1.2s; }
+.h-avatar.a4 { bottom:10px; left:30px; animation-delay:1.8s; }
+.h-avatar.a5 { top:70px; left:-10px; animation-delay:2.4s; }
+.avatar-center {
+  position: absolute; top:50%; left:50%;
+  transform: translate(-50%,-50%);
+  width: 90px; height: 90px; border-radius: 50%;
+  background: rgba(46,204,113,.2); border: 2px solid rgba(46,204,113,.4);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  box-shadow: 0 12px 40px rgba(0,0,0,.2);
+}
+.avatar-center i { font-size: 2rem; color: var(--aed-green); }
+@keyframes float-av {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+/* Floating badges */
+.fl-badge {
+  position: absolute;
+  background: rgba(255,255,255,.97); border-radius: 12px;
+  padding: 10px 14px;
+  display: flex; align-items: center; gap: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.15);
+  backdrop-filter: blur(8px);
+}
+.fl-badge.fb1 { top:0; right:-40px; animation: float-av 3.5s ease-in-out infinite; }
+.fl-badge.fb2 { bottom:30px; left:-40px; animation: float-av 3s ease-in-out infinite 1s; }
+.fl-badge-ico {
+  width: 32px; height: 32px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.fl-badge-ico.green { background: rgba(46,204,113,.15); }
+.fl-badge-ico.orange { background: rgba(230,126,34,.15); }
+.fl-badge-ico i { font-size: .9rem; }
+.fl-badge-ico.green i { color: var(--aed-green); }
+.fl-badge-ico.orange i { color: var(--aed-orange); }
+.fl-badge-text strong { display: block; font-family: var(--font-head); font-size: .82rem; font-weight: 700; color: #0b1a3b; }
+.fl-badge-text span   { font-size: .72rem; color: #718096; }
+
+@media (max-width: 860px) {
+  .bv-hero-inner { grid-template-columns: 1fr; }
+  .hero-visual { display: none; }
+  .bv-hero { padding: 90px 0 60px; }
+}
+
+/* ════════════════════════════════════════════════
+   CHIFFRES STRIP
+════════════════════════════════════════════════ */
+.chiffres-strip {
+  background: var(--bg-section-b, #f0f4ff);
+  border-bottom: 1px solid var(--border-card, #dde6fa);
+  padding: 28px 28px;
+  transition: background .35s;
+}
+.chiffres-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; justify-content: space-around; align-items: center;
+  gap: 20px; flex-wrap: wrap;
+}
+.chiffre-item { text-align: center; }
+.chiffre-item .num {
+  font-family: var(--font-head); font-size: 2rem; font-weight: 800;
+  color: var(--aed-green); display: block; line-height: 1;
+}
+.chiffre-item .lbl {
+  font-size: .82rem; color: var(--text-muted, #718096); margin-top: 5px;
+}
+
+/* ════════════════════════════════════════════════
+   SECTION HELPERS
+════════════════════════════════════════════════ */
+.bv-section { padding: 90px 0; transition: background .35s; }
+.bv-section.alt { background: var(--bg-section-b, #f0f4ff); }
+.bv-section-inner { max-width: 1100px; margin: 0 auto; padding: 0 28px; }
+.bv-section-inner.narrow { max-width: 800px; }
+
+.bv-section-head { text-align: center; margin-bottom: 52px; }
+.bv-eyebrow {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-family: var(--font-head); font-size: .72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .1em;
+  color: var(--aed-green); background: rgba(46,204,113,.09);
+  border: 1px solid rgba(46,204,113,.22);
+  padding: 4px 12px; border-radius: 100px; margin-bottom: 14px;
+}
+.bv-eyebrow.purple {
+  color: var(--aed-purple); background: rgba(108,63,197,.09);
+  border-color: rgba(108,63,197,.22);
+}
+.bv-eyebrow.orange {
+  color: var(--aed-orange); background: rgba(230,126,34,.09);
+  border-color: rgba(230,126,34,.22);
+}
+.bv-section-title {
+  font-family: var(--font-head); font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 800; color: var(--text-heading, #0b1a3b);
+  line-height: 1.2; margin-bottom: 12px;
+}
+.bv-section-title em { color: var(--aed-green); font-style: normal; }
+.bv-section-sub {
+  font-size: .97rem; color: var(--text-muted, #718096);
+  line-height: 1.7; max-width: 560px; margin: 0 auto;
+}
+
+/* Fade-up */
+.fade-up {
+  opacity: 0; transform: translateY(26px);
+  transition: opacity .55s ease, transform .55s ease;
+}
+.fade-up.visible { opacity: 1; transform: none; }
+
+/* ════════════════════════════════════════════════
+   POURQUOI GRID
+════════════════════════════════════════════════ */
+.pourquoi-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+}
+@media (max-width: 900px) { .pourquoi-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .pourquoi-grid { grid-template-columns: 1fr; } }
+
+.pourquoi-card {
+  background: var(--bg-card, #fff);
+  border: 1.5px solid var(--border-card, #dde6fa);
+  border-radius: 18px; padding: 32px 26px 28px;
+  position: relative; overflow: hidden;
+  transition: transform .25s, box-shadow .25s;
+}
+.pourquoi-card:hover { transform: translateY(-5px); box-shadow: 0 14px 36px rgba(0,0,0,.1); }
+.pourquoi-card::before {
+  content: ''; position: absolute; top:0; left:0; right:0; height: 4px;
+}
+.pourquoi-card.c-green::before  { background: var(--aed-green); }
+.pourquoi-card.c-orange::before { background: var(--aed-orange); }
+.pourquoi-card.c-blue::before   { background: #60a5fa; }
+.pourquoi-card.c-teal::before   { background: var(--aed-teal); }
+.pourquoi-card.c-purple::before { background: var(--aed-purple); }
+.pourquoi-card.c-red::before    { background: #e05a5a; }
+.pourquoi-emoji { font-size: 2.2rem; margin-bottom: 16px; display: block; }
+.pourquoi-card h3 {
+  font-family: var(--font-head); font-size: 1rem; font-weight: 800;
+  color: var(--text-heading, #0b1a3b); margin-bottom: 9px;
+}
+.pourquoi-card p { font-size: .87rem; color: var(--text-muted, #718096); line-height: 1.7; }
+
+/* ════════════════════════════════════════════════
+   RÔLES GRID
+════════════════════════════════════════════════ */
+.roles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media (max-width: 760px) { .roles-grid { grid-template-columns: 1fr; } }
+
+.role-card {
+  background: var(--bg-card, #fff);
+  border: 1.5px solid var(--border-card, #dde6fa);
+  border-radius: 18px; padding: 28px 26px 24px;
+  display: flex; gap: 20px; align-items: flex-start;
+  transition: transform .25s, box-shadow .25s, border-color .25s;
+}
+.role-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,.1); border-color: var(--aed-green); }
+.role-icon {
+  width: 54px; height: 54px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; flex-shrink: 0;
+}
+.role-icon.green  { background: rgba(46,204,113,.12); color: var(--aed-green); }
+.role-icon.orange { background: rgba(230,126,34,.12); color: var(--aed-orange); }
+.role-icon.blue   { background: rgba(26,58,143,.1);   color: #3b6fd4; }
+.role-icon.teal   { background: rgba(26,188,156,.12); color: var(--aed-teal); }
+.role-icon.purple { background: rgba(108,63,197,.12); color: var(--aed-purple); }
+.role-icon.red    { background: rgba(224,90,90,.12);  color: #e05a5a; }
+
+.role-body { flex: 1; }
+.role-tag {
+  display: inline-block; padding: 3px 10px; border-radius: 100px;
+  font-family: var(--font-head); font-size: .68rem; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase; margin-bottom: 8px;
+}
+.role-tag.green  { background: rgba(46,204,113,.12); color: var(--aed-green); }
+.role-tag.orange { background: rgba(230,126,34,.12); color: var(--aed-orange); }
+.role-tag.blue   { background: rgba(26,58,143,.1);   color: #3b6fd4; }
+.role-tag.teal   { background: rgba(26,188,156,.12); color: var(--aed-teal); }
+.role-tag.purple { background: rgba(108,63,197,.12); color: var(--aed-purple); }
+.role-tag.red    { background: rgba(224,90,90,.12);  color: #e05a5a; }
+
+.role-body h3 {
+  font-family: var(--font-head); font-size: .97rem; font-weight: 800;
+  color: var(--text-heading, #0b1a3b); margin-bottom: 8px; line-height: 1.3;
+}
+.role-body p { font-size: .85rem; color: var(--text-muted, #718096); line-height: 1.65; margin-bottom: 14px; }
+.role-details { display: flex; gap: 16px; flex-wrap: wrap; }
+.role-detail {
+  display: flex; align-items: center; gap: 5px;
+  font-size: .78rem; color: var(--text-muted, #718096); font-weight: 500;
+}
+.role-detail i { color: var(--aed-green); font-size: .75rem; }
+
+/* ════════════════════════════════════════════════
+   TÉMOIGNAGES (dark bg comme index)
+════════════════════════════════════════════════ */
+.bv-temo-section {
+  background: linear-gradient(135deg, var(--aed-navy) 0%, #0f2240 100%);
+  padding: 90px 0;
+  position: relative; overflow: hidden;
+}
+.bv-temo-section::before {
+  content: ''; position: absolute; top:-100px; right:-100px;
+  width: 400px; height: 400px; border-radius: 50%;
+  border: 80px solid rgba(255,255,255,.03); pointer-events: none;
+}
+.bv-temo-head { text-align: center; margin-bottom: 52px; }
+.bv-temo-head h2 {
+  font-family: var(--font-head); font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 800; color: #fff; margin-bottom: 12px;
+}
+.bv-temo-head p { font-size: .97rem; color: rgba(255,255,255,.6); max-width: 480px; margin: 0 auto; }
+
+.temo-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
+@media (max-width: 900px) { .temo-grid { grid-template-columns: 1fr; } }
+
+.temo-card {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 18px; padding: 28px 26px;
+  transition: background .25s, transform .25s;
+}
+.temo-card:hover { background: rgba(255,255,255,.1); transform: translateY(-4px); }
+.temo-stars { color: #fbbf24; font-size: .9rem; letter-spacing: 2px; margin-bottom: 14px; }
+.temo-quote {
+  font-size: .9rem; line-height: 1.75; color: rgba(255,255,255,.85);
+  font-style: italic; margin-bottom: 22px;
+  position: relative; padding-left: 18px;
+}
+.temo-quote::before {
+  content: '"'; position: absolute; left:0; top:-4px;
+  font-size: 2.5rem; color: var(--aed-green); font-style: normal;
+  font-family: var(--font-head); font-weight: 800; line-height: 1;
+}
+.temo-author { display: flex; align-items: center; gap: 12px; }
+.temo-av {
+  width: 42px; height: 42px; border-radius: 50%;
+  background: rgba(255,255,255,.1); border: 2px solid rgba(255,255,255,.2);
+  display: flex; align-items: center; justify-content: center; font-size: 1.3rem;
+}
+.temo-author-info strong {
+  display: block; font-family: var(--font-head);
+  font-size: .88rem; font-weight: 700; color: #fff;
+}
+.temo-author-info span { font-size: .75rem; color: rgba(255,255,255,.5); }
+
+/* ════════════════════════════════════════════════
+   PARCOURS (étapes)
+════════════════════════════════════════════════ */
+.parcours-steps {
+  display: flex; flex-direction: column; gap: 0;
+  position: relative; max-width: 720px; margin: 0 auto;
+}
+.parcours-steps::before {
+  content: '';
+  position: absolute; left: 22px; top: 28px; bottom: 28px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--aed-green), rgba(46,204,113,.15));
+  z-index: 0;
+}
+.parcours-step {
+  display: flex; gap: 26px; align-items: flex-start;
+  padding-bottom: 40px; position: relative; z-index: 1;
+}
+.parcours-step:last-child { padding-bottom: 0; }
+.step-num {
+  width: 46px; height: 46px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-head); font-weight: 800; font-size: 1rem;
+  background: var(--aed-green); color: #fff;
+  box-shadow: 0 4px 14px rgba(46,204,113,.4);
+  position: relative; z-index: 1;
+}
+.step-num.s2 { background: var(--aed-orange); box-shadow: 0 4px 14px rgba(230,126,34,.35); }
+.step-num.s3 { background: var(--aed-purple); box-shadow: 0 4px 14px rgba(108,63,197,.35); }
+.step-num.s4 { background: #60a5fa;           box-shadow: 0 4px 14px rgba(96,165,250,.35); }
+.step-content { flex: 1; padding-top: 10px; }
+.step-content h3 {
+  font-family: var(--font-head); font-size: .97rem; font-weight: 800;
+  color: var(--text-heading, #0b1a3b); margin-bottom: 7px;
+}
+.step-content p { font-size: .87rem; color: var(--text-muted, #718096); line-height: 1.7; }
+.step-tag {
+  display: inline-block; margin-top: 10px;
+  padding: 4px 12px; border-radius: 100px;
+  font-family: var(--font-head); font-size: .75rem; font-weight: 600;
+  color: var(--aed-green); background: rgba(46,204,113,.1);
+  border: 1px solid rgba(46,204,113,.2);
+}
+
+/* ════════════════════════════════════════════════
+   FAQ
+════════════════════════════════════════════════ */
+.bv-faq-item {
+  background: var(--bg-card, #fff);
+  border: 1.5px solid var(--border-card, #dde6fa);
+  border-radius: 14px; margin-bottom: 12px;
+  cursor: pointer; overflow: hidden;
+  transition: border-color .2s, box-shadow .2s;
+}
+.bv-faq-item:hover, .bv-faq-item.open {
+  border-color: var(--aed-purple);
+  box-shadow: 0 4px 20px rgba(108,63,197,.1);
+}
+.bv-faq-q {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 16px; padding: 20px 22px;
+}
+.bv-faq-q h4 {
+  font-family: var(--font-head); font-size: .95rem; font-weight: 700;
+  color: var(--text-heading, #0b1a3b); padding-right: 14px;
+  transition: color .2s;
+}
+.bv-faq-item.open .bv-faq-q h4 { color: var(--aed-purple); }
+.bv-faq-toggle {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: rgba(108,63,197,.1); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--aed-purple); font-size: .75rem;
+  transition: background .2s, transform .3s;
+}
+.bv-faq-item.open .bv-faq-toggle { background: var(--aed-purple); color: #fff; transform: rotate(45deg); }
+.bv-faq-answer {
+  max-height: 0; overflow: hidden;
+  transition: max-height .35s ease, padding .3s;
+  font-size: .9rem; color: var(--text-muted, #718096); line-height: 1.75;
+  padding: 0 22px;
+}
+.bv-faq-item.open .bv-faq-answer { max-height: 300px; padding: 0 22px 22px; }
+
+/* ════════════════════════════════════════════════
+   FORMULAIRE
+════════════════════════════════════════════════ */
+.form-card {
+  background: var(--bg-card, #fff);
+  border: 1.5px solid var(--border-card, #dde6fa);
+  border-radius: 20px; padding: 48px 48px 44px;
+  box-shadow: 0 6px 32px rgba(0,0,0,.06);
+}
+@media (max-width: 600px) { .form-card { padding: 28px 20px; } }
+.form-card h2 {
+  font-family: var(--font-head); font-size: 1.25rem; font-weight: 800;
+  color: var(--text-heading, #0b1a3b); margin-bottom: 6px;
+}
+.form-card > p { font-size: .88rem; color: var(--text-muted, #718096); margin-bottom: 32px; }
+
+.form-group { margin-bottom: 20px; }
+.form-group label {
+  display: block; font-family: var(--font-head); font-size: .82rem;
+  font-weight: 700; color: var(--text-heading, #0b1a3b); margin-bottom: 7px;
+}
+.form-group label .req { color: var(--aed-orange); }
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%; padding: 11px 14px;
+  background: var(--bg-input, #f7f9fc);
+  border: 1.5px solid var(--border-card, #dde6fa);
+  border-radius: 10px; font-family: var(--font-body);
+  font-size: .9rem; color: var(--text-main, #2d3748);
+  outline: none; transition: border-color .2s, box-shadow .2s;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--aed-purple);
+  box-shadow: 0 0 0 3px rgba(108,63,197,.12);
+}
+.form-group textarea { resize: vertical; min-height: 110px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+@media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
+.select-wrap { position: relative; }
+.select-wrap select { appearance: none; cursor: pointer; }
+.select-wrap::after {
+  content: '\f107'; font-family: 'Font Awesome 6 Free'; font-weight: 900;
+  position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+  font-size: .8rem; color: var(--text-muted, #718096); pointer-events: none;
+}
+
+/* Rôles checkboxes */
+.roles-checkboxes { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 4px; }
+@media (max-width: 560px) { .roles-checkboxes { grid-template-columns: 1fr; } }
+.role-checkbox { display: none; }
+.role-checkbox-label {
+  display: flex; align-items: center; gap: 10px;
+  padding: 11px 14px; border-radius: 10px;
+  border: 1.5px solid var(--border-card, #dde6fa); cursor: pointer;
+  font-size: .87rem; color: var(--text-main, #2d3748); font-weight: 500;
+  transition: border-color .2s, background .2s;
+}
+.role-checkbox-label:hover { border-color: var(--aed-green); background: rgba(46,204,113,.05); }
+.role-checkbox:checked + .role-checkbox-label { border-color: var(--aed-green); background: rgba(46,204,113,.07); }
+.role-checkbox-label .cb-icon { font-size: 1.1rem; }
+
+/* Dispo checkboxes */
+.dispo-checkboxes { display: flex; gap: 10px; flex-wrap: wrap; }
+.dispo-checkbox { display: none; }
+.dispo-label {
+  padding: 7px 14px; border-radius: 100px;
+  border: 1.5px solid var(--border-card, #dde6fa); cursor: pointer;
+  font-family: var(--font-head); font-size: .8rem; font-weight: 600;
+  color: var(--text-muted, #718096);
+  transition: border-color .2s, background .2s, color .2s;
+}
+.dispo-label:hover { border-color: var(--aed-green); color: var(--aed-green); }
+.dispo-checkbox:checked + .dispo-label {
+  border-color: var(--aed-green); background: var(--aed-green); color: #fff;
+}
+
+/* Checkbox RGPD */
+.form-check { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 26px; }
+.form-check input[type=checkbox] { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; cursor: pointer; accent-color: var(--aed-green); }
+.form-check label { font-size: .84rem; color: var(--text-muted, #718096); line-height: 1.65; cursor: pointer; }
+.form-check label a { color: var(--aed-green); text-decoration: underline; }
+
+/* Bouton submit */
+.btn-submit {
+  display: flex; align-items: center; gap: 10px; justify-content: center;
+  width: 100%; padding: 14px 28px;
+  background: var(--aed-green); color: #fff;
+  border: none; border-radius: 12px;
+  font-family: var(--font-head); font-weight: 700; font-size: 1rem;
+  cursor: pointer;
+  transition: background .2s, transform .2s, box-shadow .2s;
+  box-shadow: 0 4px 18px rgba(46,204,113,.35);
+}
+.btn-submit:hover { background: #27ae60; transform: translateY(-2px); box-shadow: 0 6px 24px rgba(46,204,113,.45); }
+
+/* Succès */
+.form-success { display: none; text-align: center; padding: 48px 20px; }
+.success-icon {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: rgba(46,204,113,.12); margin: 0 auto 22px;
+  display: flex; align-items: center; justify-content: center;
+}
+.success-icon i { font-size: 1.8rem; color: var(--aed-green); }
+.form-success h3 {
+  font-family: var(--font-head); font-size: 1.3rem; font-weight: 800;
+  color: var(--text-heading, #0b1a3b); margin-bottom: 12px;
+}
+.form-success p { font-size: .9rem; color: var(--text-muted, #718096); line-height: 1.7; max-width: 460px; margin: 0 auto; }
+
+/* ════════════════════════════════════════════════
+   BANDEAU CTA (style discord-banner index)
+════════════════════════════════════════════════ */
+.bv-cta-banner {
+  background: linear-gradient(135deg, #3d4fcf 0%, #5865f2 60%, #7289da 100%);
+  padding: 60px 0;
+}
+.bv-cta-inner {
+  max-width: 1000px; margin: 0 auto; padding: 0 28px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 32px; flex-wrap: wrap;
+}
+.bv-cta-inner h2 {
+  font-family: var(--font-head); font-size: clamp(1.3rem, 2.5vw, 1.9rem);
+  font-weight: 800; color: #fff; margin-bottom: 8px;
+}
+.bv-cta-inner p { font-size: .95rem; color: rgba(255,255,255,.8); line-height: 1.6; max-width: 460px; }
+.bv-cta-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+.btn-cta-white {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #fff; color: #3b4fd4;
+  font-family: var(--font-head); font-weight: 700; font-size: .9rem;
+  padding: 12px 22px; border-radius: 10px; text-decoration: none;
+  transition: background .2s, transform .2s;
+}
+.btn-cta-white:hover { background: #f0f0ff; transform: translateY(-2px); }
+.btn-cta-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: #fff;
+  font-family: var(--font-head); font-weight: 700; font-size: .9rem;
+  padding: 12px 22px; border-radius: 10px;
+  border: 2px solid rgba(255,255,255,.45); text-decoration: none;
+  transition: background .2s, border-color .2s;
+}
+.btn-cta-ghost:hover { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.8); }
+
+/* ════════════════════════════════════════════════
+   FOOTER (identique index)
+════════════════════════════════════════════════ */
+.aed-footer { background: var(--aed-navy); color: rgba(255,255,255,.55); font-family: var(--font-head); }
+.footer-top {
+  max-width: 1140px; margin: 0 auto; padding: 56px 28px 48px;
+  display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.1fr; gap: 40px;
+}
+@media (max-width: 900px) {
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .footer-col:first-child { grid-column: 1 / -1; }
+}
+@media (max-width: 540px) { .footer-top { grid-template-columns: 1fr; } }
+.footer-brand-logo {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--font-head); font-weight: 800; font-size: 1rem; color: #fff; margin-bottom: 14px;
+}
+.footer-brand-logo .lico {
+  background: var(--aed-green); color: #fff; width: 32px; height: 32px;
+  border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; font-size: .85rem;
+}
+.footer-desc { font-size: .84rem; line-height: 1.65; color: rgba(255,255,255,.5); margin-bottom: 20px; }
+.footer-socials { display: flex; gap: 8px; }
+.fsoc {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: rgba(255,255,255,.08); color: rgba(255,255,255,.7);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .9rem; transition: background .2s, color .2s;
+  text-decoration: none;
+}
+.fsoc:hover { background: var(--aed-green); color: #fff; }
+.footer-col-title {
+  font-size: .78rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .1em; color: rgba(255,255,255,.5); margin-bottom: 16px;
+}
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.footer-links a {
+  color: rgba(255,255,255,.6); font-size: .85rem; text-decoration: none;
+  display: flex; align-items: center; gap: 6px; transition: color .2s;
+}
+.footer-links a:hover { color: var(--aed-green); }
+.footer-links i { font-size: .7rem; }
+.footer-badge-asso {
+  margin-top: 18px; display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+  color: rgba(255,255,255,.5); font-size: .75rem; font-weight: 600;
+  padding: 5px 12px; border-radius: 8px;
+}
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,.08);
+  max-width: 1140px; margin: 0 auto; padding: 18px 28px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap;
+  font-size: .78rem; color: rgba(255,255,255,.3);
+}
+.footer-bottom-links { display: flex; align-items: center; gap: 10px; }
+.footer-bottom-links a { color: rgba(255,255,255,.45); text-decoration: none; transition: color .2s; }
+.footer-bottom-links a:hover { color: var(--aed-green); }
+.footer-bottom-links .sep { color: rgba(255,255,255,.15); }
+
+/* Scroll-to-top */
+#totop {
+  position: fixed; bottom: 28px; right: 28px;
+  width: 42px; height: 42px; border-radius: 50%;
+  background: var(--aed-purple); color: #fff; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .9rem; box-shadow: 0 4px 16px rgba(108,63,197,.4);
+  opacity: 0; pointer-events: none; transition: opacity .3s, transform .3s;
+  z-index: 900;
+}
+#totop.show { opacity: 1; pointer-events: all; }
+#totop:hover { transform: translateY(-2px); }
+</style>
+</head>
+<body>
+
+<!-- ══ NAVBAR ══════════════════════════════════════════ -->
+<nav class="ml-nav">
+  <a href="index.html" class="ml-nav-logo">
+    <span class="lico">&lt;/&gt;</span>
+    <span>À l'<span style="color:#60a5fa">Eure</span> <span style="color:var(--aed-green)">Digitale</span></span>
+  </a>
+  <div class="ml-nav-links">
+    <a href="index.html#about">Association</a>
+    <a href="index.html#minecraft" style="display:inline-flex;align-items:center;gap:5px;"><i class="fas fa-cubes" style="font-size:.8rem;color:#4ade80"></i> Minecraft</a>
+    <a href="index.html#hackathon">Hackathon</a>
+    <a href="index.html#faq">FAQ</a>
+    <a href="adherer.html" style="background:var(--aed-green);color:#fff;font-weight:700;padding:8px 16px;border-radius:8px;display:inline-flex;align-items:center;gap:6px;" onmouseover="this.style.background='#27ae60'" onmouseout="this.style.background='var(--aed-green)'"><i class="fas fa-heart"></i> Adhérer</a>
+    <a href="cartes.html"><i class="fas fa-map" style="font-size:.8rem;"></i> Cartes</a>
+    <a href="benevoles.html" style="color:#fff!important;font-weight:700!important;"><i class="fas fa-hands-helping"></i> Bénévolat</a>
+    <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="nav-disc"><i class="fab fa-discord"></i> Rejoindre</a>
+  </div>
+  <div class="ml-nav-right">
+    <button class="dark-btn" id="darkToggle" aria-label="Mode sombre"><i class="fas fa-moon" id="darkIcon"></i></button>
+    <button class="burger-btn" id="burgerBtn" aria-label="Menu"><i class="fas fa-bars" id="burgerIcon"></i></button>
+  </div>
+</nav>
+
+<!-- Menu mobile -->
+<div class="nav-mobile" id="navMobile">
+  <a href="index.html#about"     onclick="closeMobile()"><i class="fas fa-info-circle"></i> Association</a>
+  <a href="index.html#minecraft" onclick="closeMobile()"><i class="fas fa-cubes" style="color:#4ade80"></i> Minecraft</a>
+  <a href="index.html#hackathon" onclick="closeMobile()"><i class="fas fa-trophy"></i> Hackathon</a>
+  <a href="index.html#faq"       onclick="closeMobile()"><i class="fas fa-question-circle"></i> FAQ</a>
+  <a href="adherer.html"         onclick="closeMobile()"><i class="fas fa-heart"></i> Adhérer</a>
+  <a href="cartes.html"          onclick="closeMobile()"><i class="fas fa-map"></i> Cartes</a>
+  <a href="benevoles.html"       onclick="closeMobile()"><i class="fas fa-hands-helping"></i> Bénévolat</a>
+  <a href="index.html#contact"   onclick="closeMobile()"><i class="fas fa-envelope"></i> Contact</a>
+  <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="mob-disc"><i class="fab fa-discord"></i> Rejoindre le Discord</a>
+</div>
+
+<!-- ══ HERO ════════════════════════════════════════════ -->
+<section class="bv-hero">
+  <div class="bv-hero-inner">
+    <div>
+      <div class="bv-badge"><i class="fas fa-hands-helping"></i> Bénévolat — Normandie · Eure</div>
+      <h1>Devenez<br><span class="green">aidant numérique</span><br>bénévole</h1>
+      <p class="bv-hero-desc">Vos compétences, même modestes, peuvent transformer le quotidien de vos voisins. Rejoignez nos bénévoles qui accompagnent chaque semaine les habitants de l'Eure vers l'autonomie numérique.</p>
+      <div class="bv-hero-btns">
+        <a href="#candidature" class="btn-green"><i class="fas fa-user-plus"></i> Je veux m'engager</a>
+        <a href="#roles" class="btn-ghost-white"><i class="fas fa-search"></i> Voir les rôles disponibles</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-avatar-cluster">
+        <div class="avatar-ring"></div>
+        <div class="avatar-ring-inner"></div>
+        <div class="h-avatar a1">👩‍💼</div>
+        <div class="h-avatar a2">👨‍🏫</div>
+        <div class="h-avatar a3">👵</div>
+        <div class="h-avatar a4">🧑‍💻</div>
+        <div class="h-avatar a5">👨‍⚕️</div>
+        <div class="avatar-center"><i class="fas fa-users"></i></div>
+        <div class="fl-badge fb1">
+          <div class="fl-badge-ico orange"><i class="fas fa-medal"></i></div>
+          <div class="fl-badge-text">
+            <strong>60 bénévoles actifs</strong>
+            <span>dans tout l'Eure</span>
+          </div>
+        </div>
+        <div class="fl-badge fb2">
+          <div class="fl-badge-ico green"><i class="fas fa-check-circle"></i></div>
+          <div class="fl-badge-text">
+            <strong>Aucune expertise requise</strong>
+            <span>Formation assurée</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CHIFFRES ════════════════════════════════════════ -->
+<div class="chiffres-strip fade-up">
+  <div class="chiffres-inner">
+    <div class="chiffre-item"><span class="num">60</span><span class="lbl">bénévoles actifs</span></div>
+    <div class="chiffre-item"><span class="num">1 200+</span><span class="lbl">personnes accompagnées / an</span></div>
+    <div class="chiffre-item"><span class="num">40</span><span class="lbl">communes couvertes</span></div>
+    <div class="chiffre-item"><span class="num">2h</span><span class="lbl">minimum par semaine</span></div>
+    <div class="chiffre-item"><span class="num">100%</span><span class="lbl">formation offerte</span></div>
+  </div>
+</div>
+
+<!-- ══ POURQUOI ════════════════════════════════════════ -->
+<section class="bv-section">
+  <div class="bv-section-inner">
+    <div class="bv-section-head fade-up">
+      <div class="bv-eyebrow"><i class="fas fa-star"></i> Vos motivations</div>
+      <h2 class="bv-section-title">Pourquoi devenir <em>aidant numérique</em> ?</h2>
+      <p class="bv-section-sub">S'engager avec nous, c'est bien plus qu'aider à utiliser un smartphone. C'est créer du lien et agir concrètement pour votre territoire.</p>
+    </div>
+    <div class="pourquoi-grid">
+      <div class="pourquoi-card c-green fade-up">
+        <span class="pourquoi-emoji">🤝</span>
+        <h3>Créer du lien social</h3>
+        <p>Briser l'isolement numérique, c'est aussi briser l'isolement tout court. Vos permanences deviennent des moments de rencontre précieux pour les publics fragiles.</p>
+      </div>
+      <div class="pourquoi-card c-orange fade-up">
+        <span class="pourquoi-emoji">🌱</span>
+        <h3>Montée en compétences</h3>
+        <p>Nos formations vous apprennent à transmettre, écouter, adapter votre pédagogie — des savoir-faire valorisés dans tous les secteurs professionnels.</p>
+      </div>
+      <div class="pourquoi-card c-blue fade-up">
+        <span class="pourquoi-emoji">📍</span>
+        <h3>Agir près de chez vous</h3>
+        <p>Pas besoin de se déplacer loin. Vous intervenez dans votre commune ou votre canton, selon vos disponibilités et les besoins du territoire.</p>
+      </div>
+      <div class="pourquoi-card c-teal fade-up">
+        <span class="pourquoi-emoji">🎓</span>
+        <h3>Être formé et accompagné</h3>
+        <p>Vous n'êtes jamais seul. Nos référents bénévoles vous forment, vous accompagnent et répondent à vos questions tout au long de votre engagement.</p>
+      </div>
+      <div class="pourquoi-card c-purple fade-up">
+        <span class="pourquoi-emoji">⚡</span>
+        <h3>Un engagement flexible</h3>
+        <p>2 heures par semaine suffisent pour avoir un impact réel. Vous choisissez vos créneaux, vos lieux d'intervention et votre rythme selon votre vie.</p>
+      </div>
+      <div class="pourquoi-card c-red fade-up">
+        <span class="pourquoi-emoji">❤️</span>
+        <h3>Une communauté solidaire</h3>
+        <p>Rejoindre l'équipe, c'est intégrer un collectif chaleureux. Apéros bénévoles, journées d'équipe, groupe de discussion — vous ne serez jamais seul.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ RÔLES ═══════════════════════════════════════════ -->
+<section class="bv-section alt" id="roles">
+  <div class="bv-section-inner">
+    <div class="bv-section-head fade-up">
+      <div class="bv-eyebrow orange"><i class="fas fa-briefcase"></i> Missions disponibles</div>
+      <h2 class="bv-section-title">Trouvez le rôle <em>qui vous correspond</em></h2>
+      <p class="bv-section-sub">Chaque profil est le bienvenu. Il y a forcément une mission adaptée à vos compétences et à votre emploi du temps.</p>
+    </div>
+    <div class="roles-grid">
+
+      <div class="role-card fade-up">
+        <div class="role-icon green"><i class="fas fa-users"></i></div>
+        <div class="role-body">
+          <span class="role-tag green">Le plus demandé</span>
+          <h3>Aidant numérique en permanence</h3>
+          <p>Vous accueillez le public lors de nos permanences hebdomadaires pour les aider avec leurs démarches du quotidien : boite mail, téléprocédures, smartphone, etc.</p>
+          <div class="role-details">
+            <span class="role-detail"><i class="fas fa-clock"></i> 2–3h/semaine</span>
+            <span class="role-detail"><i class="fas fa-map-marker-alt"></i> Dans votre commune</span>
+            <span class="role-detail"><i class="fas fa-check"></i> Formation fournie</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="role-card fade-up">
+        <div class="role-icon orange"><i class="fas fa-chalkboard-teacher"></i></div>
+        <div class="role-body">
+          <span class="role-tag orange">Besoin de compétences</span>
+          <h3>Animateur·trice d'atelier</h3>
+          <p>Vous concevez et animez des ateliers thématiques (sécurité en ligne, photo numérique, démarches admin…) devant des groupes de 6 à 15 personnes.</p>
+          <div class="role-details">
+            <span class="role-detail"><i class="fas fa-clock"></i> Ateliers ponctuels</span>
+            <span class="role-detail"><i class="fas fa-map-marker-alt"></i> Lieu variable</span>
+            <span class="role-detail"><i class="fas fa-check"></i> Kit pédagogique fourni</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="role-card fade-up">
+        <div class="role-icon blue"><i class="fas fa-clipboard-list"></i></div>
+        <div class="role-body">
+          <span class="role-tag blue">Administratif</span>
+          <h3>Référent·e local·e</h3>
+          <p>Vous coordonnez les bénévoles et les permanences dans votre secteur géographique, assurez le relais avec l'équipe centrale et êtes l'interlocuteur des partenaires locaux.</p>
+          <div class="role-details">
+            <span class="role-detail"><i class="fas fa-clock"></i> 4–6h/semaine</span>
+            <span class="role-detail"><i class="fas fa-map-marker-alt"></i> Votre canton</span>
+            <span class="role-detail"><i class="fas fa-check"></i> Expérience associative appréciée</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="role-card fade-up">
+        <div class="role-icon teal"><i class="fas fa-home"></i></div>
+        <div class="role-body">
+          <span class="role-tag teal">Discrétion requise</span>
+          <h3>Visiteur·se à domicile</h3>
+          <p>Pour les personnes à mobilité réduite ou très isolées, vous vous déplacez à leur domicile pour un accompagnement individualisé.</p>
+          <div class="role-details">
+            <span class="role-detail"><i class="fas fa-clock"></i> Selon disponibilité</span>
+            <span class="role-detail"><i class="fas fa-map-marker-alt"></i> Dans votre secteur</span>
+            <span class="role-detail"><i class="fas fa-check"></i> Binôme les premières fois</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="role-card fade-up">
+        <div class="role-icon purple"><i class="fas fa-pen-nib"></i></div>
+        <div class="role-body">
+          <span class="role-tag purple">Communication</span>
+          <h3>Créateur·trice de contenu</h3>
+          <p>Vous produisez des guides, tutoriels, vidéos ou articles pour alimenter notre site web et nos réseaux sociaux. Journalistes, graphistes, vidéastes bienvenus.</p>
+          <div class="role-details">
+            <span class="role-detail"><i class="fas fa-clock"></i> À distance possible</span>
+            <span class="role-detail"><i class="fas fa-check"></i> Liberté créative</span>
+            <span class="role-detail"><i class="fas fa-check"></i> Rythme libre</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="role-card fade-up">
+        <div class="role-icon red"><i class="fas fa-lightbulb"></i></div>
+        <div class="role-body">
+          <span class="role-tag red">Expertise</span>
+          <h3>Expert·e thématique</h3>
+          <p>Professionnel du droit, de la santé, de l'emploi ou de la cybersécurité ? Intervenez ponctuellement lors d'ateliers spécialisés ou de webinaires pour un public ciblé.</p>
+          <div class="role-details">
+            <span class="role-detail"><i class="fas fa-clock"></i> Ponctuel (1–2×/an)</span>
+            <span class="role-detail"><i class="fas fa-check"></i> Présentiel ou distanciel</span>
+            <span class="role-detail"><i class="fas fa-check"></i> Valorisation de votre expertise</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ TÉMOIGNAGES ═════════════════════════════════════ -->
+<section class="bv-temo-section">
+  <div class="bv-section-inner">
+    <div class="bv-temo-head fade-up">
+      <h2>Ils témoignent</h2>
+      <p>Ce que nos bénévoles disent de leur engagement au quotidien.</p>
+    </div>
+    <div class="temo-grid">
+      <div class="temo-card fade-up">
+        <div class="temo-stars">★★★★★</div>
+        <p class="temo-quote">Je suis retraitée depuis deux ans et je cherchais à me rendre utile. Avec À l'Eure Digitale, chaque permanence est une petite victoire partagée. Voir quelqu'un envoyer son premier mail, ça n'a pas de prix.</p>
+        <div class="temo-author">
+          <div class="temo-av">👩‍🦳</div>
+          <div class="temo-author-info">
+            <strong>Martine L.</strong>
+            <span>Aidante numérique, Bernay — 2 ans de bénévolat</span>
+          </div>
+        </div>
+      </div>
+      <div class="temo-card fade-up">
+        <div class="temo-stars">★★★★★</div>
+        <p class="temo-quote">En tant qu'animateur d'ateliers, j'ai appris autant que les participants ! L'association me fait confiance, me fournit tous les outils et me laisse adapter les séances à mon style.</p>
+        <div class="temo-author">
+          <div class="temo-av">👨‍🏫</div>
+          <div class="temo-author-info">
+            <strong>Raphaël M.</strong>
+            <span>Animateur d'ateliers, Évreux — 3 ans de bénévolat</span>
+          </div>
+        </div>
+      </div>
+      <div class="temo-card fade-up">
+        <div class="temo-stars">★★★★★</div>
+        <p class="temo-quote">Je suis développeur web et je pensais que mes compétences étaient trop techniques. En fait, c'est ma patience et mon écoute qui font la différence ici. C'est très humain comme engagement.</p>
+        <div class="temo-author">
+          <div class="temo-av">🧑‍💻</div>
+          <div class="temo-author-info">
+            <strong>Kevin D.</strong>
+            <span>Référent local, Louviers — 1 an de bénévolat</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PARCOURS ════════════════════════════════════════ -->
+<section class="bv-section">
+  <div class="bv-section-inner">
+    <div class="bv-section-head fade-up">
+      <div class="bv-eyebrow purple"><i class="fas fa-route"></i> Comment ça se passe</div>
+      <h2 class="bv-section-title">Votre parcours <em>d'engagement</em></h2>
+      <p class="bv-section-sub">De votre candidature à votre première permanence, voici les étapes pour nous rejoindre.</p>
+    </div>
+    <div class="parcours-steps fade-up">
+      <div class="parcours-step">
+        <div class="step-num s1">1</div>
+        <div class="step-content">
+          <h3>Vous remplissez le formulaire</h3>
+          <p>En quelques minutes, vous nous décrivez votre profil, vos disponibilités et le type de mission qui vous intéresse. Pas besoin d'être un expert du numérique pour postuler.</p>
+          <span class="step-tag">⏱ 5 min</span>
+        </div>
+      </div>
+      <div class="parcours-step">
+        <div class="step-num s2">2</div>
+        <div class="step-content">
+          <h3>Entretien téléphonique avec notre équipe</h3>
+          <p>Un de nos référents bénévoles vous rappelle sous 48h pour discuter de vos motivations, répondre à vos questions et trouver la mission idéale pour vous.</p>
+          <span class="step-tag">📞 30 min environ</span>
+        </div>
+      </div>
+      <div class="parcours-step">
+        <div class="step-num s3">3</div>
+        <div class="step-content">
+          <h3>Formation initiale de bénévole</h3>
+          <p>Vous participez à notre journée de formation (en présentiel à Évreux ou en visio). Posture d'aidant, outils pédagogiques, situations concrètes — vous repartez prêt·e.</p>
+          <span class="step-tag">📅 Journée ou demi-journée</span>
+        </div>
+      </div>
+      <div class="parcours-step">
+        <div class="step-num s4">4</div>
+        <div class="step-content">
+          <h3>Votre première permanence, en binôme</h3>
+          <p>Les premières fois, vous intervenez accompagné d'un bénévole expérimenté. Vous êtes observateur, puis co-animateur, puis autonome à votre rythme.</p>
+          <span class="step-tag">🤝 Jamais seul les premières fois</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FAQ ═════════════════════════════════════════════ -->
+<section class="bv-section alt">
+  <div class="bv-section-inner narrow">
+    <div class="bv-section-head fade-up">
+      <div class="bv-eyebrow"><i class="fas fa-question-circle"></i> FAQ</div>
+      <h2 class="bv-section-title">Vos questions sur <em>le bénévolat</em></h2>
+      <p class="bv-section-sub">Les réponses aux interrogations les plus courantes des futurs bénévoles.</p>
+    </div>
+
+    <div class="bv-faq-item fade-up" onclick="toggleFaq(this)">
+      <div class="bv-faq-q"><h4>Faut-il avoir de grandes compétences informatiques ?</h4><div class="bv-faq-toggle"><i class="fas fa-plus"></i></div></div>
+      <div class="bv-faq-answer">Non, pas du tout ! L'essentiel est d'être à l'aise avec les usages numériques du quotidien : envoyer un email, naviguer sur internet, utiliser un smartphone. Nous formons tous nos bénévoles à la posture pédagogique, qui est bien plus importante que la maîtrise technique.</div>
+    </div>
+    <div class="bv-faq-item fade-up" onclick="toggleFaq(this)">
+      <div class="bv-faq-q"><h4>Quel temps minimum dois-je consacrer chaque semaine ?</h4><div class="bv-faq-toggle"><i class="fas fa-plus"></i></div></div>
+      <div class="bv-faq-answer">Deux heures par semaine suffisent pour avoir un impact réel. Vous choisissez votre créneau en fonction de vos disponibilités. En cas d'imprévu, il vous suffit de prévenir votre référent local et nous trouverons un remplaçant.</div>
+    </div>
+    <div class="bv-faq-item fade-up" onclick="toggleFaq(this)">
+      <div class="bv-faq-q"><h4>Est-ce que mon engagement est remboursé ou rémunéré ?</h4><div class="bv-faq-toggle"><i class="fas fa-plus"></i></div></div>
+      <div class="bv-faq-answer">Le bénévolat n'est pas rémunéré, mais vos frais de déplacement peuvent être remboursés sur présentation de justificatifs. Nous veillons à ce que votre engagement ne vous coûte rien financièrement. Une attestation de bénévolat vous est délivrée à votre demande.</div>
+    </div>
+    <div class="bv-faq-item fade-up" onclick="toggleFaq(this)">
+      <div class="bv-faq-q"><h4>Puis-je m'engager si je travaille à temps plein ?</h4><div class="bv-faq-toggle"><i class="fas fa-plus"></i></div></div>
+      <div class="bv-faq-answer">Absolument. Beaucoup de nos bénévoles travaillent à temps plein. Certaines permanences ont lieu le matin tôt, en soirée ou le week-end. Le rôle de créateur de contenu ou d'expert thématique se pratique également à distance et à votre rythme.</div>
+    </div>
+    <div class="bv-faq-item fade-up" onclick="toggleFaq(this)">
+      <div class="bv-faq-q"><h4>Comment se passe la formation initiale ?</h4><div class="bv-faq-toggle"><i class="fas fa-plus"></i></div></div>
+      <div class="bv-faq-answer">La formation dure une journée (ou deux demi-journées) et se déroule à Évreux ou en visioconférence. Elle aborde la posture d'aidant numérique, les publics fragiles, les outils pédagogiques et les situations concrètes que vous rencontrerez. Elle est entièrement gratuite.</div>
+    </div>
+    <div class="bv-faq-item fade-up" onclick="toggleFaq(this)">
+      <div class="bv-faq-q"><h4>Puis-je arrêter mon bénévolat si ma situation change ?</h4><div class="bv-faq-toggle"><i class="fas fa-plus"></i></div></div>
+      <div class="bv-faq-answer">Bien sûr. Votre engagement est librement consenti et peut être suspendu ou arrêté à tout moment, sans justification. Il vous suffit d'en informer votre référent local avec un préavis raisonnable pour faciliter l'organisation.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FORMULAIRE ══════════════════════════════════════ -->
+<section class="bv-section" id="candidature">
+  <div class="bv-section-inner narrow">
+    <div class="bv-section-head fade-up">
+      <div class="bv-eyebrow"><i class="fas fa-paper-plane"></i> Candidature</div>
+      <h2 class="bv-section-title">Rejoignez-nous<br>dès <em>aujourd'hui</em></h2>
+      <p class="bv-section-sub">Remplissez ce formulaire et notre équipe vous contactera sous 48h pour un échange téléphonique.</p>
+    </div>
+
+    <div class="form-card fade-up">
+      <div id="formContainer">
+        <h2><i class="fas fa-pen" style="color:var(--aed-green);margin-right:8px;font-size:.9em;"></i> Votre candidature</h2>
+        <p>Les champs marqués d'un <span style="color:var(--aed-orange)">*</span> sont obligatoires.</p>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="prenom">Prénom <span class="req">*</span></label>
+            <input type="text" id="prenom" placeholder="Marie" required/>
+          </div>
+          <div class="form-group">
+            <label for="nom">Nom <span class="req">*</span></label>
+            <input type="text" id="nom" placeholder="Dupont" required/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Adresse e-mail <span class="req">*</span></label>
+            <input type="email" id="email" placeholder="marie.dupont@exemple.fr" required/>
+          </div>
+          <div class="form-group">
+            <label for="telephone">Téléphone <span class="req">*</span></label>
+            <input type="tel" id="telephone" placeholder="06 00 00 00 00" required/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="commune">Commune de résidence <span class="req">*</span></label>
+            <input type="text" id="commune" placeholder="Évreux" required/>
+          </div>
+          <div class="form-group">
+            <label for="situation">Situation professionnelle</label>
+            <div class="select-wrap">
+              <select id="situation">
+                <option value="">Choisir…</option>
+                <option>En activité (salarié·e)</option>
+                <option>En activité (indépendant·e)</option>
+                <option>À la retraite</option>
+                <option>En recherche d'emploi</option>
+                <option>Étudiant·e</option>
+                <option>Autre</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Mission(s) qui m'intéresse(nt) <span class="req">*</span></label>
+          <div class="roles-checkboxes">
+            <input type="checkbox" id="r1" class="role-checkbox"/>
+            <label for="r1" class="role-checkbox-label"><span class="cb-icon">🤝</span> Aidant numérique en permanence</label>
+            <input type="checkbox" id="r2" class="role-checkbox"/>
+            <label for="r2" class="role-checkbox-label"><span class="cb-icon">🖥️</span> Animateur·trice d'atelier</label>
+            <input type="checkbox" id="r3" class="role-checkbox"/>
+            <label for="r3" class="role-checkbox-label"><span class="cb-icon">📋</span> Référent·e local·e</label>
+            <input type="checkbox" id="r4" class="role-checkbox"/>
+            <label for="r4" class="role-checkbox-label"><span class="cb-icon">🏠</span> Visiteur·se à domicile</label>
+            <input type="checkbox" id="r5" class="role-checkbox"/>
+            <label for="r5" class="role-checkbox-label"><span class="cb-icon">✍️</span> Créateur·trice de contenu</label>
+            <input type="checkbox" id="r6" class="role-checkbox"/>
+            <label for="r6" class="role-checkbox-label"><span class="cb-icon">💡</span> Expert·e thématique</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Disponibilités</label>
+          <div class="dispo-checkboxes">
+            <input type="checkbox" id="d1" class="dispo-checkbox"/><label for="d1" class="dispo-label">Lundi</label>
+            <input type="checkbox" id="d2" class="dispo-checkbox"/><label for="d2" class="dispo-label">Mardi</label>
+            <input type="checkbox" id="d3" class="dispo-checkbox"/><label for="d3" class="dispo-label">Mercredi</label>
+            <input type="checkbox" id="d4" class="dispo-checkbox"/><label for="d4" class="dispo-label">Jeudi</label>
+            <input type="checkbox" id="d5" class="dispo-checkbox"/><label for="d5" class="dispo-label">Vendredi</label>
+            <input type="checkbox" id="d6" class="dispo-checkbox"/><label for="d6" class="dispo-label">Samedi</label>
+            <input type="checkbox" id="d7" class="dispo-checkbox"/><label for="d7" class="dispo-label">Matin</label>
+            <input type="checkbox" id="d8" class="dispo-checkbox"/><label for="d8" class="dispo-label">Après-midi</label>
+            <input type="checkbox" id="d9" class="dispo-checkbox"/><label for="d9" class="dispo-label">Soir</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="motivation">Pourquoi souhaitez-vous devenir bénévole ? <span class="req">*</span></label>
+          <textarea id="motivation" placeholder="Quelques mots sur vos motivations, votre expérience avec le numérique, ou ce que vous espérez apporter…"></textarea>
+        </div>
+
+        <div class="form-check">
+          <input type="checkbox" id="rgpd" required/>
+          <label for="rgpd">J'accepte que mes données soient traitées conformément à la <a href="politique-confidentialite.html">politique de confidentialité</a> d'À l'Eure Digitale, uniquement dans le cadre de ma candidature au bénévolat.</label>
+        </div>
+
+        <button class="btn-submit" onclick="submitForm()">
+          <i class="fas fa-paper-plane"></i> Envoyer ma candidature
+        </button>
+      </div>
+
+      <div class="form-success" id="formSuccess">
+        <div class="success-icon"><i class="fas fa-check"></i></div>
+        <h3>Candidature envoyée ! 🎉</h3>
+        <p>Merci pour votre intérêt ! Notre équipe vous contactera dans les 48h pour un échange téléphonique. Bienvenue dans la communauté des aidants numériques de l'Eure !</p>
+        <a href="https://discord.gg/yHCAgYKwk" target="_blank" style="display:inline-flex;align-items:center;gap:8px;margin-top:24px;background:#5865f2;color:#fff;font-family:var(--font-head);font-weight:700;padding:12px 22px;border-radius:12px;font-size:.9rem;text-decoration:none;">
+          <i class="fab fa-discord"></i> Rejoindre le Discord de l'asso
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ BANDEAU CTA ═════════════════════════════════════ -->
+<div class="bv-cta-banner">
+  <div class="bv-cta-inner">
+    <div>
+      <h2>Une question avant de vous lancer ?</h2>
+      <p>Notre responsable bénévolat est disponible pour répondre à toutes vos interrogations par Discord ou par mail.</p>
+    </div>
+    <div class="bv-cta-btns">
+      <a href="index.html#contact" class="btn-cta-white"><i class="fas fa-envelope"></i> Nous contacter</a>
+      <a href="adherer.html" class="btn-cta-ghost"><i class="fas fa-heart"></i> Devenir adhérent·e</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══════════════════════════════════════════ -->
+<footer class="aed-footer">
+  <div class="footer-top">
+    <div class="footer-col">
+      <div class="footer-brand-logo">
+        <span class="lico">&lt;/&gt;</span>
+        <span>À l'<span style="color:#60a5fa">Eure</span> <span style="color:#2ecc71">Digitale</span></span>
+      </div>
+      <p class="footer-desc">Communauté numérique bienveillante et inclusive en Normandie. Ateliers gratuits, entraide, projets open source.</p>
+      <div class="footer-socials">
+        <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="fsoc" aria-label="Discord"><i class="fab fa-discord"></i></a>
+        <a href="https://github.com/aleuredigitale" target="_blank" class="fsoc" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4 class="footer-col-title">Navigation</h4>
+      <ul class="footer-links">
+        <li><a href="index.html#about"><i class="fas fa-chevron-right"></i> L'association</a></li>
+        <li><a href="index.html#discord"><i class="fas fa-chevron-right"></i> Discord</a></li>
+        <li><a href="index.html#hackathon"><i class="fas fa-chevron-right"></i> Hackathon</a></li>
+        <li><a href="index.html#proposer"><i class="fas fa-chevron-right"></i> Proposer un atelier</a></li>
+        <li><a href="index.html#faq"><i class="fas fa-chevron-right"></i> FAQ</a></li>
+        <li><a href="index.html#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4 class="footer-col-title">S'impliquer</h4>
+      <ul class="footer-links">
+        <li><a href="benevoles.html"><i class="fas fa-hands-helping"></i> Devenir bénévole</a></li>
+        <li><a href="adherer.html"><i class="fas fa-heart"></i> Adhérer à l'association</a></li>
+        <li><a href="cartes.html"><i class="fas fa-map"></i> Carte des lieux</a></li>
+        <li><a href="https://github.com/aleuredigitale" target="_blank"><i class="fab fa-github"></i> GitHub de l'asso</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4 class="footer-col-title">Légal</h4>
+      <ul class="footer-links">
+        <li><a href="mentions-legales.html"><i class="fas fa-chevron-right"></i> Mentions légales</a></li>
+        <li><a href="statuts.pdf" target="_blank"><i class="fas fa-chevron-right"></i> Statuts (loi 1901)</a></li>
+        <li><a href="politique-confidentialite.html"><i class="fas fa-chevron-right"></i> Politique de confidentialité</a></li>
+      </ul>
+      <div class="footer-badge-asso"><i class="fas fa-landmark"></i> Association loi 1901</div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 À l'Eure Digitale — Association loi 1901 — Normandie</span>
+    <span class="footer-bottom-links">
+      <a href="mentions-legales.html">Mentions légales</a>
+      <span class="sep">·</span>
+      <a href="statuts.pdf" target="_blank">Statuts</a>
+      <span class="sep">·</span>
+      <a href="https://github.com/aleuredigitale" target="_blank">GitHub</a>
+    </span>
+  </div>
+</footer>
+
+<!-- Scroll to top -->
+<button id="totop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Retour en haut">
+  <i class="fas fa-arrow-up"></i>
+</button>
+
+<script>
+/* ── Dark mode ─────────────────────────────── */
+const html     = document.documentElement;
+const darkBtn  = document.getElementById('darkToggle');
+const darkIcon = document.getElementById('darkIcon');
+function applyTheme(t) {
+  html.setAttribute('data-theme', t);
+  darkIcon.className = t === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+  localStorage.setItem('aed-theme', t);
+}
+darkBtn.addEventListener('click', () => {
+  applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+});
+const saved = localStorage.getItem('aed-theme');
+if (saved) applyTheme(saved);
+else if (window.matchMedia('(prefers-color-scheme: dark)').matches) applyTheme('dark');
+
+/* ── Burger menu ───────────────────────────── */
+const burgerBtn  = document.getElementById('burgerBtn');
+const burgerIcon = document.getElementById('burgerIcon');
+const navMobile  = document.getElementById('navMobile');
+function closeMobile() {
+  navMobile.classList.remove('open');
+  burgerIcon.className = 'fas fa-bars';
+}
+burgerBtn.addEventListener('click', () => {
+  const open = navMobile.classList.toggle('open');
+  burgerIcon.className = open ? 'fas fa-times' : 'fas fa-bars';
+});
+
+/* ── FAQ accordion ─────────────────────────── */
+function toggleFaq(item) {
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.bv-faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+/* ── Scroll fade-up ────────────────────────── */
+if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(el => {
+      if (el.isIntersecting) { el.target.classList.add('visible'); obs.unobserve(el.target); }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-up').forEach((el, i) => {
+    el.style.transitionDelay = (i * 0.05) + 's';
+    obs.observe(el);
+  });
+}
+
+/* ── Scroll-to-top ─────────────────────────── */
+const totop = document.getElementById('totop');
+window.addEventListener('scroll', () => {
+  totop.classList.toggle('show', window.scrollY > 400);
+});
+
+/* ── Formulaire ────────────────────────────── */
+function submitForm() {
+  const prenom     = document.getElementById('prenom').value.trim();
+  const nom        = document.getElementById('nom').value.trim();
+  const email      = document.getElementById('email').value.trim();
+  const telephone  = document.getElementById('telephone').value.trim();
+  const commune    = document.getElementById('commune').value.trim();
+  const motivation = document.getElementById('motivation').value.trim();
+  const rgpd       = document.getElementById('rgpd').checked;
+
+  const fields = [
+    ['prenom', prenom], ['nom', nom], ['email', email],
+    ['telephone', telephone], ['commune', commune], ['motivation', motivation]
+  ];
+  let hasError = false;
+  fields.forEach(([id, val]) => {
+    const el = document.getElementById(id);
+    if (!val) {
+      el.style.borderColor = 'var(--aed-orange)'; hasError = true;
+    } else {
+      el.style.borderColor = '';
+    }
+  });
+  if (!rgpd) {
+    document.getElementById('rgpd').style.outline = '2px solid var(--aed-orange)';
+    hasError = true;
+  } else {
+    document.getElementById('rgpd').style.outline = '';
+  }
+  if (hasError) return;
+
+  document.getElementById('formContainer').style.display = 'none';
+  document.getElementById('formSuccess').style.display = 'block';
+  document.getElementById('formSuccess').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+</script>
+</body>
+</html>
