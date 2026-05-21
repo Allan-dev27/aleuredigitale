@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Entraide — À l'Eure Digitale</title>
+  <meta name="description" content="Espace d'entraide de l'association À l'Eure Digitale : questions fréquentes et ressources pour apprendre le numérique en Normandie."/>
+  <link rel="canonical" href="https://aleuredigitale.netlify.app/entraide.html"/>
+  <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="style.css"/>
+
+  <style>
+    /* ──────────────────────────────────────────────
+       TOKENS COMPLÉMENTAIRES
+    ────────────────────────────────────────────── */
+    :root {
+      --bg-nav:     rgba(11,26,59,.85);
+      --border-nav: rgba(255,255,255,.1);
+    }
+    [data-theme="dark"] {
+      --bg-nav:     rgba(10,18,34,.9);
+      --border-nav: rgba(255,255,255,.07);
+    }
+
+    /* ──────────────────────────────────────────────
+       NAVBAR
+    ────────────────────────────────────────────── */
+    .ml-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 64px;
+      background: var(--bg-nav);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border-nav);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      z-index: 1000;
+    }
+    .ml-nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 1rem;
+      color: #fff;
+      text-decoration: none;
+    }
+    .ml-nav-logo .lico {
+      background: var(--aed-green);
+      color: #fff;
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .85rem;
+    }
+    .dark-btn {
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.2);
+      color: #fff;
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: .9rem;
+      transition: background .2s;
+    }
+    .dark-btn:hover { background: rgba(255,255,255,.2); }
+
+    /* ──────────────────────────────────────────────
+       HERO
+    ────────────────────────────────────────────── */
+    .eh-hero {
+      background: linear-gradient(135deg, var(--aed-navy) 0%, #0d2055 55%, #112266 100%);
+      padding: 110px 0 72px;
+      position: relative;
+      overflow: hidden;
+    }
+    .eh-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 500px 350px at 90% 40%, rgba(108,63,197,.25) 0%, transparent 65%),
+        radial-gradient(ellipse 350px 280px at 5%  80%, rgba(46,204,113,.18) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .eh-hero-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 28px;
+      position: relative;
+      z-index: 1;
+    }
+    .eh-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(46,204,113,.18);
+      border: 1px solid rgba(46,204,113,.4);
+      color: #6ee7b7;
+      font-family: var(--font-head);
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 22px;
+    }
+    .eh-hero-title {
+      font-family: var(--font-head);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 18px;
+    }
+    .eh-hero-title .green { color: var(--aed-green); }
+    .eh-hero-title .blue  { color: #60a5fa; }
+    .eh-hero-desc {
+      color: rgba(255,255,255,.72);
+      font-size: 1.05rem;
+      line-height: 1.75;
+      max-width: 580px;
+      margin-bottom: 36px;
+    }
+    .eh-hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .eh-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.14);
+      color: rgba(255,255,255,.85);
+      font-family: var(--font-head);
+      font-size: .82rem;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 100px;
+      transition: background .2s, border-color .2s;
+    }
+    .eh-pill i { font-size: .8rem; }
+    .eh-pill:hover {
+      background: rgba(255,255,255,.15);
+      border-color: rgba(255,255,255,.3);
+    }
+    .eh-pill.green { border-color: rgba(46,204,113,.35); color: #6ee7b7; }
+    .eh-pill.blue  { border-color: rgba(96,165,250,.35); color: #93c5fd; }
+    .eh-pill.purple{ border-color: rgba(108,63,197,.45); color: #c4b5fd; }
+
+    /* ──────────────────────────────────────────────
+       LAYOUT GÉNÉRAL
+    ────────────────────────────────────────────── */
+    .eh-page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 72px 28px 100px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px 64px;
+    }
+    @media (max-width: 860px) {
+      .eh-page { grid-template-columns: 1fr; gap: 56px; padding: 56px 20px 80px; }
+    }
+    .eh-col-full { grid-column: 1 / -1; }
+
+    /* ──────────────────────────────────────────────
+       SECTION HEADERS
+    ────────────────────────────────────────────── */
+    .eh-section-head {
+      margin-bottom: 28px;
+    }
+    .eh-section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--font-head);
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--aed-purple);
+      background: rgba(108,63,197,.09);
+      border: 1px solid rgba(108,63,197,.22);
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+    .eh-section-title {
+      font-family: var(--font-head);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text-heading);
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+    .eh-section-sub {
+      font-size: .88rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* ──────────────────────────────────────────────
+       FAQ ACCORDION
+    ────────────────────────────────────────────── */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .faq-item {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-card);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: border-color .25s, box-shadow .25s;
+    }
+    .faq-item.open {
+      border-color: rgba(108,63,197,.4);
+      box-shadow: 0 4px 24px rgba(108,63,197,.12);
+    }
+    .faq-trigger {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 18px 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      text-align: left;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .faq-trigger:hover { background: rgba(108,63,197,.04); }
+    .faq-ico {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .85rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .faq-ico.purple { background: rgba(108,63,197,.12); color: var(--aed-purple); }
+    .faq-ico.blue   { background: rgba(96,165,250,.12); color: #60a5fa; }
+    .faq-ico.green  { background: rgba(46,204,113,.12); color: var(--aed-green); }
+    .faq-ico.orange { background: rgba(230,126,34,.12); color: var(--aed-orange); }
+    .faq-ico.teal   { background: rgba(26,188,156,.12); color: var(--aed-teal); }
+    .faq-q {
+      flex: 1;
+      font-family: var(--font-head);
+      font-size: .9rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      line-height: 1.45;
+    }
+    .faq-arrow {
+      color: var(--text-muted);
+      font-size: .8rem;
+      margin-top: 3px;
+      transition: transform .3s, color .2s;
+      flex-shrink: 0;
+    }
+    .faq-item.open .faq-arrow {
+      transform: rotate(180deg);
+      color: var(--aed-purple);
+    }
+    .faq-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .35s cubic-bezier(.4,0,.2,1);
+    }
+    .faq-item.open .faq-body { max-height: 600px; }
+    .faq-answer {
+      padding: 0 20px 20px 70px;
+      font-size: .87rem;
+      color: var(--text-main);
+      line-height: 1.8;
+    }
+    .faq-answer a {
+      color: var(--aed-purple);
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .faq-answer a:hover { color: #60a5fa; }
+    .faq-answer .tag {
+      display: inline-block;
+      background: rgba(108,63,197,.1);
+      color: var(--aed-purple);
+      font-family: var(--font-head);
+      font-size: .75rem;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 100px;
+      margin: 2px 3px 2px 0;
+    }
+    .faq-answer .tag.green  { background: rgba(46,204,113,.1); color: var(--aed-green); }
+    .faq-answer .tag.blue   { background: rgba(96,165,250,.1); color: #60a5fa; }
+    .faq-answer .tag.orange { background: rgba(230,126,34,.1); color: var(--aed-orange); }
+
+    /* ──────────────────────────────────────────────
+       RESSOURCES — CATÉGORIES
+    ────────────────────────────────────────────── */
+    .res-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+    .res-cat-label {
+      font-family: var(--font-head);
+      font-size: .7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .res-cat-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border-card);
+    }
+    .res-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    @media (max-width: 540px) {
+      .res-cards { grid-template-columns: 1fr; }
+    }
+    .res-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-card);
+      border-radius: 12px;
+      padding: 14px 16px;
+      text-decoration: none;
+      transition: border-color .22s, transform .22s, box-shadow .22s;
+    }
+    .res-card:hover {
+      border-color: rgba(108,63,197,.4);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(108,63,197,.1);
+    }
+    .res-card-ico {
+      width: 36px; height: 36px;
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .9rem;
+      flex-shrink: 0;
+    }
+    .res-card-body {}
+    .res-card-name {
+      font-family: var(--font-head);
+      font-size: .83rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      line-height: 1.3;
+      margin-bottom: 3px;
+    }
+    .res-card-desc {
+      font-size: .77rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .res-card-ext {
+      font-size: .68rem;
+      color: var(--text-muted);
+      opacity: .5;
+      margin-left: auto;
+      align-self: center;
+      flex-shrink: 0;
+    }
+
+    /* ──────────────────────────────────────────────
+       BANDEAU DISCORD
+    ────────────────────────────────────────────── */
+    .eh-discord-banner {
+      background: linear-gradient(135deg, #3b2fa8 0%, #5865f2 60%, #7c3aed 100%);
+      border-radius: 20px;
+      padding: 36px 40px;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .eh-discord-banner::before {
+      content: '\f392';
+      font-family: 'Font Awesome 6 Brands';
+      font-weight: 400;
+      position: absolute;
+      right: -24px; top: -24px;
+      font-size: 10rem;
+      color: rgba(255,255,255,.05);
+      line-height: 1;
+      pointer-events: none;
+    }
+    .discord-banner-ico {
+      font-size: 2.8rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .discord-banner-text { flex: 1; }
+    .discord-banner-text h3 {
+      font-family: var(--font-head);
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .discord-banner-text p {
+      font-size: .88rem;
+      color: rgba(255,255,255,.78);
+      line-height: 1.6;
+    }
+    .discord-banner-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background: #fff;
+      color: #5865f2;
+      font-family: var(--font-head);
+      font-size: .88rem;
+      font-weight: 800;
+      padding: 12px 24px;
+      border-radius: 10px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: transform .2s, box-shadow .2s;
+      flex-shrink: 0;
+    }
+    .discord-banner-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,.25);
+    }
+    @media (max-width: 640px) {
+      .eh-discord-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+        padding: 28px 24px;
+      }
+      .discord-banner-btn { width: 100%; justify-content: center; }
+    }
+
+    /* ──────────────────────────────────────────────
+       FOOTER NOTE
+    ────────────────────────────────────────────── */
+    .eh-footer-note {
+      grid-column: 1 / -1;
+      padding-top: 32px;
+      border-top: 1.5px solid var(--border-card);
+      font-size: .8rem;
+      color: var(--text-muted);
+      text-align: center;
+      line-height: 1.7;
+    }
+    .eh-footer-note a { color: var(--aed-purple); font-weight: 600; }
+
+    /* ──────────────────────────────────────────────
+       DARK MODE OVERRIDES
+    ────────────────────────────────────────────── */
+    [data-theme="dark"] .faq-trigger:hover { background: rgba(108,63,197,.08); }
+    [data-theme="dark"] .res-card:hover { box-shadow: 0 6px 20px rgba(108,63,197,.18); }
+
+    /* ──────────────────────────────────────────────
+       ANIMATIONS ENTRÉE
+    ────────────────────────────────────────────── */
+    @media (prefers-reduced-motion: no-preference) {
+      .fade-up {
+        opacity: 0;
+        transform: translateY(22px);
+        transition: opacity .55s ease, transform .55s ease;
+      }
+      .fade-up.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Navbar ───────────────────────────────────── -->
+<nav class="ml-nav">
+  <a href="index.html" class="ml-nav-logo">
+    <span class="lico"><i class="fas fa-code"></i></span>
+    <span>À l'<span style="color:#60a5fa">Eure</span> <span style="color:#2ecc71">Digitale</span></span>
+  </a>
+  <button class="dark-btn" id="darkToggle" title="Changer le thème" aria-label="Mode sombre">
+    <i class="fas fa-moon" id="darkIcon"></i>
+  </button>
+</nav>
+
+<!-- ── Hero ─────────────────────────────────────── -->
+<section class="eh-hero" aria-label="En-tête de l'espace d'entraide">
+  <div class="eh-hero-inner">
+    <div class="eh-badge"><i class="fas fa-hands-helping"></i> Espace d'entraide</div>
+    <h1 class="eh-hero-title">
+      Questions, <span class="green">ressources</span><br>
+      et <span class="blue">entraide</span> digitale
+    </h1>
+    <p class="eh-hero-desc">
+      Retrouvez ici les réponses aux questions fréquentes sur l'association et nos ateliers,
+      ainsi qu'une sélection de ressources pour apprendre, pratiquer et progresser dans le numérique —
+      pour tous les niveaux, en Normandie et au-delà.
+    </p>
+    <div class="eh-hero-pills">
+      <span class="eh-pill green"><i class="fas fa-circle-check"></i> Gratuit &amp; ouvert à tous</span>
+      <span class="eh-pill blue"><i class="fas fa-map-marker-alt"></i> Département de l'Eure</span>
+      <span class="eh-pill purple"><i class="fas fa-graduation-cap"></i> Tous niveaux</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── Contenu principal ─────────────────────────── -->
+<div class="eh-page">
+
+  <!-- ── Colonne FAQ ──────────────────────────────── -->
+  <section aria-labelledby="faq-title">
+    <div class="eh-section-head fade-up">
+      <div class="eh-section-label"><i class="fas fa-circle-question"></i> FAQ</div>
+      <h2 class="eh-section-title" id="faq-title">Questions fréquentes</h2>
+      <p class="eh-section-sub">Tout ce qu'il faut savoir avant de rejoindre l'association ou d'assister à un atelier.</p>
+    </div>
+
+    <div class="faq-list" role="list">
+
+      <!-- Q1 -->
+      <div class="faq-item" role="listitem">
+        <button class="faq-trigger" aria-expanded="false" aria-controls="faq-1">
+          <span class="faq-ico purple"><i class="fas fa-door-open"></i></span>
+          <span class="faq-q">Comment rejoindre l'association ?</span>
+          <i class="fas fa-chevron-down faq-arrow" aria-hidden="true"></i>
+        </button>
+        <div class="faq-body" id="faq-1" role="region">
+          <div class="faq-answer">
+            La porte d'entrée principale est notre <strong>serveur Discord</strong> — c'est là que tout se passe :
+            annonces d'ateliers, discussions, demandes d'aide. Il suffit de
+            <a href="https://discord.gg/yHCAgYKwk" target="_blank" rel="noopener">rejoindre le serveur</a>,
+            de vous présenter dans le canal dédié et le tour est joué.
+            Aucune cotisation ni adhésion formelle n'est requise pour participer.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="faq-item" role="listitem">
+        <button class="faq-trigger" aria-expanded="false" aria-controls="faq-2">
+          <span class="faq-ico green"><i class="fas fa-euro-sign"></i></span>
+          <span class="faq-q">Les ateliers sont-ils payants ?</span>
+          <i class="fas fa-chevron-down faq-arrow" aria-hidden="true"></i>
+        </button>
+        <div class="faq-body" id="faq-2" role="region">
+          <div class="faq-answer">
+            <strong>Non, tous nos ateliers sont entièrement gratuits.</strong> L'association est à but non
+            lucratif (loi 1901) et repose sur le bénévolat. Notre objectif est de rendre l'apprentissage
+            numérique accessible à toutes et à tous dans le département de l'Eure, sans barrière financière.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="faq-item" role="listitem">
+        <button class="faq-trigger" aria-expanded="false" aria-controls="faq-3">
+          <span class="faq-ico blue"><i class="fas fa-calendar-days"></i></span>
+          <span class="faq-q">Quand ont lieu les ateliers ?</span>
+          <i class="fas fa-chevron-down faq-arrow" aria-hidden="true"></i>
+        </button>
+        <div class="faq-body" id="faq-3" role="region">
+          <div class="faq-answer">
+            Les ateliers sont programmés de façon irrégulière selon les disponibilités des bénévoles et
+            les propositions des membres. Les annonces sont publiées sur le
+            <a href="https://discord.gg/yHCAgYKwk" target="_blank" rel="noopener">serveur Discord</a>
+            en avance. Pour ne rien manquer, activez les notifications du canal
+            <strong>#annonces</strong>.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="faq-item" role="listitem">
+        <button class="faq-trigger" aria-expanded="false" aria-controls="faq-4">
+          <span class="faq-ico orange"><i class="fas fa-chalkboard-user"></i></span>
+          <span class="faq-q">Je suis débutant·e, puis-je participer ?</span>
+          <i class="fas fa-chevron-down faq-arrow" aria-hidden="true"></i>
+        </button>
+        <div class="faq-body" id="faq-4" role="region">
+          <div class="faq-answer">
+            Absolument ! Nos ateliers s'adressent à <strong>tous les niveaux</strong>, du grand débutant au
+            développeur confirmé. Chaque session précise le niveau recommandé.
+            <br><br>
+            Niveaux habituellement disponibles :
+            <span class="tag green">Débutant</span>
+            <span class="tag blue">Intermédiaire</span>
+            <span class="tag orange">Avancé</span>
+            <br><br>
+            N'hésitez pas à poser vos questions dans les canaux Discord — la communauté est bienveillante.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="faq-item" role="listitem">
+        <button class="faq-trigger" aria-expanded="false" aria-controls="faq-5">
+          <span class="faq-ico teal"><i class="fas fa-lightbulb"></i></span>
+          <span class="faq-q">Comment proposer un atelier ou un sujet ?</span>
+          <i class="fas fa-chevron-down faq-arrow" aria-hidden="true"></i>
+        </button>
+        <div class="faq-body" id="faq-5" role="region">
+          <div class="faq-answer">
+            Vous avez une compétence à partager ou un sujet que vous aimeriez voir abordé ?
+            Utilisez le <a href="index.html#ateliers">formulaire de proposition d'atelier</a> sur la page
+            d'accueil, ou signalez-vous directement sur le Discord. Aucune expertise particulière n'est
+            nécessaire pour animer — l'envie de partager suffit !
+          </div>
+        </div>
+      </div>
+
+      <!-- Q6 -->
+      <div class="faq-item" role="listitem">
+        <button class="faq-trigger" aria-expanded="false" aria-controls="faq-6">
+          <span class="faq-ico purple"><i class="fas fa-map-location-dot"></i></span>
+          <span class="faq-q">Les ateliers sont-ils en présentiel ou en ligne ?</span>
+          <i class="fas fa-chevron-down faq-arrow" aria-hidden="true"></i>
+        </button>
+        <div class="faq-body" id="faq-6" role="region">
+          <div class="faq-answer">
+            Les deux ! Certains ateliers se tiennent <strong>en ligne</strong> (Discord vocal ou visio),
+            d'autres <strong>en présentiel</strong> dans le département de l'Eure.
+            Le format est précisé dans chaque annonce. Les sessions en ligne permettent à toute personne,
+            où qu'elle soit en Normandie (ou ailleurs), de participer sans se déplacer.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q7 -->
+      <div class="faq-item" role="listitem">
+        <button class="faq-trigger" aria-expanded="false" aria-controls="faq-7">
+          <span class="faq-ico blue"><i class="fas fa-code-branch"></i></span>
+          <span class="faq-q">Comment contribuer au site ou aux projets GitHub ?</span>
+          <i class="fas fa-chevron-down faq-arrow" aria-hidden="true"></i>
+        </button>
+        <div class="faq-body" id="faq-7" role="region">
+          <div class="faq-answer">
+            Le code du site est publié sous <strong>licence MIT</strong> sur
+            <a href="https://github.com/aleuredigitale" target="_blank" rel="noopener">github.com/aleuredigitale</a>.
+            Pour contribuer : forkez le dépôt, créez une branche, ouvrez une <em>Pull Request</em> en
+            décrivant vos changements. Les contributions — corrections, améliorations, nouveaux contenus —
+            sont les bienvenues !
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /faq-list -->
+  </section>
+
+  <!-- ── Colonne Ressources ───────────────────────── -->
+  <section aria-labelledby="res-title">
+    <div class="eh-section-head fade-up">
+      <div class="eh-section-label"><i class="fas fa-bookmark"></i> Ressources</div>
+      <h2 class="eh-section-title" id="res-title">Ressources sélectionnées</h2>
+      <p class="eh-section-sub">Des outils et plateformes recommandés par la communauté pour apprendre et pratiquer.</p>
+    </div>
+
+    <div class="res-grid">
+
+      <!-- Cat : Apprendre -->
+      <div class="fade-up">
+        <p class="res-cat-label"><i class="fas fa-graduation-cap"></i> Apprendre</p>
+        <div class="res-cards">
+          <a href="https://openclassrooms.com" target="_blank" rel="noopener" class="res-card">
+            <div class="res-card-ico" style="background:rgba(108,63,197,.12);color:var(--aed-purple)"><i class="fas fa-school"></i></div>
+            <div class="res-card-body">
+              <div class="res-card-name">OpenClassrooms</div>
+              <div class="res-card-desc">Cours en français, tous niveaux</div>
+            </div>
+            <i class="fas fa-arrow-up-right-from-square res-card-ext"></i>
+          </a>
+          <a href="https://www.freecodecamp.org" target="_blank" rel="noopener" class="res-card">
+            <div class="res-card-ico" style="background:rgba(46,204,113,.12);color:var(--aed-green)"><i class="fas fa-campground"></i></div>
+            <div class="res-card-body">
+              <div class="res-card-name">freeCodeCamp</div>
+              <div class="res-card-desc">Web, algo, certifications gratuites</div>
+            </div>
+            <i class="fas fa-arrow-up-right-from-square res-card-ext"></i>
+          </a>
+          <a href="https://developer.mozilla.org/fr/" target="_blank" rel="noopener" class="res-card">
+            <div class="res-card-ico" style="background:rgba(230,126,34,.12);color:var(--aed-orange)"><i class="fas fa-book-open"></i></div>
+            <div class="res-card-body">
+              <div class="res-card-name">MDN Web Docs</div>
+              <div class="res-card-desc">Référence HTML, CSS, JS (en fr)</div>
+            </div>
+            <i class="fas fa-arrow-up-right-from-square res-card-ext"></i>
+          </a>
+          <a href="https://roadmap.sh" target="_blank" rel="noopener" class="res-card">
+            <div class="res-card-ico" style="background:rgba(96,165,250,.12);color:#60a5fa"><i class="fas fa-route"></i></div>
+            <div class="res-card-body">
+              <div class="res-card-name">roadmap.sh</div>
+              <div class="res-card-desc">Parcours guidés par spécialité</div>
+            </div>
+            <i class="fas fa-arrow-up-right-from-square res-card-ext"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Cat : Outils -->
+      <div class="fade-up">
+        <p class="res-cat-label"><i class="fas fa-screwdriver-wrench"></i> Outils &amp; environnement</p>
+        <div class="res-cards">
+          <a href="https://code.visualstudio.com" target="_blank" rel="noopener" class="res-card">
+            <div class="res-card-ico" style="background:rgba(26,188,156,.12);color:var(--aed-teal)"><i class="fas fa-terminal"></i></div>
+            <div class="res-card-body">
+              <div class="res-card-name">VS Code</div>
+              <div class="res-card-desc">Éditeur de code gratuit &amp; extensible</div>
+            </div>
+            <i class="fas fa-arrow-up-right-from-square res-card-ext"></i>
+          </a>
+          <a href="https://github.com" target="_blank" rel="noopener" class="res-card">
+            <div class="res-card-ico" style="background:rgba(255,255,255,.06);color:var(--text-heading)"><i class="fab fa-github"></i></div>
+            <div class="res-card-body">
+              <div class="res-card-name">GitHub</div>
+              <div class="res-card-desc">Hébergement de code &amp; collaboration</div>
+            </div>
+            <i class="fas fa-arrow-up-right-from-square res-card-ext"></i>
+          </a>
+          <a href="https://codepen.io" target="_blank" rel="noopener" class="res-card">
+            <div class="res-card-ico" style="background:rgba(108,63,197,.12);color:var(--aed-purple)"><i class="fas fa-pen-nib"></i></div>
+            <div class="res-card-body">
+              <div class="res-card-name">CodePen</div>
+              <div class="res-card-desc">Bac à sable HTML/CSS/JS en ligne</div>
+            </div>
+            <i class="fas fa-arrow-up-right-from-square res-card-ext"></i>
+          </a>
+          <a href="https://replit.com" target="_blank" rel="noopener" class="res-card">
+            <div class="res-card-ico" style="background:rgba(230,126,34,.12);color:var(--aed-orange)"><i class="fas fa-bolt"></i></div>
+            <div class="res-card-body">
+              <div class="res-card-name">Replit</div>
+              <div class="res-card-desc">IDE en ligne, multi-langages</div>
+            </div>
+            <i class="fas fa-arrow-up-right-from-square res-card-ext"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Cat : Pratiquer -->
+      <div class="fade-up">
+        <p class="res-cat-label"><i class="fas fa-dumbbell"></i> S'entraîner</p>
+        <div class="res-cards">
+          <a href="https://exercism.org" target="_blank" rel="noopener" class="res-card">
+            <div class="res-card-ico" style="background:rgba(46,204,113,.12);color:var(--aed-green)"><i class="fas fa-dumbbell"></i></div>
+            <div class="res-card-body">
+              <div class="res-card-name">Exercism</div>
+              <div class="res-card-desc">Exercices avec feedback mentor</div>
+            </div>
+            <i class="fas fa-arrow-up-right-from-square res-card-ext"></i>
+          </a>
+          <a href="https://www.codewars.com" target="_blank" rel="noopener" class="res-card">
+            <div class="res-card-ico" style="background:rgba(230,126,34,.12);color:var(--aed-orange)"><i class="fas fa-fire"></i></div>
+            <div class="res-card-body">
+              <div class="res-card-name">Codewars</div>
+              <div class="res-card-desc">Kata de code progressifs</div>
+            </div>
+            <i class="fas fa-arrow-up-right-from-square res-card-ext"></i>
+          </a>
+          <a href="https://www.frontendmentor.io" target="_blank" rel="noopener" class="res-card">
+            <div class="res-card-ico" style="background:rgba(96,165,250,.12);color:#60a5fa"><i class="fas fa-palette"></i></div>
+            <div class="res-card-body">
+              <div class="res-card-name">Frontend Mentor</div>
+              <div class="res-card-desc">Projets UI réels à reproduire</div>
+            </div>
+            <i class="fas fa-arrow-up-right-from-square res-card-ext"></i>
+          </a>
+          <a href="https://www.hackerrank.com" target="_blank" rel="noopener" class="res-card">
+            <div class="res-card-ico" style="background:rgba(46,204,113,.12);color:var(--aed-green)"><i class="fas fa-star"></i></div>
+            <div class="res-card-body">
+              <div class="res-card-name">HackerRank</div>
+              <div class="res-card-desc">Algo, SQL, prépa entretiens</div>
+            </div>
+            <i class="fas fa-arrow-up-right-from-square res-card-ext"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Cat : Communauté -->
+      <div class="fade-up">
+        <p class="res-cat-label"><i class="fas fa-people-group"></i> Communauté &amp; veille</p>
+        <div class="res-cards">
+          <a href="https://dev.to" target="_blank" rel="noopener" class="res-card">
+            <div class="res-card-ico" style="background:rgba(255,255,255,.06);color:var(--text-heading)"><i class="fab fa-dev"></i></div>
+            <div class="res-card-body">
+              <div class="res-card-name">DEV Community</div>
+              <div class="res-card-desc">Articles, partages, discussions</div>
+            </div>
+            <i class="fas fa-arrow-up-right-from-square res-card-ext"></i>
+          </a>
+          <a href="https://stackoverflow.com" target="_blank" rel="noopener" class="res-card">
+            <div class="res-card-ico" style="background:rgba(230,126,34,.12);color:var(--aed-orange)"><i class="fab fa-stack-overflow"></i></div>
+            <div class="res-card-body">
+              <div class="res-card-name">Stack Overflow</div>
+              <div class="res-card-desc">Q&amp;R technique de référence</div>
+            </div>
+            <i class="fas fa-arrow-up-right-from-square res-card-ext"></i>
+          </a>
+          <a href="https://www.reddit.com/r/learnprogramming/" target="_blank" rel="noopener" class="res-card">
+            <div class="res-card-ico" style="background:rgba(230,126,34,.12);color:#ff6314"><i class="fab fa-reddit-alien"></i></div>
+            <div class="res-card-body">
+              <div class="res-card-name">r/learnprogramming</div>
+              <div class="res-card-desc">Communauté débutants &amp; entraide</div>
+            </div>
+            <i class="fas fa-arrow-up-right-from-square res-card-ext"></i>
+          </a>
+          <a href="https://github.com/aleuredigitale" target="_blank" rel="noopener" class="res-card">
+            <div class="res-card-ico" style="background:rgba(108,63,197,.12);color:var(--aed-purple)"><i class="fab fa-github"></i></div>
+            <div class="res-card-body">
+              <div class="res-card-name">Notre GitHub</div>
+              <div class="res-card-desc">Projets &amp; ressources de l'asso</div>
+            </div>
+            <i class="fas fa-arrow-up-right-from-square res-card-ext"></i>
+          </a>
+        </div>
+      </div>
+
+    </div><!-- /res-grid -->
+  </section>
+
+  <!-- ── Bandeau Discord ──────────────────────────── -->
+  <div class="eh-col-full fade-up">
+    <div class="eh-discord-banner" role="complementary" aria-label="Rejoindre Discord">
+      <div class="discord-banner-ico"><i class="fab fa-discord"></i></div>
+      <div class="discord-banner-text">
+        <h3>Votre question n'est pas ici ?</h3>
+        <p>Rejoignez le serveur Discord de l'association — la communauté est là pour vous aider,
+           que vous soyez débutant·e ou expérimenté·e.</p>
+      </div>
+      <a href="https://discord.gg/yHCAgYKwk" target="_blank" rel="noopener" class="discord-banner-btn">
+        <i class="fab fa-discord"></i> Rejoindre le Discord
+      </a>
+    </div>
+  </div>
+
+  <!-- ── Footer ───────────────────────────────────── -->
+  <div class="eh-footer-note">
+    <p>
+      <a href="index.html"><i class="fas fa-arrow-left"></i> Retour au site</a>
+      &nbsp;·&nbsp;
+      <a href="mentions-legales.html">Mentions légales</a>
+      &nbsp;·&nbsp;
+      <a href="politique-confidentialite.html">Confidentialité</a>
+      &nbsp;·&nbsp;
+      <a href="https://github.com/aleuredigitale" target="_blank" rel="noopener">GitHub</a>
+    </p>
+    <p style="margin-top:8px">© 2026 À l'Eure Digitale — Association loi 1901 — Normandie</p>
+  </div>
+
+</div><!-- /eh-page -->
+
+<script>
+  /* ── Dark mode ─────────────────────────────────── */
+  const html = document.documentElement;
+  const darkBtn  = document.getElementById('darkToggle');
+  const darkIcon = document.getElementById('darkIcon');
+  function applyTheme(t) {
+    html.setAttribute('data-theme', t);
+    darkIcon.className = t === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    localStorage.setItem('aed-theme', t);
+  }
+  darkBtn.addEventListener('click', () => {
+    applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+  const saved = localStorage.getItem('aed-theme');
+  if (saved) applyTheme(saved);
+  else if (window.matchMedia('(prefers-color-scheme: dark)').matches) applyTheme('dark');
+
+  /* ── FAQ Accordion ─────────────────────────────── */
+  document.querySelectorAll('.faq-trigger').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      // fermer tous les autres
+      document.querySelectorAll('.faq-item.open').forEach(el => {
+        el.classList.remove('open');
+        el.querySelector('.faq-trigger').setAttribute('aria-expanded', 'false');
+      });
+      // basculer celui-ci
+      if (!isOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+    /* Accessibilité clavier */
+    btn.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
+    });
+  });
+
+  /* ── Scroll fade-up ─────────────────────────────── */
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(el => {
+        if (el.isIntersecting) { el.target.classList.add('visible'); obs.unobserve(el.target); }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.fade-up').forEach((el, i) => {
+      el.style.transitionDelay = (i * 0.06) + 's';
+      obs.observe(el);
+    });
+  }
+</script>
+</body>
+</html>
