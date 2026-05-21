@@ -278,6 +278,10 @@
   .sidebar-icon.permanence svg { stroke: var(--orange); }
   .sidebar-icon.espace-public { background: #e8f5ef; }
   .sidebar-icon.espace-public svg { stroke: var(--green); }
+  .sidebar-icon.freelance { background: #f0eaff; }
+  .sidebar-icon.freelance svg { stroke: #7c3aed; }
+  .sidebar-icon.coworking { background: #fff7e6; }
+  .sidebar-icon.coworking svg { stroke: #d97706; }
 
   .sidebar-info { flex: 1; min-width: 0; }
   .sidebar-info h4 {
@@ -293,6 +297,8 @@
   .type-tag.france-services { background: #e8edf5; color: var(--navy); }
   .type-tag.permanence { background: #fff3e6; color: var(--orange); }
   .type-tag.espace-public { background: #e8f5ef; color: var(--green); }
+  .type-tag.freelance { background: #f0eaff; color: #7c3aed; }
+  .type-tag.coworking { background: #fff7e6; color: #d97706; }
 
   .sidebar-info .address {
     font-size: 12.5px; color: var(--gray); margin-bottom: 5px;
@@ -583,10 +589,12 @@
         <span class="hero-badge"><span class="dot blue"></span> France Services</span>
         <span class="hero-badge"><span class="dot orange"></span> Permanences</span>
         <span class="hero-badge"><span class="dot green"></span> EPN</span>
+        <span class="hero-badge"><span class="dot" style="background:#a78bfa"></span> Freelances partenaires</span>
+        <span class="hero-badge"><span class="dot" style="background:#d97706"></span> Coworking</span>
       </div>
     </div>
     <div class="hero-stat-block">
-      <div class="big-num">40<span>+</span></div>
+      <div class="big-num">32<span>+</span></div>
       <p>lieux d'accueil<br>dans tout le département</p>
     </div>
   </div>
@@ -613,8 +621,14 @@
       <button class="chip" onclick="setFilter('espace-public', this)">
         <span class="chip-dot" style="background:var(--green)"></span> EPN
       </button>
+      <button class="chip" onclick="setFilter('freelance', this)">
+        <span class="chip-dot" style="background:#7c3aed"></span> Freelances
+      </button>
+      <button class="chip" onclick="setFilter('coworking', this)">
+        <span class="chip-dot" style="background:#d97706"></span> Coworking
+      </button>
     </div>
-    <div class="filter-count" id="filterCount"><strong>22</strong> lieux affichés</div>
+    <div class="filter-count" id="filterCount"><strong>32</strong> lieux affichés</div>
   </div>
 </div>
 
@@ -666,6 +680,18 @@
         <h3>Espaces Publics Numériques</h3>
         <p>Espaces équipés d'ordinateurs en libre accès pour naviguer, imprimer, scanner ou suivre des formations en ligne.</p>
         <span class="legend-count green">2 lieux</span>
+      </div>
+      <div class="legend-card" data-reveal style="transition-delay:.32s" onclick="setFilter('freelance', document.querySelector('.chip:nth-child(6)'))">
+        <span class="legend-emoji">🧑‍💻</span>
+        <h3>Freelances partenaires</h3>
+        <p>Indépendants certifiés partenaires de l'association : formateurs, développeurs, graphistes et médiateurs numériques disponibles sur rendez-vous.</p>
+        <span class="legend-count" style="background:#f0eaff;color:#7c3aed">5 partenaires</span>
+      </div>
+      <div class="legend-card" data-reveal style="transition-delay:.40s" onclick="setFilter('coworking', document.querySelector('.chip:nth-child(7)'))">
+        <span class="legend-emoji">🏢</span>
+        <h3>Espaces de coworking</h3>
+        <p>Bureaux partagés équipés, salles de réunion et open spaces pour travailler en dehors de chez soi dans un cadre professionnel.</p>
+        <span class="legend-count" style="background:#fff7e6;color:#d97706">5 espaces</span>
       </div>
     </div>
 
@@ -804,6 +830,20 @@ const points = [
   // EPN
   { id:21, name:"Espace Public Numérique – Évreux", type:"espace-public", address:"10 Rue Joséphine, 27000 Évreux", schedule:"Lun–Ven 9h–18h", lat:49.0247, lng:1.1488, open:true },
   { id:22, name:"Espace Public Numérique – Louviers", type:"espace-public", address:"Maison du citoyen, 27400 Louviers", schedule:"Mar–Sam 10h–17h", lat:49.2151, lng:1.1680, open:true },
+
+  // Freelances partenaires
+  { id:23, name:"Sophie Martin – Formatrice numérique", type:"freelance", address:"12 Rue des Arts, 27000 Évreux", schedule:"Sur rendez-vous", lat:49.0259, lng:1.1531, open:true, specialty:"Formation bureautique & réseaux sociaux", phone:"06 12 34 56 78" },
+  { id:24, name:"Thomas Lefèvre – Consultant web", type:"freelance", address:"5 Allée des Tilleuls, 27300 Bernay", schedule:"Lun–Ven sur rendez-vous", lat:49.0878, lng:0.6012, open:true, specialty:"Création de sites web & e-commerce", phone:"06 23 45 67 89" },
+  { id:25, name:"Amira Benali – Médiatrice numérique", type:"freelance", address:"8 Place du Marché, 27400 Louviers", schedule:"Mar, Jeu 9h–17h", lat:49.2190, lng:1.1715, open:true, specialty:"Inclusion numérique & seniors", phone:"07 34 56 78 90" },
+  { id:26, name:"Lucas Dupont – Développeur & formateur", type:"freelance", address:"3 Rue de la Paix, 27200 Vernon", schedule:"Sur rendez-vous", lat:49.0940, lng:1.4852, open:false, specialty:"Initiation au code & cybersécurité", phone:"06 45 67 89 01" },
+  { id:27, name:"Claire Rousseau – Graphiste numérique", type:"freelance", address:"17 Bd Gambetta, 27500 Pont-Audemer", schedule:"Mer–Ven sur rendez-vous", lat:49.3601, lng:0.5162, open:true, specialty:"Communication visuelle & outils créatifs", phone:"07 56 78 90 12" },
+
+  // Espaces de coworking
+  { id:28, name:"Le Tiers-Lieu d'Évreux", type:"coworking", address:"24 Rue du Dr Oursel, 27000 Évreux", schedule:"Lun–Ven 8h–20h / Sam 9h–17h", lat:49.0263, lng:1.1478, open:true, amenities:"Wi-Fi fibre, salles de réunion, imprimantes, café", price:"15 €/jour · 90 €/mois" },
+  { id:29, name:"Cowork'In Louviers", type:"coworking", address:"6 Rue Pierre Mendès France, 27400 Louviers", schedule:"Lun–Ven 8h30–19h", lat:49.2165, lng:1.1692, open:true, amenities:"Open space, cabines téléphoniques, cuisine équipée", price:"12 €/jour · 75 €/mois" },
+  { id:30, name:"La Fabrique Numérique – Bernay", type:"coworking", address:"3 Rue des Martyrs, 27300 Bernay", schedule:"Lun–Sam 9h–18h", lat:49.0865, lng:0.5998, open:true, amenities:"Espace maker, imprimante 3D, Wi-Fi, casiers", price:"10 €/jour · 60 €/mois" },
+  { id:31, name:"Hub Vernon", type:"coworking", address:"11 Rue d'Albuféra, 27200 Vernon", schedule:"Lun–Ven 9h–18h", lat:49.0918, lng:1.4841, open:false, amenities:"Bureaux privatifs, salle de conf. 12 pers., vidéoprojecteur", price:"20 €/jour · 120 €/mois" },
+  { id:32, name:"Espace Nomade – Pont-Audemer", type:"coworking", address:"2 Quai Robert Leblanc, 27500 Pont-Audemer", schedule:"Mar–Sam 9h–18h", lat:49.3566, lng:0.5138, open:true, amenities:"Vue rivière, Wi-Fi, open space calme, terrasse", price:"10 €/jour · 55 €/mois" },
 ];
 
 // ── MAP ────────────────────────────────────────────────
@@ -820,6 +860,8 @@ const markerColors = {
   'france-services': { bg:'#1a2e4a', border:'#0f1d2f', emoji:'🏛️' },
   'permanence':    { bg:'#f07d20', border:'#d4690e', emoji:'🤝' },
   'espace-public': { bg:'#2a9d5c', border:'#1f7a46', emoji:'💻' },
+  'freelance':     { bg:'#7c3aed', border:'#5b21b6', emoji:'🧑‍💻' },
+  'coworking':     { bg:'#d97706', border:'#b45309', emoji:'🏢' },
 };
 
 const typeLabels = {
@@ -827,6 +869,8 @@ const typeLabels = {
   'france-services': 'France Services',
   'permanence': 'Permanence numérique',
   'espace-public': 'Espace Public Numérique',
+  'freelance': 'Freelance partenaire',
+  'coworking': 'Espace de coworking',
 };
 
 const typeIcons = {
@@ -834,6 +878,8 @@ const typeIcons = {
   'france-services': `<svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
   'permanence': `<svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
   'espace-public': `<svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="2" y1="20" x2="22" y2="20"/></svg>`,
+  'freelance': `<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/><path d="M16 3.5a4 4 0 0 1 0 7"/><path d="M20 20c0-3-2-5-4-6"/></svg>`,
+  'coworking': `<svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>`,
 };
 
 const leafletMarkers = {};
@@ -860,8 +906,29 @@ function buildPopup(p) {
   const typeCls = p.type;
   const typeLabel = typeLabels[p.type];
   const openHtml = p.open
-    ? `<span class="open-badge open">Ouvert</span>`
-    : `<span class="open-badge closed">Fermé</span>`;
+    ? `<span class="open-badge open">Disponible</span>`
+    : `<span class="open-badge closed">Indisponible</span>`;
+  const specialtyRow = p.specialty ? `
+      <div class="popup-row">
+        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        ${p.specialty}
+      </div>` : '';
+  const phoneRow = p.phone ? `
+      <div class="popup-row">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.32 2 2 0 0 1 3.57 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.54a16 16 0 0 0 5.55 5.55l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <a href="tel:${p.phone}" style="color:inherit;text-decoration:none;">${p.phone}</a>
+      </div>` : '';
+  const amenitiesRow = p.amenities ? `
+      <div class="popup-row">
+        <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        ${p.amenities}
+      </div>` : '';
+  const priceRow = p.price ? `
+      <div class="popup-row">
+        <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        <strong style="color:#d97706">${p.price}</strong>
+      </div>` : '';
+  const openLabel = p.type === 'freelance' ? (p.open ? 'Disponible' : 'Indisponible') : (p.open ? 'Ouvert' : 'Fermé');
   return `
     <div class="popup-header">
       <span class="ptype type-tag ${typeCls}">${typeLabel}</span>
@@ -874,8 +941,9 @@ function buildPopup(p) {
       </div>
       <div class="popup-row">
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        ${p.schedule} ${openHtml}
+        ${p.schedule} <span class="open-badge ${p.open ? 'open' : 'closed'}">${openLabel}</span>
       </div>
+      ${specialtyRow}${phoneRow}${amenitiesRow}${priceRow}
     </div>
     <a href="contact.html" class="popup-btn">Prendre rendez-vous →</a>
   `;
@@ -909,14 +977,18 @@ function buildSidebar(filtered) {
     const item = document.createElement('div');
     item.className = 'sidebar-item';
     item.dataset.id = p.id;
+    const openLabel = p.type === 'freelance' ? (p.open ? 'Disponible' : 'Indisponible') : (p.open ? 'Ouvert' : 'Fermé');
     const openHtml = p.open
-      ? `<span class="open-badge open">Ouvert</span>`
-      : `<span class="open-badge closed">Fermé</span>`;
+      ? `<span class="open-badge open">${openLabel}</span>`
+      : `<span class="open-badge closed">${openLabel}</span>`;
     item.innerHTML = `
       <div class="sidebar-icon ${p.type}">${typeIcons[p.type]}</div>
       <div class="sidebar-info">
         <span class="type-tag ${p.type}">${typeLabels[p.type]}</span>
         <h4>${p.name}</h4>
+        ${p.specialty ? `<div class="address" style="color:#7c3aed;margin-bottom:3px;"><svg viewBox="0 0 24 24" style="stroke:#7c3aed!important"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>${p.specialty}</div>` : ''}
+        ${p.amenities ? `<div class="address" style="color:#d97706;margin-bottom:3px;"><svg viewBox="0 0 24 24" style="stroke:#d97706!important"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>${p.amenities}</div>` : ''}
+        ${p.price ? `<div class="address" style="color:#d97706;font-weight:700;margin-bottom:3px;"><svg viewBox="0 0 24 24" style="stroke:#d97706!important"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>${p.price}</div>` : ''}
         <div class="address">
           <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
           ${p.address}
