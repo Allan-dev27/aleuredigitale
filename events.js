@@ -238,7 +238,7 @@ const EVENTS_DATA = [
     type: 'conf',
     title: 'Le numérique responsable — impacts environnementaux',
     date: new Date(2026, 8, 20), // 20 sept 2026
-    time: '18h–19h30',
+    time: '14h - 16h',
     location: 'En ligne (Discord)',
     level: 'Tous niveaux',
     desc: 'Empreinte carbone du numérique, éco-conception web, low-tech — comment réduire l\'impact environnemental de nos usages et productions numériques ?',
