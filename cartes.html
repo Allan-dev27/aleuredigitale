@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -6,6 +7,7 @@
 <title>Carte des Points d'Accès – À l'Eure Digitale</title>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
   :root {
@@ -27,37 +29,86 @@
   body { font-family: 'DM Sans', sans-serif; color: var(--text); background: #fff; overflow-x: hidden; }
   h1, h2, h3, h4, h5 { font-family: 'Sora', sans-serif; }
 
-  /* ── NAV ── */
-  nav {
-    position: sticky; top: 0; z-index: 1000;
-    background: #fff;
-    box-shadow: 0 2px 16px rgba(26,46,74,.08);
-    padding: 0 5vw;
-    display: flex; align-items: center; justify-content: space-between;
-    height: 68px;
+  /* ── VARIABLES AED (navbar) ── */
+  :root {
+    --aed-navy:   #0b1a3b;
+    --aed-green:  #2ecc71;
+    --font-head:  'Sora', sans-serif;
   }
-  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-  .logo-icon {
-    width: 44px; height: 44px; background: var(--navy); border-radius: 50%;
-    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-  }
-  .logo-icon svg { width: 26px; height: 26px; }
-  .logo-text { line-height: 1.1; }
-  .logo-text .top { font-family: 'Sora', sans-serif; font-weight: 800; font-size: 14px; color: var(--navy); letter-spacing: .5px; }
-  .logo-text .bottom { font-size: 9px; letter-spacing: 2.5px; color: var(--teal); text-transform: uppercase; font-weight: 600; }
-  .nav-links { display: flex; align-items: center; gap: 0; list-style: none; }
-  .nav-links a {
-    display: block; padding: 0 18px; font-size: 14.5px; font-weight: 500;
-    color: var(--navy); text-decoration: none; position: relative; transition: color .2s;
-  }
-  .nav-links a.active { color: var(--teal); }
-  .nav-links a.active::after {
-    content: ''; position: absolute; bottom: -22px; left: 18px; right: 18px;
-    height: 2.5px; background: var(--orange); border-radius: 2px;
-  }
-  .nav-links a:hover { color: var(--teal); }
-  .nav-links .has-arrow span { font-size: 10px; margin-left: 3px; }
 
+  /* ── NAV ── */
+  #navbar {
+    background: var(--aed-navy);
+    padding: 0 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px; position: sticky; top: 0; z-index: 999;
+    box-shadow: 0 2px 20px rgba(0,0,0,.3);
+  }
+  .nav-logo {
+    font-family: var(--font-head); font-weight: 800; font-size: 1.05rem;
+    color: #fff; display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo .lico {
+    background: var(--aed-green); color: #fff; width: 32px; height: 32px;
+    border-radius: 8px; display: inline-flex; align-items: center;
+    justify-content: center; font-size: .85rem;
+  }
+  .nav-links { display: flex; gap: 24px; align-items: center; list-style: none; }
+  .nav-links a {
+    font-family: var(--font-head); font-size: .87rem; font-weight: 600;
+    color: rgba(255,255,255,.75); transition: color .2s; text-decoration: none;
+  }
+  .nav-links a:hover { color: #fff; }
+  .nav-disc {
+    background: #5865f2; color: #fff !important;
+    font-weight: 700 !important; padding: 9px 18px; border-radius: 8px;
+    display: inline-flex; align-items: center; gap: 7px;
+    transition: background .2s !important;
+  }
+  .nav-disc:hover { background: #4752c4 !important; }
+  .nav-right { display: flex; align-items: center; gap: 10px; }
+  .dark-btn {
+    background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); color: #fff;
+    width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center;
+    justify-content: center; cursor: pointer; font-size: .9rem; transition: background .2s;
+  }
+  .dark-btn:hover { background: rgba(255,255,255,.2); }
+  .burger-btn {
+    display: none; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+    color: #fff; width: 36px; height: 36px; border-radius: 8px; align-items: center;
+    justify-content: center; cursor: pointer; font-size: 1rem;
+  }
+  /* Menu mobile */
+  .nav-mobile {
+    display: none; position: fixed; top: 64px; left: 0; right: 0;
+    background: #0d1e44; padding: 16px 24px; flex-direction: column; gap: 4px;
+    box-shadow: 0 12px 40px rgba(0,0,0,.5); z-index: 997;
+  }
+  .nav-mobile.open { display: flex; }
+  .nav-mobile a {
+    font-family: var(--font-head); font-size: .95rem; font-weight: 600;
+    color: rgba(255,255,255,.8); padding: 13px 0;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+    display: flex; align-items: center; gap: 10px; transition: color .2s;
+    text-decoration: none;
+  }
+  .nav-mobile a:hover { color: var(--aed-green); }
+  .nav-mobile a:last-child { border-bottom: none; }
+  .mob-disc {
+    background: #5865f2 !important; color: #fff !important; border-radius: 8px !important;
+    padding: 13px 16px !important; margin-top: 8px; justify-content: center !important;
+    border: none !important;
+  }
+  .mob-cartes {
+    color: rgba(255,255,255,.8) !important;
+  }
+  @media (max-width: 800px) {
+    .nav-links { display: none; }
+    .burger-btn { display: flex; }
+  }
+
+  /* Boutons hors nav (conservés pour le reste de la page) */
   .btn {
     display: inline-flex; align-items: center; gap: 8px;
     padding: 10px 22px; border-radius: 25px;
@@ -72,6 +123,8 @@
   .btn-teal:hover { background: #187065; }
   .btn-outline { background: transparent; color: var(--navy); border: 2px solid var(--navy); }
   .btn-outline:hover { background: var(--navy); color: #fff; }
+  .btn-white { background: #fff; color: var(--navy); }
+  .btn-ghost { background: transparent; border: 2px solid rgba(255,255,255,.4); color: #fff; }
 
   /* ── PAGE HERO ── */
   .page-hero {
@@ -476,41 +529,48 @@
 <body>
 
 <!-- ═══════════════════ NAV ═══════════════════ -->
-<nav>
-  <a href="aleure-digitale.html" class="logo">
-    <div class="logo-icon">
-      <svg viewBox="0 0 32 32" fill="none" stroke="white" stroke-width="2.2">
-        <circle cx="16" cy="16" r="6"/>
-        <path d="M16 4a12 12 0 0 1 12 12"/>
-        <path d="M16 4a12 12 0 0 0-12 12"/>
-        <path d="M28 16a12 12 0 0 1-12 12"/>
-        <path d="M4 16a12 12 0 0 0 12 12"/>
-      </svg>
-    </div>
-    <div class="logo-text">
-      <div class="top">À L'EURE<br><span style="color:var(--teal)">DIGITALE</span></div>
-    </div>
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">
+    <span class="lico">&lt;/&gt;</span>
+    <span>À l'<span style="color:#60a5fa">Eure</span> <span style="color:var(--aed-green)">Digitale</span></span>
   </a>
-
-  <ul class="nav-links">
-   <a href="#about">Association</a>
-    <a href="#temoignages">Témoignages</a>
-    <a href="#minecraft" style="display:inline-flex;align-items:center;gap:5px;"><i class="fas fa-cubes" style="font-size:.8rem;color:#4ade80;"></i> Minecraft</a>
-    <a href="#reseau">Réseau</a>
-    <a href="#hackathon">Hackathon</a>
-    <a href="#proposer">Proposer</a>
-    <a href="#faq">FAQ</a>
-    <a href="#contact">Contact</a>
-    <a href="adherer.html"> Adhérer</a>
-      <a href="cartes.html" class="mob-cartes"><i class="fas fa-map"></i> Cartes</a>
+  <div class="nav-links">
+    <a href="index.html#about">Association</a>
+    <a href="index.html#temoignages">Témoignages</a>
+    <a href="index.html#minecraft" style="display:inline-flex;align-items:center;gap:5px;"><i class="fas fa-cubes" style="font-size:.8rem;color:#4ade80;"></i> Minecraft</a>
+    <a href="index.html#reseau">Réseau</a>
+    <a href="index.html#hackathon">Hackathon</a>
+    <a href="index.html#proposer">Proposer</a>
+    <a href="index.html#faq">FAQ</a>
+    <a href="index.html#contact">Contact</a>
+    <a href="adherer.html" style="background:var(--aed-green);color:#fff;font-weight:700;padding:9px 18px;border-radius:8px;display:inline-flex;align-items:center;gap:7px;transition:background .2s;" onmouseover="this.style.background='#27ae60'" onmouseout="this.style.background='var(--aed-green)'"><i class="fas fa-heart"></i> Adhérer</a>
+    <a href="cartes.html" style="color:#fff!important;font-weight:700!important;"><i class="fas fa-map"></i> Cartes</a>
     <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="nav-disc"><i class="fab fa-discord"></i> Rejoindre</a>
-  </ul>
-
-  <a href="adhesion.html" class="btn btn-orange">
-    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-    Adhérer
-  </a>
+  </div>
+  <div class="nav-right">
+    <button class="dark-btn" id="darkToggle" title="Changer le thème" aria-label="Mode sombre">
+      <i class="fas fa-moon" id="darkIcon"></i>
+    </button>
+    <button class="burger-btn" id="burgerBtn" aria-label="Menu">
+      <i class="fas fa-bars" id="burgerIcon"></i>
+    </button>
+  </div>
 </nav>
+
+<!-- Menu mobile -->
+<div class="nav-mobile" id="navMobile">
+  <a href="index.html#about"       onclick="closeMobile()"><i class="fas fa-info-circle"></i> Association</a>
+  <a href="index.html#temoignages" onclick="closeMobile()"><i class="fas fa-quote-left"></i> Témoignages</a>
+  <a href="index.html#minecraft"   onclick="closeMobile()"><i class="fas fa-cubes" style="color:#4ade80"></i> Minecraft</a>
+  <a href="index.html#reseau"      onclick="closeMobile()"><i class="fas fa-network-wired"></i> Réseau</a>
+  <a href="index.html#hackathon"   onclick="closeMobile()"><i class="fas fa-trophy"></i> Hackathon</a>
+  <a href="index.html#proposer"    onclick="closeMobile()"><i class="fas fa-lightbulb"></i> Proposer un atelier</a>
+  <a href="index.html#faq"         onclick="closeMobile()"><i class="fas fa-question-circle"></i> FAQ</a>
+  <a href="index.html#contact"     onclick="closeMobile()"><i class="fas fa-envelope"></i> Contact</a>
+  <a href="adherer.html"           onclick="closeMobile()"><i class="fas fa-heart"></i> Adhérer à l'association</a>
+  <a href="cartes.html"            onclick="closeMobile()" class="mob-cartes"><i class="fas fa-map"></i> Cartes des espaces numériques</a>
+  <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="mob-disc"><i class="fab fa-discord"></i> Rejoindre le Discord</a>
+</div>
 
 <!-- ═══════════════════ HERO ═══════════════════ -->
 <section class="page-hero" data-reveal>
@@ -939,6 +999,38 @@ const io = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 reveals.forEach(el => io.observe(el));
 document.querySelector('.page-hero').classList.add('revealed');
+</script>
+
+<!-- ── NAVBAR : burger + dark mode ───────────────────── -->
+<script>
+  /* Burger menu mobile */
+  const burgerBtn  = document.getElementById('burgerBtn');
+  const burgerIcon = document.getElementById('burgerIcon');
+  const navMobile  = document.getElementById('navMobile');
+  function closeMobile() {
+    navMobile.classList.remove('open');
+    burgerIcon.className = 'fas fa-bars';
+  }
+  burgerBtn.addEventListener('click', () => {
+    const isOpen = navMobile.classList.toggle('open');
+    burgerIcon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
+  });
+
+  /* Dark mode */
+  const darkBtn  = document.getElementById('darkToggle');
+  const darkIcon = document.getElementById('darkIcon');
+  const html     = document.documentElement;
+  function applyTheme(t) {
+    html.setAttribute('data-theme', t);
+    darkIcon.className = t === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    localStorage.setItem('aed-theme', t);
+  }
+  darkBtn.addEventListener('click', () => {
+    applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+  const saved = localStorage.getItem('aed-theme');
+  if (saved) applyTheme(saved);
+  else if (window.matchMedia('(prefers-color-scheme: dark)').matches) applyTheme('dark');
 </script>
 </body>
 </html>
