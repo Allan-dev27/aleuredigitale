@@ -112,17 +112,6 @@ const EVENTS_DATA = [
   },
   {
     id: 8,
-    type: 'formation',
-    title: 'Linux pour débutants — les bases du terminal',
-    date: new Date(2026, 4, 30), // 30 mai 2026
-    time: '14h–17h',
-    location: 'En ligne (Discord)',
-    level: 'Débutants',
-    desc: 'Apprenez à naviguer dans un système Linux : commandes essentielles, gestion des fichiers, permissions, scripts bash. Formation pratique avec exercices en temps réel.',
-    tags: ['Linux', 'Terminal', 'Bash'],
-  },
-  {
-    id: 9,
     type: 'conf',
     title: 'Open Source : contribuer à un projet existant',
     date: new Date(2026, 5, 6), // 6 juin 2026
@@ -133,18 +122,7 @@ const EVENTS_DATA = [
     tags: ['Open Source', 'GitHub', 'Contribution'],
   },
   {
-    id: 10,
-    type: 'atelier',
-    title: 'Automatisation avec Python — les bases',
-    date: new Date(2026, 5, 14), // 14 juin 2026
-    time: '10h–12h30',
-    location: 'En ligne (Discord)',
-    level: 'Débutants–Intermédiaire',
-    desc: 'Automatisez vos tâches répétitives avec Python : renommage de fichiers, traitement de données CSV, envoi de mails. Prérequis : bases de Python (atelier du 14 mars ou équivalent).',
-    tags: ['Python', 'Automatisation', 'Scripts'],
-  },
-  {
-    id: 11,
+    id: 9,
     type: 'perm',
     title: 'Permanence hebdomadaire',
     date: new Date(2026, 5, 20), // 20 juin 2026
@@ -156,18 +134,7 @@ const EVENTS_DATA = [
     recurrent: true,
   },
   {
-    id: 12,
-    type: 'formation',
-    title: 'Docker : conteneurisation pour tous',
-    date: new Date(2026, 5, 28), // 28 juin 2026
-    time: '10h–13h',
-    location: 'En ligne (Discord)',
-    level: 'Intermédiaire',
-    desc: 'Comprendre et utiliser Docker : images, conteneurs, Dockerfile, docker-compose. Déployer une application web dans un conteneur en 3h.',
-    tags: ['Docker', 'DevOps', 'Conteneurisation'],
-  },
-  {
-    id: 13,
+    id: 10,
     type: 'atelier',
     title: 'Accessibilité web — RGAA & bonnes pratiques',
     date: new Date(2026, 6, 5), // 5 juil 2026
@@ -178,7 +145,7 @@ const EVENTS_DATA = [
     tags: ['Accessibilité', 'RGAA', 'HTML'],
   },
   {
-    id: 14,
+    id: 11,
     type: 'conf',
     title: 'Cybersécurité du quotidien — protégez-vous',
     date: new Date(2026, 6, 12), // 12 juil 2026
@@ -189,7 +156,7 @@ const EVENTS_DATA = [
     tags: ['Cybersécurité', 'Vie privée', 'Sensibilisation'],
   },
   {
-    id: 15,
+    id: 12,
     type: 'perm',
     title: 'Permanence hebdomadaire',
     date: new Date(2026, 6, 18), // 18 juil 2026
@@ -201,18 +168,7 @@ const EVENTS_DATA = [
     recurrent: true,
   },
   {
-    id: 16,
-    type: 'formation',
-    title: 'SQL & bases de données relationnelles',
-    date: new Date(2026, 6, 26), // 26 juil 2026
-    time: '10h–13h',
-    location: 'En ligne (Discord)',
-    level: 'Débutants–Intermédiaire',
-    desc: 'Comprendre les bases de données relationnelles et écrire des requêtes SQL : SELECT, JOIN, GROUP BY, sous-requêtes. Exercices pratiques sur SQLite.',
-    tags: ['SQL', 'Bases de données', 'Développement'],
-  },
-  {
-    id: 17,
+    id: 13,
     type: 'hack',
     title: 'Hackathon À l\'Eure Digitale 2026',
     date: new Date(2026, 6, 22), // 22 juil 2026 (départ du week-end)
@@ -223,18 +179,7 @@ const EVENTS_DATA = [
     tags: ['Hackathon', 'Équipe', '48h', 'Concours'],
   },
   {
-    id: 18,
-    type: 'atelier',
-    title: 'Créer une API REST avec FastAPI',
-    date: new Date(2026, 8, 6), // 6 sept 2026
-    time: '10h–13h',
-    location: 'En ligne (Discord)',
-    level: 'Intermédiaire',
-    desc: 'Construisez une API REST complète avec FastAPI (Python) : endpoints, schémas Pydantic, documentation automatique Swagger, déploiement. Prérequis : bases de Python.',
-    tags: ['Python', 'FastAPI', 'API', 'Backend'],
-  },
-  {
-    id: 19,
+    id: 14,
     type: 'conf',
     title: 'Le numérique responsable — impacts environnementaux',
     date: new Date(2026, 8, 20), // 20 sept 2026
