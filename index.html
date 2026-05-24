@@ -141,6 +141,7 @@
     <a href="#hackathon">Hackathon</a>
     <a href="#proposer">Proposer</a>
     <a href="#faq">FAQ</a>
+    <a href="blog.html"><i class="fas fa-newspaper" style="font-size:.8rem;color:var(--aed-green);"></i> Blog</a>
     <a href="#contact">Contact</a>
     <!-- <a href="cartes.html" class="mob-cartes"><i class="fas fa-map"></i> Cartes</a> -->
     <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="nav-disc"><i class="fab fa-discord"></i> Rejoindre</a>
@@ -1279,7 +1280,238 @@
     </div>
   </div>
 </section>
+<!-- ══════════════════════════════════════════════════════════════════
+     SECTION ACTUALITÉS — à insérer dans index.html
+     Placement conseillé : juste avant ou juste après la section #agenda
 
+     Dépendances à ajouter dans index.html (avant </body>) :
+       <script src="articles.js"></script>
+     ══════════════════════════════════════════════════════════════════ -->
+
+<!-- ══ ACTUALITÉS ════════════════════════════════════ -->
+<section id="actualites">
+  <div class="section-inner">
+    <div class="section-label">Blog</div>
+    <h2 class="section-title">Dernières <em>actualités</em></h2>
+    <p class="section-desc">Tutoriels, retours d'événements, interviews et coulisses de la communauté.</p>
+
+    <!-- Grille des 3 derniers articles -->
+    <div class="actu-grid" id="actuGrid"></div>
+
+    <!-- CTA vers blog.html -->
+    <div class="actu-cta">
+      <a href="blog.html" class="btn-actu-all">
+        <i class="fas fa-newspaper"></i> Voir tous les articles
+        <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Styles section actualités (à mettre dans <style> de index.html ou style.css) ── -->
+<style>
+  /* ══ SECTION ACTUALITÉS ════════════════════════════ */
+  #actualites {
+    padding: 100px 0 80px;
+    background: var(--bg-section-b);
+  }
+  [data-theme="dark"] #actualites {
+    background: var(--bg-section-b);
+  }
+
+  /* Grille 3 colonnes → 2 → 1 */
+  .actu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 40px;
+  }
+  @media (max-width: 860px) { .actu-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 580px) { .actu-grid { grid-template-columns: 1fr; } }
+
+  /* Carte */
+  .actu-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform .25s, box-shadow .25s;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+  }
+  .actu-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 40px rgba(0,0,0,.11);
+  }
+  [data-theme="dark"] .actu-card:hover { box-shadow: 0 14px 40px rgba(0,0,0,.4); }
+
+  .actu-card-bar { height: 5px; flex-shrink: 0; }
+  .actu-card-body { padding: 20px 20px 16px; flex: 1; display: flex; flex-direction: column; gap: 10px; }
+  .actu-card-top  { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+
+  .actu-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--font-head);
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 100px;
+  }
+  .actu-date {
+    font-size: .76rem;
+    color: var(--text-muted);
+  }
+  .actu-card-title {
+    font-family: var(--font-head);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-heading);
+    line-height: 1.4;
+  }
+  .actu-card-excerpt {
+    font-size: .86rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .actu-card-footer {
+    padding: 12px 20px;
+    border-top: 1px solid var(--border-card);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .actu-card-author {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: .78rem;
+    color: var(--text-muted);
+  }
+  .actu-avatar {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--aed-blue), var(--aed-purple));
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-head);
+    font-size: .56rem;
+    font-weight: 800;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .actu-read-time {
+    font-size: .74rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .actu-link {
+    font-family: var(--font-head);
+    font-size: .78rem;
+    font-weight: 700;
+    color: var(--aed-blue);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: gap .2s;
+  }
+  .actu-card:hover .actu-link { gap: 9px; }
+
+  /* CTA "Voir tous" */
+  .actu-cta {
+    text-align: center;
+    margin-top: 40px;
+  }
+  .btn-actu-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: .95rem;
+    color: var(--aed-navy);
+    border: 2px solid var(--border-card);
+    background: var(--bg-card);
+    padding: 12px 28px;
+    border-radius: 12px;
+    transition: background .2s, border-color .2s, color .2s, transform .2s;
+  }
+  .btn-actu-all:hover {
+    background: var(--aed-navy);
+    border-color: var(--aed-navy);
+    color: #fff;
+    transform: translateY(-2px);
+  }
+  [data-theme="dark"] .btn-actu-all { color: #fff; }
+  [data-theme="dark"] .btn-actu-all:hover { background: var(--aed-blue); border-color: var(--aed-blue); }
+</style>
+
+<!-- ── Script actualités (à placer après <script src="articles.js">) ── -->
+<script>
+(function renderActu() {
+  // Catégories (reprises depuis articles.js)
+  const CATS = typeof ARTICLE_CATEGORIES !== 'undefined' ? ARTICLE_CATEGORIES : {};
+
+  function catInfo(cat) {
+    return CATS[cat] || { label: cat, icon: 'fa-circle', color: '#60a5fa' };
+  }
+  function initials(name) {
+    return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+  }
+  function formatDate(d) {
+    return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+
+  const grid = document.getElementById('actuGrid');
+  if (!grid || typeof ARTICLES_DATA === 'undefined') return;
+
+  // 3 articles les plus récents
+  const latest = [...ARTICLES_DATA]
+    .sort((a, b) => b.date - a.date)
+    .slice(0, 3);
+
+  grid.innerHTML = latest.map(article => {
+    const cat   = catInfo(article.category);
+    const bar   = `background: linear-gradient(90deg, ${cat.color}cc, ${cat.color}44)`;
+    const badge = `background:${cat.color}1a; color:${cat.color}`;
+    return `
+      <a class="actu-card" href="blog.html" aria-label="Lire : ${article.title}">
+        <div class="actu-card-bar" style="${bar}"></div>
+        <div class="actu-card-body">
+          <div class="actu-card-top">
+            <span class="actu-badge" style="${badge}">
+              <i class="fas ${cat.icon}"></i> ${cat.label}
+            </span>
+            <span class="actu-date">${formatDate(article.date)}</span>
+          </div>
+          <h3 class="actu-card-title">${article.title}</h3>
+          <p class="actu-card-excerpt">${article.excerpt}</p>
+        </div>
+        <div class="actu-card-footer">
+          <div class="actu-card-author">
+            <div class="actu-avatar">${initials(article.author)}</div>
+            <span>${article.author}</span>
+          </div>
+          <span class="actu-read-time"><i class="fas fa-clock"></i> ${article.readTime} min</span>
+          <span class="actu-link">Lire <i class="fas fa-arrow-right"></i></span>
+        </div>
+      </a>`;
+  }).join('');
+})();
+</script>
 <!-- ══ CONTACT ════════════════════════════════════════ -->
 <section id="contact">
   <div class="section-inner">
