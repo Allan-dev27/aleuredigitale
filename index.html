@@ -125,6 +125,7 @@
   <div class="nav-links">
     <a href="#about">Association</a>   
     <a href="#agenda"><i class="fas fa-calendar-alt" style="font-size:.8rem;color:var(--aed-blue);"></i> Agenda</a>
+    <a href="#projets"><i class="fas fa-code-branch" style="font-size:.8rem;color:var(--aed-green);"></i> Projets</a>
     <a href="#temoignages">Témoignages</a>
     <a href="#hackathon">Hackathon</a>
     <a href="#proposer">Proposer</a>
@@ -149,6 +150,7 @@
 <div class="nav-mobile" id="navMobile">
   <a href="#about" onclick="closeMobile()"><i class="fas fa-info-circle"></i> Association</a>
   <a href="#agenda" onclick="closeMobile()"><i class="fas fa-calendar-alt"></i> Agenda</a>
+  <a href="#projets" onclick="closeMobile()"><i class="fas fa-code-branch"></i> Projets</a>
   <a href="#reseau" onclick="closeMobile()"><i class="fas fa-network-wired"></i> Réseau</a>
   <a href="#hackathon" onclick="closeMobile()"><i class="fas fa-trophy"></i> Hackathon</a>
   <a href="#proposer" onclick="closeMobile()"><i class="fas fa-lightbulb"></i> Proposer un atelier</a>
@@ -798,6 +800,364 @@
     </div>
   </div>
 </section>
+
+<!-- ══ PROJETS OPEN SOURCE ═══════════════════════════ -->
+<section id="projets">
+  <div class="section-inner">
+    <div class="section-label">Open Source</div>
+    <h2 class="section-title">Nos <em>projets</em></h2>
+    <p class="section-desc">Des outils concrets, construits collectivement et publiés en open source au bénéfice de tous. Chaque projet est ouvert aux contributions.</p>
+
+    <div class="projets-grid">
+
+      <!-- Projet 1 -->
+      <article class="projet-card scroll-reveal">
+        <div class="projet-card-top">
+          <div class="projet-icon-wrap pj-blue">
+            <i class="fas fa-globe"></i>
+          </div>
+          <span class="projet-status ps-active">
+            <span class="ps-dot"></span> En cours
+          </span>
+        </div>
+        <h3 class="projet-title">Site web de l'association</h3>
+        <p class="projet-desc">Le site que vous lisez en ce moment — conçu, développé et maintenu par la communauté. HTML, CSS et JavaScript vanilla, hébergé sur Netlify.</p>
+        <div class="projet-stack">
+          <span class="pstack-tag pstack-html">HTML</span>
+          <span class="pstack-tag pstack-css">CSS</span>
+          <span class="pstack-tag pstack-js">JavaScript</span>
+          <span class="pstack-tag pstack-neutral">Netlify</span>
+        </div>
+        <div class="projet-footer">
+          <a href="https://github.com/aleuredigitale" target="_blank" rel="noopener" class="projet-btn projet-btn-gh">
+            <i class="fab fa-github"></i> Voir sur GitHub
+          </a>
+        </div>
+      </article>
+
+      <!-- Projet 2 -->
+      <article class="projet-card scroll-reveal">
+        <div class="projet-card-top">
+          <div class="projet-icon-wrap pj-green">
+            <i class="fas fa-map-marked-alt"></i>
+          </div>
+          <span class="projet-status ps-stable">
+            <span class="ps-dot"></span> Stable
+          </span>
+        </div>
+        <h3 class="projet-title">Carte numérique de l'Eure</h3>
+        <p class="projet-desc">Cartographie collaborative des ressources numériques du département : lieux de formation, espaces de coworking, associations et acteurs du territoire.</p>
+        <div class="projet-stack">
+          <span class="pstack-tag pstack-js">JavaScript</span>
+          <span class="pstack-tag pstack-neutral">Leaflet</span>
+          <span class="pstack-tag pstack-neutral">OpenStreetMap</span>
+        </div>
+        <div class="projet-footer">
+          <a href="https://github.com/aleuredigitale" target="_blank" rel="noopener" class="projet-btn projet-btn-gh">
+            <i class="fab fa-github"></i> Voir sur GitHub
+          </a>
+        </div>
+      </article>
+
+      <!-- Projet 3 -->
+      <article class="projet-card scroll-reveal">
+        <div class="projet-card-top">
+          <div class="projet-icon-wrap pj-purple">
+            <i class="fas fa-robot"></i>
+          </div>
+          <span class="projet-status ps-wip">
+            <span class="ps-dot"></span> En cours
+          </span>
+        </div>
+        <h3 class="projet-title">Bot Discord communautaire</h3>
+        <p class="projet-desc">Bot maison pour le serveur Discord : gestion des rôles, rappels d'événements, commandes d'entraide et statistiques de la communauté.</p>
+        <div class="projet-stack">
+          <span class="pstack-tag pstack-py">Python</span>
+          <span class="pstack-tag pstack-neutral">discord.py</span>
+          <span class="pstack-tag pstack-neutral">SQLite</span>
+        </div>
+        <div class="projet-footer">
+          <a href="https://github.com/aleuredigitale" target="_blank" rel="noopener" class="projet-btn projet-btn-gh">
+            <i class="fab fa-github"></i> Voir sur GitHub
+          </a>
+        </div>
+      </article>
+
+    </div><!-- /.projets-grid -->
+
+    <!-- CTA contribuer -->
+    <div class="projets-cta scroll-reveal">
+      <div class="projets-cta-text">
+        <h3>🛠 Envie de contribuer ?</h3>
+        <p>Tous nos projets sont ouverts aux contributions — code, design, documentation ou tests. Rejoignez le Discord pour trouver une issue à votre niveau.</p>
+      </div>
+      <div class="projets-cta-btns">
+        <a href="https://github.com/aleuredigitale" target="_blank" rel="noopener" class="btn-gh-big">
+          <i class="fab fa-github"></i> GitHub de l'asso
+        </a>
+        <a href="https://discord.gg/yHCAgYKwk" target="_blank" rel="noopener" class="btn-discord">
+          <i class="fab fa-discord"></i> Rejoindre le Discord
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+/* ══ SECTION PROJETS OPEN SOURCE ════════════════════ */
+#projets {
+  padding: 100px 0 80px;
+  background: var(--bg-section-b);
+}
+[data-theme="dark"] #projets {
+  background: var(--bg-section-b);
+}
+
+/* Grille -------------------------------------------- */
+.projets-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+@media (max-width: 900px) { .projets-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 580px) { .projets-grid { grid-template-columns: 1fr; } }
+
+/* Carte --------------------------------------------- */
+.projet-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 18px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: transform .25s, box-shadow .25s;
+}
+.projet-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 44px rgba(0,0,0,.1);
+}
+[data-theme="dark"] .projet-card:hover {
+  box-shadow: 0 16px 44px rgba(0,0,0,.38);
+}
+
+/* Top row : icône + statut */
+.projet-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.projet-icon-wrap {
+  width: 48px; height: 48px;
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem;
+  color: #fff;
+  flex-shrink: 0;
+}
+.pj-blue   { background: linear-gradient(135deg, #3b82f6, #6366f1); }
+.pj-green  { background: linear-gradient(135deg, #10b981, #34d399); }
+.pj-purple { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
+.pj-orange { background: linear-gradient(135deg, #f97316, #fbbf24); }
+
+/* Statuts */
+.projet-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-head);
+  font-size: .72rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 100px;
+}
+.ps-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.ps-active {
+  background: #dcfce7;
+  color: #15803d;
+}
+.ps-active .ps-dot {
+  background: #22c55e;
+  box-shadow: 0 0 0 3px #bbf7d0;
+  animation: pulse-dot 1.8s infinite;
+}
+.ps-stable {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+.ps-stable .ps-dot { background: #3b82f6; }
+.ps-wip {
+  background: #fef9c3;
+  color: #92400e;
+}
+.ps-wip .ps-dot { background: #fbbf24; }
+.ps-archived {
+  background: var(--bg-section);
+  color: var(--text-muted);
+}
+.ps-archived .ps-dot { background: #9ca3af; }
+
+[data-theme="dark"] .ps-active   { background: #14532d; color: #86efac; }
+[data-theme="dark"] .ps-active .ps-dot { box-shadow: 0 0 0 3px #166534; }
+[data-theme="dark"] .ps-stable   { background: #1e3a5f; color: #93c5fd; }
+[data-theme="dark"] .ps-wip      { background: #422006; color: #fde68a; }
+
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 3px #bbf7d0; }
+  50%       { box-shadow: 0 0 0 6px #bbf7d060; }
+}
+[data-theme="dark"] @keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 3px #166534; }
+  50%       { box-shadow: 0 0 0 6px #16653460; }
+}
+
+/* Contenu */
+.projet-title {
+  font-family: var(--font-head);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin: 0;
+  line-height: 1.3;
+}
+.projet-desc {
+  font-size: .87rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin: 0;
+  flex: 1;
+}
+
+/* Stack technique */
+.projet-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.pstack-tag {
+  font-family: var(--font-head);
+  font-size: .68rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 100px;
+}
+.pstack-html    { background: #fff0e6; color: #c2410c; }
+.pstack-css     { background: #ede9fe; color: #6d28d9; }
+.pstack-js      { background: #fef9c3; color: #92400e; }
+.pstack-py      { background: #dbeafe; color: #1d4ed8; }
+.pstack-neutral { background: var(--bg-section); color: var(--text-muted); }
+
+[data-theme="dark"] .pstack-html    { background: #431407; color: #fdba74; }
+[data-theme="dark"] .pstack-css     { background: #2e1b5b; color: #c4b5fd; }
+[data-theme="dark"] .pstack-js      { background: #422006; color: #fde68a; }
+[data-theme="dark"] .pstack-py      { background: #1e3a5f; color: #93c5fd; }
+
+/* Footer carte */
+.projet-footer {
+  padding-top: 4px;
+  border-top: 1px solid var(--border-card);
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.projet-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-head);
+  font-size: .78rem;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 10px;
+  transition: background .18s, color .18s, transform .18s;
+}
+.projet-btn:hover { transform: translateY(-1px); }
+.projet-btn-gh {
+  background: var(--bg-section);
+  color: var(--text-heading);
+  border: 1px solid var(--border-card);
+}
+.projet-btn-gh:hover {
+  background: #24292f;
+  color: #fff;
+  border-color: #24292f;
+}
+[data-theme="dark"] .projet-btn-gh:hover {
+  background: #fff;
+  color: #24292f;
+}
+.projet-btn-live {
+  background: var(--aed-blue);
+  color: #fff;
+  border: 1px solid transparent;
+}
+.projet-btn-live:hover { background: #2563eb; }
+
+/* CTA contribuer ------------------------------------ */
+.projets-cta {
+  margin-top: 52px;
+  background: linear-gradient(135deg, #0f172a08, #6366f108);
+  border: 1px solid var(--border-card);
+  border-radius: 18px;
+  padding: 36px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+[data-theme="dark"] .projets-cta {
+  background: linear-gradient(135deg, #ffffff05, #6366f110);
+}
+.projets-cta-text h3 {
+  font-family: var(--font-head);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-heading);
+  margin: 0 0 8px;
+}
+.projets-cta-text p {
+  font-size: .88rem;
+  color: var(--text-muted);
+  max-width: 480px;
+  line-height: 1.6;
+  margin: 0;
+}
+.projets-cta-btns {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+.btn-gh-big {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-head);
+  font-size: .88rem;
+  font-weight: 700;
+  background: #24292f;
+  color: #fff;
+  padding: 12px 22px;
+  border-radius: 12px;
+  transition: background .18s, transform .18s;
+}
+.btn-gh-big:hover { background: #000; transform: translateY(-1px); }
+[data-theme="dark"] .btn-gh-big { background: #f0f6ff; color: #0f172a; }
+[data-theme="dark"] .btn-gh-big:hover { background: #fff; }
+
+@media (max-width: 680px) {
+  .projets-cta { padding: 24px 20px; flex-direction: column; }
+  .projets-cta-btns { width: 100%; }
+  .projets-cta-btns a { flex: 1; justify-content: center; }
+}
+</style>
 
 <!-- ══ HACKATHON ═════════════════════════════════════ -->
 <section id="hackathon">
@@ -2221,6 +2581,7 @@
       <ul class="footer-links">
         <li><a href="#about"><i class="fas fa-chevron-right"></i> L'association</a></li>
         <li><a href="#agenda"><i class="fas fa-calendar-alt"></i> Agenda</a></li>
+        <li><a href="#projets"><i class="fas fa-code-branch"></i> Projets open source</a></li>
         <li><a href="#discord"><i class="fas fa-chevron-right"></i> Discord</a></li>
         <li><a href="#hackathon"><i class="fas fa-chevron-right"></i> Hackathon</a></li>
         <li><a href="#proposer"><i class="fas fa-chevron-right"></i> Proposer un atelier</a></li>
