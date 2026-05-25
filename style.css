@@ -1968,3 +1968,119 @@
       .ag-modal-btn { flex: unset; }
       .ag-grid { grid-template-columns: 1fr; }
     }
+/* ══ SECTION ÉQUIPE FONDATRICE ══════════════════════ */
+#equipe {
+  padding: 100px 0 80px;
+  background: var(--bg-section-w);
+}
+[data-theme="dark"] #equipe {
+  background: var(--bg-section-w);
+}
+
+.equipe-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+@media (max-width: 860px) { .equipe-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px) { .equipe-grid { grid-template-columns: 1fr; } }
+
+/* Carte -------------------------------------------- */
+.equipe-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 20px;
+  padding: 32px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+  transition: transform .25s, box-shadow .25s;
+}
+.equipe-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(0,0,0,.1);
+}
+[data-theme="dark"] .equipe-card:hover {
+  box-shadow: 0 20px 50px rgba(0,0,0,.4);
+}
+
+/* Avatar ------------------------------------------- */
+.equipe-avatar {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 1.35rem;
+  color: #fff;
+  letter-spacing: .04em;
+  flex-shrink: 0;
+}
+.eq-blue   { background: linear-gradient(135deg, #3b82f6, #6366f1); }
+.eq-green  { background: linear-gradient(135deg, #2ecc71, #1abc9c); }
+.eq-purple { background: linear-gradient(135deg, #a855f7, #6c3fc5); }
+.eq-orange { background: linear-gradient(135deg, #f97316, #e67e22); }
+.eq-teal   { background: linear-gradient(135deg, #06b6d4, #1abc9c); }
+.eq-pink   { background: linear-gradient(135deg, #ec4899, #a855f7); }
+
+/* Infos -------------------------------------------- */
+.equipe-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.equipe-name {
+  font-family: var(--font-head);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-heading);
+}
+.equipe-role {
+  font-size: .8rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.equipe-role i { color: #60a5fa; font-size: .75rem; }
+
+/* Socials ------------------------------------------ */
+.equipe-socials {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+}
+.eq-social {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .85rem;
+  transition: transform .18s, background .18s;
+}
+.eq-social:hover { transform: translateY(-2px); }
+.eq-gh { background: #24292f; color: #fff; }
+.eq-li { background: #0a66c2; color: #fff; }
+.eq-dc { background: #5865f2; color: #fff; }
+[data-theme="dark"] .eq-gh { background: #f0f6ff; color: #0f172a; }
+
+/* Note de bas de section --------------------------- */
+.equipe-footer-note {
+  text-align: center;
+  margin-top: 52px;
+  font-size: .88rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.equipe-footer-link {
+  color: #60a5fa;
+  font-weight: 600;
+  transition: color .18s;
+}
+.equipe-footer-link:hover { color: var(--aed-green); }

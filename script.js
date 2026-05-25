@@ -239,7 +239,7 @@ async function submitForm(e){
   };
 
   try {
-    const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+    const res = await fetch(`https://formspree.io/f/mnjwlvvn`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify(payload)
@@ -325,13 +325,13 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
 // ID du serveur Discord (extrait de l'invite discord.gg/yHCAgYKwk)
 // Pour obtenir votre GUILD_ID : activez le mode développeur Discord
 // → Paramètres > Avancés > Mode développeur, puis clic droit sur le serveur > Copier l'identifiant
-const DISCORD_GUILD_ID = 'REMPLACEZ_PAR_VOTRE_GUILD_ID'; // ex: '1234567890123456789'
+const DISCORD_GUILD_ID = 'https://discord.gg/DmgU79NvUe'; // ex: '1234567890123456789'
 
 async function fetchDiscordOnline(){
   const onlineEl = document.getElementById('onlineCount');
   if(!onlineEl) return;
   try {
-    const res = await fetch(`https://discord.com/api/guilds/${DISCORD_GUILD_ID}/widget.json`);
+    const res = await fetch(`https://discord.gg/DmgU79NvUe`);
     if(!res.ok) throw new Error('Widget désactivé ou ID invalide');
     const data = await res.json();
     const count = data.presence_count ?? data.members?.length ?? '?';
