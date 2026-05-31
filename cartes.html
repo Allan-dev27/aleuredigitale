@@ -680,7 +680,7 @@
       </div>
     </div>
     <div class="hero-stat-block">
-      <div class="big-num">32<span>+</span></div>
+      <div class="big-num">65<span>+</span></div>
       <p>lieux d'accueil<br>dans tout le département</p>
     </div>
   </div>
@@ -753,7 +753,7 @@
         <span class="legend-emoji">🏛️</span>
         <h3>France Services</h3>
         <p>Accompagnement pour les démarches administratives en ligne : CAF, retraite, impôts, carte grise…</p>
-        <span class="legend-count navy">7 lieux</span>
+        <span class="legend-count navy">28 lieux</span>
       </div>
       <div class="legend-card" data-reveal style="transition-delay:.16s" onclick="setFilter('permanence', document.querySelector('.chip:nth-child(4)'))">
         <span class="legend-emoji">🤝</span>
@@ -952,14 +952,35 @@ const points = [
   { id:8, name:"Médiathèque de L'Aigle", type:"mediatheque", address:"Place Fulbert de Beina, 61300 L'Aigle", schedule:"Mar–Sam 10h–18h", lat:48.7649, lng:0.6291, open:false },
   { id:9, name:"Médiathèque de Verneuil d'Avre et d'Iton", type:"mediatheque", address:"Rue de la Madeleine, 27130 Verneuil", schedule:"Mar–Sam 10h–17h", lat:48.7313, lng:0.9284, open:true },
 
-  // France Services
-  { id:10, name:"Maison France Services d'Évreux", type:"france-services", address:"2 Rue Charles Corbeau, 27000 Évreux", schedule:"Lun–Ven 9h–17h", lat:49.0271, lng:1.1562, open:true },
-  { id:11, name:"France Services de Bernay", type:"france-services", address:"15 Rue Thiers, 27300 Bernay", schedule:"Lun–Ven 9h–16h30", lat:49.0871, lng:0.5967, open:true },
-  { id:12, name:"France Services de Pont-Audemer", type:"france-services", address:"1 Rue Léon Sénat, 27500 Pont-Audemer", schedule:"Lun–Ven 9h–12h / 13h30–17h", lat:49.3591, lng:0.5127, open:true },
-  { id:13, name:"France Services de Gaillon", type:"france-services", address:"Rue Jean Jaurès, 27600 Gaillon", schedule:"Lun–Ven 9h–17h", lat:49.1613, lng:1.3336, open:false },
-  { id:14, name:"France Services de Breteuil", type:"france-services", address:"Place Saint-Michel, 27160 Breteuil", schedule:"Mar–Jeu 9h–12h30", lat:48.8309, lng:0.9147, open:true },
-  { id:15, name:"France Services de Nonancourt", type:"france-services", address:"Rue de la Mairie, 27320 Nonancourt", schedule:"Lun–Mer 9h–16h", lat:48.7758, lng:1.1906, open:true },
-  { id:16, name:"France Services de Rugles", type:"france-services", address:"2 Place du Gal de Gaulle, 27250 Rugles", schedule:"Lun, Mer, Ven 9h–12h", lat:48.8205, lng:0.7017, open:true },
+  // France Services (données officielles – source : service-public.fr)
+  { id:10, name:"France Services – Évreux", type:"france-services", address:"1 rue Frédéric et Irène Joliot-Curie, 27000 Évreux", schedule:"Lun–Ven 9h–17h", lat:49.0250, lng:1.1510, open:true },
+  { id:11, name:"France Services – Bernay", type:"france-services", address:"6 rue Thomas Lindet, 27300 Bernay", schedule:"Lun–Ven 9h–17h", lat:49.0880, lng:0.5985, open:true },
+  { id:12, name:"France Services – Pont-Audemer (itinérant)", type:"france-services", address:"8 bis rue de l'Industrie Rouer, 27500 Pont-Audemer", schedule:"Jours variables – consulter la structure", lat:49.3590, lng:0.5120, open:true },
+  { id:13, name:"France Services – Gaillon", type:"france-services", address:"12-14 rue Jean-Moulin, 27600 Gaillon", schedule:"Lun–Ven 9h–17h", lat:49.1610, lng:1.3340, open:true },
+  { id:14, name:"France Services – Breteuil", type:"france-services", address:"Rue d'Huckelhoven, 27160 Breteuil", schedule:"Lun–Ven 9h–17h", lat:48.8310, lng:0.9150, open:true },
+  { id:15, name:"France Services – Rugles", type:"france-services", address:"33 ter rue Aristide Briand, 27250 Rugles", schedule:"Lun–Ven 9h–17h", lat:48.8205, lng:0.7020, open:true },
+  { id:16, name:"France Services – Beaumont-le-Roger", type:"france-services", address:"1 bis place de l'Église, 27170 Beaumont-le-Roger", schedule:"Lun–Ven 9h–17h", lat:49.0800, lng:0.7480, open:true },
+  { id:33, name:"France Services – Beuzeville", type:"france-services", address:"Rue des Anciens d'AFN, 27210 Beuzeville", schedule:"Lun–Ven 9h–17h", lat:49.3440, lng:0.3460, open:true },
+  { id:34, name:"France Services – Bourg-Achard", type:"france-services", address:"250 rue de la Libération, 27310 Bourg-Achard", schedule:"Lun–Ven 9h–17h", lat:49.3510, lng:0.8270, open:true },
+  { id:35, name:"France Services – Brionne", type:"france-services", address:"1 rue de la Soie, 27800 Brionne", schedule:"Lun–Ven 9h–17h", lat:49.1980, lng:0.7220, open:true },
+  { id:36, name:"France Services – Conches-en-Ouche", type:"france-services", address:"32 place Carnot, 27190 Conches-en-Ouche", schedule:"Lun–Ven 9h–17h", lat:48.9600, lng:0.9310, open:true },
+  { id:37, name:"France Services – Fleury-sur-Andelle", type:"france-services", address:"6 rue Augustin Léonard, 27380 Fleury-sur-Andelle", schedule:"Lun–Ven 9h–17h", lat:49.3730, lng:1.3760, open:true },
+  { id:38, name:"France Services – Gisors", type:"france-services", address:"28 rue Riegelsberg, 27140 Gisors", schedule:"Lun–Ven 9h–17h", lat:49.2810, lng:1.7740, open:true },
+  { id:39, name:"France Services – Grand-Bourgtheroulde", type:"france-services", address:"66 route de Rouen, 27520 Grand Bourgtheroulde", schedule:"Lun–Ven 9h–17h", lat:49.3060, lng:0.8730, open:true },
+  { id:40, name:"France Services – Le Neubourg", type:"france-services", address:"Place du Maréchal Leclerc, 27110 Le Neubourg", schedule:"Lun–Ven 9h–17h", lat:49.1510, lng:0.9060, open:true },
+  { id:41, name:"France Services – Les Andelys", type:"france-services", address:"1 rue des Oiseaux, 27700 Les Andelys", schedule:"Lun–Ven 9h–17h", lat:49.2460, lng:1.4160, open:true },
+  { id:42, name:"France Services – Louviers", type:"france-services", address:"3 bis chemin des Fontenelles, 27400 Louviers", schedule:"Lun–Ven 9h–17h", lat:49.2150, lng:1.1660, open:true },
+  { id:43, name:"France Services – Mesnil-en-Ouche", type:"france-services", address:"1 place de la Mairie, 27330 Mesnil-en-Ouche", schedule:"Lun–Ven 9h–17h", lat:48.9870, lng:0.6580, open:true },
+  { id:44, name:"France Services – Mesnils-sur-Iton (Damville)", type:"france-services", address:"51 rue Sylvain Lagescarde, 27240 Mesnils-sur-Iton", schedule:"Lun–Ven 9h–17h", lat:48.8700, lng:1.0800, open:true },
+  { id:45, name:"France Services – Pacy-sur-Eure", type:"france-services", address:"65 ter rue Marcel Moisson, 27120 Pacy-sur-Eure", schedule:"Lun–Ven 9h–17h", lat:49.0170, lng:1.3840, open:true },
+  { id:46, name:"France Services – Pont-de-l'Arche", type:"france-services", address:"52 rue du Général-de-Gaulle, 27340 Pont-de-l'Arche", schedule:"Lun–Ven 9h–17h", lat:49.3040, lng:1.1560, open:true },
+  { id:47, name:"France Services – Saint-André-de-l'Eure", type:"france-services", address:"Place du Général-de-Gaulle, 27220 Saint-André-de-l'Eure", schedule:"Lun–Ven 9h–17h", lat:48.9180, lng:1.2620, open:true },
+  { id:48, name:"France Services – Val-de-Reuil", type:"france-services", address:"Place aux Jeunes, 27100 Val-de-Reuil", schedule:"Lun–Ven 9h–17h", lat:49.2630, lng:1.2000, open:true },
+  { id:49, name:"France Services – Verneuil d'Avre et d'Iton", type:"france-services", address:"86 rue André Chasles, 27130 Verneuil d'Avre et d'Iton", schedule:"Lun–Ven 9h–17h", lat:48.7310, lng:0.9290, open:true },
+  { id:50, name:"France Services – La Trinité-de-Réville", type:"france-services", address:"652 route de l'Église, 27270 La Trinité-de-Réville", schedule:"Lun–Ven 9h–17h", lat:49.0350, lng:0.6800, open:true },
+  { id:51, name:"France Services – Fourges", type:"france-services", address:"9 route d'Ecos, 27630 Fourges", schedule:"Lun–Ven 9h–17h", lat:49.1940, lng:1.5280, open:true },
+  { id:52, name:"France Services – Tourny", type:"france-services", address:"5 rue Aval, 27510 Tourny", schedule:"Lun–Ven 9h–17h", lat:49.2040, lng:1.5590, open:true },
+  { id:53, name:"France Services – Thuit de l'Oison", type:"france-services", address:"29A rue Henri-de-Campion, 27370 Le Thuit de l'Oison", schedule:"Lun–Ven 9h–17h", lat:49.2960, lng:0.9480, open:true },
 
   // Permanences numériques
   { id:17, name:"Permanence numérique – Damville", type:"permanence", address:"Salle des fêtes, 27240 Damville", schedule:"1er et 3e Mer du mois 14h–17h", lat:48.8696, lng:1.0790, open:false },
@@ -978,12 +999,12 @@ const points = [
   { id:26, name:"Lucas Dupont – Développeur & formateur", type:"freelance", address:"3 Rue de la Paix, 27200 Vernon", schedule:"Sur rendez-vous", lat:49.0940, lng:1.4852, open:false, specialty:"Initiation au code & cybersécurité", phone:"06 45 67 89 01" },
   { id:27, name:"Claire Rousseau – Graphiste numérique", type:"freelance", address:"17 Bd Gambetta, 27500 Pont-Audemer", schedule:"Mer–Ven sur rendez-vous", lat:49.3601, lng:0.5162, open:true, specialty:"Communication visuelle & outils créatifs", phone:"07 56 78 90 12" },
 
-  // Espaces de coworking
-  { id:28, name:"Le Tiers-Lieu d'Évreux", type:"coworking", address:"24 Rue du Dr Oursel, 27000 Évreux", schedule:"Lun–Ven 8h–20h / Sam 9h–17h", lat:49.0263, lng:1.1478, open:true, amenities:"Wi-Fi fibre, salles de réunion, imprimantes, café", price:"15 €/jour · 90 €/mois" },
-  { id:29, name:"Cowork'In Louviers", type:"coworking", address:"6 Rue Pierre Mendès France, 27400 Louviers", schedule:"Lun–Ven 8h30–19h", lat:49.2165, lng:1.1692, open:true, amenities:"Open space, cabines téléphoniques, cuisine équipée", price:"12 €/jour · 75 €/mois" },
-  { id:30, name:"La Fabrique Numérique – Bernay", type:"coworking", address:"3 Rue des Martyrs, 27300 Bernay", schedule:"Lun–Sam 9h–18h", lat:49.0865, lng:0.5998, open:true, amenities:"Espace maker, imprimante 3D, Wi-Fi, casiers", price:"10 €/jour · 60 €/mois" },
-  { id:31, name:"Hub Vernon", type:"coworking", address:"11 Rue d'Albuféra, 27200 Vernon", schedule:"Lun–Ven 9h–18h", lat:49.0918, lng:1.4841, open:false, amenities:"Bureaux privatifs, salle de conf. 12 pers., vidéoprojecteur", price:"20 €/jour · 120 €/mois" },
-  { id:32, name:"Espace Nomade – Pont-Audemer", type:"coworking", address:"2 Quai Robert Leblanc, 27500 Pont-Audemer", schedule:"Mar–Sam 9h–18h", lat:49.3566, lng:0.5138, open:true, amenities:"Vue rivière, Wi-Fi, open space calme, terrasse", price:"10 €/jour · 55 €/mois" },
+  // Espaces de coworking (données réelles)
+  { id:28, name:"La Filature – Louviers", type:"coworking", address:"26 Av. Winston Churchill, 27400 Louviers", schedule:"Lun–Ven 8h30–17h30", lat:49.2255, lng:1.1696, open:true, amenities:"1 700 m², open space, bureaux privatifs, salles de réunion, fibre, parking 300 pl.", price:"Sur devis · lafilature.space" },
+  { id:29, name:"La Filature – Évreux", type:"coworking", address:"Ancienne Banque de France, 27000 Évreux", schedule:"Lun–Ven 8h30–17h30", lat:49.0260, lng:1.1530, open:true, amenities:"Open space, bureaux privatifs, salles de réunion, cadre historique rénové", price:"Sur devis · lafilature.space" },
+  { id:30, name:"Cosywork – Vernon", type:"coworking", address:"39–41 Rue Émile Steiner, 27200 Vernon", schedule:"Lun–Ven 8h–18h (résidents 24h/24)", lat:49.0940, lng:1.4830, open:true, amenities:"Bureaux privatifs, salles de réunion, terrasse, cuisine, parking, fibre", price:"28 €/jour · sur devis/mois · cosywork.fr" },
+  { id:31, name:"Be Coworking – Gisors", type:"coworking", address:"25 Rue de Delincourt, 27140 Gisors", schedule:"Lun–Ven 8h–18h (résidents 24h/24)", lat:49.2800, lng:1.7790, open:true, amenities:"Open space, bureaux privatifs, salle de réunion, espace détente, PMR, climatisation", price:"Sur devis · be-coworking.fr" },
+  { id:32, name:"Espace du Cosnier – Bernay", type:"coworking", address:"2 Place Haslemere, 27300 Bernay", schedule:"Sur réservation", lat:49.0877, lng:0.5983, open:true, amenities:"Fibre, kitchenette, domiciliation, vidéoprojecteur, cour intérieure, sauna & bien-être", price:"15 €/jour · 200 €/mois · espaceducosnier.fr" },
 ];
 
 // ── MAP ────────────────────────────────────────────────
