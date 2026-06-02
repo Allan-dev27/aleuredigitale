@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Programme & Intervenants – Eure Tech & Inclusion 2026</title>
+
+  <!-- Fonts — identiques à index.html -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    /* ===== DESIGN SYSTEM (identique à index.html) ===== */
+    :root {
+      --green-dark:   #0d3d2b;
+      --green-mid:    #1a6b42;
+      --green-accent: #2ec06a;
+      --green-light:  #b8f0d0;
+      --cream:        #f4f0e8;
+      --white:        #ffffff;
+      --ink:          #0a1a12;
+      --ink-soft:     #2e4036;
+      --ink-muted:    #5a7566;
+      --border:       rgba(46, 192, 106, 0.25);
+      --font-mono:    'Space Mono', monospace;
+      --font-body:    'DM Sans', sans-serif;
+
+      /* couleurs de type de session */
+      --col-conf:    #1a6b42;
+      --col-atelier: #2ec06a;
+      --col-reseau:  #0a1a12;
+      --col-anim:    #5a7566;
+      --col-part:    #2e4036;
+      --col-pause:   rgba(46,192,106,0.15);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--ink);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4 { font-family: var(--font-mono); line-height: 1.15; }
+    p { font-family: var(--font-body); }
+
+    /* Noise overlay */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999; opacity: 0.4;
+    }
+
+    /* ===== TOPBAR ===== */
+    .topbar {
+      background: var(--green-dark);
+      padding: 8px 0;
+      font-size: 0.78rem;
+      font-family: var(--font-mono);
+      letter-spacing: 0.03em;
+      color: var(--green-light);
+    }
+    .topbar-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 12px; flex-wrap: wrap;
+    }
+    .topbar a { color: var(--green-light); text-decoration: none; }
+    .topbar a:hover { color: var(--white); }
+    .topbar-left { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+    .topbar-left span { display: flex; align-items: center; gap: 6px; }
+
+    /* ===== HEADER / NAV ===== */
+    header {
+      position: sticky; top: 0; z-index: 1000;
+      background: rgba(244, 240, 232, 0.92);
+      border-bottom: 2px solid var(--border);
+      backdrop-filter: blur(12px);
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between; height: 64px;
+    }
+    .logo {
+      font-family: var(--font-mono); font-weight: 700; font-size: 1.1rem;
+      color: var(--green-dark); text-decoration: none;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .logo span { color: var(--green-accent); }
+    .back-link {
+      font-family: var(--font-mono); font-size: 0.78rem;
+      color: var(--ink-soft); text-decoration: none;
+      padding: 6px 14px; border-radius: 4px;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; gap: 6px;
+      transition: all 0.2s;
+    }
+    .back-link:hover { background: var(--green-dark); color: var(--green-light); border-color: var(--green-dark); }
+
+    /* ===== HERO ===== */
+    .page-hero {
+      min-height: 320px;
+      background: var(--green-dark);
+      position: relative; overflow: hidden;
+      padding: 60px 0 0;
+      display: flex; flex-direction: column; justify-content: flex-end;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 60% at 80% 50%, rgba(46,192,106,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 80% at 20% 100%, rgba(46,192,106,0.08) 0%, transparent 50%);
+    }
+    .page-hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(46,192,106,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(46,192,106,0.06) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px 40px;
+      position: relative; z-index: 1;
+    }
+    .hero-tag {
+      display: inline-block;
+      font-family: var(--font-mono); font-size: 0.72rem;
+      color: var(--green-accent); border: 1px solid var(--green-accent);
+      padding: 4px 10px; border-radius: 2px;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 20px;
+      animation: fadeUp 0.5s 0.1s both;
+    }
+    .hero-inner h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--white); margin-bottom: 12px;
+      animation: fadeUp 0.6s 0.2s both;
+    }
+    .hero-inner h1 em { font-style: normal; color: var(--green-accent); }
+    .hero-sub {
+      color: rgba(255,255,255,0.65); font-size: 1rem; max-width: 560px;
+      animation: fadeUp 0.6s 0.3s both;
+    }
+
+    /* Tabs inside hero */
+    .tab-nav {
+      display: flex; gap: 4px; margin-top: 32px;
+      animation: fadeUp 0.6s 0.4s both;
+    }
+    .tab-btn {
+      font-family: var(--font-mono); font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 8px 20px; border-radius: 4px 4px 0 0;
+      border: 1px solid rgba(46,192,106,0.3); border-bottom: none;
+      background: rgba(46,192,106,0.08); color: rgba(255,255,255,0.6);
+      cursor: pointer; transition: all 0.2s;
+    }
+    .tab-btn.active { background: var(--cream); color: var(--green-dark); border-color: var(--border); }
+    .tab-btn:hover:not(.active) { background: rgba(46,192,106,0.18); color: var(--white); }
+
+    /* Wave */
+    .wave { display: block; width: 100%; }
+
+    /* ===== TAGLINE BAR ===== */
+    .tagline-bar {
+      background: var(--green-accent);
+      padding: 10px 20px; text-align: center;
+      font-family: var(--font-mono); font-weight: 700;
+      font-size: clamp(0.72rem, 1.5vw, 0.88rem);
+      color: var(--green-dark); letter-spacing: 0.08em;
+    }
+
+    /* ===== LAYOUT ===== */
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 70px 0; }
+
+    /* ===== TAB CONTENT ===== */
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* ===== SECTION HEADER ===== */
+    .section-label {
+      font-family: var(--font-mono); font-size: 0.72rem;
+      color: var(--green-mid); letter-spacing: 0.15em;
+      text-transform: uppercase; margin-bottom: 12px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .section-label::before {
+      content: ''; display: inline-block;
+      width: 24px; height: 2px; background: var(--green-accent);
+    }
+    .section-title-block { margin-bottom: 48px; }
+    .section-title-block h2 { font-size: clamp(1.8rem, 3vw, 2.4rem); color: var(--green-dark); margin-bottom: 10px; }
+    .section-title-block p { color: var(--ink-muted); max-width: 560px; }
+
+    /* ===== LÉGENDE ===== */
+    .legend {
+      display: flex; flex-wrap: wrap; gap: 12px;
+      margin-bottom: 48px; justify-content: flex-start;
+    }
+    .leg-item {
+      display: flex; align-items: center; gap: 8px;
+      font-family: var(--font-mono); font-size: 0.72rem;
+      color: var(--ink-muted); letter-spacing: 0.05em;
+    }
+    .leg-dot { width: 10px; height: 10px; border-radius: 2px; }
+
+    /* ===== TIMELINE ===== */
+    .timeline { position: relative; padding-left: 0; }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 90px; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--green-accent), var(--green-mid), rgba(46,192,106,0.2));
+      border-radius: 2px;
+    }
+    @media (max-width: 600px) { .timeline::before { left: 56px; } }
+
+    .time-slot { display: flex; gap: 0; margin-bottom: 16px; position: relative; }
+
+    .slot-time {
+      width: 90px; flex-shrink: 0;
+      padding-top: 20px; padding-right: 20px;
+      text-align: right;
+      font-family: var(--font-mono); font-weight: 700; font-size: 0.82rem;
+      color: var(--green-mid); position: relative;
+    }
+    .slot-time::after {
+      content: '';
+      position: absolute; right: -6px; top: 26px;
+      width: 11px; height: 11px; border-radius: 50%;
+      background: var(--cream); border: 2px solid var(--green-accent); z-index: 1;
+    }
+    @media (max-width: 600px) {
+      .slot-time { width: 56px; font-size: 0.7rem; padding-right: 12px; }
+    }
+
+    .slot-body { flex: 1; padding: 0 0 28px 24px; }
+
+    /* ===== SESSION CARDS ===== */
+    .sessions-row { display: grid; gap: 14px; }
+    .sessions-row.cols-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .sessions-row.cols-3 { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+
+    .session-card {
+      background: var(--white);
+      border-radius: 6px;
+      padding: 20px 20px;
+      border-left: 4px solid var(--green-accent);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--green-accent);
+      transition: transform 0.22s, box-shadow 0.22s;
+      position: relative; overflow: hidden;
+    }
+    .session-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(13,61,43,0.1); }
+
+    /* couleurs par type */
+    .col-conf    { border-left-color: var(--green-mid); }
+    .col-atelier { border-left-color: var(--green-accent); }
+    .col-reseau  { border-left-color: var(--ink); }
+    .col-anim    { border-left-color: var(--ink-muted); }
+    .col-part    { border-left-color: var(--ink-soft); }
+
+    .session-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      border-radius: 2px; padding: 3px 10px;
+      font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px;
+    }
+    .badge-conf    { background: rgba(26,107,66,0.1);  color: var(--green-mid); }
+    .badge-atelier { background: rgba(46,192,106,0.12); color: var(--green-mid); }
+    .badge-reseau  { background: rgba(10,26,18,0.08);  color: var(--ink-soft); }
+    .badge-anim    { background: rgba(90,117,102,0.12); color: var(--ink-muted); }
+    .badge-part    { background: rgba(46,64,54,0.08);  color: var(--ink-soft); }
+    .badge-pause   { background: var(--cream); color: var(--ink-muted); }
+    .badge-open    { background: rgba(46,192,106,0.15); color: var(--green-dark); }
+    .badge-close   { background: var(--green-dark); color: var(--green-light); }
+
+    .session-title {
+      font-family: var(--font-mono); font-weight: 700; font-size: 0.9rem;
+      color: var(--green-dark); margin-bottom: 6px; line-height: 1.3;
+    }
+    .session-desc { font-size: 0.85rem; color: var(--ink-muted); line-height: 1.6; margin-bottom: 10px; }
+
+    .session-speaker {
+      display: flex; align-items: center; gap: 10px;
+      margin-top: 12px; padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+    .speaker-avatar {
+      width: 34px; height: 34px; border-radius: 50%;
+      display: grid; place-items: center;
+      font-size: 1rem; flex-shrink: 0;
+      background: var(--cream);
+    }
+    .speaker-info { flex: 1; }
+    .speaker-name { font-family: var(--font-mono); font-size: 0.78rem; color: var(--green-dark); }
+    .speaker-role { font-size: 0.75rem; color: var(--ink-muted); line-height: 1.3; }
+
+    /* multi-speaker chips */
+    .speakers-mini {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-top: 12px; padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+    .speaker-chip {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--cream); border: 1px solid var(--border);
+      border-radius: 20px; padding: 3px 10px 3px 4px;
+    }
+    .chip-avatar { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font-size: 0.8rem; }
+    .chip-name { font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-soft); }
+
+    /* duration chip */
+    .duration-chip {
+      position: absolute; top: 12px; right: 12px;
+      background: var(--cream); border: 1px solid var(--border);
+      border-radius: 2px; padding: 2px 8px;
+      font-family: var(--font-mono); font-size: 0.65rem; color: var(--ink-muted);
+    }
+
+    /* ===== PLÉNIÈRE ===== */
+    .plenary-card {
+      background: var(--green-dark);
+      border-radius: 8px; padding: 28px 32px;
+      color: var(--white);
+      position: relative; overflow: hidden;
+      transition: transform 0.22s;
+      border: none;
+    }
+    .plenary-card::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(46,192,106,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(46,192,106,0.06) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+    .plenary-card:hover { transform: translateY(-3px); }
+    .plenary-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(46,192,106,0.15); border: 1px solid rgba(46,192,106,0.3);
+      color: var(--green-accent);
+      border-radius: 2px; padding: 4px 12px;
+      font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 14px;
+      position: relative; z-index: 1;
+    }
+    .plenary-title {
+      font-family: var(--font-mono); font-weight: 700; font-size: 1.15rem;
+      color: var(--white); margin-bottom: 10px; line-height: 1.25;
+      position: relative; z-index: 1;
+    }
+    .plenary-desc {
+      font-size: 0.9rem; color: rgba(255,255,255,0.65);
+      line-height: 1.65; margin-bottom: 18px;
+      position: relative; z-index: 1;
+    }
+    .plenary-speakers {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      position: relative; z-index: 1;
+    }
+    .plenary-chip {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(46,192,106,0.2);
+      border-radius: 4px; padding: 6px 14px 6px 6px;
+    }
+    .plenary-chip-avatar {
+      width: 30px; height: 30px; border-radius: 50%;
+      display: grid; place-items: center; font-size: 0.95rem;
+    }
+    .plenary-chip-name { font-family: var(--font-mono); font-size: 0.78rem; font-weight: 700; color: var(--white); }
+    .plenary-chip-role { font-size: 0.7rem; color: rgba(255,255,255,0.55); }
+
+    /* Clôture variante */
+    .plenary-card.closing { background: linear-gradient(135deg, var(--green-mid) 0%, var(--green-dark) 100%); }
+
+    /* ===== PAUSE ===== */
+    .pause-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 6px; padding: 18px 22px;
+      display: flex; align-items: center; gap: 16px;
+      color: var(--ink-muted);
+    }
+    .pause-icon { font-size: 1.8rem; }
+    .pause-title { font-family: var(--font-mono); font-size: 0.88rem; color: var(--ink-soft); margin-bottom: 2px; }
+    .pause-desc { font-size: 0.82rem; color: var(--ink-muted); }
+
+    /* ===== INTERVENANTS ===== */
+    .speakers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .speaker-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px; overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .speaker-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(13,61,43,0.12); }
+
+    .speaker-header {
+      padding: 24px 24px 18px;
+      display: flex; align-items: flex-start; gap: 16px;
+      position: relative;
+    }
+    .speaker-header::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    }
+    .sh-c1::before { background: linear-gradient(to right, var(--green-dark), var(--green-mid)); }
+    .sh-c2::before { background: linear-gradient(to right, var(--green-mid), var(--green-accent)); }
+    .sh-c3::before { background: linear-gradient(to right, var(--green-accent), var(--green-light)); }
+    .sh-c4::before { background: linear-gradient(to right, var(--ink), var(--ink-soft)); }
+    .sh-c5::before { background: linear-gradient(to right, var(--ink-soft), var(--ink-muted)); }
+    .sh-c6::before { background: linear-gradient(to right, var(--green-dark), var(--ink)); }
+    .sh-c7::before { background: linear-gradient(to right, var(--green-mid), var(--ink-soft)); }
+    .sh-c8::before { background: linear-gradient(to right, var(--ink-muted), var(--green-mid)); }
+
+    .sp-avatar-big {
+      width: 64px; height: 64px; border-radius: 50%;
+      display: grid; place-items: center; font-size: 2rem; flex-shrink: 0;
+      border: 2px solid var(--border);
+    }
+    .sp-meta { flex: 1; }
+    .sp-name {
+      font-family: var(--font-mono); font-weight: 700; font-size: 1rem;
+      color: var(--green-dark); margin-bottom: 4px;
+    }
+    .sp-role { font-size: 0.8rem; color: var(--ink-muted); line-height: 1.4; margin-bottom: 8px; }
+    .sp-org {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: var(--cream); border: 1px solid var(--border);
+      border-radius: 2px; padding: 2px 10px;
+      font-family: var(--font-mono); font-size: 0.68rem; color: var(--ink-soft);
+    }
+
+    .speaker-body { padding: 0 24px 22px; }
+    .sp-bio { font-size: 0.87rem; color: var(--ink-muted); line-height: 1.7; margin-bottom: 16px; }
+
+    .sp-talks { display: flex; flex-direction: column; gap: 8px; }
+    .sp-talk {
+      display: flex; align-items: flex-start; gap: 10px;
+      background: var(--cream); border-radius: 4px; padding: 10px 12px;
+    }
+    .sp-talk-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+    .sp-talk-info { flex: 1; }
+    .sp-talk-time {
+      font-family: var(--font-mono); font-size: 0.65rem; font-weight: 700;
+      color: var(--green-mid); letter-spacing: 0.06em;
+      text-transform: uppercase; margin-bottom: 2px;
+    }
+    .sp-talk-title { font-size: 0.82rem; color: var(--ink-soft); line-height: 1.4; }
+
+    .sp-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+    .sp-tag {
+      background: rgba(46,192,106,0.1); color: var(--green-mid);
+      border: 1px solid rgba(46,192,106,0.2);
+      border-radius: 2px; padding: 2px 10px;
+      font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.04em;
+    }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ===== CTA DISCORD ===== */
+    .cta-discord {
+      background: var(--green-dark); padding: 70px 0; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .cta-discord::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(46,192,106,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(46,192,106,0.06) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .cta-discord h2 { font-size: clamp(1.6rem,4vw,2.2rem); color: var(--white); margin-bottom: 12px; position: relative; z-index: 1; }
+    .cta-discord p  { color: rgba(255,255,255,0.65); font-size: 1rem; margin-bottom: 32px; position: relative; z-index: 1; }
+    .btn-discord {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: #5865F2; color: var(--white);
+      padding: 14px 32px; border-radius: 4px;
+      font-family: var(--font-mono); font-weight: 700; font-size: 0.88rem;
+      text-decoration: none; letter-spacing: 0.05em;
+      transition: all 0.25s; position: relative; z-index: 1;
+    }
+    .btn-discord:hover { background: #4752c4; transform: translateY(-2px); }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--green-dark); padding: 40px 0 28px;
+      border-top: 2px solid rgba(46,192,106,0.15);
+    }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+    }
+    footer p { font-family: var(--font-mono); font-size: 0.78rem; color: rgba(255,255,255,0.45); }
+    footer strong { color: var(--green-accent); }
+    footer a { color: rgba(255,255,255,0.45); text-decoration: none; }
+    footer a:hover { color: var(--green-accent); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 700px) {
+      nav { padding: 0 16px; }
+      .sessions-row.cols-2, .sessions-row.cols-3 { grid-template-columns: 1fr; }
+      .speakers-grid { grid-template-columns: 1fr; }
+      .plenary-card { padding: 22px 18px; }
+      .slot-body { padding-left: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span><i class="bi bi-calendar-event-fill"></i>19 Novembre 2026 · 10h00 – 17h00</span>
+      <span><i class="bi bi-discord"></i><a href="https://discord.gg/hxyp2qFFAN" target="_blank">100% en ligne sur Discord</a></span>
+    </div>
+    <div>SEEPH 2026 · DuoDay · Évreux &amp; Eure (27)</div>
+  </div>
+</div>
+
+<!-- HEADER STICKY -->
+<header>
+  <nav class="nav-inner">
+    <a href="index.html" class="logo">A l'Eure<span>_</span>Digitale</a>
+    <a href="index.html" class="back-link"><i class="bi bi-arrow-left"></i> Retour au site</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Eure Tech &amp; Inclusion 2026</div>
+    <h1>Programme <em>&amp;</em> Intervenants</h1>
+    <p class="hero-sub">Une journée structurée autour de 5 espaces thématiques, animée par des experts engagés du territoire</p>
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab('programme')"><i class="bi bi-calendar3"></i>&nbsp; Programme</button>
+      <button class="tab-btn" onclick="switchTab('intervenants')"><i class="bi bi-mic-fill"></i>&nbsp; Intervenants</button>
+    </div>
+  </div>
+  <svg class="wave" viewBox="0 0 1440 48" xmlns="http://www.w3.org/2000/svg">
+    <path fill="#f4f0e8" d="M0,24 C360,48 1080,0 1440,24 L1440,48 L0,48 Z"/>
+  </svg>
+</div>
+
+<!-- TAGLINE -->
+<div class="tagline-bar">
+  🤝 ENSEMBLE, RENDONS LE NUMÉRIQUE ACCESSIBLE À TOUS !
+</div>
+
+
+<!-- ══════════════════════════
+     TAB 1 : PROGRAMME
+══════════════════════════════ -->
+<div id="tab-programme" class="tab-content active">
+<section>
+  <div class="container">
+
+    <!-- En-tête section -->
+    <div class="section-title-block reveal">
+      <div class="section-label">Déroulé de la journée</div>
+      <h2>Programme complet</h2>
+      <p>5 espaces thématiques en parallèle, accessibles à tous les niveaux.</p>
+    </div>
+
+    <!-- Légende -->
+    <div class="legend reveal">
+      <div class="leg-item"><div class="leg-dot" style="background:var(--green-mid)"></div> Conférence</div>
+      <div class="leg-item"><div class="leg-dot" style="background:var(--green-accent)"></div> Atelier pratique</div>
+      <div class="leg-item"><div class="leg-dot" style="background:var(--ink-soft)"></div> Espace partenaires</div>
+      <div class="leg-item"><div class="leg-dot" style="background:var(--ink)"></div> Entraide &amp; Réseau</div>
+      <div class="leg-item"><div class="leg-dot" style="background:var(--ink-muted)"></div> Animation</div>
+    </div>
+
+    <div class="timeline">
+
+      <!-- ─ 10h00 : OUVERTURE ─ -->
+      <div class="time-slot reveal">
+        <div class="slot-time">10h00</div>
+        <div class="slot-body">
+          <div class="plenary-card">
+            <div class="plenary-badge">🌟 Séance plénière · 45 min</div>
+            <div class="plenary-title">Cérémonie d'ouverture — Le numérique, levier d'inclusion pour l'Eure</div>
+            <div class="plenary-desc">
+              Accueil des participants, présentation de la journée et des partenaires. Discours inaugural sur les enjeux du numérique inclusif en milieu rural et péri-urbain. Présentation des chiffres clés sur la fracture numérique dans l'Eure.
+            </div>
+            <div class="plenary-speakers">
+              <div class="plenary-chip">
+                <div class="plenary-chip-avatar" style="background:rgba(46,192,106,0.15);">🏛️</div>
+                <div>
+                  <div class="plenary-chip-name">Sandrine Moreau</div>
+                  <div class="plenary-chip-role">Préfecture de l'Eure</div>
+                </div>
+              </div>
+              <div class="plenary-chip">
+                <div class="plenary-chip-avatar" style="background:rgba(46,192,106,0.15);">👨‍💻</div>
+                <div>
+                  <div class="plenary-chip-name">Marc Dupuis</div>
+                  <div class="plenary-chip-role">France Services Eure</div>
+                </div>
+              </div>
+              <div class="plenary-chip">
+                <div class="plenary-chip-avatar" style="background:rgba(46,192,106,0.15);">🌸</div>
+                <div>
+                  <div class="plenary-chip-name">Isabelle Fontaine</div>
+                  <div class="plenary-chip-role">LADAPT Normandie</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─ 10h45 : 1ère vague ─ -->
+      <div class="time-slot reveal">
+        <div class="slot-time">10h45</div>
+        <div class="slot-body">
+          <div class="sessions-row cols-2">
+
+            <div class="session-card col-conf">
+              <span class="duration-chip">60 min</span>
+              <div class="session-badge badge-conf">🎤 Conférence</div>
+              <div class="session-title">IA et accessibilité : quelles opportunités pour les personnes en situation de handicap ?</div>
+              <div class="session-desc">Comment les outils d'intelligence artificielle — synthèse vocale, reconnaissance d'image, assistance à la rédaction — transforment le quotidien des personnes handicapées. Retours d'expériences et démonstrations.</div>
+              <div class="session-speaker">
+                <div class="speaker-avatar">🔬</div>
+                <div class="speaker-info">
+                  <div class="speaker-name">Nadia Ouali</div>
+                  <div class="speaker-role">Chercheuse en IA éthique · Université de Caen</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="session-card col-atelier">
+              <span class="duration-chip">60 min</span>
+              <div class="session-badge badge-atelier">💻 Atelier</div>
+              <div class="session-title">Mes premiers pas sur Internet — Atelier grands débutants</div>
+              <div class="session-desc">Pour celles et ceux qui n'osent pas encore se lancer : naviguer sur le web, créer une adresse e-mail, faire une recherche Google. Accompagnement bienveillant, rythme adapté.</div>
+              <div class="session-speaker">
+                <div class="speaker-avatar">🧑‍🏫</div>
+                <div class="speaker-info">
+                  <div class="speaker-name">Karim Benali</div>
+                  <div class="speaker-role">Formateur numérique · Asso. Clic &amp; Lien, Évreux</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ─ 11h00 : Ateliers parallèles ─ -->
+      <div class="time-slot reveal">
+        <div class="slot-time">11h00</div>
+        <div class="slot-body">
+          <div class="sessions-row cols-3">
+
+            <div class="session-card col-atelier">
+              <span class="duration-chip">75 min</span>
+              <div class="session-badge badge-atelier">💻 Atelier</div>
+              <div class="session-title">Cybersécurité du quotidien : protégez-vous des arnaques en ligne</div>
+              <div class="session-desc">Phishing, mots de passe, réseaux Wi-Fi publics, faux supports techniques… Apprenez à reconnaître et éviter les pièges les plus courants sur Internet.</div>
+              <div class="session-speaker">
+                <div class="speaker-avatar">🔒</div>
+                <div class="speaker-info">
+                  <div class="speaker-name">Thomas Leclerc</div>
+                  <div class="speaker-role">Expert cybersécurité · Bénévole numérique</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="session-card col-reseau">
+              <span class="duration-chip">75 min</span>
+              <div class="session-badge badge-reseau">👥 Réseau</div>
+              <div class="session-title">DuoDay 2026 : binômes, témoignages &amp; découverte des métiers du numérique</div>
+              <div class="session-desc">Présentation du dispositif DuoDay, témoignages de participants des éditions précédentes et présentation des entreprises partenaires prêtes à accueillir des personnes en situation de handicap.</div>
+              <div class="session-speaker">
+                <div class="speaker-avatar">💼</div>
+                <div class="speaker-info">
+                  <div class="speaker-name">Élodie Rousseau</div>
+                  <div class="speaker-role">DRH · Ambassadrice DuoDay 2026</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="session-card col-part">
+              <span class="duration-chip">75 min</span>
+              <div class="session-badge badge-part">🤝 Partenaires</div>
+              <div class="session-title">Espace partenaires ouvert — Associations &amp; Collectivités</div>
+              <div class="session-desc">Découvrez les stands virtuels des partenaires : LADAPT, France Services, APAJH, maisons France Travail, CCAS... Échanges en direct, dépliants, ressources à télécharger.</div>
+              <div class="speakers-mini">
+                <div class="speaker-chip"><div class="chip-avatar">🌸</div><div class="chip-name">Isabelle Fontaine</div></div>
+                <div class="speaker-chip"><div class="chip-avatar">🗺️</div><div class="chip-name">Marc Dupuis</div></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ─ 12h30 : PAUSE ─ -->
+      <div class="time-slot reveal">
+        <div class="slot-time">12h30</div>
+        <div class="slot-body">
+          <div class="pause-card">
+            <div class="pause-icon">🍽️</div>
+            <div>
+              <div class="pause-title">Pause déjeuner &amp; Networking libre</div>
+              <div class="pause-desc">60 minutes — Salon de discussion libre sur Discord · Échanges informels · Fil de questions-réponses</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─ 13h30 : Quiz ─ -->
+      <div class="time-slot reveal">
+        <div class="slot-time">13h30</div>
+        <div class="slot-body">
+          <div class="session-card col-anim" style="border-left:none;border-top:4px solid var(--ink-muted);">
+            <span class="duration-chip">30 min</span>
+            <div class="session-badge badge-anim">🎉 Animation</div>
+            <div class="session-title">Grand Quiz Numérique — Jouez en équipe !</div>
+            <div class="session-desc">Culture numérique, inclusion, sécurité en ligne, curiosités du web… 20 questions pour se retrouver entre participants. Des lots à gagner pour les équipes gagnantes !</div>
+            <div class="session-speaker">
+              <div class="speaker-avatar">🎬</div>
+              <div class="speaker-info">
+                <div class="speaker-name">Julien Petit</div>
+                <div class="speaker-role">Créateur de contenu accessible · YouTube &amp; Twitch</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─ 14h00 : TABLE RONDE ─ -->
+      <div class="time-slot reveal">
+        <div class="slot-time">14h00</div>
+        <div class="slot-body">
+          <div class="plenary-card">
+            <div class="plenary-badge">🎤 Table ronde · 75 min</div>
+            <div class="plenary-title">« Fracture numérique en milieu rural : comment agir ensemble ? »</div>
+            <div class="plenary-desc">
+              Un débat ouvert réunissant acteurs publics, associations et entreprises autour de la question de l'inclusion numérique dans les territoires ruraux et péri-urbains. Comment mutualiser les efforts ? Quelles politiques publiques sont efficaces ? Quels sont les besoins non couverts ?
+            </div>
+            <div class="plenary-speakers">
+              <div class="plenary-chip">
+                <div class="plenary-chip-avatar" style="background:rgba(46,192,106,0.15);">🏛️</div>
+                <div><div class="plenary-chip-name">Sandrine Moreau</div><div class="plenary-chip-role">Modératrice</div></div>
+              </div>
+              <div class="plenary-chip">
+                <div class="plenary-chip-avatar" style="background:rgba(46,192,106,0.15);">👨‍💻</div>
+                <div><div class="plenary-chip-name">Karim Benali</div><div class="plenary-chip-role">Formateur numérique</div></div>
+              </div>
+              <div class="plenary-chip">
+                <div class="plenary-chip-avatar" style="background:rgba(46,192,106,0.15);">🗺️</div>
+                <div><div class="plenary-chip-name">Marc Dupuis</div><div class="plenary-chip-role">France Services Eure</div></div>
+              </div>
+              <div class="plenary-chip">
+                <div class="plenary-chip-avatar" style="background:rgba(46,192,106,0.15);">💼</div>
+                <div><div class="plenary-chip-name">Élodie Rousseau</div><div class="plenary-chip-role">Entreprise inclusive</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─ 15h15 : Ateliers après-midi ─ -->
+      <div class="time-slot reveal">
+        <div class="slot-time">15h15</div>
+        <div class="slot-body">
+          <div class="sessions-row cols-2">
+
+            <div class="session-card col-atelier">
+              <span class="duration-chip">60 min</span>
+              <div class="session-badge badge-atelier">💻 Atelier</div>
+              <div class="session-title">Créer un CV numérique accessible : Word, PDF et outils gratuits</div>
+              <div class="session-desc">Démonstration pas à pas pour créer un CV lisible par les lecteurs d'écran, bien structuré et envoyable par e-mail. Accessible à tous les niveaux, avec des modèles téléchargeables.</div>
+              <div class="session-speaker">
+                <div class="speaker-avatar">💼</div>
+                <div class="speaker-info">
+                  <div class="speaker-name">Élodie Rousseau</div>
+                  <div class="speaker-role">DRH · Spécialiste recrutement inclusif</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="session-card col-conf">
+              <span class="duration-chip">60 min</span>
+              <div class="session-badge badge-conf">🎤 Conférence</div>
+              <div class="session-title">Accessibilité web en 2026 : où en sommes-nous ? Ce que dit la loi, ce qu'il faut faire</div>
+              <div class="session-desc">Bilan de la directive européenne sur l'accessibilité numérique, obligations légales pour les entreprises, outils de vérification. Présentation de bonnes pratiques avec exemples concrets.</div>
+              <div class="session-speaker">
+                <div class="speaker-avatar">🔬</div>
+                <div class="speaker-info">
+                  <div class="speaker-name">Nadia Ouali</div>
+                  <div class="speaker-role">Chercheuse · IA éthique &amp; accessibilité</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ─ 15h30 : Atelier seniors ─ -->
+      <div class="time-slot reveal">
+        <div class="slot-time">15h30</div>
+        <div class="slot-body">
+          <div class="sessions-row cols-2">
+
+            <div class="session-card col-atelier">
+              <span class="duration-chip">60 min</span>
+              <div class="session-badge badge-atelier">💻 Atelier</div>
+              <div class="session-title">Seniors &amp; Numérique : utiliser son smartphone en toute confiance</div>
+              <div class="session-desc">Configurer les paramètres d'accessibilité, agrandir le texte, gérer les contacts, passer un appel vidéo avec ses proches, et éviter les pièges. Session calme et bienveillante.</div>
+              <div class="session-speaker">
+                <div class="speaker-avatar">🔒</div>
+                <div class="speaker-info">
+                  <div class="speaker-name">Thomas Leclerc</div>
+                  <div class="speaker-role">Expert numérique · Bénévole seniors</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="session-card col-reseau">
+              <span class="duration-chip">60 min</span>
+              <div class="session-badge badge-reseau">👥 Réseau</div>
+              <div class="session-title">SEEPH 2026 : « Et si le handicap était notre force ? » — Atelier inclusion en entreprise</div>
+              <div class="session-desc">Dans le cadre de la Semaine Européenne pour l'Emploi des Personnes Handicapées : exercices pratiques de mise en situation, kit manager inclusif, témoignages d'employés concernés.</div>
+              <div class="session-speaker">
+                <div class="speaker-avatar">🌸</div>
+                <div class="speaker-info">
+                  <div class="speaker-name">Isabelle Fontaine</div>
+                  <div class="speaker-role">Directrice régionale · LADAPT Normandie</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ─ 16h30 : Speed networking ─ -->
+      <div class="time-slot reveal">
+        <div class="slot-time">16h30</div>
+        <div class="slot-body">
+          <div class="session-card col-anim" style="border-left:none;border-top:4px solid var(--ink-muted);">
+            <span class="duration-chip">20 min</span>
+            <div class="session-badge badge-anim">🎉 Animation</div>
+            <div class="session-title">Speed Networking — Rencontrez la communauté en 5 minutes chrono !</div>
+            <div class="session-desc">Des salles Discord en rotation rapide pour rencontrer d'autres participants, échanger vos coordonnées et trouver vos futurs partenaires ou mentors numériques.</div>
+            <div class="session-speaker">
+              <div class="speaker-avatar">🎬</div>
+              <div class="speaker-info">
+                <div class="speaker-name">Julien Petit</div>
+                <div class="speaker-role">Animateur de la communauté</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─ 16h50 : CLÔTURE ─ -->
+      <div class="time-slot reveal">
+        <div class="slot-time">16h50</div>
+        <div class="slot-body">
+          <div class="plenary-card closing">
+            <div class="plenary-badge" style="background:rgba(255,255,255,0.15);border-color:rgba(255,255,255,0.25);color:var(--white);">🎁 Séance de clôture · 30 min</div>
+            <div class="plenary-title">Remise des prix, synthèse &amp; au revoir !</div>
+            <div class="plenary-desc">
+              Bilan de la journée, annonce des lauréats du Quiz Numérique, remise des ressources partagées (liens, guides, fiches pratiques). Rendez-vous annoncé pour 2027 !
+            </div>
+            <div class="plenary-speakers">
+              <div class="plenary-chip">
+                <div class="plenary-chip-avatar" style="background:rgba(255,255,255,0.12);">🖥️</div>
+                <div><div class="plenary-chip-name">Toute l'équipe</div><div class="plenary-chip-role">A l'Eure Digitale</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /timeline -->
+  </div>
+</section>
+</div><!-- /tab-programme -->
+
+
+<!-- ══════════════════════════
+     TAB 2 : INTERVENANTS
+══════════════════════════════ -->
+<div id="tab-intervenants" class="tab-content">
+<section>
+  <div class="container">
+    <div class="section-title-block reveal" style="text-align:center;">
+      <div class="section-label" style="justify-content:center;">Nos experts</div>
+      <h2>Les intervenants 2026</h2>
+      <p style="max-width:560px;margin:0 auto;">Des professionnels engagés, issus du territoire normand et au-delà, réunis pour partager leur expertise et leurs expériences.</p>
+    </div>
+
+    <div class="speakers-grid">
+
+      <!-- 1. Sandrine Moreau -->
+      <div class="speaker-card reveal">
+        <div class="speaker-header sh-c1">
+          <div class="sp-avatar-big">🏛️</div>
+          <div class="sp-meta">
+            <div class="sp-name">Sandrine Moreau</div>
+            <div class="sp-role">Responsable Inclusion Numérique &amp; France Services</div>
+            <div class="sp-org">🗺️ Préfecture de l'Eure</div>
+          </div>
+        </div>
+        <div class="speaker-body">
+          <p class="sp-bio">Après 10 ans comme chargée de mission en politique de la ville, Sandrine rejoint en 2022 la Préfecture de l'Eure pour coordonner le déploiement des espaces France Services dans le département. Elle pilote les actions d'inclusion numérique à destination des publics éloignés du numérique : seniors, personnes en situation de précarité, habitants des zones rurales.</p>
+          <div class="sp-talks">
+            <div class="sp-talk"><div class="sp-talk-icon">🌟</div><div class="sp-talk-info"><div class="sp-talk-time">10h00 · Plénière d'ouverture</div><div class="sp-talk-title">Le numérique, levier d'inclusion pour l'Eure</div></div></div>
+            <div class="sp-talk"><div class="sp-talk-icon">🎤</div><div class="sp-talk-info"><div class="sp-talk-time">14h00 · Table ronde (modératrice)</div><div class="sp-talk-title">Fracture numérique en milieu rural : comment agir ensemble ?</div></div></div>
+          </div>
+          <div class="sp-tags"><span class="sp-tag">Politiques publiques</span><span class="sp-tag">France Services</span><span class="sp-tag">Ruralité</span></div>
+        </div>
+      </div>
+
+      <!-- 2. Karim Benali -->
+      <div class="speaker-card reveal">
+        <div class="speaker-header sh-c2">
+          <div class="sp-avatar-big">👨‍💻</div>
+          <div class="sp-meta">
+            <div class="sp-name">Karim Benali</div>
+            <div class="sp-role">Développeur web &amp; Formateur en alphabétisation numérique</div>
+            <div class="sp-org">💡 Asso. Clic &amp; Lien · Évreux</div>
+          </div>
+        </div>
+        <div class="speaker-body">
+          <p class="sp-bio">Co-fondateur de l'association Clic &amp; Lien à Évreux, Karim a formé plus de 400 personnes au numérique depuis 2019. Développeur de métier, il consacre une partie de son temps à des ateliers accessibles en bibliothèques, médiathèques et centres sociaux. Il est convaincu que la pédagogie bienveillante est la clé pour lever les peurs face au numérique.</p>
+          <div class="sp-talks">
+            <div class="sp-talk"><div class="sp-talk-icon">💻</div><div class="sp-talk-info"><div class="sp-talk-time">10h45 · Atelier</div><div class="sp-talk-title">Mes premiers pas sur Internet — Atelier grands débutants</div></div></div>
+            <div class="sp-talk"><div class="sp-talk-icon">🎤</div><div class="sp-talk-info"><div class="sp-talk-time">14h00 · Table ronde</div><div class="sp-talk-title">Fracture numérique en milieu rural</div></div></div>
+          </div>
+          <div class="sp-tags"><span class="sp-tag">Formation</span><span class="sp-tag">Pédagogie</span><span class="sp-tag">Débutants</span><span class="sp-tag">Web</span></div>
+        </div>
+      </div>
+
+      <!-- 3. Isabelle Fontaine -->
+      <div class="speaker-card reveal">
+        <div class="speaker-header sh-c3">
+          <div class="sp-avatar-big">🌸</div>
+          <div class="sp-meta">
+            <div class="sp-name">Isabelle Fontaine</div>
+            <div class="sp-role">Directrice régionale Normandie · Spécialiste handicap &amp; emploi</div>
+            <div class="sp-org">🏥 LADAPT Normandie</div>
+          </div>
+        </div>
+        <div class="speaker-body">
+          <p class="sp-bio">Travailleuse sociale de formation, Isabelle dirige depuis 8 ans la délégation régionale de LADAPT en Normandie. Elle coordonne des programmes d'accompagnement à l'emploi, de rééducation et d'inclusion sociale pour des milliers de personnes chaque année. Très impliquée dans la SEEPH, elle milite pour une approche globale du handicap qui dépasse la seule dimension médicale.</p>
+          <div class="sp-talks">
+            <div class="sp-talk"><div class="sp-talk-icon">🌟</div><div class="sp-talk-info"><div class="sp-talk-time">10h00 · Plénière d'ouverture</div><div class="sp-talk-title">Mot de bienvenue — LADAPT et ses 30 ans</div></div></div>
+            <div class="sp-talk"><div class="sp-talk-icon">👥</div><div class="sp-talk-info"><div class="sp-talk-time">15h30 · Atelier SEEPH</div><div class="sp-talk-title">Et si le handicap était notre force ?</div></div></div>
+          </div>
+          <div class="sp-tags"><span class="sp-tag">LADAPT</span><span class="sp-tag">SEEPH</span><span class="sp-tag">Handicap</span><span class="sp-tag">Emploi</span></div>
+        </div>
+      </div>
+
+      <!-- 4. Nadia Ouali -->
+      <div class="speaker-card reveal">
+        <div class="speaker-header sh-c6">
+          <div class="sp-avatar-big">🔬</div>
+          <div class="sp-meta">
+            <div class="sp-name">Nadia Ouali</div>
+            <div class="sp-role">Chercheuse en IA éthique &amp; Accessibilité numérique</div>
+            <div class="sp-org">🎓 Université de Caen Normandie</div>
+          </div>
+        </div>
+        <div class="speaker-body">
+          <p class="sp-bio">Docteure en informatique et spécialiste de l'IA au service des personnes en situation de handicap, Nadia mène des recherches sur la synthèse vocale, la reconnaissance d'image et les interfaces adaptatives. Elle collabore régulièrement avec des associations et des entreprises pour rendre leurs outils numériques plus accessibles.</p>
+          <div class="sp-talks">
+            <div class="sp-talk"><div class="sp-talk-icon">🤖</div><div class="sp-talk-info"><div class="sp-talk-time">10h45 · Conférence</div><div class="sp-talk-title">IA et accessibilité : quelles opportunités ?</div></div></div>
+            <div class="sp-talk"><div class="sp-talk-icon">⚖️</div><div class="sp-talk-info"><div class="sp-talk-time">15h15 · Conférence</div><div class="sp-talk-title">Accessibilité web en 2026 : ce que dit la loi</div></div></div>
+          </div>
+          <div class="sp-tags"><span class="sp-tag">IA éthique</span><span class="sp-tag">Accessibilité</span><span class="sp-tag">Recherche</span></div>
+        </div>
+      </div>
+
+      <!-- 5. Thomas Leclerc -->
+      <div class="speaker-card reveal">
+        <div class="speaker-header sh-c7">
+          <div class="sp-avatar-big">🔒</div>
+          <div class="sp-meta">
+            <div class="sp-name">Thomas Leclerc</div>
+            <div class="sp-role">Expert en cybersécurité &amp; Bénévole numérique</div>
+            <div class="sp-org">🛡️ Indépendant · Évreux</div>
+          </div>
+        </div>
+        <div class="speaker-body">
+          <p class="sp-bio">Consultant en cybersécurité le jour, bénévole numérique le soir, Thomas consacre du temps à sensibiliser les publics fragiles aux risques en ligne. Il anime régulièrement des ateliers dans des centres sociaux, des bibliothèques et auprès de publics seniors, avec une pédagogie simple, concrète et sans jargon technique.</p>
+          <div class="sp-talks">
+            <div class="sp-talk"><div class="sp-talk-icon">🔐</div><div class="sp-talk-info"><div class="sp-talk-time">11h00 · Atelier</div><div class="sp-talk-title">Cybersécurité du quotidien : évitez les arnaques en ligne</div></div></div>
+            <div class="sp-talk"><div class="sp-talk-icon">📱</div><div class="sp-talk-info"><div class="sp-talk-time">15h30 · Atelier</div><div class="sp-talk-title">Seniors &amp; Numérique : utiliser son smartphone en confiance</div></div></div>
+          </div>
+          <div class="sp-tags"><span class="sp-tag">Cybersécurité</span><span class="sp-tag">Seniors</span><span class="sp-tag">Bénévolat</span></div>
+        </div>
+      </div>
+
+      <!-- 6. Marc Dupuis -->
+      <div class="speaker-card reveal">
+        <div class="speaker-header sh-c5">
+          <div class="sp-avatar-big">🗺️</div>
+          <div class="sp-meta">
+            <div class="sp-name">Marc Dupuis</div>
+            <div class="sp-role">Coordinateur des espaces France Services de l'Eure</div>
+            <div class="sp-org">📮 Réseau France Services · Eure</div>
+          </div>
+        </div>
+        <div class="speaker-body">
+          <p class="sp-bio">Médiateur numérique depuis 2017, Marc coordonne un réseau de 14 espaces France Services dans le département de l'Eure. Il accompagne chaque semaine des dizaines de personnes dans leurs démarches administratives en ligne : déclarations, allocations, cartes Vitale, permis de conduire... Il est le visage de la médiation numérique de terrain dans le département.</p>
+          <div class="sp-talks">
+            <div class="sp-talk"><div class="sp-talk-icon">🌟</div><div class="sp-talk-info"><div class="sp-talk-time">10h00 · Plénière d'ouverture</div><div class="sp-talk-title">Chiffres clés de la fracture numérique dans l'Eure</div></div></div>
+            <div class="sp-talk"><div class="sp-talk-icon">🤝</div><div class="sp-talk-info"><div class="sp-talk-time">11h00 · Espace partenaires</div><div class="sp-talk-title">Présentation du réseau France Services</div></div></div>
+            <div class="sp-talk"><div class="sp-talk-icon">🎤</div><div class="sp-talk-info"><div class="sp-talk-time">14h00 · Table ronde</div><div class="sp-talk-title">Fracture numérique en milieu rural</div></div></div>
+          </div>
+          <div class="sp-tags"><span class="sp-tag">Médiation</span><span class="sp-tag">Services publics</span><span class="sp-tag">Terrain</span></div>
+        </div>
+      </div>
+
+      <!-- 7. Élodie Rousseau -->
+      <div class="speaker-card reveal">
+        <div class="speaker-header sh-c4">
+          <div class="sp-avatar-big">💼</div>
+          <div class="sp-meta">
+            <div class="sp-name">Élodie Rousseau</div>
+            <div class="sp-role">Responsable RH &amp; Ambassadrice DuoDay 2026</div>
+            <div class="sp-org">🏭 NormaTech Industries · Évreux</div>
+          </div>
+        </div>
+        <div class="speaker-body">
+          <p class="sp-bio">DRH depuis 7 ans chez NormaTech Industries, Élodie a transformé la politique RH de son entreprise pour en faire un modèle d'inclusion dans la région. En 2024, elle a obtenu le label GEEIS-SDG et a intégré DuoDay dans le parcours d'intégration. Elle accompagne aussi les candidats en reconversion vers les métiers du numérique.</p>
+          <div class="sp-talks">
+            <div class="sp-talk"><div class="sp-talk-icon">👥</div><div class="sp-talk-info"><div class="sp-talk-time">11h00 · Atelier Réseau</div><div class="sp-talk-title">DuoDay 2026 : binômes, témoignages &amp; métiers du numérique</div></div></div>
+            <div class="sp-talk"><div class="sp-talk-icon">💻</div><div class="sp-talk-info"><div class="sp-talk-time">15h15 · Atelier</div><div class="sp-talk-title">Créer un CV numérique accessible</div></div></div>
+            <div class="sp-talk"><div class="sp-talk-icon">🎤</div><div class="sp-talk-info"><div class="sp-talk-time">14h00 · Table ronde</div><div class="sp-talk-title">Fracture numérique : le rôle des entreprises</div></div></div>
+          </div>
+          <div class="sp-tags"><span class="sp-tag">DuoDay</span><span class="sp-tag">Recrutement</span><span class="sp-tag">RH inclusive</span></div>
+        </div>
+      </div>
+
+      <!-- 8. Julien Petit -->
+      <div class="speaker-card reveal">
+        <div class="speaker-header sh-c8">
+          <div class="sp-avatar-big">🎬</div>
+          <div class="sp-meta">
+            <div class="sp-name">Julien Petit</div>
+            <div class="sp-role">Créateur de contenu accessible &amp; Animateur communautaire</div>
+            <div class="sp-org">📺 YouTube · TechSansFrontières</div>
+          </div>
+        </div>
+        <div class="speaker-body">
+          <p class="sp-bio">Julien anime depuis 2021 la chaîne YouTube "TechSansFrontières" dédiée à rendre le numérique accessible à tous. Sous-titres, langue des signes, explications ultra-claires : ses tutoriels dépassent le million de vues. Ancien agent France Travail reconverti en créateur de contenu, il sait parler à des publics très divers avec humour et bienveillance.</p>
+          <div class="sp-talks">
+            <div class="sp-talk"><div class="sp-talk-icon">🎉</div><div class="sp-talk-info"><div class="sp-talk-time">13h30 · Animation</div><div class="sp-talk-title">Grand Quiz Numérique — Jouez en équipe !</div></div></div>
+            <div class="sp-talk"><div class="sp-talk-icon">🤝</div><div class="sp-talk-info"><div class="sp-talk-time">16h30 · Animation</div><div class="sp-talk-title">Speed Networking en salles Discord</div></div></div>
+          </div>
+          <div class="sp-tags"><span class="sp-tag">Contenu accessible</span><span class="sp-tag">YouTube</span><span class="sp-tag">Vulgarisation</span><span class="sp-tag">Animation</span></div>
+        </div>
+      </div>
+
+    </div><!-- /speakers-grid -->
+  </div>
+</section>
+</div><!-- /tab-intervenants -->
+
+
+<!-- CTA DISCORD -->
+<section class="cta-discord">
+  <div class="container">
+    <h2>Prêt à participer ?</h2>
+    <p>L'événement est 100% gratuit et accessible à tous les niveaux.</p>
+    <a href="https://discord.gg/hxyp2qFFAN" target="_blank" class="btn-discord">
+      <i class="bi bi-discord"></i> Rejoindre le serveur Discord
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <p><strong>Eure Tech &amp; Inclusion</strong> — 19 Novembre 2026, 10h00–17h00</p>
+    <p>Organisé par <strong>A l'Eure Digitale</strong> · Événement 100% en ligne sur Discord</p>
+    <p><a href="index.html">Retour au site</a> · <a href="#">Mentions légales</a> · <a href="#">Accessibilité</a></p>
+  </div>
+</footer>
+
+<script>
+  /* ─── TABS ─── */
+  function switchTab(tab) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+    document.querySelector(`[onclick="switchTab('${tab}')"]`).classList.add('active');
+    document.querySelectorAll('#tab-' + tab + ' .reveal').forEach(el => {
+      if (!el.classList.contains('visible')) observer.observe(el);
+    });
+  }
+
+  /* ─── SCROLL REVEAL ─── */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
