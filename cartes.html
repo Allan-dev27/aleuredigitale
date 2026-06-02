@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carte des Points d'Accès – À l'Eure Digitale</title>
+
+  <!-- Fonts — identiques à index.html -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <style>
+    /* ===== DESIGN SYSTEM (identique à index.html) ===== */
+    :root {
+      --green-dark:   #0d3d2b;
+      --green-mid:    #1a6b42;
+      --green-accent: #2ec06a;
+      --green-light:  #b8f0d0;
+      --cream:        #f4f0e8;
+      --white:        #ffffff;
+      --ink:          #0a1a12;
+      --ink-soft:     #2e4036;
+      --ink-muted:    #5a7566;
+      --border:       rgba(46, 192, 106, 0.25);
+      --font-mono:    'Space Mono', monospace;
+      --font-body:    'DM Sans', sans-serif;
+
+      /* couleurs par type de lieu */
+      --c-mediatheque:     #1a6b42;
+      --c-france-services: #0a1a12;
+      --c-permanence:      #2e4036;
+      --c-espace-public:   #2ec06a;
+      --c-freelance:       #5a7566;
+      --c-coworking:       #b8f0d0;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--ink);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    h1, h2, h3, h4 { font-family: var(--font-mono); line-height: 1.15; }
+    p { font-family: var(--font-body); }
+
+    /* Noise overlay */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999; opacity: 0.4;
+    }
+
+    /* ===== TOPBAR ===== */
+    .topbar {
+      background: var(--green-dark);
+      padding: 8px 0;
+      font-size: 0.78rem;
+      font-family: var(--font-mono);
+      letter-spacing: 0.03em;
+      color: var(--green-light);
+    }
+    .topbar-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 12px; flex-wrap: wrap;
+    }
+    .topbar a { color: var(--green-light); text-decoration: none; }
+    .topbar a:hover { color: var(--white); }
+    .topbar-left { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+    .topbar-left span { display: flex; align-items: center; gap: 6px; }
+
+    /* ===== HEADER / NAV ===== */
+    header {
+      position: sticky; top: 0; z-index: 1000;
+      background: rgba(244, 240, 232, 0.92);
+      border-bottom: 2px solid var(--border);
+      backdrop-filter: blur(12px);
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between; height: 64px;
+    }
+    .logo {
+      font-family: var(--font-mono); font-weight: 700; font-size: 1.1rem;
+      color: var(--green-dark); text-decoration: none;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .logo span { color: var(--green-accent); }
+    .navmenu ul { list-style: none; display: flex; gap: 8px; align-items: center; }
+    .navmenu a {
+      font-family: var(--font-mono); font-size: 0.8rem;
+      color: var(--ink-soft); text-decoration: none;
+      padding: 6px 12px; border-radius: 4px;
+      transition: all 0.2s; letter-spacing: 0.03em;
+    }
+    .navmenu a:hover, .navmenu a.active { background: var(--green-dark); color: var(--green-light); }
+    .nav-cta {
+      font-family: var(--font-mono); font-size: 0.78rem;
+      background: var(--green-accent); color: var(--green-dark) !important;
+      font-weight: 700; padding: 8px 16px !important; border-radius: 4px;
+    }
+    .nav-cta:hover { background: var(--green-dark) !important; color: var(--green-light) !important; }
+    .mobile-toggle {
+      display: none; cursor: pointer; font-size: 1.5rem;
+      color: var(--green-dark); background: none; border: none;
+    }
+    @media (max-width: 768px) {
+      .navmenu { display: none; position: absolute; top: 64px; left: 0; right: 0;
+        background: var(--cream); border-bottom: 2px solid var(--border); padding: 16px 24px; }
+      .navmenu.open { display: block; }
+      .navmenu ul { flex-direction: column; gap: 4px; }
+      .navmenu a { display: block; font-size: 0.9rem; }
+      .mobile-toggle { display: block; }
+    }
+
+    /* ===== HERO ===== */
+    .page-hero {
+      background: var(--green-dark);
+      padding: 60px 0 0;
+      position: relative; overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 60% at 80% 50%, rgba(46,192,106,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 80% at 20% 100%, rgba(46,192,106,0.08) 0%, transparent 50%);
+    }
+    .page-hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(46,192,106,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(46,192,106,0.06) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px 48px;
+      position: relative; z-index: 1;
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 48px; align-items: center;
+    }
+    .hero-tag {
+      display: inline-block;
+      font-family: var(--font-mono); font-size: 0.72rem;
+      color: var(--green-accent); border: 1px solid var(--green-accent);
+      padding: 4px 10px; border-radius: 2px;
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px;
+    }
+    .hero-inner h1 {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      color: var(--white); margin-bottom: 16px;
+    }
+    .hero-inner h1 em { font-style: normal; color: var(--green-accent); }
+    .hero-desc {
+      color: rgba(255,255,255,0.65); font-size: 1rem; max-width: 520px;
+      margin-bottom: 24px;
+    }
+    .hero-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(46,192,106,0.2);
+      border-radius: 2px; padding: 5px 12px;
+      font-family: var(--font-mono); font-size: 0.68rem;
+      color: rgba(255,255,255,0.8); letter-spacing: 0.04em;
+    }
+    .badge-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
+    /* stat block */
+    .hero-stat {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(46,192,106,0.2);
+      border-radius: 8px; padding: 28px 32px; text-align: center;
+      flex-shrink: 0; position: relative; z-index: 1;
+    }
+    .hero-stat .num {
+      font-family: var(--font-mono); font-size: 3.2rem; font-weight: 700;
+      color: var(--white); line-height: 1;
+    }
+    .hero-stat .num span { color: var(--green-accent); }
+    .hero-stat p { font-size: 0.82rem; color: rgba(255,255,255,0.5); margin-top: 8px; font-family: var(--font-mono); }
+
+    .wave { display: block; width: 100%; }
+
+    @media (max-width: 800px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-stat { display: none; }
+    }
+
+    /* ===== FILTER BAR ===== */
+    .filter-bar {
+      background: var(--white);
+      border-bottom: 2px solid var(--border);
+      padding: 14px 0;
+      position: sticky; top: 64px; z-index: 900;
+    }
+    .filter-bar-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    }
+    .search-wrap { flex: 1; min-width: 220px; position: relative; }
+    .search-wrap i {
+      position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+      color: var(--ink-muted); font-size: 0.85rem;
+    }
+    .search-input {
+      width: 100%; padding: 9px 14px 9px 36px;
+      border: 1.5px solid var(--border); border-radius: 4px;
+      font-family: var(--font-body); font-size: 0.88rem; color: var(--ink);
+      background: var(--cream); outline: none; transition: border-color 0.2s;
+    }
+    .search-input:focus { border-color: var(--green-accent); background: var(--white); }
+    .search-input::placeholder { color: var(--ink-muted); }
+
+    .filter-chips { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 14px; border-radius: 2px;
+      border: 1.5px solid var(--border);
+      font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.05em; cursor: pointer;
+      background: var(--cream); color: var(--ink-muted);
+      transition: all 0.2s; white-space: nowrap;
+    }
+    .chip:hover { border-color: var(--green-accent); color: var(--green-mid); }
+    .chip.active { background: var(--green-dark); border-color: var(--green-dark); color: var(--green-light); }
+    .chip-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
+    .filter-count {
+      font-family: var(--font-mono); font-size: 0.72rem;
+      color: var(--ink-muted); white-space: nowrap; margin-left: auto;
+    }
+    .filter-count strong { color: var(--green-dark); }
+
+    /* ===== MAP LAYOUT ===== */
+    .main-layout {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      height: calc(100vh - 64px - 54px);
+      max-height: 680px;
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      overflow-y: auto; border-right: 2px solid var(--border);
+      background: var(--white); scroll-behavior: smooth;
+    }
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: var(--cream); }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+    .sidebar-item {
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(46,192,106,0.1);
+      cursor: pointer; transition: background 0.18s;
+      display: flex; gap: 12px; align-items: flex-start;
+    }
+    .sidebar-item:hover { background: rgba(46,192,106,0.05); }
+    .sidebar-item.active {
+      background: rgba(46,192,106,0.07);
+      border-left: 3px solid var(--green-accent);
+    }
+
+    .sidebar-icon {
+      width: 38px; height: 38px; border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 2px; font-size: 1.1rem;
+    }
+    .sidebar-icon.mediatheque    { background: rgba(26,107,66,0.1); }
+    .sidebar-icon.france-services{ background: rgba(10,26,18,0.08); }
+    .sidebar-icon.permanence     { background: rgba(46,64,54,0.1);  }
+    .sidebar-icon.espace-public  { background: rgba(46,192,106,0.12); }
+    .sidebar-icon.freelance      { background: rgba(90,117,102,0.1); }
+    .sidebar-icon.coworking      { background: rgba(184,240,208,0.3); }
+
+    .sidebar-info { flex: 1; min-width: 0; }
+    .sidebar-info h4 {
+      font-family: var(--font-mono); font-size: 0.8rem;
+      color: var(--green-dark); margin-bottom: 4px; line-height: 1.3;
+    }
+    .type-tag {
+      display: inline-block; padding: 2px 8px; border-radius: 2px;
+      font-family: var(--font-mono); font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 5px;
+    }
+    .type-tag.mediatheque     { background: rgba(26,107,66,0.1);   color: var(--green-mid); }
+    .type-tag.france-services { background: rgba(10,26,18,0.08);   color: var(--ink-soft); }
+    .type-tag.permanence      { background: rgba(46,64,54,0.1);    color: var(--ink-soft); }
+    .type-tag.espace-public   { background: rgba(46,192,106,0.12); color: var(--green-mid); }
+    .type-tag.freelance       { background: rgba(90,117,102,0.1);  color: var(--ink-muted); }
+    .type-tag.coworking       { background: rgba(184,240,208,0.3); color: var(--green-dark); }
+
+    .sidebar-info .address {
+      font-size: 0.75rem; color: var(--ink-muted); margin-bottom: 4px;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .sidebar-info .address i { font-size: 0.7rem; flex-shrink: 0; }
+    .sidebar-info .schedule {
+      font-size: 0.72rem; color: var(--ink-muted);
+      display: flex; align-items: center; gap: 5px; flex-wrap: wrap;
+    }
+    .sidebar-info .schedule i { font-size: 0.7rem; flex-shrink: 0; }
+    .open-badge {
+      font-family: var(--font-mono); font-size: 0.62rem; font-weight: 700;
+      padding: 1px 7px; border-radius: 2px; margin-left: 4px;
+    }
+    .open-badge.open   { background: rgba(46,192,106,0.15); color: var(--green-mid); }
+    .open-badge.closed { background: rgba(10,26,18,0.08);   color: var(--ink-muted); }
+
+    .no-results {
+      padding: 56px 20px; text-align: center; color: var(--ink-muted);
+      display: none;
+    }
+    .no-results i { font-size: 2.5rem; color: var(--border); display: block; margin-bottom: 14px; }
+    .no-results p { font-family: var(--font-mono); font-size: 0.82rem; }
+
+    /* ===== MAP ===== */
+    #map { width: 100%; height: 100%; z-index: 1; }
+
+    /* Leaflet popup */
+    .leaflet-popup-content-wrapper {
+      border-radius: 6px !important;
+      box-shadow: 0 8px 32px rgba(13,61,43,0.18) !important;
+      border: 1px solid var(--border) !important;
+      padding: 0 !important; overflow: hidden;
+    }
+    .leaflet-popup-content { margin: 0 !important; width: 260px !important; }
+    .leaflet-popup-tip-container { margin-top: -1px; }
+    .popup-header {
+      padding: 14px 16px 10px;
+      border-bottom: 1px solid rgba(46,192,106,0.15);
+      background: var(--cream);
+    }
+    .popup-header .ptype {
+      font-family: var(--font-mono); font-size: 0.6rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; display: block;
+    }
+    .popup-header h3 {
+      font-family: var(--font-mono); font-size: 0.88rem;
+      color: var(--green-dark); line-height: 1.25;
+    }
+    .popup-body { padding: 12px 16px 14px; background: var(--white); }
+    .popup-row {
+      display: flex; align-items: flex-start; gap: 8px;
+      font-size: 0.78rem; color: var(--ink-muted); margin-bottom: 7px; line-height: 1.4;
+    }
+    .popup-row i { color: var(--green-mid); flex-shrink: 0; margin-top: 2px; font-size: 0.75rem; }
+    .popup-row:last-child { margin-bottom: 0; }
+    .popup-btn {
+      display: block; margin: 10px 16px 14px;
+      background: var(--green-accent); color: var(--green-dark);
+      border-radius: 4px; padding: 9px 16px;
+      font-family: var(--font-mono); font-weight: 700; font-size: 0.75rem;
+      text-align: center; text-decoration: none; letter-spacing: 0.05em;
+      transition: background 0.2s;
+    }
+    .popup-btn:hover { background: var(--green-dark); color: var(--green-light); }
+
+    /* ===== INFO SECTION ===== */
+    .info-section { background: var(--white); padding: 72px 0; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .section-label {
+      font-family: var(--font-mono); font-size: 0.72rem;
+      color: var(--green-mid); letter-spacing: 0.15em; text-transform: uppercase;
+      margin-bottom: 12px; display: flex; align-items: center; gap: 10px;
+    }
+    .section-label::before {
+      content: ''; display: inline-block;
+      width: 24px; height: 2px; background: var(--green-accent);
+    }
+    .section-title-block { margin-bottom: 48px; text-align: center; }
+    .section-title-block h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--green-dark); margin-bottom: 10px; }
+    .section-title-block p { color: var(--ink-muted); max-width: 520px; margin: 0 auto; }
+    .section-title-block .section-label { justify-content: center; }
+
+    .legend-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+      margin-bottom: 40px;
+    }
+    .legend-card {
+      background: var(--cream); border: 1px solid var(--border);
+      border-radius: 6px; padding: 22px 20px; text-align: left;
+      transition: transform 0.2s, border-color 0.2s; cursor: pointer;
+    }
+    .legend-card:hover { transform: translateY(-3px); border-color: var(--green-accent); }
+    .legend-emoji { font-size: 1.8rem; margin-bottom: 10px; display: block; }
+    .legend-card h3 {
+      font-family: var(--font-mono); font-size: 0.85rem;
+      color: var(--green-dark); margin-bottom: 6px;
+    }
+    .legend-card p { font-size: 0.82rem; color: var(--ink-muted); line-height: 1.55; }
+    .legend-count {
+      display: inline-block; margin-top: 10px;
+      padding: 2px 10px; border-radius: 2px;
+      font-family: var(--font-mono); font-size: 0.65rem; font-weight: 700;
+    }
+    .lc-mediatheque    { background: rgba(26,107,66,0.1);   color: var(--green-mid); }
+    .lc-france         { background: rgba(10,26,18,0.08);   color: var(--ink-soft); }
+    .lc-permanence     { background: rgba(46,64,54,0.1);    color: var(--ink-soft); }
+    .lc-epn            { background: rgba(46,192,106,0.12); color: var(--green-mid); }
+    .lc-freelance      { background: rgba(90,117,102,0.1);  color: var(--ink-muted); }
+    .lc-coworking      { background: rgba(184,240,208,0.3); color: var(--green-dark); }
+
+    /* alerte "lieu manquant" */
+    .no-lieu-box {
+      background: var(--cream); border: 1px solid var(--border);
+      border-radius: 6px; padding: 28px 32px;
+      display: flex; gap: 28px; align-items: center; flex-wrap: wrap;
+    }
+    .no-lieu-box div { flex: 1; min-width: 200px; }
+    .no-lieu-box h3 { font-size: 1rem; color: var(--green-dark); margin-bottom: 8px; }
+    .no-lieu-box p  { font-size: 0.87rem; color: var(--ink-muted); line-height: 1.7; }
+
+    /* ===== À PROPOS ===== */
+    .about-section { background: var(--cream); padding: 72px 0; }
+    .about-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 40px;
+    }
+    .about-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 6px; padding: 24px 22px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .about-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(13,61,43,0.08); }
+    .about-icon {
+      width: 44px; height: 44px; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 14px; font-size: 1.3rem;
+      background: rgba(46,192,106,0.1);
+    }
+    .about-card h3 { font-size: 0.92rem; color: var(--green-dark); margin-bottom: 8px; }
+    .about-card p  { font-size: 0.85rem; color: var(--ink-muted); line-height: 1.7; }
+
+    /* citation */
+    .about-quote {
+      background: var(--green-dark); border-radius: 8px;
+      padding: 36px 44px; margin-bottom: 28px;
+      position: relative; overflow: hidden;
+    }
+    .about-quote::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(46,192,106,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(46,192,106,0.06) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .about-quote blockquote {
+      font-family: var(--font-mono); font-size: 0.95rem; font-style: italic;
+      color: rgba(255,255,255,0.85); line-height: 1.7;
+      margin-bottom: 14px; position: relative; z-index: 1;
+    }
+    .about-quote cite {
+      font-family: var(--font-mono); font-size: 0.75rem;
+      color: var(--green-accent); position: relative; z-index: 1;
+    }
+
+    /* about cta */
+    .about-cta {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 28px; flex-wrap: wrap;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 6px; padding: 28px 32px;
+    }
+    .about-cta h3 { font-size: 1rem; color: var(--green-dark); margin-bottom: 6px; }
+    .about-cta p  { font-size: 0.87rem; color: var(--ink-muted); max-width: 520px; }
+
+    /* ===== BOUTONS ===== */
+    .btn-primary {
+      font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700;
+      background: var(--green-accent); color: var(--green-dark);
+      padding: 11px 22px; border-radius: 4px; text-decoration: none;
+      letter-spacing: 0.05em; transition: all 0.25s;
+      border: 2px solid var(--green-accent); display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-primary:hover { background: transparent; color: var(--green-accent); }
+    .btn-outline-dark {
+      font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700;
+      background: transparent; color: var(--ink-soft);
+      padding: 11px 22px; border-radius: 4px; text-decoration: none;
+      letter-spacing: 0.05em; transition: all 0.25s;
+      border: 2px solid var(--border); display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-outline-dark:hover { border-color: var(--green-accent); color: var(--green-mid); }
+
+    /* ===== CTA BANNER ===== */
+    .cta-banner {
+      background: var(--green-dark); padding: 60px 0;
+      position: relative; overflow: hidden;
+    }
+    .cta-banner::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(46,192,106,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(46,192,106,0.06) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .cta-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 40px; position: relative; z-index: 1; flex-wrap: wrap;
+    }
+    .cta-text h2 { font-size: clamp(1.4rem, 2.5vw, 1.9rem); color: var(--white); margin-bottom: 8px; }
+    .cta-text p  { color: rgba(255,255,255,0.6); font-size: 0.95rem; }
+    .cta-actions { display: flex; gap: 12px; flex-shrink: 0; flex-wrap: wrap; }
+    .btn-outline-light {
+      font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700;
+      background: transparent; color: rgba(255,255,255,0.8);
+      padding: 11px 22px; border-radius: 4px; text-decoration: none;
+      letter-spacing: 0.05em; transition: all 0.25s;
+      border: 2px solid rgba(255,255,255,0.25); display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-outline-light:hover { border-color: var(--green-accent); color: var(--green-accent); }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--green-dark);
+      padding: 56px 0 32px;
+      border-top: 2px solid rgba(46,192,106,0.15);
+    }
+    .footer-grid {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+      gap: 40px; margin-bottom: 40px;
+    }
+    .footer-brand p {
+      font-size: 0.87rem; color: rgba(255,255,255,0.45); line-height: 1.7; margin-bottom: 20px;
+    }
+    .footer-col h4 {
+      font-family: var(--font-mono); font-size: 0.75rem;
+      color: var(--green-light); letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 16px;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 8px; }
+    .footer-col ul a {
+      font-size: 0.87rem; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s;
+    }
+    .footer-col ul a:hover { color: var(--green-accent); }
+    .footer-contact-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 0.87rem; color: rgba(255,255,255,0.5); margin-bottom: 10px;
+    }
+    .footer-contact-item i { color: var(--green-accent); flex-shrink: 0; margin-top: 2px; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      max-width: 1200px; margin: 0 auto; padding: 20px 24px 0;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
+    }
+    .footer-bottom p { font-family: var(--font-mono); font-size: 0.75rem; color: rgba(255,255,255,0.3); }
+    .footer-bottom strong { color: rgba(255,255,255,0.55); }
+    .socials { display: flex; gap: 8px; margin-top: 16px; }
+    .social-btn {
+      width: 34px; height: 34px; border-radius: 4px;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(46,192,106,0.2);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .social-btn:hover { background: var(--green-accent); color: var(--green-dark); border-color: var(--green-accent); }
+
+    /* ===== ANIMATIONS ===== */
+    [data-reveal] { opacity: 0; transform: translateY(24px); transition: opacity 0.6s, transform 0.6s; }
+    [data-reveal].revealed { opacity: 1; transform: translateY(0); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .main-layout { grid-template-columns: 1fr; height: auto; max-height: none; }
+      .sidebar { max-height: 360px; border-right: none; border-bottom: 2px solid var(--border); }
+      #map { height: 420px; }
+      .legend-grid { grid-template-columns: 1fr 1fr; }
+      .about-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .cta-inner { flex-direction: column; }
+    }
+    @media (max-width: 600px) {
+      .legend-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .filter-count { width: 100%; }
+      .about-quote { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <span><i class="bi bi-envelope-fill"></i><a href="mailto:aleuredudigitale@gmail.com">aleuredudigitale@gmail.com</a></span>
+      <span><i class="bi bi-telephone-fill"></i><a href="tel:0658209902">06 58 20 99 02</a></span>
+      <span><i class="bi bi-geo-alt-fill"></i>Évreux &amp; département de l'Eure (27)</span>
+    </div>
+    <div>RNA&nbsp;:&nbsp;W272007431&nbsp;·&nbsp;SIREN&nbsp;:&nbsp;101049781</div>
+  </div>
+</div>
+
+<!-- HEADER STICKY -->
+<header>
+  <nav class="nav-inner">
+    <a href="index.html" class="logo">A l'Eure<span>_</span>Digitale</a>
+    <nav class="navmenu" id="navmenu">
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="index.html#about">À propos</a></li>
+        <li><a href="index.html#actions">Nos actions</a></li>
+        <li><a href="index.html#adherer">Adhérer</a></li>
+        <li><a href="cartes.html" class="active">Carte</a></li>
+        <li><a href="https://discord.gg/hxyp2qFFAN" target="_blank" style="display:flex;align-items:center;gap:5px;"><i class="bi bi-discord"></i> Discord</a></li>
+        <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+      </ul>
+    </nav>
+    <button class="mobile-toggle" onclick="document.getElementById('navmenu').classList.toggle('open')">
+      <i class="bi bi-list"></i>
+    </button>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="page-hero" data-reveal>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-tag">Carte interactive · Eure (27)</div>
+      <h1>Points d'accès<br>au numérique dans <em>l'Eure</em></h1>
+      <p class="hero-desc">Trouvez le lieu d'accompagnement le plus proche de chez vous : médiathèques, maisons France Services, permanences numériques et espaces publics connectés.</p>
+      <div class="hero-badges">
+        <span class="hero-badge"><span class="badge-dot" style="background:var(--green-mid)"></span> Médiathèques</span>
+        <span class="hero-badge"><span class="badge-dot" style="background:var(--ink-soft)"></span> France Services</span>
+        <span class="hero-badge"><span class="badge-dot" style="background:var(--ink-muted)"></span> Permanences</span>
+        <span class="hero-badge"><span class="badge-dot" style="background:var(--green-accent)"></span> EPN</span>
+        <span class="hero-badge"><span class="badge-dot" style="background:var(--ink)"></span> Freelances</span>
+        <span class="hero-badge"><span class="badge-dot" style="background:var(--green-light)"></span> Coworking</span>
+      </div>
+    </div>
+    <div class="hero-stat">
+      <div class="num">65<span>+</span></div>
+      <p>lieux d'accueil<br>dans tout le département</p>
+    </div>
+  </div>
+  <svg class="wave" viewBox="0 0 1440 48" xmlns="http://www.w3.org/2000/svg">
+    <path fill="#f4f0e8" d="M0,24 C360,48 1080,0 1440,24 L1440,48 L0,48 Z"/>
+  </svg>
+</section>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <div class="filter-bar-inner">
+    <div class="search-wrap">
+      <i class="bi bi-search"></i>
+      <input type="text" class="search-input" placeholder="Rechercher une commune, un lieu…" id="searchInput" oninput="filterPoints()">
+    </div>
+    <div class="filter-chips">
+      <button class="chip active" onclick="setFilter('all', this)">Tous</button>
+      <button class="chip" onclick="setFilter('mediatheque', this)">
+        <span class="chip-dot" style="background:var(--green-mid)"></span> Médiathèques
+      </button>
+      <button class="chip" onclick="setFilter('france-services', this)">
+        <span class="chip-dot" style="background:var(--ink-soft)"></span> France Services
+      </button>
+      <button class="chip" onclick="setFilter('permanence', this)">
+        <span class="chip-dot" style="background:var(--ink-muted)"></span> Permanences
+      </button>
+      <button class="chip" onclick="setFilter('espace-public', this)">
+        <span class="chip-dot" style="background:var(--green-accent)"></span> EPN
+      </button>
+      <button class="chip" onclick="setFilter('freelance', this)">
+        <span class="chip-dot" style="background:var(--ink)"></span> Freelances
+      </button>
+      <button class="chip" onclick="setFilter('coworking', this)">
+        <span class="chip-dot" style="background:var(--green-light)"></span> Coworking
+      </button>
+    </div>
+    <div class="filter-count" id="filterCount"><strong>32</strong> lieux affichés</div>
+  </div>
+</div>
+
+<!-- MAP + LIST -->
+<div class="main-layout">
+  <div class="sidebar" id="sidebar">
+    <div class="no-results" id="noResults">
+      <i class="bi bi-search"></i>
+      <p>Aucun lieu ne correspond à votre recherche.</p>
+    </div>
+  </div>
+  <div id="map"></div>
+</div>
+
+<!-- INFO SECTION -->
+<section class="info-section">
+  <div class="container">
+    <div class="section-title-block" data-reveal>
+      <div class="section-label">Types de lieux</div>
+      <h2>Quels types de lieux trouver ?</h2>
+      <p>Chaque point d'accès propose des services différents. Choisissez le lieu adapté à votre besoin.</p>
+    </div>
+
+    <div class="legend-grid">
+      <div class="legend-card" data-reveal onclick="setFilter('mediatheque', document.querySelectorAll('.chip')[1])">
+        <span class="legend-emoji">📚</span>
+        <h3>Médiathèques</h3>
+        <p>Accès libre aux ordinateurs, Wi-Fi, ateliers numériques réguliers, aide à l'utilisation des services en ligne.</p>
+        <span class="legend-count lc-mediatheque">9 lieux</span>
+      </div>
+      <div class="legend-card" data-reveal style="transition-delay:.06s" onclick="setFilter('france-services', document.querySelectorAll('.chip')[2])">
+        <span class="legend-emoji">🏛️</span>
+        <h3>France Services</h3>
+        <p>Accompagnement pour les démarches administratives en ligne : CAF, retraite, impôts, carte grise…</p>
+        <span class="legend-count lc-france">28 lieux</span>
+      </div>
+      <div class="legend-card" data-reveal style="transition-delay:.12s" onclick="setFilter('permanence', document.querySelectorAll('.chip')[3])">
+        <span class="legend-emoji">🤝</span>
+        <h3>Permanences numériques</h3>
+        <p>Permanences assurées par nos bénévoles pour un accompagnement personnalisé sur rendez-vous ou en accueil libre.</p>
+        <span class="legend-count lc-permanence">4 lieux</span>
+      </div>
+      <div class="legend-card" data-reveal style="transition-delay:.18s" onclick="setFilter('espace-public', document.querySelectorAll('.chip')[4])">
+        <span class="legend-emoji">💻</span>
+        <h3>Espaces Publics Numériques</h3>
+        <p>Espaces équipés d'ordinateurs en libre accès pour naviguer, imprimer, scanner ou suivre des formations en ligne.</p>
+        <span class="legend-count lc-epn">2 lieux</span>
+      </div>
+      <div class="legend-card" data-reveal style="transition-delay:.24s" onclick="setFilter('freelance', document.querySelectorAll('.chip')[5])">
+        <span class="legend-emoji">🧑‍💻</span>
+        <h3>Freelances partenaires</h3>
+        <p>Indépendants certifiés partenaires de l'association : formateurs, développeurs, graphistes et médiateurs numériques disponibles sur rendez-vous.</p>
+        <span class="legend-count lc-freelance">5 partenaires</span>
+      </div>
+      <div class="legend-card" data-reveal style="transition-delay:.30s" onclick="setFilter('coworking', document.querySelectorAll('.chip')[6])">
+        <span class="legend-emoji">🏢</span>
+        <h3>Espaces de coworking</h3>
+        <p>Bureaux partagés équipés, salles de réunion et open spaces pour travailler dans un cadre professionnel.</p>
+        <span class="legend-count lc-coworking">5 espaces</span>
+      </div>
+    </div>
+
+    <!-- "Lieu manquant" -->
+    <div class="no-lieu-box" data-reveal>
+      <div>
+        <h3>Vous ne trouvez pas de lieu près de chez vous ?</h3>
+        <p>Contactez-nous ! Nous pouvons orienter vers des aidants numériques partenaires non encore référencés, ou organiser une permanence dans votre commune.</p>
+      </div>
+      <a href="mailto:aleuredudigitale@gmail.com" class="btn-primary">Nous contacter <i class="bi bi-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- À PROPOS DE LA DÉMARCHE -->
+<section class="about-section" data-reveal>
+  <div class="container">
+
+    <div class="section-title-block" data-reveal>
+      <div class="section-label">Notre démarche</div>
+      <h2>Pourquoi cette carte ?</h2>
+      <p>Beaucoup d'habitants ont du mal avec les démarches en ligne ou l'accès à un ordinateur. Des ressources existent — mais elles sont dispersées et peu visibles. Cette carte regroupe tout en un seul endroit.</p>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-card" data-reveal>
+        <div class="about-icon"><i class="bi bi-geo-alt-fill" style="color:var(--green-mid)"></i></div>
+        <h3>Une initiative locale</h3>
+        <p>Portée par des bénévoles qui connaissent le terrain, cette carte est une ressource citoyenne, non commerciale, au service de tous les Eurois.</p>
+      </div>
+      <div class="about-card" data-reveal style="transition-delay:.06s">
+        <div class="about-icon"><i class="bi bi-people-fill" style="color:var(--green-mid)"></i></div>
+        <h3>Un réseau qui grandit</h3>
+        <p>Chaque lieu référencé, chaque freelance partenaire, chaque espace de coworking ajouté renforce un réseau qui profite à tous : habitants, structures et professionnels.</p>
+      </div>
+      <div class="about-card" data-reveal style="transition-delay:.12s">
+        <div class="about-icon"><i class="bi bi-check-circle-fill" style="color:var(--green-mid)"></i></div>
+        <h3>Gratuit et sans engagement</h3>
+        <p>Le référencement est entièrement gratuit. Vous gardez le contrôle sur les informations publiées et pouvez demander une modification à tout moment.</p>
+      </div>
+    </div>
+
+    <div class="about-quote" data-reveal>
+      <blockquote>Notre objectif n'est pas de construire un annuaire de plus, mais de rendre visibles des ressources qui existent déjà et qui méritent d'être connues. Chaque lieu ajouté, c'est un habitant qui trouvera de l'aide là où il n'aurait pas su chercher.</blockquote>
+      <cite>— L'équipe À l'Eure Digitale</cite>
+    </div>
+
+    <div class="about-cta" data-reveal>
+      <div>
+        <h3>Votre structure n'est pas encore référencée ?</h3>
+        <p>Que vous soyez un espace de coworking, un freelance, une médiathèque ou une maison France Services, rejoignez la carte gratuitement en nous envoyant quelques informations.</p>
+      </div>
+      <a href="mailto:aleuredudigitale@gmail.com" class="btn-primary">Demander un référencement <i class="bi bi-arrow-right"></i></a>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner" data-reveal>
+  <div class="cta-inner">
+    <div class="cta-text">
+      <h2>Devenez aidant numérique bénévole</h2>
+      <p>Signalez un lieu manquant ou proposez d'animer une permanence dans votre commune.</p>
+    </div>
+    <div class="cta-actions">
+      <a href="mailto:aleuredudigitale@gmail.com" class="btn-primary"><i class="bi bi-plus-circle"></i> Proposer un lieu</a>
+      <a href="index.html#adherer" class="btn-outline-light"><i class="bi bi-heart"></i> Rejoindre l'association</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col footer-brand">
+      <a href="index.html" class="logo" style="color:var(--white); margin-bottom:14px; display:inline-flex;">A l'Eure<span style="color:var(--green-accent)">_</span>Digitale</a>
+      <p>Le numérique pour tous, partout dans l'Eure. Association loi 1901 ancrée dans le département de l'Eure.</p>
+      <div class="socials">
+        <a href="#" class="social-btn" title="Discord"><i class="bi bi-discord"></i></a>
+        <a href="#" class="social-btn" title="GitHub"><i class="bi bi-github"></i></a>
+        <a href="#" class="social-btn" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="index.html#about">L'association</a></li>
+        <li><a href="index.html#actions">Nos actions</a></li>
+        <li><a href="index.html#adherer">Adhérer</a></li>
+        <li><a href="cartes.html">Carte des lieux</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Infos pratiques</h4>
+      <ul>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Mentions légales</a></li>
+        <li><a href="#">Politique de confidentialité</a></li>
+        <li><a href="#">Plan du site</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Nous contacter</h4>
+      <div class="footer-contact-item"><i class="bi bi-geo-alt-fill"></i><span>Évreux &amp; département de l'Eure (27)</span></div>
+      <div class="footer-contact-item"><i class="bi bi-telephone-fill"></i><span>06 58 20 99 02</span></div>
+      <div class="footer-contact-item"><i class="bi bi-envelope-fill"></i><span>aleuredudigitale@gmail.com</span></div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 <strong>À l'Eure Digitale</strong> — Association loi 1901</p>
+    <p style="font-family:var(--font-mono);font-size:0.72rem;color:rgba(255,255,255,0.2);">Numérique éthique · Open Source · Ancrage local</p>
+  </div>
+</footer>
+
+<!-- SCROLL TOP -->
+<a href="#" id="scroll-top" style="
+  position:fixed; bottom:28px; right:28px;
+  width:44px; height:44px; background:var(--green-accent);
+  color:var(--green-dark); border-radius:6px;
+  display:flex; align-items:center; justify-content:center;
+  text-decoration:none; font-size:1.2rem;
+  opacity:0; pointer-events:none; transition:opacity 0.3s; z-index:500;
+" id="scrollTopBtn"><i class="bi bi-arrow-up-short"></i></a>
+
+<script>
+// ── DATA ──────────────────────────────────────────────
+const points = [
+  // Médiathèques
+  { id:1,  name:"Médiathèque d'Évreux",                     type:"mediatheque",     address:"1 rue de la Madeleine, 27000 Évreux",                    schedule:"Mar–Sam 10h–18h",                          lat:49.0232, lng:1.1502, open:true },
+  { id:2,  name:"Médiathèque de Bernay",                    type:"mediatheque",     address:"12 rue Thiers, 27300 Bernay",                            schedule:"Mar–Sam 9h–17h",                           lat:49.0892, lng:0.5987, open:true },
+  { id:3,  name:"Médiathèque de Louviers",                  type:"mediatheque",     address:"Place Ernest Thorel, 27400 Louviers",                    schedule:"Mar–Dim 10h–18h",                          lat:49.2176, lng:1.1699, open:true },
+  { id:4,  name:"Médiathèque de Vernon",                    type:"mediatheque",     address:"8 Place du Marché, 27200 Vernon",                        schedule:"Mer–Sam 10h–17h",                          lat:49.0929, lng:1.4827, open:false },
+  { id:5,  name:"Médiathèque de Gisors",                    type:"mediatheque",     address:"Rue de Vienne, 27140 Gisors",                            schedule:"Mar–Sam 10h–18h",                          lat:49.2827, lng:1.7737, open:true },
+  { id:6,  name:"Médiathèque des Andelys",                  type:"mediatheque",     address:"Place de la Mairie, 27700 Les Andelys",                  schedule:"Mer–Sam 10h–17h",                          lat:49.2466, lng:1.5754, open:true },
+  { id:7,  name:"Médiathèque de Pont-Audemer",              type:"mediatheque",     address:"3 Rue de la République, 27500 Pont-Audemer",             schedule:"Mar–Sam 9h–17h30",                         lat:49.3579, lng:0.5145, open:true },
+  { id:8,  name:"Médiathèque de L'Aigle",                   type:"mediatheque",     address:"Place Fulbert de Beina, 61300 L'Aigle",                  schedule:"Mar–Sam 10h–18h",                          lat:48.7649, lng:0.6291, open:false },
+  { id:9,  name:"Médiathèque de Verneuil d'Avre et d'Iton", type:"mediatheque",     address:"Rue de la Madeleine, 27130 Verneuil",                    schedule:"Mar–Sam 10h–17h",                          lat:48.7313, lng:0.9284, open:true },
+  // France Services
+  { id:10, name:"France Services – Évreux",                 type:"france-services", address:"1 rue Frédéric et Irène Joliot-Curie, 27000 Évreux",     schedule:"Lun–Ven 9h–17h",                          lat:49.0250, lng:1.1510, open:true },
+  { id:11, name:"France Services – Bernay",                 type:"france-services", address:"6 rue Thomas Lindet, 27300 Bernay",                      schedule:"Lun–Ven 9h–17h",                          lat:49.0880, lng:0.5985, open:true },
+  { id:12, name:"France Services – Pont-Audemer",           type:"france-services", address:"8 bis rue de l'Industrie Rouer, 27500 Pont-Audemer",     schedule:"Jours variables",                          lat:49.3590, lng:0.5120, open:true },
+  { id:13, name:"France Services – Gaillon",                type:"france-services", address:"12-14 rue Jean-Moulin, 27600 Gaillon",                   schedule:"Lun–Ven 9h–17h",                          lat:49.1610, lng:1.3340, open:true },
+  { id:14, name:"France Services – Breteuil",               type:"france-services", address:"Rue d'Huckelhoven, 27160 Breteuil",                      schedule:"Lun–Ven 9h–17h",                          lat:48.8310, lng:0.9150, open:true },
+  { id:15, name:"France Services – Rugles",                 type:"france-services", address:"33 ter rue Aristide Briand, 27250 Rugles",               schedule:"Lun–Ven 9h–17h",                          lat:48.8205, lng:0.7020, open:true },
+  { id:16, name:"France Services – Beaumont-le-Roger",      type:"france-services", address:"1 bis place de l'Église, 27170 Beaumont-le-Roger",       schedule:"Lun–Ven 9h–17h",                          lat:49.0800, lng:0.7480, open:true },
+  { id:33, name:"France Services – Beuzeville",             type:"france-services", address:"Rue des Anciens d'AFN, 27210 Beuzeville",                schedule:"Lun–Ven 9h–17h",                          lat:49.3440, lng:0.3460, open:true },
+  { id:34, name:"France Services – Bourg-Achard",           type:"france-services", address:"250 rue de la Libération, 27310 Bourg-Achard",           schedule:"Lun–Ven 9h–17h",                          lat:49.3510, lng:0.8270, open:true },
+  { id:35, name:"France Services – Brionne",                type:"france-services", address:"1 rue de la Soie, 27800 Brionne",                        schedule:"Lun–Ven 9h–17h",                          lat:49.1980, lng:0.7220, open:true },
+  { id:36, name:"France Services – Conches-en-Ouche",       type:"france-services", address:"32 place Carnot, 27190 Conches-en-Ouche",                schedule:"Lun–Ven 9h–17h",                          lat:48.9600, lng:0.9310, open:true },
+  { id:37, name:"France Services – Fleury-sur-Andelle",     type:"france-services", address:"6 rue Augustin Léonard, 27380 Fleury-sur-Andelle",       schedule:"Lun–Ven 9h–17h",                          lat:49.3730, lng:1.3760, open:true },
+  { id:38, name:"France Services – Gisors",                 type:"france-services", address:"28 rue Riegelsberg, 27140 Gisors",                       schedule:"Lun–Ven 9h–17h",                          lat:49.2810, lng:1.7740, open:true },
+  { id:39, name:"France Services – Grand-Bourgtheroulde",   type:"france-services", address:"66 route de Rouen, 27520 Grand Bourgtheroulde",          schedule:"Lun–Ven 9h–17h",                          lat:49.3060, lng:0.8730, open:true },
+  { id:40, name:"France Services – Le Neubourg",            type:"france-services", address:"Place du Maréchal Leclerc, 27110 Le Neubourg",           schedule:"Lun–Ven 9h–17h",                          lat:49.1510, lng:0.9060, open:true },
+  { id:41, name:"France Services – Les Andelys",            type:"france-services", address:"1 rue des Oiseaux, 27700 Les Andelys",                   schedule:"Lun–Ven 9h–17h",                          lat:49.2460, lng:1.4160, open:true },
+  { id:42, name:"France Services – Louviers",               type:"france-services", address:"3 bis chemin des Fontenelles, 27400 Louviers",           schedule:"Lun–Ven 9h–17h",                          lat:49.2150, lng:1.1660, open:true },
+  { id:43, name:"France Services – Mesnil-en-Ouche",        type:"france-services", address:"1 place de la Mairie, 27330 Mesnil-en-Ouche",            schedule:"Lun–Ven 9h–17h",                          lat:48.9870, lng:0.6580, open:true },
+  { id:44, name:"France Services – Mesnils-sur-Iton",       type:"france-services", address:"51 rue Sylvain Lagescarde, 27240 Mesnils-sur-Iton",      schedule:"Lun–Ven 9h–17h",                          lat:48.8700, lng:1.0800, open:true },
+  { id:45, name:"France Services – Pacy-sur-Eure",          type:"france-services", address:"65 ter rue Marcel Moisson, 27120 Pacy-sur-Eure",         schedule:"Lun–Ven 9h–17h",                          lat:49.0170, lng:1.3840, open:true },
+  { id:46, name:"France Services – Pont-de-l'Arche",        type:"france-services", address:"52 rue du Général-de-Gaulle, 27340 Pont-de-l'Arche",     schedule:"Lun–Ven 9h–17h",                          lat:49.3040, lng:1.1560, open:true },
+  { id:47, name:"France Services – Saint-André-de-l'Eure",  type:"france-services", address:"Place du Général-de-Gaulle, 27220 Saint-André-de-l'Eure",schedule:"Lun–Ven 9h–17h",                          lat:48.9180, lng:1.2620, open:true },
+  { id:48, name:"France Services – Val-de-Reuil",           type:"france-services", address:"Place aux Jeunes, 27100 Val-de-Reuil",                   schedule:"Lun–Ven 9h–17h",                          lat:49.2630, lng:1.2000, open:true },
+  { id:49, name:"France Services – Verneuil d'Avre et d'Iton",type:"france-services",address:"86 rue André Chasles, 27130 Verneuil d'Avre et d'Iton", schedule:"Lun–Ven 9h–17h",                          lat:48.7310, lng:0.9290, open:true },
+  { id:50, name:"France Services – La Trinité-de-Réville",  type:"france-services", address:"652 route de l'Église, 27270 La Trinité-de-Réville",     schedule:"Lun–Ven 9h–17h",                          lat:49.0350, lng:0.6800, open:true },
+  { id:51, name:"France Services – Fourges",                type:"france-services", address:"9 route d'Ecos, 27630 Fourges",                         schedule:"Lun–Ven 9h–17h",                          lat:49.1940, lng:1.5280, open:true },
+  { id:52, name:"France Services – Tourny",                 type:"france-services", address:"5 rue Aval, 27510 Tourny",                              schedule:"Lun–Ven 9h–17h",                          lat:49.2040, lng:1.5590, open:true },
+  { id:53, name:"France Services – Thuit de l'Oison",       type:"france-services", address:"29A rue Henri-de-Campion, 27370 Le Thuit de l'Oison",    schedule:"Lun–Ven 9h–17h",                          lat:49.2960, lng:0.9480, open:true },
+  // Permanences
+  { id:17, name:"Permanence numérique – Damville",          type:"permanence",      address:"Salle des fêtes, 27240 Damville",                        schedule:"1er et 3e Mer du mois 14h–17h",            lat:48.8696, lng:1.0790, open:false },
+  { id:18, name:"Permanence numérique – Bourgtheroulde",    type:"permanence",      address:"Mairie, 27520 Bourgtheroulde",                           schedule:"Chaque Ven 9h30–12h",                      lat:49.3057, lng:0.8726, open:true },
+  { id:19, name:"Permanence numérique – Pacy-sur-Eure",     type:"permanence",      address:"Médiathèque, 27120 Pacy-sur-Eure",                       schedule:"2e et 4e Jeu du mois 14h–17h",             lat:49.0169, lng:1.3836, open:false },
+  { id:20, name:"Permanence numérique – Conches-en-Ouche",  type:"permanence",      address:"Centre social, 27190 Conches-en-Ouche",                  schedule:"Chaque Mar 10h–12h",                       lat:48.9595, lng:0.9319, open:true },
+  // EPN
+  { id:21, name:"Espace Public Numérique – Évreux",         type:"espace-public",   address:"10 Rue Joséphine, 27000 Évreux",                         schedule:"Lun–Ven 9h–18h",                          lat:49.0247, lng:1.1488, open:true },
+  { id:22, name:"Espace Public Numérique – Louviers",       type:"espace-public",   address:"Maison du citoyen, 27400 Louviers",                      schedule:"Mar–Sam 10h–17h",                          lat:49.2151, lng:1.1680, open:true },
+  // Freelances
+  { id:23, name:"Sophie Martin – Formatrice numérique",     type:"freelance",       address:"12 Rue des Arts, 27000 Évreux",                          schedule:"Sur rendez-vous",                          lat:49.0259, lng:1.1531, open:true,  specialty:"Formation bureautique & réseaux sociaux",    phone:"06 12 34 56 78" },
+  { id:24, name:"Thomas Lefèvre – Consultant web",          type:"freelance",       address:"5 Allée des Tilleuls, 27300 Bernay",                     schedule:"Lun–Ven sur rendez-vous",                  lat:49.0878, lng:0.6012, open:true,  specialty:"Création de sites web & e-commerce",         phone:"06 23 45 67 89" },
+  { id:25, name:"Amira Benali – Médiatrice numérique",      type:"freelance",       address:"8 Place du Marché, 27400 Louviers",                      schedule:"Mar, Jeu 9h–17h",                          lat:49.2190, lng:1.1715, open:true,  specialty:"Inclusion numérique & seniors",              phone:"07 34 56 78 90" },
+  { id:26, name:"Lucas Dupont – Développeur & formateur",   type:"freelance",       address:"3 Rue de la Paix, 27200 Vernon",                         schedule:"Sur rendez-vous",                          lat:49.0940, lng:1.4852, open:false, specialty:"Initiation au code & cybersécurité",         phone:"06 45 67 89 01" },
+  { id:27, name:"Claire Rousseau – Graphiste numérique",    type:"freelance",       address:"17 Bd Gambetta, 27500 Pont-Audemer",                     schedule:"Mer–Ven sur rendez-vous",                  lat:49.3601, lng:0.5162, open:true,  specialty:"Communication visuelle & outils créatifs",   phone:"07 56 78 90 12" },
+  // Coworking
+  { id:28, name:"La Filature – Louviers",                   type:"coworking",       address:"26 Av. Winston Churchill, 27400 Louviers",               schedule:"Lun–Ven 8h30–17h30",                       lat:49.2255, lng:1.1696, open:true,  amenities:"1 700 m², open space, bureaux privatifs, salles de réunion, fibre, parking 300 pl.", price:"Sur devis · lafilature.space" },
+  { id:29, name:"La Filature – Évreux",                     type:"coworking",       address:"Ancienne Banque de France, 27000 Évreux",                schedule:"Lun–Ven 8h30–17h30",                       lat:49.0260, lng:1.1530, open:true,  amenities:"Open space, bureaux privatifs, salles de réunion, cadre historique rénové",         price:"Sur devis · lafilature.space" },
+  { id:30, name:"Cosywork – Vernon",                        type:"coworking",       address:"39–41 Rue Émile Steiner, 27200 Vernon",                  schedule:"Lun–Ven 8h–18h (résidents 24h/24)",         lat:49.0940, lng:1.4830, open:true,  amenities:"Bureaux privatifs, salles de réunion, terrasse, cuisine, parking, fibre",           price:"28 €/jour · cosywork.fr" },
+  { id:31, name:"Be Coworking – Gisors",                    type:"coworking",       address:"25 Rue de Delincourt, 27140 Gisors",                     schedule:"Lun–Ven 8h–18h (résidents 24h/24)",         lat:49.2800, lng:1.7790, open:true,  amenities:"Open space, bureaux privatifs, salle de réunion, espace détente, PMR, climatisation",price:"Sur devis · be-coworking.fr" },
+  { id:32, name:"Espace du Cosnier – Bernay",               type:"coworking",       address:"2 Place Haslemere, 27300 Bernay",                        schedule:"Sur réservation",                          lat:49.0877, lng:0.5983, open:true,  amenities:"Fibre, kitchenette, domiciliation, vidéoprojecteur, cour intérieure",              price:"15 €/jour · 200 €/mois · espaceducosnier.fr" },
+];
+
+// ── MAP ──────────────────────────────────────────────
+const map = L.map('map', { zoomControl: true }).setView([49.05, 1.0], 9);
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+  maxZoom: 18
+}).addTo(map);
+
+// Marqueurs avec les couleurs du design system
+const markerColors = {
+  'mediatheque':     { bg:'#1a6b42', border:'#0d3d2b', emoji:'📚' },
+  'france-services': { bg:'#0a1a12', border:'#000',    emoji:'🏛️' },
+  'permanence':      { bg:'#2e4036', border:'#0d3d2b', emoji:'🤝' },
+  'espace-public':   { bg:'#2ec06a', border:'#1a6b42', emoji:'💻' },
+  'freelance':       { bg:'#5a7566', border:'#2e4036', emoji:'🧑‍💻' },
+  'coworking':       { bg:'#b8f0d0', border:'#2ec06a', emoji:'🏢' },
+};
+
+const typeLabels = {
+  'mediatheque':     'Médiathèque',
+  'france-services': 'France Services',
+  'permanence':      'Permanence numérique',
+  'espace-public':   'Espace Public Numérique',
+  'freelance':       'Freelance partenaire',
+  'coworking':       'Espace de coworking',
+};
+
+const typeIcons = {
+  'mediatheque':     `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>`,
+  'france-services': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
+  'permanence':      `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+  'espace-public':   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="2" y1="20" x2="22" y2="20"/></svg>`,
+  'freelance':       `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>`,
+  'coworking':       `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>`,
+};
+
+const leafletMarkers = {};
+
+function createMarkerIcon(type) {
+  const c = markerColors[type];
+  const textColor = type === 'coworking' ? '#0d3d2b' : '#fff';
+  return L.divIcon({
+    className: '',
+    html: `<div style="
+      width:36px;height:36px;border-radius:50%;
+      background:${c.bg};border:3px solid ${c.border};
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 3px 12px rgba(0,0,0,.25);
+      font-size:15px;cursor:pointer;
+    ">${c.emoji}</div>`,
+    iconSize: [36, 36],
+    iconAnchor: [18, 36],
+    popupAnchor: [0, -38],
+  });
+}
+
+function buildPopup(p) {
+  const typeCls = p.type;
+  const typeLabel = typeLabels[p.type];
+  const openLabel = p.type === 'freelance' ? (p.open ? 'Disponible' : 'Indisponible') : (p.open ? 'Ouvert' : 'Fermé');
+  const specialtyRow = p.specialty ? `<div class="popup-row"><i class="bi bi-star-fill"></i>${p.specialty}</div>` : '';
+  const phoneRow     = p.phone    ? `<div class="popup-row"><i class="bi bi-telephone-fill"></i><a href="tel:${p.phone}" style="color:inherit;text-decoration:none;">${p.phone}</a></div>` : '';
+  const amenitiesRow = p.amenities? `<div class="popup-row"><i class="bi bi-check-circle-fill"></i>${p.amenities}</div>` : '';
+  const priceRow     = p.price    ? `<div class="popup-row"><i class="bi bi-tag-fill" style="color:var(--green-accent)"></i><strong style="color:var(--green-mid)">${p.price}</strong></div>` : '';
+  return `
+    <div class="popup-header">
+      <span class="ptype type-tag ${typeCls}">${typeLabel}</span>
+      <h3>${p.name}</h3>
+    </div>
+    <div class="popup-body">
+      <div class="popup-row"><i class="bi bi-geo-alt-fill"></i>${p.address}</div>
+      <div class="popup-row"><i class="bi bi-clock-fill"></i>${p.schedule} <span class="open-badge ${p.open ? 'open' : 'closed'}">${openLabel}</span></div>
+      ${specialtyRow}${phoneRow}${amenitiesRow}${priceRow}
+    </div>
+    <a href="index.html#contact" class="popup-btn">Prendre rendez-vous →</a>
+  `;
+}
+
+points.forEach(p => {
+  const marker = L.marker([p.lat, p.lng], { icon: createMarkerIcon(p.type) })
+    .addTo(map)
+    .bindPopup(buildPopup(p), { maxWidth: 280 });
+  marker.on('click', () => highlightSidebarItem(p.id));
+  leafletMarkers[p.id] = marker;
+});
+
+// ── SIDEBAR ──────────────────────────────────────────
+let currentFilter = 'all';
+
+function buildSidebar(filtered) {
+  const sidebar = document.getElementById('sidebar');
+  const noResults = document.getElementById('noResults');
+  sidebar.querySelectorAll('.sidebar-item').forEach(el => el.remove());
+
+  if (filtered.length === 0) { noResults.style.display = 'block'; return; }
+  noResults.style.display = 'none';
+
+  filtered.forEach(p => {
+    const item = document.createElement('div');
+    item.className = 'sidebar-item';
+    item.dataset.id = p.id;
+    const openLabel = p.type === 'freelance' ? (p.open ? 'Disponible' : 'Indisponible') : (p.open ? 'Ouvert' : 'Fermé');
+    const openHtml = p.open
+      ? `<span class="open-badge open">${openLabel}</span>`
+      : `<span class="open-badge closed">${openLabel}</span>`;
+    item.innerHTML = `
+      <div class="sidebar-icon ${p.type}">${typeIcons[p.type]}</div>
+      <div class="sidebar-info">
+        <span class="type-tag ${p.type}">${typeLabels[p.type]}</span>
+        <h4>${p.name}</h4>
+        ${p.specialty ? `<div class="address" style="color:var(--green-mid)"><i class="bi bi-star-fill" style="color:var(--green-mid)"></i>${p.specialty}</div>` : ''}
+        ${p.amenities ? `<div class="address" style="color:var(--ink-muted)"><i class="bi bi-check-circle-fill"></i>${p.amenities}</div>` : ''}
+        ${p.price     ? `<div class="address" style="color:var(--green-mid);font-weight:700"><i class="bi bi-tag-fill"></i>${p.price}</div>` : ''}
+        <div class="address"><i class="bi bi-geo-alt-fill"></i>${p.address}</div>
+        <div class="schedule"><i class="bi bi-clock-fill"></i>${p.schedule} ${openHtml}</div>
+      </div>
+    `;
+    item.addEventListener('click', () => {
+      document.querySelectorAll('.sidebar-item').forEach(el => el.classList.remove('active'));
+      item.classList.add('active');
+      map.flyTo([p.lat, p.lng], 13, { duration: 0.8 });
+      setTimeout(() => leafletMarkers[p.id].openPopup(), 900);
+    });
+    sidebar.insertBefore(item, noResults);
+  });
+
+  document.getElementById('filterCount').innerHTML = `<strong>${filtered.length}</strong> lieu${filtered.length > 1 ? 'x' : ''} affiché${filtered.length > 1 ? 's' : ''}`;
+}
+
+function highlightSidebarItem(id) {
+  document.querySelectorAll('.sidebar-item').forEach(el => el.classList.remove('active'));
+  const item = document.querySelector(`.sidebar-item[data-id="${id}"]`);
+  if (item) { item.classList.add('active'); item.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+}
+
+function getFiltered() {
+  const q = document.getElementById('searchInput').value.toLowerCase().trim();
+  return points.filter(p => {
+    const matchType = currentFilter === 'all' || p.type === currentFilter;
+    const matchSearch = !q || p.name.toLowerCase().includes(q) || p.address.toLowerCase().includes(q);
+    return matchType && matchSearch;
+  });
+}
+
+function filterPoints() {
+  const filtered = getFiltered();
+  buildSidebar(filtered);
+  points.forEach(p => {
+    const marker = leafletMarkers[p.id];
+    const isVisible = filtered.find(f => f.id === p.id);
+    if (isVisible) { if (!map.hasLayer(marker)) marker.addTo(map); }
+    else           { if (map.hasLayer(marker))  map.removeLayer(marker); }
+  });
+}
+
+function setFilter(type, btn) {
+  currentFilter = type;
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  filterPoints();
+}
+
+buildSidebar(points);
+
+// ── SCROLL REVEAL ────────────────────────────────────
+const reveals = document.querySelectorAll('[data-reveal]');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); io.unobserve(e.target); } });
+}, { threshold: 0.1 });
+reveals.forEach(el => io.observe(el));
+document.querySelector('.page-hero').classList.add('revealed');
+
+// ── SCROLL TOP ───────────────────────────────────────
+const scrollTopBtn = document.getElementById('scrollTopBtn');
+window.addEventListener('scroll', () => {
+  const show = window.scrollY > 400;
+  scrollTopBtn.style.opacity = show ? '1' : '0';
+  scrollTopBtn.style.pointerEvents = show ? 'auto' : 'none';
+});
+
+// ── MOBILE NAV ───────────────────────────────────────
+document.querySelectorAll('.navmenu a').forEach(a => {
+  a.addEventListener('click', () => document.getElementById('navmenu').classList.remove('open'));
+});
+</script>
+</body>
+</html>

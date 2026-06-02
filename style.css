@@ -804,3 +804,140 @@
     }
     #scroll-top.visible { opacity: 1; pointer-events: auto; }
     #scroll-top:hover { background: var(--green-dark); color: var(--green-accent); }
+
+    /* ===== PERMANENCES ===== */
+    .permanences {
+      background: var(--cream);
+      padding: 100px 0;
+      border-top: 1px solid var(--border);
+    }
+    .permanences-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .permanence-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 26px;
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    }
+    .permanence-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(13,61,43,0.1);
+      border-color: var(--green-accent);
+    }
+    .permanence-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+    .permanence-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--green-dark);
+      color: var(--green-accent);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .permanence-badge {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: rgba(46,192,106,0.12);
+      color: var(--green-mid);
+      border: 1px solid rgba(46,192,106,0.3);
+      border-radius: 20px;
+      padding: 3px 10px;
+    }
+    .permanence-badge--alt {
+      background: rgba(13,61,43,0.07);
+      color: var(--ink-soft);
+      border-color: rgba(13,61,43,0.15);
+    }
+    .permanence-card h4 {
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+    .permanence-details {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .permanence-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      font-size: 0.86rem;
+      color: var(--ink-soft);
+    }
+    .permanence-detail i {
+      color: var(--green-accent);
+      font-size: 0.9rem;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+    .permanence-desc {
+      font-size: 0.86rem;
+      color: var(--ink-muted);
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }
+    .permanence-tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      background: var(--cream);
+      color: var(--ink-soft);
+      border: 1px solid rgba(13,61,43,0.15);
+      border-radius: 4px;
+      padding: 3px 8px;
+      margin-right: 6px;
+      margin-top: 4px;
+    }
+    .permanences-note {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: rgba(46,192,106,0.07);
+      border: 1px solid rgba(46,192,106,0.2);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-top: 40px;
+    }
+    .permanences-note i {
+      color: var(--green-mid);
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .permanences-note p {
+      font-size: 0.87rem;
+      color: var(--ink-soft);
+      line-height: 1.65;
+    }
+    .permanences-note a {
+      color: var(--green-mid);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .permanences-note a:hover { text-decoration: underline; }
+
+    @media (max-width: 768px) {
+      .permanences-grid { grid-template-columns: 1fr; }
+    }
+
