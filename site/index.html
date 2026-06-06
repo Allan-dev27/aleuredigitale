@@ -1,0 +1,3338 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>À l'Eure Digitale — Communauté numérique en Normandie</title>
+
+  <!-- ══ SEO & OPEN GRAPH ══════════════════════════════ -->
+  <meta name="description" content="À l'Eure Digitale est une communauté numérique bienveillante et inclusive en Normandie. Ateliers gratuits, entraide, projets open source et permanences hebdomadaires — ouverts à tous les niveaux."/>
+  <meta name="keywords" content="numérique, Normandie, Eure, communauté, ateliers, open source, association, Discord, formation, entraide"/>
+  <meta name="author" content="À l'Eure Digitale"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://aleuredigitale.netlify.app/"/>
+
+  <!-- Open Graph (partage réseaux sociaux) -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://aleuredigitale.netlify.app/"/>
+  <meta property="og:title" content="À l'Eure Digitale — Communauté numérique en Normandie"/>
+  <meta property="og:description" content="Une communauté numérique bienveillante et inclusive, ouverte à tous les niveaux. Ateliers gratuits, entraide, projets open source — département de l'Eure, Normandie."/>
+  <meta property="og:image" content="https://aleuredigitale.netlify.app/og-image.png"/>
+  <meta property="og:locale" content="fr_FR"/>
+  <meta property="og:site_name" content="À l'Eure Digitale"/>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="À l'Eure Digitale — Communauté numérique en Normandie"/>
+  <meta name="twitter:description" content="Une communauté numérique bienveillante et inclusive en Normandie. Ateliers gratuits, entraide, projets open source."/>
+  <meta name="twitter:image" content="https://aleuredigitale.netlify.app/og-image.png"/>
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+  <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
+
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    /* ── Section Agenda intégrée ───────────────── */
+    #agenda {
+      padding: 100px 0 80px;
+      background: var(--bg-section, #f8fafc);
+    }
+    [data-theme="dark"] #agenda {
+      background: var(--bg-section, #0f1923);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ BANNIÈRE RGPD ═══════════════════════════════════ -->
+<div id="cookieBanner" class="cookie-banner" role="dialog" aria-label="Consentement cookies" aria-live="polite">
+  <div class="cookie-inner">
+    <div class="cookie-text">
+      <span class="cookie-ico">🍪</span>
+      <div>
+        <strong>Ce site respecte votre vie privée</strong>
+        <p>Nous n'utilisons aucun cookie tiers ni analytics. Seules des données techniques indispensables au bon fonctionnement du site (préférence de thème) sont stockées localement sur votre appareil.</p>
+      </div>
+    </div>
+    <div class="cookie-actions">
+      <button class="cookie-btn-ok" id="cookieAccept">J'ai compris ✓</button>
+      <button class="cookie-btn-more" id="cookieMore">En savoir plus</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL ATELIER ════════════════════════════════════ -->
+<div id="eventModal" class="event-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+  <div class="event-modal">
+    <button class="modal-close" id="modalClose" aria-label="Fermer"><i class="fas fa-times"></i></button>
+    <div class="modal-type-badge" id="modalBadge"></div>
+    <h3 class="modal-title" id="modalTitle"></h3>
+    <div class="modal-date" id="modalDate"></div>
+    <p class="modal-desc" id="modalDesc"></p>
+    <div class="modal-meta" id="modalMeta"></div>
+    <div class="modal-actions">
+      <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="modal-btn-discord">
+        <i class="fab fa-discord"></i> Rejoindre sur Discord
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL AGENDA ═════════════════════════════════════ -->
+<div id="agModal" class="ag-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="agModalTitle" hidden>
+  <div class="ag-modal">
+    <button class="ag-modal-close" id="agModalClose" aria-label="Fermer"><i class="fas fa-times"></i></button>
+    <div class="ag-modal-badge" id="agModalBadge"></div>
+    <h2 class="ag-modal-title" id="agModalTitle"></h2>
+    <div class="ag-modal-date" id="agModalDate"></div>
+    <p class="ag-modal-desc" id="agModalDesc"></p>
+    <div class="ag-modal-meta" id="agModalMeta"></div>
+    <div class="ag-modal-tags" id="agModalTags"></div>
+    <div class="ag-modal-actions">
+      <a href="https://discord.gg/yHCAgYKwk" target="_blank" rel="noopener" class="ag-modal-btn ag-modal-btn-disc">
+        <i class="fab fa-discord"></i> Participer sur Discord
+      </a>
+      <button class="ag-modal-btn ag-modal-btn-cal" id="agModalCalBtn" title="Ajouter au calendrier">
+        <i class="fas fa-calendar-plus"></i> Calendrier
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Read progress bar -->
+<div id="read-progress"></div>
+
+<!-- Toast de bienvenue -->
+<div id="toast">
+  <div class="toast-icon">👋</div>
+  <div class="toast-body">
+    <strong>Prochaine permanence</strong>
+    <span>Samedi · 14h–16h · En ligne · Gratuit</span>
+  </div>
+  <button class="toast-close" onclick="document.getElementById('toast').classList.remove('show')" aria-label="Fermer"><i class="fas fa-times"></i></button>
+</div>
+
+<!-- ══ NAVBAR ══════════════════════════════════════ -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <span class="lico">&lt;/&gt;</span>
+    <span>À l'<span style="color:#60a5fa">Eure</span> <span style="color:var(--aed-green)">Digitale</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="#associations">Association</a>   
+    <a href="#agenda"><i class="fas fa-calendar-alt" style="font-size:.8rem;color:var(--aed-blue);"></i> Agenda</a>
+    <a href="#projets"><i class="fas fa-code-branch" style="font-size:.8rem;color:var(--aed-green);"></i> Projets</a>
+    <a href="#galerie"><i class="fas fa-images" style="font-size:.8rem;color:var(--aed-orange);"></i> Galerie</a>
+    <a href="#temoignages">Témoignages</a>
+    <a href="#hackathon">Hackathon</a>
+    <a href="#proposer">Proposer</a>
+    <a href="blog.html"><i class="fas fa-newspaper" style="font-size:.8rem;color:var(--aed-green);"></i> Blog</a>
+    <!--<a href="euretech_Inclusion.html"><i class="fas fa-laptop-code" style="font-size:.8rem;color:var(--aed-orange);"></i> Eure Tech</a><-->
+    <a href="#contact">Contact</a>
+    <!-- <a href="cartes.html" class="mob-cartes"><i class="fas fa-map"></i> Cartes</a> -->
+    <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="nav-disc"><i class="fab fa-discord"></i> Rejoindre</a>
+      <a href="benevoles.html" onclick="closeMobile()"><i class="fas fa-hand-holding-heart"></i> Devenir bénévole</a>
+
+  </div>
+  <div class="nav-right">
+    <button class="dark-btn" id="darkToggle" title="Changer le thème" aria-label="Mode sombre">
+      <i class="fas fa-moon" id="darkIcon"></i>
+    </button>
+    <button class="burger-btn" id="burgerBtn" aria-label="Menu">
+      <i class="fas fa-bars" id="burgerIcon"></i>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div class="nav-mobile" id="navMobile">
+  <a href="#about" onclick="closeMobile()"><i class="fas fa-info-circle"></i> Association</a>
+  <a href="#agenda" onclick="closeMobile()"><i class="fas fa-calendar-alt"></i> Agenda</a>
+  <a href="#projets" onclick="closeMobile()"><i class="fas fa-code-branch"></i> Projets</a>
+  <a href="#reseau" onclick="closeMobile()"><i class="fas fa-network-wired"></i> Réseau</a>
+  <a href="#hackathon" onclick="closeMobile()"><i class="fas fa-trophy"></i> Hackathon</a>
+  <a href="#proposer" onclick="closeMobile()"><i class="fas fa-lightbulb"></i> Proposer un atelier</a>
+  <a href="#contact" onclick="closeMobile()"><i class="fas fa-envelope"></i> Contact</a>
+  <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="mob-disc"><i class="fab fa-discord"></i> Rejoindre le Discord</a>
+  <a href="benevoles.html" onclick="closeMobile()"><i class="fas fa-hand-holding-heart"></i> Devenir bénévole</a>
+</div>
+
+<!-- ══ HERO ════════════════════════════════════════ -->
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-inner">
+    <div class="hero-text animate">
+      <div class="hero-badge"><i class="fas fa-map-marker-alt"></i> Association numérique · Normandie</div>
+      <h1 class="hero-title">À l'<span class="blue">Eure</span><br><span class="green">Digitale</span></h1>
+      <p class="hero-subtitle">Le numérique au service du territoire</p>
+      <div class="hero-tagline">
+        <span class="t1">Entraide</span><span class="dot">•</span>
+        <span class="t2">Apprentissage</span><span class="dot">•</span>
+        <span class="t3">Open source</span>
+      </div>
+      <p class="hero-desc">Une communauté numérique bienveillante et inclusive, ouverte à tous les niveaux. On se retrouve pour <strong style="color:#fff">apprendre, partager, s'entraider</strong> et construire ensemble</p>
+      <div class="hero-cta">
+        <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="btn-discord"><i class="fab fa-discord"></i> Rejoindre le Discord</a>
+        <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="online-badge" id="discordBadge" title="Membres Discord en ligne">
+          <span class="online-dot"></span>
+          <span id="onlineCount">…</span> en ligne
+        </a>
+        <a href="#about" class="btn-outline"><i class="fas fa-arrow-down"></i> Découvrir</a>
+      </div>
+    </div>
+    <div class="hero-visual animate delay-2">
+      <div class="hero-counters">
+        <div class="hero-counter">
+          <div class="counter-num"><span class="cnt" data-target="24">0</span><span class="suf">+</span></div>
+          <div class="counter-label">Membres actifs</div>
+        </div>
+        <div class="hero-counter">
+          <div class="counter-num"><span class="cnt" data-target="8">0</span><span class="suf">+</span></div>
+          <div class="counter-label">Ateliers gratuits</div>
+        </div>
+        <div class="hero-counter">
+          <div class="counter-num"><span class="cnt" data-target="2">0</span></div>
+          <div class="counter-label">Projets open source</div>
+        </div>
+        <div class="hero-counter">
+          <div class="counter-num"><span class="cnt" data-target="4">0</span></div>
+          <div class="counter-label">Mois d'activité</div>
+        </div>
+      </div>
+      <div class="hero-permanence">
+        <div class="perm-icon"><i class="fas fa-calendar-alt"></i></div>
+        <div class="perm-text">
+          <strong>Permanence numérique</strong>
+          <span>Chaque samedi · 14h–16h · En ligne<br>Gratuit · Sans inscription · Tous niveaux</span>
+        </div>
+      </div>
+      <!-- Agenda dynamique -->
+      <div class="agenda-card">
+        <div class="agenda-title"><i class="fas fa-calendar-check"></i> Prochains événements</div>
+        <div class="agenda-filters" id="agendaFilters">
+          <button class="agenda-filter-btn active" data-type="all">Tous</button>
+          <button class="agenda-filter-btn" data-type="permanence"><i class="fas fa-headset"></i> Permanence</button>
+          <button class="agenda-filter-btn" data-type="atelier"><i class="fas fa-chalkboard-teacher"></i> Atelier</button>
+          <button class="agenda-filter-btn" data-type="hackathon"><i class="fas fa-trophy"></i> Hackathon</button>
+        </div>
+        <div class="agenda-list" id="agendaList"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ABOUT ═══════════════════════════════════════ -->
+<section id="associations">
+  <div class="section-inner">
+    <div class="section-label">L'association</div>
+    <h2 class="section-title">C'est <em>quoi</em> ?</h2>
+    <p class="section-desc">Une association loi 1901 qui œuvre pour un numérique inclusif, solidaire et collaboratif au cœur des territoires.</p>
+    <div class="about-grid">
+      <div class="about-intro">
+        <p>Nous rassemblons <strong>citoyens, associations, collectivités et acteurs locaux</strong> pour faire du numérique un levier de lien social, d'innovation et de développement territorial.</p>
+        <p>Ouverte à tous les niveaux — débutant comme expert — la communauté est un espace de partage bienveillant où chacun peut progresser à son rythme.</p>
+      </div>
+      <div class="about-mission">
+        <h3>Notre mission</h3>
+        <p><strong>Rassembler, aider et faire grandir</strong> une communauté passionnée par le numérique, au service de l'intérêt général et du territoire.</p>
+      </div>
+    </div>
+    <div class="features-list">
+      <div class="feature-card scroll-reveal">
+        <div class="fc-icon green"><i class="fas fa-hands-helping"></i></div>
+        <div><h4>Entraide & dépannage quotidien</h4><p>Des membres disponibles pour répondre à vos questions tech au quotidien.</p></div>
+      </div>
+      <div class="feature-card scroll-reveal">
+        <div class="fc-icon purple"><i class="fas fa-chalkboard-teacher"></i></div>
+        <div><h4>Ateliers & formations gratuits</h4><p>Des sessions régulières pour monter en compétences, accessibles à tous.</p></div>
+      </div>
+      <div class="feature-card scroll-reveal">
+        <div class="fc-icon blue"><i class="fas fa-rss"></i></div>
+        <div><h4>Veille & partage de ressources</h4><p>Restez à jour grâce à une communauté qui partage les meilleures ressources.</p></div>
+      </div>
+      <div class="feature-card scroll-reveal">
+        <div class="fc-icon orange"><i class="fas fa-code-branch"></i></div>
+        <div><h4>Projets collaboratifs open source</h4><p>Participez à des projets concrets à impact local et territorial.</p></div>
+      </div>
+      <div class="feature-card scroll-reveal">
+        <div class="fc-icon teal"><i class="fas fa-user-graduate"></i></div>
+        <div><h4>Mentorat & accompagnement</h4><p>Trouvez un mentor ou devenez-le : la progression est l'affaire de tous.</p></div>
+      </div>
+      <div class="feature-card scroll-reveal">
+        <div class="fc-icon green"><i class="fas fa-calendar-check"></i></div>
+        <div><h4>Événements & meetups</h4><p>Des rencontres régulières pour se retrouver, échanger et construire ensemble.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ POUR QUI ═════════════════════════════════════ -->
+<section id="pour-qui">
+  <div class="section-inner">
+    <div class="section-label">Public</div>
+    <h2 class="section-title">Pour <em>qui</em> ?</h2>
+    <p class="section-desc">La communauté est ouverte à toutes et à tous. Quel que soit votre profil, vous avez votre place ici.</p>
+    <div class="audience-grid">
+      <div class="audience-card c1 scroll-reveal"><i class="fas fa-code"></i>Développeurs &amp; designers</div>
+      <div class="audience-card c2 scroll-reveal"><i class="fas fa-graduation-cap"></i>Apprenants &amp; autodidactes</div>
+      <div class="audience-card c3 scroll-reveal"><i class="fas fa-sync-alt"></i>Personnes en reconversion</div>
+      <div class="audience-card c4 scroll-reveal"><i class="fas fa-people-group"></i>Associations &amp; collectifs</div>
+      <div class="audience-card c5 scroll-reveal"><i class="fas fa-briefcase"></i>Entrepreneurs du numérique</div>
+      <div class="audience-card c6 scroll-reveal"><i class="fas fa-lightbulb"></i>Curieux du numérique</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DISCORD ══════════════════════════════════════ -->
+<section id="discord">
+  <div class="discord-inner">
+    <div class="discord-text">
+      <div class="section-label">Communauté en ligne</div>
+      <h2 class="section-title">Rejoignez le <em>Discord</em></h2>
+      <p class="section-desc">Un espace convivial et bienveillant, ouvert à toutes et à tous. Gratuit, sans engagement, accessible immédiatement.</p>
+      <div class="discord-features">
+        <div class="discord-feature"><i class="fas fa-comments" style="color:#818cf8"></i><span>Discussions & échanges thématiques</span></div>
+        <div class="discord-feature"><i class="fas fa-hands-helping" style="color:var(--aed-green)"></i><span>Entraide & partage de connaissances</span></div>
+        <div class="discord-feature"><i class="fas fa-gamepad" style="color:var(--aed-orange)"></i><span>Jeux & activités communautaires</span></div>
+        <div class="discord-feature"><i class="fas fa-bullhorn" style="color:#60a5fa"></i><span>Actualités & événements locaux</span></div>
+        <div class="discord-feature"><i class="fas fa-calendar-alt" style="color:var(--aed-orange)"></i><span>Permanence numérique chaque samedi</span></div>
+      </div>
+    </div>
+    <div class="discord-card">
+      <div class="discord-logo"><i class="fab fa-discord"></i></div>
+      <h3>À l'Eure Digitale</h3>
+      <p>Serveur Discord officiel de la communauté. Rejoignez-nous en un clic, c'est gratuit !</p>
+      <div class="discord-link-wrap">
+        <div class="discord-link-box" id="discordLink">discord.gg/yHCAgYKwk</div>
+        <button class="copy-btn" id="copyBtn" onclick="copyDiscord()"><i class="fas fa-copy"></i> Copier</button>
+      </div>
+      <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="btn-discord-big"><i class="fab fa-discord"></i> Rejoindre le serveur</a>
+      <p class="discord-free"><i class="fas fa-check-circle"></i> 100% Gratuit · Sans inscription préalable</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MINECRAFT ══════════════════════════════════ -->
+<section id="minecraft">
+  <div class="mc-inner">
+
+    <!-- Colonne texte -->
+    <div class="mc-text">
+      <div class="section-label" style="color:rgba(255,255,255,.6);">Communauté · Jeu</div>
+      <h2 class="section-title" style="color:#fff;">Serveur <em style="color:#4ade80;">Minecraft</em></h2>
+      <p class="section-desc" style="color:rgba(255,255,255,.72);">
+        Un serveur communautaire pour se retrouver autrement — construire, explorer et créer ensemble dans l'esprit de l'asso : bienveillance, créativité et open source.
+      </p>
+
+      <!-- Features -->
+      <div class="mc-features">
+        <div class="mc-feature">
+          <i class="fas fa-cubes" style="color:#4ade80"></i>
+          <span>Survie & construction collaborative</span>
+        </div>
+        <div class="mc-feature">
+          <i class="fas fa-code-branch" style="color:#60a5fa"></i>
+          <span>Projets inspirés du numérique & de l'open source</span>
+        </div>
+        <div class="mc-feature">
+          <i class="fas fa-shield-alt" style="color:#c4b5fd"></i>
+          <span>Modération active — zéro toxicité</span>
+        </div>
+        <div class="mc-feature">
+          <i class="fab fa-discord" style="color:#818cf8"></i>
+          <span>Coordination via le canal <strong style="color:#fff">#minecraft</strong> sur Discord</span>
+        </div>
+        <div class="mc-feature">
+          <i class="fas fa-door-open" style="color:#fbbf24"></i>
+          <span>Ouvert à tous les membres de l'asso</span>
+        </div>
+      </div>
+
+      <!-- Règles rapides -->
+      <div class="mc-rules">
+        <div class="mc-rules-title"><i class="fas fa-scroll"></i> Règles du serveur</div>
+        <ul class="mc-rules-list">
+          <li><i class="fas fa-check"></i> Respecter les constructions des autres joueurs</li>
+          <li><i class="fas fa-check"></i> Pas de grief, pas de triche, pas de mods non autorisés</li>
+          <li><i class="fas fa-check"></i> Langage bienveillant — tout le monde est bienvenu</li>
+          <li><i class="fas fa-check"></i> Les décisions importantes se prennent collectivement sur Discord</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Colonne carte -->
+    <div class="mc-card-wrap">
+      <div class="mc-card">
+
+        <!-- Logo Minecraft -->
+        <div class="mc-logo">
+          <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="38" height="38" rx="10" fill="#1a1a1a"/>
+            <!-- Creeper face simplifié -->
+            <rect x="9"  y="7"  width="20" height="24" rx="2" fill="#4ade80"/>
+            <rect x="12" y="13" width="5"  height="5"  fill="#1a1a1a"/>
+            <rect x="21" y="13" width="5"  height="5"  fill="#1a1a1a"/>
+            <rect x="15" y="20" width="8"  height="3"  fill="#1a1a1a"/>
+            <rect x="12" y="23" width="5"  height="4"  fill="#1a1a1a"/>
+            <rect x="21" y="23" width="5"  height="4"  fill="#1a1a1a"/>
+          </svg>
+          <span>À l'Eure Digitale</span>
+        </div>
+
+        <p class="mc-card-sub">Serveur Minecraft communautaire</p>
+
+        <!-- Statut en ligne -->
+        <div class="mc-status-box" id="mcStatusBox">
+          <div class="mc-status-row">
+            <span class="mc-status-dot" id="mcDot"></span>
+            <span class="mc-status-label" id="mcStatusLabel">Chargement…</span>
+          </div>
+          <div class="mc-players" id="mcPlayers"></div>
+        </div>
+
+        <!-- IP -->
+        <div class="mc-ip-label">Adresse IP du serveur</div>
+        <div class="discord-link-wrap">
+          <div class="discord-link-box" id="mcIpBox">ald27.aternos.me</div>
+          <button class="copy-btn" id="mcCopyBtn" onclick="copyMcIp()">
+            <i class="fas fa-copy"></i> Copier
+          </button>
+        </div>
+
+        <!-- Version -->
+        <div class="mc-meta-row">
+          <div class="mc-meta-item">
+            <i class="fas fa-tag"></i>
+            <span>Version</span>
+            <strong id="mcVersion">1.21.x</strong>
+          </div>
+          <div class="mc-meta-item">
+            <i class="fas fa-plug"></i>
+            <span>Type</span>
+            <strong>Java Edition</strong>
+          </div>
+          <div class="mc-meta-item">
+            <i class="fas fa-globe"></i>
+            <span>Port</span>
+            <strong>25565</strong>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="mc-btn-discord">
+          <i class="fab fa-discord"></i> Obtenir l'accès via Discord
+        </a>
+        <p class="discord-free" style="margin-top:12px;">
+          <i class="fas fa-lock" style="color:#4ade80"></i> Réservé aux membres de l'asso
+        </p>
+
+      </div>
+
+      <!-- Badge "Bientôt disponible" -->
+      <div class="mc-soon-badge">
+        <i class="fas fa-hammer"></i> Serveur en cours de configuration — IP provisoire
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* ══ MINECRAFT SECTION ════════════════════════════ */
+  #minecraft {
+    padding: 100px 0;
+    background: linear-gradient(160deg, #0f1923 0%, #0a1a10 50%, #0d1a2e 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  #minecraft::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 600px 400px at 80% 20%, rgba(74,222,128,.1)  0%, transparent 65%),
+      radial-gradient(ellipse 400px 300px at 10% 80%, rgba(96,165,250,.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  /* Grille façon pixel subtile en arrière-plan */
+  #minecraft::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(74,222,128,.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(74,222,128,.03) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+  }
+
+  .mc-inner {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── Texte ── */
+  .mc-features {
+    margin-top: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .mc-feature {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: .95rem;
+    color: rgba(255,255,255,.8);
+  }
+  .mc-feature i { font-size: 1.1rem; width: 24px; flex-shrink: 0; }
+
+  /* Règles */
+  .mc-rules {
+    margin-top: 32px;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 14px;
+    padding: 20px 22px;
+  }
+  .mc-rules-title {
+    font-family: var(--font-head);
+    font-size: .82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: #4ade80;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .mc-rules-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .mc-rules-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: .86rem;
+    color: rgba(255,255,255,.7);
+    line-height: 1.5;
+  }
+  .mc-rules-list li i { color: #4ade80; font-size: .8rem; margin-top: 3px; flex-shrink: 0; }
+
+  /* ── Carte ── */
+  .mc-card-wrap { display: flex; flex-direction: column; gap: 14px; }
+  .mc-card {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 20px;
+    padding: 36px;
+    text-align: center;
+    backdrop-filter: blur(14px);
+    position: relative;
+  }
+
+  /* Logo */
+  .mc-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .mc-logo span {
+    font-family: var(--font-head);
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #fff;
+  }
+  .mc-card-sub {
+    font-size: .85rem;
+    color: rgba(255,255,255,.5);
+    margin-bottom: 24px;
+  }
+
+  /* Statut */
+  .mc-status-box {
+    background: rgba(0,0,0,.25);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin-bottom: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 50px;
+  }
+  .mc-status-row { display: flex; align-items: center; gap: 9px; }
+  .mc-status-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: #6b7280; /* gris par défaut */
+    flex-shrink: 0;
+    transition: background .4s;
+  }
+  .mc-status-dot.online  { background: #4ade80; animation: pulse-dot 2s infinite; box-shadow: 0 0 6px rgba(74,222,128,.6); }
+  .mc-status-dot.offline { background: #ef4444; }
+  .mc-status-label {
+    font-family: var(--font-head);
+    font-size: .88rem;
+    font-weight: 700;
+    color: rgba(255,255,255,.85);
+  }
+  .mc-players {
+    font-family: var(--font-head);
+    font-size: .82rem;
+    color: rgba(255,255,255,.45);
+  }
+
+  /* IP */
+  .mc-ip-label {
+    font-family: var(--font-head);
+    font-size: .75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: rgba(255,255,255,.4);
+    margin-bottom: 8px;
+    text-align: left;
+  }
+
+  /* Meta */
+  .mc-meta-row {
+    display: flex;
+    justify-content: space-around;
+    gap: 8px;
+    margin: 20px 0;
+    padding: 16px 0;
+    border-top: 1px solid rgba(255,255,255,.07);
+    border-bottom: 1px solid rgba(255,255,255,.07);
+  }
+  .mc-meta-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .mc-meta-item i { color: rgba(255,255,255,.35); font-size: .8rem; }
+  .mc-meta-item span { font-size: .72rem; color: rgba(255,255,255,.4); }
+  .mc-meta-item strong { font-family: var(--font-head); font-size: .88rem; font-weight: 700; color: #fff; }
+
+  /* Bouton Discord */
+  .mc-btn-discord {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    width: 100%;
+    background: #5865f2;
+    color: #fff;
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 14px 32px;
+    border-radius: 12px;
+    margin-top: 4px;
+    transition: transform .2s, box-shadow .2s;
+    box-shadow: 0 4px 20px rgba(88,101,242,.4);
+  }
+  .mc-btn-discord:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(88,101,242,.55); }
+
+  /* Badge bientôt */
+  .mc-soon-badge {
+    background: rgba(251,191,36,.1);
+    border: 1px solid rgba(251,191,36,.25);
+    color: #fbbf24;
+    font-family: var(--font-head);
+    font-size: .8rem;
+    font-weight: 600;
+    padding: 10px 16px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 860px) {
+    .mc-inner { grid-template-columns: 1fr; gap: 48px; }
+    #minecraft { padding: 72px 0; }
+  }
+</style>
+
+<!-- ══ RÉSEAU ══════════════════════════════════════ -->
+<section id="reseau">
+  <div class="section-inner">
+    <div class="section-label">Réseau professionnel</div>
+    <h2 class="section-title">Le réseau des <em>talents</em></h2>
+    <p class="section-desc">Développeurs, designers, communicants… la communauté regroupe des profils complémentaires prêts à collaborer, s'entraider et co-construire des projets à impact local.</p>
+
+    <div class="reseau-tabs" id="reseauTabs">
+      <button class="reseau-tab active" data-filter="all">Tous les profils</button>
+      <button class="reseau-tab" data-filter="dev"><i class="fas fa-code"></i> Développeurs</button>
+      <button class="reseau-tab" data-filter="com"><i class="fas fa-bullhorn"></i> Communicants</button>
+      <button class="reseau-tab" data-filter="asso"><i class="fas fa-building"></i> Partenaires</button>
+    </div>
+
+    <div class="reseau-grid" id="reseauGrid">
+<!-- PARTENAIRES-->
+      <div class="reseau-card scroll-reveal" data-cat="asso">
+        <div class="reseau-avatar ra-blue">RB</div>
+        <div class="reseau-meta">
+          <strong>Webradio - Radio Broglie</strong>
+          <span class="reseau-role role-asso"><i class="fas fa-building"></i> Partenaire</span>
+          <span class="reseau-loc"><i class="fas fa-map-marker-alt"></i> Broglie</span>
+        </div>
+        <div class="reseau-tags">
+          <span class="rtag">React</span><span class="rtag">Node.js</span><span class="rtag">PostgreSQL</span>
+        </div>
+        <p class="reseau-bio">Accueille l'association dans son activité de diffusion de la culture numérique et des sessions codes.</p>
+        <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="reseau-cta"><i class="fab fa-discord"></i> Me contacter</a>
+      </div>
+
+      <!-- DEVS -->
+      <div class="reseau-card scroll-reveal" data-cat="dev">
+        <div class="reseau-avatar ra-blue">AV</div>
+        <div class="reseau-meta">
+          <strong>Allan V.</strong>
+          <span class="reseau-role role-dev"><i class="fas fa-code"></i> Développeur Fullstack</span>
+          <span class="reseau-loc"><i class="fas fa-map-marker-alt"></i> Évreux</span>
+        </div>
+        <div class="reseau-tags">
+          <span class="rtag">React</span><span class="rtag">Node.js</span><span class="rtag">PostgreSQL</span>
+        </div>
+        <p class="reseau-bio">Membre fondateur, je contribue aux projets open source de l'asso et aide les membres en reconversion. J'anime des ateliers d'initiation au code chaque mois et chaque semaine des temps de coworking au sein de l'association.</p>
+        <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="reseau-cta"><i class="fab fa-discord"></i> Me contacter</a>
+      </div>
+
+      <div class="reseau-card scroll-reveal" data-cat="dev">
+        <div class="reseau-avatar ra-purple">RDS</div>
+        <div class="reseau-meta">
+          <strong>Ryan DS.</strong>
+          <span class="reseau-role role-dev"><i class="fas fa-code"></i> Dev Fullstack</span>
+          <span class="reseau-loc"><i class="fas fa-map-marker-alt"></i> Evreux</span>
+        </div>
+        <div class="reseau-tags">
+          <span class="rtag">React</span><span class="rtag">JavaScript</span><span class="rtag">Vue.js</span>
+        </div>
+        <p class="reseau-bio">Développeur fullstack,j'anime des ateliers d'initiation au code chaque mois au sein de l'association.</p>
+        <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="reseau-cta"><i class="fab fa-discord"></i> Me contacter</a>
+      </div>
+
+      <div class="reseau-card scroll-reveal" data-cat="dev">
+        <div class="reseau-avatar ra-teal">RB</div>
+        <div class="reseau-meta">
+          <strong>ANJTECH.</strong>
+          <span class="reseau-role role-dev"><i class="fas fa-code"></i> Développeur étudiant</span>
+          <span class="reseau-loc"><i class="fas fa-map-marker-alt"></i> Ile de France</span>
+        </div>
+        <div class="reseau-tags">
+          <span class="rtag">Flutter</span><span class="rtag">Firebase</span><span class="rtag">Swift</span>
+        </div>
+        <p class="reseau-bio">Spécialisé en développement et de l'IA je proposerai des ateliers lors de la journée Eure Tech & Inclusion.</p>
+        <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="reseau-cta"><i class="fab fa-discord"></i> Me contacter</a>
+      </div>
+
+      <!-- DESIGNERS 
+      <div class="reseau-card scroll-reveal" data-cat="design">
+        <div class="reseau-avatar ra-orange">CM</div>
+        <div class="reseau-meta">
+          <strong>Clara M.</strong>
+          <span class="reseau-role role-design"><i class="fas fa-pen-nib"></i> UX/UI Designer</span>
+          <span class="reseau-loc"><i class="fas fa-map-marker-alt"></i> Évreux</span>
+        </div>
+        <div class="reseau-tags">
+          <span class="rtag">Figma</span><span class="rtag">Design System</span><span class="rtag">Accessibilité</span>
+        </div>
+        <p class="reseau-bio">Designer centrée utilisateur, je propose des revues UX gratuites aux projets de la communauté et anime des ateliers de wireframing.</p>
+        <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="reseau-cta"><i class="fab fa-discord"></i> Me contacter</a>
+      </div>
+      -->
+<!--
+      <div class="reseau-card scroll-reveal" data-cat="design">
+        <div class="reseau-avatar ra-green">NF</div>
+        <div class="reseau-meta">
+          <strong>Nicolas F.</strong>
+          <span class="reseau-role role-design"><i class="fas fa-pen-nib"></i> Graphiste</span>
+          <span class="reseau-loc"><i class="fas fa-map-marker-alt"></i> Bernay</span>
+        </div>
+        <div class="reseau-tags">
+          <span class="rtag">Illustrator</span><span class="rtag">Branding</span><span class="rtag">Motion</span>
+        </div>
+        <p class="reseau-bio">Graphiste indépendant, j'aide les associations et petites structures locales à se doter d'une identité visuelle cohérente et professionnelle.</p>
+        <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="reseau-cta"><i class="fab fa-discord"></i> Me contacter</a>
+      </div>
+-->
+      <!-- COMMUNICANTS -->
+      <div class="reseau-card scroll-reveal" data-cat="com">
+        <div class="reseau-avatar ra-pink">LR</div>
+        <div class="reseau-meta">
+          <strong>Mathiilde M.</strong>
+          <span class="reseau-role role-com"><i class="fas fa-bullhorn"></i> Community Manager</span>
+          <span class="reseau-loc"><i class="fas fa-map-marker-alt"></i> Broglie</span>
+        </div>
+        <div class="reseau-tags">
+          <span class="rtag">Réseaux sociaux</span><span class="rtag">Newsletter</span><span class="rtag">Copywriting</span>
+        </div>
+        <p class="reseau-bio">Je suis Mathilde Maublanc, diplômée de l'EM Normandie et d'Ynov Campus. Pendant plus de trois ans, j'ai évolué dans la communication, le marketing, la gestion de projet et le commerce, dans des univers aussi variés que la lingerie, le roadtrip ou l'attractivité territoriale. J'ai notamment travaillé pour Eurêka, l'agence d'attractivité du département de l'Eure.
+        </p>
+        <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="reseau-cta"><i class="fab fa-discord"></i> Me contacter</a>
+      </div>
+
+      
+
+    </div>
+
+    <div class="reseau-cta-block scroll-reveal">
+      <div class="rcta-text">
+        <h3>🤝 Vous faites partie du réseau ?</h3>
+        <p>Rejoignez le Discord et présentez-vous dans le canal <strong>#présentations</strong> — votre profil sera mis en avant ici prochainement.</p>
+      </div>
+      <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="btn-discord"><i class="fab fa-discord"></i> Rejoindre & me présenter</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROJETS OPEN SOURCE ═══════════════════════════ -->
+<section id="projets">
+  <div class="section-inner">
+    <div class="section-label">Open Source</div>
+    <h2 class="section-title">Nos <em>projets</em></h2>
+    <p class="section-desc">Des outils concrets, construits collectivement et publiés en open source au bénéfice de tous. Chaque projet est ouvert aux contributions.</p>
+
+    <div class="projets-grid">
+
+      <!-- Projet 1 -->
+      <article class="projet-card scroll-reveal">
+        <div class="projet-card-top">
+          <div class="projet-icon-wrap pj-blue">
+            <i class="fas fa-globe"></i>
+          </div>
+          <span class="projet-status ps-active">
+            <span class="ps-dot"></span> En cours
+          </span>
+        </div>
+        <h3 class="projet-title">Site web de l'association</h3>
+        <p class="projet-desc">Le site que vous lisez en ce moment — conçu, développé et maintenu par la communauté. HTML, CSS et JavaScript vanilla, hébergé sur Netlify.</p>
+        <div class="projet-stack">
+          <span class="pstack-tag pstack-html">HTML</span>
+          <span class="pstack-tag pstack-css">CSS</span>
+          <span class="pstack-tag pstack-js">JavaScript</span>
+          <span class="pstack-tag pstack-neutral">Netlify</span>
+        </div>
+        <div class="projet-footer">
+          <a href="https://github.com/aleuredigitale" target="_blank" rel="noopener" class="projet-btn projet-btn-gh">
+            <i class="fab fa-github"></i> Voir sur GitHub
+          </a>
+        </div>
+      </article>
+
+      <!-- Projet 2 -->
+      <article class="projet-card scroll-reveal">
+        <div class="projet-card-top">
+          <div class="projet-icon-wrap pj-green">
+            <i class="fas fa-map-marked-alt"></i>
+          </div>
+          <span class="projet-status ps-stable">
+            <span class="ps-dot"></span> Stable
+          </span>
+        </div>
+        <h3 class="projet-title">Carte numérique de l'Eure</h3>
+        <p class="projet-desc">Cartographie collaborative des ressources numériques du département : lieux de formation, espaces de coworking, associations et acteurs du territoire.</p>
+        <div class="projet-stack">
+          <span class="pstack-tag pstack-js">JavaScript</span>
+          <span class="pstack-tag pstack-neutral">Leaflet</span>
+          <span class="pstack-tag pstack-neutral">OpenStreetMap</span>
+        </div>
+        <div class="projet-footer">
+          <a href="cartes.html" target="_blank" rel="noopener" class="projet-btn projet-btn-gh">
+            <i class="fab fa-web"></i> Voir sur cartes.html
+          </a>
+        </div>
+      </article>
+
+      <!-- Projet 3 -->
+      <article class="projet-card scroll-reveal">
+        <div class="projet-card-top">
+          <div class="projet-icon-wrap pj-purple">
+            <i class="fas fa-robot"></i>
+          </div>
+          <span class="projet-status ps-wip">
+            <span class="ps-dot"></span> En cours
+          </span>
+        </div>
+        <h3 class="projet-title">Bot Discord communautaire</h3>
+        <p class="projet-desc">Bot maison pour le serveur Discord : gestion des rôles, rappels d'événements, commandes d'entraide et statistiques de la communauté.</p>
+        <div class="projet-stack">
+          <span class="pstack-tag pstack-py">Python</span>
+          <span class="pstack-tag pstack-neutral">discord.py</span>
+          <span class="pstack-tag pstack-neutral">SQLite</span>
+        </div>
+        <div class="projet-footer">
+          <a href="https://github.com/aleuredigitale" target="_blank" rel="noopener" class="projet-btn projet-btn-gh">
+            <i class="fab fa-github"></i> Voir sur GitHub
+          </a>
+        </div>
+      </article>
+
+    </div><!-- /.projets-grid -->
+
+    <!-- CTA contribuer -->
+    <div class="projets-cta scroll-reveal">
+      <div class="projets-cta-text">
+        <h3>🛠 Envie de contribuer ?</h3>
+        <p>Tous nos projets sont ouverts aux contributions — code, design, documentation ou tests. Rejoignez le Discord pour trouver une issue à votre niveau.</p>
+      </div>
+      <div class="projets-cta-btns">
+        <a href="https://github.com/aleuredigitale" target="_blank" rel="noopener" class="btn-gh-big">
+          <i class="fab fa-github"></i> GitHub de l'asso
+        </a>
+        <a href="https://discord.gg/yHCAgYKwk" target="_blank" rel="noopener" class="btn-discord">
+          <i class="fab fa-discord"></i> Rejoindre le Discord
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+/* ══ SECTION PROJETS OPEN SOURCE ════════════════════ */
+#projets {
+  padding: 100px 0 80px;
+  background: var(--bg-section-b);
+}
+[data-theme="dark"] #projets {
+  background: var(--bg-section-b);
+}
+
+/* Grille -------------------------------------------- */
+.projets-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+@media (max-width: 900px) { .projets-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 580px) { .projets-grid { grid-template-columns: 1fr; } }
+
+/* Carte --------------------------------------------- */
+.projet-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 18px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: transform .25s, box-shadow .25s;
+}
+.projet-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 44px rgba(0,0,0,.1);
+}
+[data-theme="dark"] .projet-card:hover {
+  box-shadow: 0 16px 44px rgba(0,0,0,.38);
+}
+
+/* Top row : icône + statut */
+.projet-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.projet-icon-wrap {
+  width: 48px; height: 48px;
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem;
+  color: #fff;
+  flex-shrink: 0;
+}
+.pj-blue   { background: linear-gradient(135deg, #3b82f6, #6366f1); }
+.pj-green  { background: linear-gradient(135deg, #10b981, #34d399); }
+.pj-purple { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
+.pj-orange { background: linear-gradient(135deg, #f97316, #fbbf24); }
+
+/* Statuts */
+.projet-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-head);
+  font-size: .72rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 100px;
+}
+.ps-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.ps-active {
+  background: #dcfce7;
+  color: #15803d;
+}
+.ps-active .ps-dot {
+  background: #22c55e;
+  box-shadow: 0 0 0 3px #bbf7d0;
+  animation: pulse-dot 1.8s infinite;
+}
+.ps-stable {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+.ps-stable .ps-dot { background: #3b82f6; }
+.ps-wip {
+  background: #fef9c3;
+  color: #92400e;
+}
+.ps-wip .ps-dot { background: #fbbf24; }
+.ps-archived {
+  background: var(--bg-section);
+  color: var(--text-muted);
+}
+.ps-archived .ps-dot { background: #9ca3af; }
+
+[data-theme="dark"] .ps-active   { background: #14532d; color: #86efac; }
+[data-theme="dark"] .ps-active .ps-dot { box-shadow: 0 0 0 3px #166534; }
+[data-theme="dark"] .ps-stable   { background: #1e3a5f; color: #93c5fd; }
+[data-theme="dark"] .ps-wip      { background: #422006; color: #fde68a; }
+
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 3px #bbf7d0; }
+  50%       { box-shadow: 0 0 0 6px #bbf7d060; }
+}
+[data-theme="dark"] @keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 3px #166534; }
+  50%       { box-shadow: 0 0 0 6px #16653460; }
+}
+
+/* Contenu */
+.projet-title {
+  font-family: var(--font-head);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin: 0;
+  line-height: 1.3;
+}
+.projet-desc {
+  font-size: .87rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin: 0;
+  flex: 1;
+}
+
+/* Stack technique */
+.projet-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.pstack-tag {
+  font-family: var(--font-head);
+  font-size: .68rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 100px;
+}
+.pstack-html    { background: #fff0e6; color: #c2410c; }
+.pstack-css     { background: #ede9fe; color: #6d28d9; }
+.pstack-js      { background: #fef9c3; color: #92400e; }
+.pstack-py      { background: #dbeafe; color: #1d4ed8; }
+.pstack-neutral { background: var(--bg-section); color: var(--text-muted); }
+
+[data-theme="dark"] .pstack-html    { background: #431407; color: #fdba74; }
+[data-theme="dark"] .pstack-css     { background: #2e1b5b; color: #c4b5fd; }
+[data-theme="dark"] .pstack-js      { background: #422006; color: #fde68a; }
+[data-theme="dark"] .pstack-py      { background: #1e3a5f; color: #93c5fd; }
+
+/* Footer carte */
+.projet-footer {
+  padding-top: 4px;
+  border-top: 1px solid var(--border-card);
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.projet-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-head);
+  font-size: .78rem;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 10px;
+  transition: background .18s, color .18s, transform .18s;
+}
+.projet-btn:hover { transform: translateY(-1px); }
+.projet-btn-gh {
+  background: var(--bg-section);
+  color: var(--text-heading);
+  border: 1px solid var(--border-card);
+}
+.projet-btn-gh:hover {
+  background: #24292f;
+  color: #fff;
+  border-color: #24292f;
+}
+[data-theme="dark"] .projet-btn-gh:hover {
+  background: #fff;
+  color: #24292f;
+}
+.projet-btn-live {
+  background: var(--aed-blue);
+  color: #fff;
+  border: 1px solid transparent;
+}
+.projet-btn-live:hover { background: #2563eb; }
+
+/* CTA contribuer ------------------------------------ */
+.projets-cta {
+  margin-top: 52px;
+  background: linear-gradient(135deg, #0f172a08, #6366f108);
+  border: 1px solid var(--border-card);
+  border-radius: 18px;
+  padding: 36px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+[data-theme="dark"] .projets-cta {
+  background: linear-gradient(135deg, #ffffff05, #6366f110);
+}
+.projets-cta-text h3 {
+  font-family: var(--font-head);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-heading);
+  margin: 0 0 8px;
+}
+.projets-cta-text p {
+  font-size: .88rem;
+  color: var(--text-muted);
+  max-width: 480px;
+  line-height: 1.6;
+  margin: 0;
+}
+.projets-cta-btns {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+.btn-gh-big {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-head);
+  font-size: .88rem;
+  font-weight: 700;
+  background: #24292f;
+  color: #fff;
+  padding: 12px 22px;
+  border-radius: 12px;
+  transition: background .18s, transform .18s;
+}
+.btn-gh-big:hover { background: #000; transform: translateY(-1px); }
+[data-theme="dark"] .btn-gh-big { background: #f0f6ff; color: #0f172a; }
+[data-theme="dark"] .btn-gh-big:hover { background: #fff; }
+
+@media (max-width: 680px) {
+  .projets-cta { padding: 24px 20px; flex-direction: column; }
+  .projets-cta-btns { width: 100%; }
+  .projets-cta-btns a { flex: 1; justify-content: center; }
+}
+</style>
+
+<!-- ══ GALERIE PHOTO ══════════════════════════════════ -->
+<section id="galerie">
+  <div class="section-inner">
+    <div class="section-label">Vie de l'asso</div>
+    <h2 class="section-title">Notre <em>galerie</em></h2>
+    <p class="section-desc">Ateliers, permanences, hackathons, rencontres… retour en images sur les moments forts de la communauté.</p>
+
+    <!-- Filtres -->
+    <div class="gal-filters">
+      <button class="gal-filter active" data-gal="all">Tout voir</button>
+      <button class="gal-filter" data-gal="atelier"><i class="fas fa-chalkboard-teacher"></i> Ateliers</button>
+      <button class="gal-filter" data-gal="permanence"><i class="fas fa-headset"></i> Permanences</button>
+      <button class="gal-filter" data-gal="evenement"><i class="fas fa-calendar-star"></i> Événements</button>
+      <button class="gal-filter" data-gal="equipe"><i class="fas fa-users"></i> Équipe</button>
+    </div>
+
+    <!-- Grille galerie -->
+    <div class="gal-grid" id="galGrid">
+
+      <!-- Carte 1 -->
+      <div class="gal-item scroll-reveal" data-gal="atelier" data-index="0">
+        <div class="gal-img-wrap">
+          <svg viewBox="0 0 420 280" xmlns="http://www.w3.org/2000/svg" class="gal-svg">
+            <rect width="420" height="280" fill="#0f172a"/>
+            <rect x="30" y="30" width="360" height="190" rx="8" fill="#1e293b"/>
+            <!-- écran ordi -->
+            <rect x="60" y="55" width="300" height="170" rx="6" fill="#0f172a"/>
+            <rect x="60" y="55" width="300" height="22" rx="6" fill="#1e3a5f"/>
+            <circle cx="78" cy="66" r="5" fill="#ef4444" opacity=".8"/>
+            <circle cx="96" cy="66" r="5" fill="#fbbf24" opacity=".8"/>
+            <circle cx="114" cy="66" r="5" fill="#4ade80" opacity=".8"/>
+            <!-- code lines -->
+            <rect x="75" y="92" width="120" height="6" rx="3" fill="#3b82f6" opacity=".7"/>
+            <rect x="85" y="106" width="90" height="6" rx="3" fill="#4ade80" opacity=".6"/>
+            <rect x="85" y="120" width="150" height="6" rx="3" fill="#c4b5fd" opacity=".6"/>
+            <rect x="75" y="134" width="80" height="6" rx="3" fill="#fbbf24" opacity=".6"/>
+            <rect x="85" y="148" width="110" height="6" rx="3" fill="#4ade80" opacity=".5"/>
+            <rect x="75" y="162" width="60" height="6" rx="3" fill="#3b82f6" opacity=".7"/>
+            <rect x="85" y="176" width="130" height="6" rx="3" fill="#c4b5fd" opacity=".5"/>
+            <rect x="85" y="190" width="100" height="6" rx="3" fill="#fbbf24" opacity=".4"/>
+            <!-- silhouettes participants -->
+            <ellipse cx="90" cy="248" rx="18" ry="10" fill="#60a5fa" opacity=".6"/>
+            <circle cx="90" cy="233" r="10" fill="#60a5fa" opacity=".6"/>
+            <ellipse cx="140" cy="248" rx="18" ry="10" fill="#4ade80" opacity=".6"/>
+            <circle cx="140" cy="233" r="10" fill="#4ade80" opacity=".6"/>
+            <ellipse cx="190" cy="248" rx="18" ry="10" fill="#c4b5fd" opacity=".6"/>
+            <circle cx="190" cy="233" r="10" fill="#c4b5fd" opacity=".6"/>
+            <ellipse cx="240" cy="248" rx="18" ry="10" fill="#f97316" opacity=".6"/>
+            <circle cx="240" cy="233" r="10" fill="#f97316" opacity=".6"/>
+            <ellipse cx="290" cy="248" rx="18" ry="10" fill="#60a5fa" opacity=".6"/>
+            <circle cx="290" cy="233" r="10" fill="#60a5fa" opacity=".6"/>
+          </svg>
+          <div class="gal-overlay">
+            <i class="fas fa-expand"></i>
+          </div>
+          <span class="gal-badge gal-badge-atelier"><i class="fas fa-chalkboard-teacher"></i> Atelier</span>
+        </div>
+        <div class="gal-caption">
+          <h4>Atelier initiation au code</h4>
+          <span><i class="fas fa-calendar"></i> Janvier 2025</span>
+        </div>
+      </div>
+
+      <!-- Carte 2 -->
+      <div class="gal-item scroll-reveal gal-wide" data-gal="permanence" data-index="1">
+        <div class="gal-img-wrap">
+          <svg viewBox="0 0 640 280" xmlns="http://www.w3.org/2000/svg" class="gal-svg">
+            <rect width="640" height="280" fill="#0a1628"/>
+            <!-- fond étoiles -->
+            <circle cx="50" cy="40" r="1.5" fill="#fff" opacity=".4"/>
+            <circle cx="200" cy="20" r="1" fill="#fff" opacity=".3"/>
+            <circle cx="400" cy="50" r="2" fill="#fff" opacity=".3"/>
+            <circle cx="580" cy="30" r="1.5" fill="#fff" opacity=".4"/>
+            <circle cx="320" cy="15" r="1" fill="#fff" opacity=".2"/>
+            <!-- bulle discord principal -->
+            <rect x="180" y="60" width="280" height="160" rx="20" fill="#5865f2" opacity=".15"/>
+            <rect x="180" y="60" width="280" height="160" rx="20" fill="none" stroke="#5865f2" stroke-width="1.5" opacity=".5"/>
+            <!-- logo discord simplifié -->
+            <path d="M280 110 C280 110 305 95 320 100 C335 95 360 110 360 110 C372 130 372 155 360 165 C350 172 340 168 320 170 C300 168 290 172 280 165 C268 155 268 130 280 110Z" fill="#5865f2" opacity=".8"/>
+            <circle cx="308" cy="135" r="8" fill="#fff" opacity=".9"/>
+            <circle cx="332" cy="135" r="8" fill="#fff" opacity=".9"/>
+            <!-- texte permanence -->
+            <rect x="215" y="180" width="210" height="8" rx="4" fill="#60a5fa" opacity=".5"/>
+            <rect x="245" y="196" width="150" height="6" rx="3" fill="#fff" opacity=".25"/>
+            <!-- avatars en ligne -->
+            <circle cx="80" cy="140" r="28" fill="#1e293b" stroke="#5865f2" stroke-width="2"/>
+            <circle cx="80" cy="130" r="12" fill="#60a5fa" opacity=".7"/>
+            <ellipse cx="80" cy="158" rx="18" ry="10" fill="#60a5fa" opacity=".7"/>
+            <circle cx="560" cy="140" r="28" fill="#1e293b" stroke="#4ade80" stroke-width="2"/>
+            <circle cx="560" cy="130" r="12" fill="#4ade80" opacity=".7"/>
+            <ellipse cx="560" cy="158" rx="18" ry="10" fill="#4ade80" opacity=".7"/>
+            <!-- indicateur online -->
+            <circle cx="104" cy="164" r="8" fill="#23272a"/>
+            <circle cx="104" cy="164" r="5" fill="#4ade80"/>
+            <circle cx="584" cy="164" r="8" fill="#23272a"/>
+            <circle cx="584" cy="164" r="5" fill="#4ade80"/>
+            <!-- ondes -->
+            <path d="M130 140 Q155 110 180 140" fill="none" stroke="#5865f2" stroke-width="1.5" opacity=".4" stroke-dasharray="4 3"/>
+            <path d="M460 140 Q485 110 510 140" fill="none" stroke="#5865f2" stroke-width="1.5" opacity=".4" stroke-dasharray="4 3"/>
+          </svg>
+          <div class="gal-overlay"><i class="fas fa-expand"></i></div>
+          <span class="gal-badge gal-badge-permanence"><i class="fas fa-headset"></i> Permanence</span>
+        </div>
+        <div class="gal-caption">
+          <h4>Permanence numérique en ligne</h4>
+          <span><i class="fas fa-calendar"></i> Chaque samedi · 14h–16h</span>
+        </div>
+      </div>
+
+      <!-- Carte 3 -->
+      <div class="gal-item scroll-reveal" data-gal="equipe" data-index="2">
+        <div class="gal-img-wrap">
+          <svg viewBox="0 0 420 280" xmlns="http://www.w3.org/2000/svg" class="gal-svg">
+            <defs>
+              <linearGradient id="gTeamBg" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#0f172a"/>
+                <stop offset="100%" style="stop-color:#1a0533"/>
+              </linearGradient>
+            </defs>
+            <rect width="420" height="280" fill="url(#gTeamBg)"/>
+            <!-- confettis déco -->
+            <rect x="40" y="25" width="8" height="8" rx="2" fill="#60a5fa" opacity=".5" transform="rotate(20 44 29)"/>
+            <rect x="370" y="40" width="6" height="6" rx="1" fill="#4ade80" opacity=".5" transform="rotate(-15 373 43)"/>
+            <rect x="200" y="15" width="10" height="10" rx="2" fill="#f97316" opacity=".4" transform="rotate(45 205 20)"/>
+            <!-- arc de cercle équipe -->
+            <!-- membre 1 (fondateur) centre -->
+            <circle cx="210" cy="130" r="38" fill="#1e293b" stroke="#60a5fa" stroke-width="2.5"/>
+            <circle cx="210" cy="115" r="18" fill="#60a5fa" opacity=".85"/>
+            <ellipse cx="210" cy="158" rx="28" ry="14" fill="#60a5fa" opacity=".85"/>
+            <circle cx="210" cy="130" r="38" fill="none" stroke="#60a5fa" stroke-width="2.5"/>
+            <!-- couronne fondateur -->
+            <path d="M192 80 L200 95 L210 82 L220 95 L228 80 L232 90 L188 90Z" fill="#fbbf24" opacity=".8"/>
+            <!-- membres autour -->
+            <circle cx="100" cy="165" r="28" fill="#1e293b" stroke="#4ade80" stroke-width="2"/>
+            <circle cx="100" cy="152" r="13" fill="#4ade80" opacity=".75"/>
+            <ellipse cx="100" cy="183" rx="20" ry="10" fill="#4ade80" opacity=".75"/>
+            <circle cx="320" cy="165" r="28" fill="#1e293b" stroke="#c4b5fd" stroke-width="2"/>
+            <circle cx="320" cy="152" r="13" fill="#c4b5fd" opacity=".75"/>
+            <ellipse cx="320" cy="183" rx="20" ry="10" fill="#c4b5fd" opacity=".75"/>
+            <circle cx="140" cy="225" r="22" fill="#1e293b" stroke="#f97316" stroke-width="1.5"/>
+            <circle cx="140" cy="214" r="10" fill="#f97316" opacity=".7"/>
+            <ellipse cx="140" cy="238" rx="16" ry="8" fill="#f97316" opacity=".7"/>
+            <circle cx="280" cy="225" r="22" fill="#1e293b" stroke="#fbbf24" stroke-width="1.5"/>
+            <circle cx="280" cy="214" r="10" fill="#fbbf24" opacity=".7"/>
+            <ellipse cx="280" cy="238" rx="16" ry="8" fill="#fbbf24" opacity=".7"/>
+            <!-- connexions -->
+            <line x1="128" y1="165" x2="172" y2="148" stroke="#4ade80" stroke-width="1" opacity=".3" stroke-dasharray="4 3"/>
+            <line x1="248" y1="148" x2="292" y2="165" stroke="#c4b5fd" stroke-width="1" opacity=".3" stroke-dasharray="4 3"/>
+            <line x1="155" y1="218" x2="180" y2="165" stroke="#f97316" stroke-width="1" opacity=".3" stroke-dasharray="4 3"/>
+            <line x1="240" y1="165" x2="265" y2="218" stroke="#fbbf24" stroke-width="1" opacity=".3" stroke-dasharray="4 3"/>
+          </svg>
+          <div class="gal-overlay"><i class="fas fa-expand"></i></div>
+          <span class="gal-badge gal-badge-equipe"><i class="fas fa-users"></i> Équipe</span>
+        </div>
+        <div class="gal-caption">
+          <h4>L'équipe fondatrice</h4>
+          <span><i class="fas fa-calendar"></i> Novembre 2024</span>
+        </div>
+      </div>
+
+      <!-- Carte 4 -->
+      <div class="gal-item scroll-reveal" data-gal="evenement" data-index="3">
+        <div class="gal-img-wrap">
+          <svg viewBox="0 0 420 280" xmlns="http://www.w3.org/2000/svg" class="gal-svg">
+            <defs>
+              <linearGradient id="gHackBg" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#1a0010"/>
+                <stop offset="100%" style="stop-color:#0f1a00"/>
+              </linearGradient>
+            </defs>
+            <rect width="420" height="280" fill="url(#gHackBg)"/>
+            <!-- trophée central -->
+            <path d="M175 200 L245 200 L235 170 L185 170Z" fill="#92400e"/>
+            <rect x="195" y="170" width="30" height="10" rx="2" fill="#fbbf24" opacity=".8"/>
+            <path d="M170 90 L250 90 L240 150 L200 165 L160 150Z" fill="#fbbf24" opacity=".9"/>
+            <path d="M170 90 L150 90 C150 120 165 135 185 140 L195 110Z" fill="#fbbf24" opacity=".7"/>
+            <path d="M250 90 L270 90 C270 120 255 135 235 140 L225 110Z" fill="#fbbf24" opacity=".7"/>
+            <circle cx="210" cy="118" r="16" fill="#fff" opacity=".15"/>
+            <text x="210" y="123" text-anchor="middle" font-size="16" fill="#7c2d12" font-weight="bold">1</text>
+            <!-- étoiles/confettis victoire -->
+            <path d="M80 80 L84 92 L96 92 L86 100 L90 112 L80 104 L70 112 L74 100 L64 92 L76 92Z" fill="#fbbf24" opacity=".7"/>
+            <path d="M340 60 L343 70 L353 70 L345 76 L348 86 L340 80 L332 86 L335 76 L327 70 L337 70Z" fill="#f97316" opacity=".6"/>
+            <path d="M360 160 L362 167 L369 167 L363 171 L365 178 L360 174 L355 178 L357 171 L351 167 L358 167Z" fill="#60a5fa" opacity=".6"/>
+            <!-- participants podium -->
+            <rect x="60" y="185" width="50" height="60" rx="4" fill="#1e293b" stroke="#c4b5fd" stroke-width="1.5"/>
+            <text x="85" y="178" text-anchor="middle" font-size="11" fill="#c4b5fd" font-weight="bold">2</text>
+            <circle cx="85" cy="165" r="14" fill="#c4b5fd" opacity=".7"/>
+            <ellipse cx="85" cy="190" rx="22" ry="9" fill="#1e293b"/>
+            <rect x="310" y="200" width="50" height="45" rx="4" fill="#1e293b" stroke="#f97316" stroke-width="1.5"/>
+            <text x="335" y="193" text-anchor="middle" font-size="11" fill="#f97316" font-weight="bold">3</text>
+            <circle cx="335" cy="180" r="14" fill="#f97316" opacity=".7"/>
+            <ellipse cx="335" cy="205" rx="22" ry="9" fill="#1e293b"/>
+          </svg>
+          <div class="gal-overlay"><i class="fas fa-expand"></i></div>
+          <span class="gal-badge gal-badge-evenement"><i class="fas fa-trophy"></i> Événement</span>
+        </div>
+        <div class="gal-caption">
+          <h4>Hackathon Associatif 2025</h4>
+          <span><i class="fas fa-calendar"></i> Juillet 2025</span>
+        </div>
+      </div>
+
+      <!-- Carte 5 -->
+      <div class="gal-item scroll-reveal" data-gal="atelier" data-index="4">
+        <div class="gal-img-wrap">
+          <svg viewBox="0 0 420 280" xmlns="http://www.w3.org/2000/svg" class="gal-svg">
+            <rect width="420" height="280" fill="#0c1a0c"/>
+            <!-- terminal linux -->
+            <rect x="30" y="30" width="360" height="220" rx="10" fill="#1a1a1a"/>
+            <rect x="30" y="30" width="360" height="32" rx="10" fill="#2d2d2d"/>
+            <rect x="30" y="50" width="360" height="12" fill="#2d2d2d"/>
+            <circle cx="55" cy="46" r="7" fill="#ef4444" opacity=".9"/>
+            <circle cx="78" cy="46" r="7" fill="#fbbf24" opacity=".9"/>
+            <circle cx="101" cy="46" r="7" fill="#4ade80" opacity=".9"/>
+            <text x="210" y="50" text-anchor="middle" font-size="11" fill="#9ca3af">bash — 80×24</text>
+            <!-- prompt lignes -->
+            <text x="50" y="90"  font-size="11" fill="#4ade80" font-family="monospace">user@aed:~$</text>
+            <text x="145" y="90" font-size="11" fill="#fff" font-family="monospace" opacity=".9"> git clone asso-projet</text>
+            <text x="50" y="108" font-size="11" fill="#60a5fa" font-family="monospace" opacity=".7">Clonage dans 'asso-projet'...</text>
+            <text x="50" y="124" font-size="11" fill="#4ade80" font-family="monospace">user@aed:~$</text>
+            <text x="145" y="124" font-size="11" fill="#fff" font-family="monospace" opacity=".9"> cd asso-projet</text>
+            <text x="50" y="142" font-size="11" fill="#4ade80" font-family="monospace">user@aed:~/asso$</text>
+            <text x="158" y="142" font-size="11" fill="#fff" font-family="monospace" opacity=".9"> npm install</text>
+            <text x="50" y="158" font-size="11" fill="#fbbf24" font-family="monospace" opacity=".7">added 247 packages in 3.2s</text>
+            <text x="50" y="175" font-size="11" fill="#4ade80" font-family="monospace">user@aed:~/asso$</text>
+            <text x="158" y="175" font-size="11" fill="#fff" font-family="monospace" opacity=".9"> npm run dev</text>
+            <text x="50" y="191" font-size="11" fill="#4ade80" font-family="monospace" opacity=".7">✔ Serveur démarré sur :3000</text>
+            <!-- curseur clignotant -->
+            <rect x="50" y="205" width="8" height="14" rx="1" fill="#4ade80" opacity=".9">
+              <animate attributeName="opacity" values="1;0;1" dur="1.1s" repeatCount="indefinite"/>
+            </rect>
+          </svg>
+          <div class="gal-overlay"><i class="fas fa-expand"></i></div>
+          <span class="gal-badge gal-badge-atelier"><i class="fas fa-terminal"></i> Atelier</span>
+        </div>
+        <div class="gal-caption">
+          <h4>Atelier Git & open source</h4>
+          <span><i class="fas fa-calendar"></i> Mars 2025</span>
+        </div>
+      </div>
+
+      <!-- Carte 6 -->
+      <div class="gal-item scroll-reveal" data-gal="evenement" data-index="5">
+        <div class="gal-img-wrap">
+          <svg viewBox="0 0 420 280" xmlns="http://www.w3.org/2000/svg" class="gal-svg">
+            <defs>
+              <linearGradient id="gEureBg" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#0f1923"/>
+                <stop offset="100%" style="stop-color:#0a1a10"/>
+              </linearGradient>
+            </defs>
+            <rect width="420" height="280" fill="url(#gEureBg)"/>
+            <!-- carte stylisée de l'Eure -->
+            <path d="M100 80 C120 60 160 55 200 65 C240 75 280 65 310 80 C330 90 340 110 335 135 C330 160 310 175 290 185 C260 200 230 210 200 210 C170 210 140 200 120 185 C100 170 85 150 88 125 C91 100 80 100 100 80Z" fill="#0f3a2a" stroke="#4ade80" stroke-width="1.5" opacity=".8"/>
+            <!-- marqueur Évreux -->
+            <circle cx="210" cy="135" r="8" fill="#60a5fa"/>
+            <circle cx="210" cy="135" r="14" fill="none" stroke="#60a5fa" stroke-width="1.5" opacity=".5">
+              <animate attributeName="r" values="8;22;8" dur="2s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values=".5;0;.5" dur="2s" repeatCount="indefinite"/>
+            </circle>
+            <!-- autres villes -->
+            <circle cx="155" cy="115" r="5" fill="#4ade80" opacity=".7"/>
+            <circle cx="265" cy="120" r="5" fill="#4ade80" opacity=".7"/>
+            <circle cx="185" cy="170" r="5" fill="#4ade80" opacity=".7"/>
+            <circle cx="250" cy="160" r="5" fill="#4ade80" opacity=".7"/>
+            <circle cx="130" cy="150" r="4" fill="#fbbf24" opacity=".6"/>
+            <!-- légende -->
+            <rect x="50" y="220" width="12" height="12" rx="3" fill="#60a5fa"/>
+            <text x="68" y="231" font-size="10" fill="#fff" opacity=".6" font-family="sans-serif">Évreux (siège)</text>
+            <rect x="180" y="220" width="12" height="12" rx="3" fill="#4ade80"/>
+            <text x="198" y="231" font-size="10" fill="#fff" opacity=".6" font-family="sans-serif">Points d'ancrage</text>
+            <rect x="310" y="220" width="12" height="12" rx="3" fill="#fbbf24"/>
+            <text x="328" y="231" font-size="10" fill="#fff" opacity=".6" font-family="sans-serif">Partenaires</text>
+          </svg>
+          <div class="gal-overlay"><i class="fas fa-expand"></i></div>
+          <span class="gal-badge gal-badge-evenement"><i class="fas fa-map-marker-alt"></i> Territoire</span>
+        </div>
+        <div class="gal-caption">
+          <h4>Cartographie du territoire de l'Eure</h4>
+          <span><i class="fas fa-map"></i> Normandie</span>
+        </div>
+      </div>
+
+    </div><!-- /.gal-grid -->
+
+    <!-- CTA -->
+    <div class="gal-cta scroll-reveal">
+      <p>Vous avez des photos de nos événements ? Partagez-les sur Discord !</p>
+      <a href="https://discord.gg/yHCAgYKwk" target="_blank" rel="noopener" class="btn-discord">
+        <i class="fab fa-discord"></i> Partager vos photos
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- Lightbox galerie -->
+<div id="galLightbox" class="gal-lightbox" hidden>
+  <button class="gal-lb-close" id="galLbClose" aria-label="Fermer"><i class="fas fa-times"></i></button>
+  <button class="gal-lb-prev" id="galLbPrev" aria-label="Précédent"><i class="fas fa-chevron-left"></i></button>
+  <button class="gal-lb-next" id="galLbNext" aria-label="Suivant"><i class="fas fa-chevron-right"></i></button>
+  <div class="gal-lb-content" id="galLbContent"></div>
+  <div class="gal-lb-caption" id="galLbCaption"></div>
+</div>
+
+<style>
+/* ══ SECTION GALERIE ════════════════════════════════ */
+#galerie {
+  padding: 100px 0 80px;
+  background: var(--bg-section);
+}
+[data-theme="dark"] #galerie {
+  background: var(--bg-section);
+}
+
+/* Filtres */
+.gal-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 36px;
+  margin-bottom: 40px;
+}
+.gal-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-head, 'Sora', sans-serif);
+  font-size: .8rem;
+  font-weight: 700;
+  padding: 8px 18px;
+  border-radius: 100px;
+  border: 1.5px solid var(--border-card);
+  background: var(--bg-card);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all .2s;
+}
+.gal-filter:hover {
+  border-color: var(--aed-blue);
+  color: var(--aed-blue);
+}
+.gal-filter.active {
+  background: var(--aed-blue);
+  border-color: var(--aed-blue);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(59,130,246,.35);
+}
+
+/* Grille */
+.gal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 240px;
+  gap: 16px;
+}
+.gal-wide {
+  grid-column: span 2;
+}
+@media (max-width: 900px) {
+  .gal-grid { grid-template-columns: repeat(2, 1fr); }
+  .gal-wide { grid-column: span 2; }
+}
+@media (max-width: 580px) {
+  .gal-grid { grid-template-columns: 1fr; }
+  .gal-wide { grid-column: span 1; }
+}
+
+/* Item */
+.gal-item {
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  transition: transform .25s, box-shadow .25s;
+}
+.gal-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0,0,0,.15);
+}
+[data-theme="dark"] .gal-item:hover {
+  box-shadow: 0 16px 40px rgba(0,0,0,.4);
+}
+.gal-item.gal-hidden { display: none; }
+
+/* Image wrap */
+.gal-img-wrap {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+}
+.gal-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  transition: transform .35s;
+}
+.gal-item:hover .gal-svg {
+  transform: scale(1.04);
+}
+
+/* Overlay au hover */
+.gal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(15,23,42,.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity .25s;
+  font-size: 1.5rem;
+  color: #fff;
+}
+.gal-item:hover .gal-overlay {
+  opacity: 1;
+}
+
+/* Badge type */
+.gal-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-family: var(--font-head, 'Sora', sans-serif);
+  font-size: .68rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 100px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.gal-badge-atelier   { background: #dbeafe; color: #1d4ed8; }
+.gal-badge-permanence{ background: #ede9fe; color: #6d28d9; }
+.gal-badge-evenement { background: #fef3c7; color: #92400e; }
+.gal-badge-equipe    { background: #dcfce7; color: #15803d; }
+[data-theme="dark"] .gal-badge-atelier   { background: #1e3a5f; color: #93c5fd; }
+[data-theme="dark"] .gal-badge-permanence{ background: #2e1b5b; color: #c4b5fd; }
+[data-theme="dark"] .gal-badge-evenement { background: #422006; color: #fde68a; }
+[data-theme="dark"] .gal-badge-equipe    { background: #14532d; color: #86efac; }
+
+/* Caption */
+.gal-caption {
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.gal-caption h4 {
+  font-family: var(--font-head, 'Sora', sans-serif);
+  font-size: .85rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin: 0;
+}
+.gal-caption span {
+  font-size: .72rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* CTA */
+.gal-cta {
+  margin-top: 48px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.gal-cta p {
+  font-size: .95rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* ══ LIGHTBOX ════════════════════════════════════════ */
+.gal-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.92);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity .25s;
+}
+.gal-lightbox.open {
+  opacity: 1;
+}
+.gal-lb-close {
+  position: absolute;
+  top: 20px; right: 24px;
+  background: rgba(255,255,255,.1);
+  border: none;
+  color: #fff;
+  font-size: 1.2rem;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background .2s;
+  display: flex; align-items: center; justify-content: center;
+}
+.gal-lb-close:hover { background: rgba(255,255,255,.25); }
+.gal-lb-prev, .gal-lb-next {
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  background: rgba(255,255,255,.1);
+  border: none;
+  color: #fff;
+  font-size: 1.1rem;
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background .2s;
+  display: flex; align-items: center; justify-content: center;
+}
+.gal-lb-prev { left: 20px; }
+.gal-lb-next { right: 20px; }
+.gal-lb-prev:hover, .gal-lb-next:hover { background: rgba(255,255,255,.25); }
+.gal-lb-content {
+  max-width: 80vw;
+  max-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.gal-lb-content svg {
+  max-width: 100%;
+  max-height: 70vh;
+  border-radius: 12px;
+}
+.gal-lb-caption {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: #fff;
+  font-family: var(--font-head, 'Sora', sans-serif);
+  font-size: 1rem;
+  font-weight: 600;
+  background: rgba(0,0,0,.5);
+  padding: 10px 24px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+</style>
+
+<script>
+/* ══ GALERIE : filtres + lightbox ═══════════════════ */
+(function() {
+  const items = Array.from(document.querySelectorAll('.gal-item'));
+  const filters = document.querySelectorAll('.gal-filter');
+  const lightbox = document.getElementById('galLightbox');
+  const lbContent = document.getElementById('galLbContent');
+  const lbCaption = document.getElementById('galLbCaption');
+  let currentIndex = 0;
+  let visibleItems = [...items];
+
+  /* ── Filtres ── */
+  filters.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filters.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const cat = btn.dataset.gal;
+      visibleItems = [];
+      items.forEach((item, i) => {
+        const match = cat === 'all' || item.dataset.gal === cat;
+        item.classList.toggle('gal-hidden', !match);
+        if (match) visibleItems.push(item);
+      });
+    });
+  });
+
+  /* ── Lightbox ── */
+  function openLb(index) {
+    currentIndex = index;
+    const item = visibleItems[currentIndex];
+    lbContent.innerHTML = item.querySelector('.gal-img-wrap').innerHTML;
+    lbContent.querySelector('.gal-overlay')?.remove();
+    lbContent.querySelector('.gal-badge')?.remove();
+    lbCaption.textContent = item.querySelector('.gal-caption h4').textContent;
+    lightbox.removeAttribute('hidden');
+    requestAnimationFrame(() => lightbox.classList.add('open'));
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLb() {
+    lightbox.classList.remove('open');
+    setTimeout(() => { lightbox.setAttribute('hidden',''); document.body.style.overflow = ''; }, 260);
+  }
+  function prevLb() { currentIndex = (currentIndex - 1 + visibleItems.length) % visibleItems.length; openLb(currentIndex); }
+  function nextLb() { currentIndex = (currentIndex + 1) % visibleItems.length; openLb(currentIndex); }
+
+  items.forEach((item, i) => {
+    item.addEventListener('click', () => {
+      const vi = visibleItems.indexOf(item);
+      if (vi >= 0) openLb(vi);
+    });
+  });
+  document.getElementById('galLbClose').addEventListener('click', closeLb);
+  document.getElementById('galLbPrev').addEventListener('click', prevLb);
+  document.getElementById('galLbNext').addEventListener('click', nextLb);
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLb(); });
+  document.addEventListener('keydown', e => {
+    if (!lightbox.hasAttribute('hidden')) {
+      if (e.key === 'Escape') closeLb();
+      if (e.key === 'ArrowLeft') prevLb();
+      if (e.key === 'ArrowRight') nextLb();
+    }
+  });
+})();
+</script>
+
+<!-- ══ HACKATHON ═════════════════════════════════════ -->
+<section id="hackathon">
+  <div class="hackathon-inner">
+    <div class="hackathon-header">
+      <div>
+        <div class="hackathon-badge"><i class="fas fa-trophy"></i> Événement majeur</div>
+        <div class="section-label">20 au 22 Juillet 2026</div>
+        <h2 class="section-title">Hackathon <em style="color:var(--aed-orange)">Associatif</em></h2>
+        <p class="section-desc">Quatre jours pour imaginer, prototyper et présenter des projets numériques à impact local, en équipe et dans l'esprit open source.</p>
+        <!-- Compte à rebours -->
+        <div class="hackathon-countdown" id="hackathonCountdown">
+          <div class="countdown-label"><i class="fas fa-clock"></i> Temps restant avant le hackathon</div>
+          <div class="countdown-timer">
+            <div class="countdown-unit"><span class="countdown-num" id="cdDays">--</span><span class="countdown-unit-label">jours</span></div>
+            <div class="countdown-sep">:</div>
+            <div class="countdown-unit"><span class="countdown-num" id="cdHours">--</span><span class="countdown-unit-label">heures</span></div>
+            <div class="countdown-sep">:</div>
+            <div class="countdown-unit"><span class="countdown-num" id="cdMinutes">--</span><span class="countdown-unit-label">min</span></div>
+            <div class="countdown-sep">:</div>
+            <div class="countdown-unit"><span class="countdown-num" id="cdSeconds">--</span><span class="countdown-unit-label">sec</span></div>
+          </div>
+        </div>
+        <!-- Boutons de partage social -->
+        <div class="hackathon-share">
+          <span class="share-label"><i class="fas fa-share-alt"></i> Partager l'événement</span>
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Faleuredigitale.netlify.app%2F%23hackathon&title=Hackathon%20Associatif%20%E2%80%94%20%C3%80%20l%E2%80%99Eure%20Digitale&summary=Rejoignez%20le%20Hackathon%20Associatif%20du%2020%20au%2022%20juillet%202026%20en%20Normandie%20!%20Projets%20open%20source%2C%20%C3%A9quipes%20pluridisciplinaires%2C%20impact%20local." target="_blank" rel="noopener" class="share-btn share-linkedin" aria-label="Partager sur LinkedIn">
+            <i class="fab fa-linkedin-in"></i> LinkedIn
+          </a>
+          <a href="https://twitter.com/intent/tweet?text=🏆%20Hackathon%20Associatif%20%E2%80%94%20À%20l%E2%80%99Eure%20Digitale%20%7C%2020-22%20juillet%202026%20en%20Normandie%20!%20Projets%20numériques%20open%20source%20à%20impact%20local.%20Rejoins-nous%20!&url=https%3A%2F%2Faleuredigitale.netlify.app%2F%23hackathon" target="_blank" rel="noopener" class="share-btn share-twitter" aria-label="Partager sur X / Twitter">
+            <i class="fab fa-x-twitter"></i> Twitter / X
+          </a>
+        </div>
+      </div>
+      <div class="hackathon-date-card">
+        <div class="date-num">20–22</div>
+        <div class="date-month">Juillet</div>
+        <div class="date-year">2026</div>
+      </div>
+    </div>
+    <div class="hackathon-grid">
+      <div class="hackathon-card scroll-reveal">
+        <div class="hk-icon purple"><i class="fas fa-users"></i></div>
+        <h4>Travail en équipe</h4>
+        <p>Formez des équipes pluridisciplinaires pour relever des défis numériques concrets au service du territoire eurois.</p>
+      </div>
+      <div class="hackathon-card scroll-reveal">
+        <div class="hk-icon orange"><i class="fas fa-lightbulb"></i></div>
+        <h4>Projets à impact</h4>
+        <p>Prototypez des solutions innovantes pour les associations, collectivités et citoyens de l'Eure.</p>
+      </div>
+      <div class="hackathon-card scroll-reveal">
+        <div class="hk-icon green"><i class="fas fa-code-branch"></i></div>
+        <h4>Esprit open source</h4>
+        <p>Tous les projets sont publiés en open source pour bénéficier à l'ensemble de la communauté.</p>
+      </div>
+      <div class="hackathon-card scroll-reveal">
+        <div class="hk-icon blue"><i class="fas fa-chalkboard-teacher"></i></div>
+        <h4>Mentors & accompagnement</h4>
+        <p>Des membres expérimentés sont présents pour guider et accompagner toutes les équipes.</p>
+      </div>
+    </div>
+    <div class="hackathon-cta">
+      <div class="cta-text">
+        <h3>🏆 Inscrivez-vous dès maintenant</h3>
+        <p>Rejoignez le serveur Discord pour être informé en premier et réserver votre place.</p>
+      </div>
+      <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="btn-hack"><i class="fab fa-discord"></i> S'inscrire via Discord</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ AGENDA ════════════════════════════════════════ -->
+<section id="agenda">
+  <div class="section-inner">
+    <div class="section-label">Agenda</div>
+    <h2 class="section-title">Nos <em>événements</em></h2>
+    <p class="section-desc">Ateliers, permanences, conférences et rendez-vous communautaires — tous gratuits, 100% en ligne sur Discord.</p>
+
+    <!-- ★ EURE TECH & INCLUSION BANNER ★ -->
+    <div class="eti-banner scroll-reveal">
+      <div class="eti-banner-glow"></div>
+      <div class="eti-banner-left">
+        <div class="eti-banner-badge"><i class="fab fa-discord"></i> Événement phare · 100% en ligne</div>
+        <h3 class="eti-banner-title">Eure Tech &amp; Inclusion</h3>
+        <p class="eti-banner-subtitle">Une journée d'échanges, d'ateliers et de découvertes</p>
+        <div class="eti-banner-meta">
+          <div class="eti-meta-item"><i class="fas fa-calendar-alt"></i><span>19 Novembre 2026</span></div>
+          <div class="eti-meta-item"><i class="fas fa-clock"></i><span>10h00 – 17h00</span></div>
+          <div class="eti-meta-item"><i class="fab fa-discord"></i><span>Serveur Discord</span></div>
+        </div>
+        <div class="eti-banner-features">
+          <span class="eti-feat"><i class="fas fa-microphone"></i> Conférences</span>
+          <span class="eti-feat"><i class="fas fa-tools"></i> Ateliers pratiques</span>
+          <span class="eti-feat"><i class="fas fa-handshake"></i> Espace partenaires</span>
+          <span class="eti-feat"><i class="fas fa-users"></i> Entraide &amp; Réseau</span>
+          <span class="eti-feat"><i class="fas fa-gift"></i> Animations &amp; surprises</span>
+        </div>
+        <div class="eti-banner-partners">
+          <span class="eti-partner-tag">LADAPT</span>
+          <span class="eti-partner-tag">#seeph2026</span>
+          <span class="eti-partner-tag">DuoDay 2026</span>
+        </div>
+        <a href="https://discord.gg/yHCAgYKwk" target="_blank" rel="noopener" class="eti-banner-cta">
+          <i class="fab fa-discord"></i> Rejoindre &amp; participer
+        </a>
+      </div>
+      <div class="eti-banner-right">
+        <div class="eti-calendar">
+          <div class="eti-cal-month">Novembre</div>
+          <div class="eti-cal-day">19</div>
+          <div class="eti-cal-year">2026</div>
+        </div>
+        <div class="eti-countdown" id="etiCountdown">
+          <div class="eti-cd-label"><i class="fas fa-hourglass-half"></i> Compte à rebours</div>
+          <div class="eti-cd-units">
+            <div class="eti-cd-unit"><span id="etiDays">--</span><small>jours</small></div>
+            <div class="eti-cd-sep">:</div>
+            <div class="eti-cd-unit"><span id="etiHours">--</span><small>heures</small></div>
+            <div class="eti-cd-sep">:</div>
+            <div class="eti-cd-unit"><span id="etiMins">--</span><small>min</small></div>
+          </div>
+        </div>
+        <div class="eti-discord-pill">
+          <i class="fab fa-discord"></i> En ligne sur Discord
+        </div>
+      </div>
+    </div><!-- /.eti-banner -->
+
+  </div>
+</section>
+
+<style>
+/* ══ AGENDA SECTION ════════════════════════════════ */
+#agenda {
+  padding: 100px 0 80px;
+  background: var(--bg-section, #f8fafc);
+}
+[data-theme="dark"] #agenda {
+  background: var(--bg-section, #0f1923);
+}
+
+/* ── Eure Tech & Inclusion Banner ── */
+.eti-banner {
+  position: relative;
+  margin-top: 52px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0e1f4d 0%, #1a3a8f 40%, #0d5c2e 100%);
+  border: 1px solid rgba(255,255,255,.12);
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  box-shadow: 0 20px 60px rgba(14,31,77,.35);
+}
+[data-theme="light"] .eti-banner {
+  box-shadow: 0 20px 60px rgba(14,31,77,.25);
+}
+.eti-banner-glow {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 500px 300px at 30% 50%, rgba(99,102,241,.18) 0%, transparent 65%),
+    radial-gradient(ellipse 300px 200px at 80% 20%, rgba(34,197,94,.14) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.eti-banner-left {
+  flex: 1;
+  padding: 44px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  z-index: 1;
+}
+.eti-banner-right {
+  width: 240px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 36px 28px;
+  background: rgba(0,0,0,.18);
+  border-left: 1px solid rgba(255,255,255,.08);
+  position: relative;
+  z-index: 1;
+}
+
+.eti-banner-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-head);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #a5f3fc;
+  background: rgba(165,243,252,.1);
+  border: 1px solid rgba(165,243,252,.25);
+  padding: 5px 14px;
+  border-radius: 100px;
+  width: fit-content;
+}
+.eti-banner-title {
+  font-family: var(--font-head);
+  font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.1;
+  margin: 0;
+}
+.eti-banner-subtitle {
+  font-size: 1rem;
+  color: rgba(255,255,255,.72);
+  margin: 0;
+  line-height: 1.5;
+}
+.eti-banner-meta {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.eti-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-head);
+  font-size: .88rem;
+  font-weight: 600;
+  color: rgba(255,255,255,.85);
+}
+.eti-meta-item i { color: #86efac; font-size: .85rem; }
+.eti-banner-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.eti-feat {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-head);
+  font-size: .78rem;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.14);
+  padding: 5px 12px;
+  border-radius: 100px;
+}
+.eti-feat i { font-size: .78rem; color: #fbbf24; }
+.eti-banner-partners {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.eti-partner-tag {
+  font-family: var(--font-head);
+  font-size: .72rem;
+  font-weight: 700;
+  color: rgba(255,255,255,.6);
+  border: 1px solid rgba(255,255,255,.15);
+  padding: 3px 10px;
+  border-radius: 6px;
+  letter-spacing: .04em;
+}
+.eti-banner-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: .95rem;
+  background: #5865f2;
+  color: #fff;
+  padding: 14px 28px;
+  border-radius: 12px;
+  width: fit-content;
+  transition: background .2s, transform .2s, box-shadow .2s;
+  box-shadow: 0 4px 20px rgba(88,101,242,.4);
+}
+.eti-banner-cta:hover {
+  background: #4752c4;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(88,101,242,.55);
+}
+
+/* Calendrier */
+.eti-calendar {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  text-align: center;
+  min-width: 110px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.25);
+}
+.eti-cal-month {
+  background: #1e40af;
+  color: #fff;
+  font-family: var(--font-head);
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 7px 16px;
+}
+.eti-cal-day {
+  font-family: var(--font-head);
+  font-size: 3rem;
+  font-weight: 900;
+  color: #0e1f4d;
+  line-height: 1;
+  padding: 12px 20px 4px;
+}
+.eti-cal-year {
+  font-family: var(--font-head);
+  font-size: .82rem;
+  font-weight: 600;
+  color: #64748b;
+  padding-bottom: 12px;
+}
+
+/* Compte à rebours */
+.eti-countdown {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 14px;
+  padding: 16px 20px;
+  text-align: center;
+  width: 100%;
+}
+.eti-cd-label {
+  font-family: var(--font-head);
+  font-size: .68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: rgba(255,255,255,.5);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.eti-cd-units {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.eti-cd-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.eti-cd-unit span {
+  font-family: var(--font-head);
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+}
+.eti-cd-unit small {
+  font-size: .6rem;
+  color: rgba(255,255,255,.45);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+.eti-cd-sep {
+  font-family: var(--font-head);
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: rgba(255,255,255,.3);
+  margin-bottom: 14px;
+}
+.eti-discord-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-head);
+  font-size: .8rem;
+  font-weight: 700;
+  color: #fff;
+  background: #5865f2;
+  padding: 8px 16px;
+  border-radius: 100px;
+}
+
+@media (max-width: 760px) {
+  .eti-banner { flex-direction: column; }
+  .eti-banner-right { width: 100%; border-left: none; border-top: 1px solid rgba(255,255,255,.08); flex-direction: row; flex-wrap: wrap; justify-content: center; padding: 28px 20px; }
+  .eti-banner-left { padding: 32px 24px; }
+  .eti-banner-meta { flex-direction: column; gap: 10px; align-items: flex-start; }
+}
+</style>
+
+<script>
+/* ── Compte à rebours Eure Tech & Inclusion ── */
+(function etiTimer() {
+  const target = new Date('2026-11-19T10:00:00');
+  function tick() {
+    const now  = new Date();
+    const diff = target - now;
+    if (diff <= 0) {
+      document.getElementById('etiDays').textContent  = '00';
+      document.getElementById('etiHours').textContent = '00';
+      document.getElementById('etiMins').textContent  = '00';
+      return;
+    }
+    const days  = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins  = Math.floor((diff % 3600000)  / 60000);
+    document.getElementById('etiDays').textContent  = String(days).padStart(2,'0');
+    document.getElementById('etiHours').textContent = String(hours).padStart(2,'0');
+    document.getElementById('etiMins').textContent  = String(mins).padStart(2,'0');
+  }
+  tick();
+  setInterval(tick, 30000);
+})();
+</script>
+
+<!-- ══ TÉMOIGNAGES ═══════════════════════════════════ 
+<section id="temoignages">
+  <div class="section-inner">
+    <div class="section-label">Ils nous font confiance</div>
+    <h2 class="section-title">Ce qu'ils <em>disent</em></h2>
+    <p class="section-desc">Des membres de tous horizons partagent leur expérience au sein de la communauté.</p>
+    <div class="temoignages-grid">
+
+      <div class="temo-card scroll-reveal">
+        <div class="temo-bigquote">"</div>
+        <div class="temo-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="temo-text">J'ai rejoint l'asso en pleine reconversion. L'entraide des membres m'a permis de construire mes premiers projets web et de décrocher mon premier poste en développement en moins de six mois.</p>
+        <div class="temo-author">
+          <div class="temo-av av1">ML</div>
+          <div class="temo-author-info">
+            <strong>Marie L.</strong>
+            <span>Développeuse web, Évreux</span>
+          </div>
+        </div>
+        <div class="temo-tag"><i class="fas fa-sync-alt"></i> Reconversion</div>
+      </div>
+
+      <div class="temo-card scroll-reveal">
+        <div class="temo-bigquote">"</div>
+        <div class="temo-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="temo-text">À 68 ans, j'avais peur de poser mes questions sans me sentir jugé. Ici, personne ne ricane. J'ai enfin compris comment sécuriser mes données et aider mon entourage. Une communauté en or.</p>
+        <div class="temo-author">
+          <div class="temo-av av2">JP</div>
+          <div class="temo-author-info">
+            <strong>Jean-Pierre V.</strong>
+            <span>Retraité, Le Neubourg</span>
+          </div>
+        </div>
+        <div class="temo-tag"><i class="fas fa-graduation-cap"></i> Débutant</div>
+      </div>
+
+      <div class="temo-card scroll-reveal">
+        <div class="temo-bigquote">"</div>
+        <div class="temo-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="temo-text">Grâce aux membres de l'asso, j'ai pu lancer ma boutique en ligne en trois semaines. Conseils techniques, retours UX, mise en relation avec des prestataires locaux… un réseau inestimable.</p>
+        <div class="temo-author">
+          <div class="temo-av av3">SK</div>
+          <div class="temo-author-info">
+            <strong>Sonia K.</strong>
+            <span>Entrepreneuse, Saint-André-de-l'Eure</span>
+          </div>
+        </div>
+        <div class="temo-tag"><i class="fas fa-briefcase"></i> Entrepreneuriat</div>
+      </div>
+
+    </div>
+-->
+    <!-- Carousel des témoignages 
+    <div class="temo-carousel">
+      <div class="temo-track-wrap">
+        <div class="temo-track" id="temoTrack">
+          <div class="temo-card">
+            <div class="temo-bigquote">"</div>
+            <div class="temo-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+            <p class="temo-text">J'ai rejoint l'asso en pleine reconversion. L'entraide des membres m'a permis de construire mes premiers projets web et de décrocher mon premier poste en développement en moins de six mois.</p>
+            <div class="temo-author">
+              <div class="temo-av av1">ML</div>
+              <div class="temo-author-info"><strong>Marie L.</strong><span>Développeuse web, Évreux</span></div>
+            </div>
+            <div class="temo-tag"><i class="fas fa-sync-alt"></i> Reconversion</div>
+          </div>
+          <div class="temo-card">
+            <div class="temo-bigquote">"</div>
+            <div class="temo-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+            <p class="temo-text">À 68 ans, j'avais peur de poser mes questions sans me sentir jugé. Ici, personne ne ricane. J'ai enfin compris comment sécuriser mes données et aider mon entourage. Une communauté en or.</p>
+            <div class="temo-author">
+              <div class="temo-av av2">JP</div>
+              <div class="temo-author-info"><strong>Jean-Pierre V.</strong><span>Retraité, Le Neubourg</span></div>
+            </div>
+            <div class="temo-tag"><i class="fas fa-graduation-cap"></i> Débutant</div>
+          </div>
+          <div class="temo-card">
+            <div class="temo-bigquote">"</div>
+            <div class="temo-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+            <p class="temo-text">Grâce aux membres de l'asso, j'ai pu lancer ma boutique en ligne en trois semaines. Conseils techniques, retours UX, mise en relation avec des prestataires locaux… un réseau inestimable.</p>
+            <div class="temo-author">
+              <div class="temo-av av3">SK</div>
+              <div class="temo-author-info"><strong>Sonia K.</strong><span>Entrepreneuse, Saint-André-de-l'Eure</span></div>
+            </div>
+            <div class="temo-tag"><i class="fas fa-briefcase"></i> Entrepreneuriat</div>
+          </div>
+        </div>
+      </div>
+      <div class="temo-nav">
+        <button class="temo-btn" id="temoPrev" aria-label="Précédent"><i class="fas fa-chevron-left"></i></button>
+        <div class="temo-dots" id="temoDots"></div>
+        <button class="temo-btn" id="temoNext" aria-label="Suivant"><i class="fas fa-chevron-right"></i></button>
+      </div>
+    </div>
+  </div>
+</section>
+-->
+<!-- ══ TERRITOIRE ════════════════════════════════════ -->
+<section id="territoire">
+  <div class="section-inner">
+    <div class="section-label">Ancrage local</div>
+    <h2 class="section-title">Notre <em>territoire</em></h2>
+    <p class="section-desc">Basée en Normandie, l'association rayonne sur tout le territoire.</p>
+    <div class="territoire-layout">
+      <div class="territoire-left">
+        <ul class="territoire-list">
+          <li><i class="fas fa-map-marker-alt"></i> Évreux</li>
+          <li><i class="fas fa-map-marker-alt"></i> Le Neubourg</li>
+          <li><i class="fas fa-map-marker-alt"></i> Saint-André-de-l'Eure</li>
+          <li><i class="fas fa-map-marker-alt"></i> Et l'ensemble du département de l'Eure</li>
+        </ul>
+        <p style="font-size:.9rem;color:var(--text-muted);line-height:1.7;margin-bottom:16px;">
+          Association loi 1901 · Ouverte à toutes et à tous
+        </p>
+        <a href="https://aleuredigitale.netlify.app/" target="_blank" style="color:var(--aed-blue);font-family:var(--font-head);font-weight:600;font-size:.9rem;">
+          🌐 aleuredigitale.netlify.app
+        </a>
+        <div id="map"></div>
+      </div>
+      <div class="territoire-right">
+        <div class="valeurs-grid">
+          <div class="valeur-card v1 scroll-reveal">
+            <i class="fas fa-universal-access"></i>
+            <h4>Accessible à tous</h4>
+            <p>Aucun prérequis, tous niveaux bienvenus</p>
+          </div>
+          <div class="valeur-card v2 scroll-reveal">
+            <i class="fas fa-leaf"></i>
+            <h4>Responsable & durable</h4>
+            <p>Un numérique au service de l'intérêt général</p>
+          </div>
+          <div class="valeur-card v3 scroll-reveal">
+            <i class="fas fa-handshake"></i>
+            <h4>Au service du local</h4>
+            <p>Projets sur mesure avec les acteurs du territoire</p>
+          </div>
+          <div class="valeur-card v4 scroll-reveal">
+            <i class="fas fa-heart"></i>
+            <h4>Impact concret</h4>
+            <p>Des actions mesurables pour la communauté</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROPOSER UN ATELIER ════════════════════════════ -->
+<section id="proposer">
+  <div class="section-inner">
+    <div class="section-label">Contribuer à la communauté</div>
+    <h2 class="section-title">Proposer un <em>atelier</em></h2>
+    <p class="section-desc">Une idée de sujet à explorer ensemble ? Remplissez ce formulaire et l'équipe reviendra vers vous sur Discord pour co-construire la session.</p>
+
+    <div class="proposer-layout">
+
+      <!-- Panneau gauche : pourquoi proposer -->
+      <div class="proposer-info">
+        <div class="proposer-why">
+          <h3><i class="fas fa-star" style="color:var(--aed-orange)"></i> Pourquoi proposer ?</h3>
+          <ul class="proposer-why-list">
+            <li><i class="fas fa-check-circle"></i> Partager votre expertise ou curiosité</li>
+            <li><i class="fas fa-check-circle"></i> Faire monter la communauté en compétences</li>
+            <li><i class="fas fa-check-circle"></i> Tous les niveaux sont les bienvenus</li>
+            <li><i class="fas fa-check-circle"></i> Vous êtes accompagné·e pour préparer la session</li>
+            <li><i class="fas fa-check-circle"></i> L'atelier est annoncé sur Discord &amp; le site</li>
+          </ul>
+        </div>
+        <div class="proposer-ideas">
+          <h3><i class="fas fa-lightbulb" style="color:var(--aed-green)"></i> Idées de sujets</h3>
+          <div class="ideas-grid">
+            <span class="idea-tag">Git & GitHub</span>
+            <span class="idea-tag">Figma</span>
+            <span class="idea-tag">Linux</span>
+            <span class="idea-tag">Accessibilité web</span>
+            <span class="idea-tag">API REST</span>
+            <span class="idea-tag">No-code</span>
+            <span class="idea-tag">Sécurité</span>
+            <span class="idea-tag">IA générative</span>
+            <span class="idea-tag">Python</span>
+            <span class="idea-tag">CSS avancé</span>
+            <span class="idea-tag">Votre idée →</span>
+          </div>
+        </div>
+        <div class="proposer-stat-row">
+          <div class="proposer-stat">
+            <span class="pstat-num">8+</span>
+            <span class="pstat-label">Ateliers organisés</span>
+          </div>
+          <div class="proposer-stat">
+            <span class="pstat-num">~15</span>
+            <span class="pstat-label">Participants en moyenne</span>
+          </div>
+          <div class="proposer-stat">
+            <span class="pstat-num">100%</span>
+            <span class="pstat-label">Gratuit & bienveillant</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panneau droit : formulaire -->
+      <div class="proposer-form-box">
+
+        <!-- Étapes -->
+        <div class="proposer-steps" id="proposerSteps">
+          <div class="pstep active" data-step="1"><span class="pstep-num">1</span><span class="pstep-label">Le sujet</span></div>
+          <div class="pstep-line"></div>
+          <div class="pstep" data-step="2"><span class="pstep-num">2</span><span class="pstep-label">Le format</span></div>
+          <div class="pstep-line"></div>
+          <div class="pstep" data-step="3"><span class="pstep-num">3</span><span class="pstep-label">Vous</span></div>
+        </div>
+
+        <div id="proposerForm">
+
+          <!-- ÉTAPE 1 : sujet -->
+          <div class="pform-step" id="pstep1">
+            <h4 class="pstep-title">Quel sujet souhaitez-vous proposer ?</h4>
+            <div class="fg">
+              <label for="psubject">Titre de l'atelier <span class="req">*</span></label>
+              <input type="text" id="psubject" placeholder="ex : Introduction à Docker, Accessibilité web…" maxlength="80" autocomplete="off"/>
+              <span class="field-err" id="perr-psubject">Veuillez saisir un titre (3 caractères min.).</span>
+              <span class="char-counter" id="psubject-count">0 / 80</span>
+            </div>
+            <div class="fg">
+              <label for="pdesc">Description &amp; objectifs <span class="req">*</span></label>
+              <textarea id="pdesc" placeholder="Décrivez l'atelier en quelques lignes : de quoi ça parle, ce que les participants vont apprendre, pourquoi ce sujet vous tient à cœur…" rows="5"></textarea>
+              <span class="field-err" id="perr-pdesc">Veuillez écrire une description (20 caractères min.).</span>
+            </div>
+            <div class="fg">
+              <label for="plevel">Niveau ciblé <span class="req">*</span></label>
+              <select id="plevel">
+                <option value="">— Choisissez un niveau —</option>
+                <option value="debutant">Débutant — aucune connaissance préalable</option>
+                <option value="intermediaire">Intermédiaire — quelques bases nécessaires</option>
+                <option value="avance">Avancé — profil technique confirmé</option>
+                <option value="tous">Tous niveaux — accessible à tout le monde</option>
+              </select>
+              <span class="field-err" id="perr-plevel">Veuillez choisir un niveau.</span>
+            </div>
+            <div class="pform-nav">
+              <span></span>
+              <button class="pbtn-next" id="pnext1">Suivant <i class="fas fa-arrow-right"></i></button>
+            </div>
+          </div>
+
+          <!-- ÉTAPE 2 : format -->
+          <div class="pform-step hidden" id="pstep2">
+            <h4 class="pstep-title">Comment imaginez-vous cet atelier ?</h4>
+            <div class="fg">
+              <label>Format souhaité <span class="req">*</span></label>
+              <div class="format-cards" id="pformatCards">
+                <div class="format-card" data-value="en-ligne">
+                  <i class="fas fa-video"></i>
+                  <strong>En ligne</strong>
+                  <span>Via Discord ou visio</span>
+                </div>
+                <div class="format-card" data-value="presentiel">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <strong>En présentiel</strong>
+                  <span>Dans l'Eure</span>
+                </div>
+                <div class="format-card" data-value="hybride">
+                  <i class="fas fa-laptop-house"></i>
+                  <strong>Hybride</strong>
+                  <span>Les deux à la fois</span>
+                </div>
+                <div class="format-card" data-value="peu-importe">
+                  <i class="fas fa-random"></i>
+                  <strong>Peu importe</strong>
+                  <span>Au choix de l'asso</span>
+                </div>
+              </div>
+              <input type="hidden" id="pformat" value=""/>
+              <span class="field-err" id="perr-pformat">Veuillez choisir un format.</span>
+            </div>
+            <div class="fg">
+              <label for="pdispo">Vos disponibilités <span class="req">*</span></label>
+              <div class="dispo-checkboxes" id="pdispoGroup">
+                <label class="dispo-check"><input type="checkbox" value="semaine-soir" name="dispo"> Soirs en semaine (après 18h)</label>
+                <label class="dispo-check"><input type="checkbox" value="samedi-aprem" name="dispo"> Samedi après-midi</label>
+                <label class="dispo-check"><input type="checkbox" value="samedi-matin" name="dispo"> Samedi matin</label>
+                <label class="dispo-check"><input type="checkbox" value="dimanche" name="dispo"> Dimanche</label>
+                <label class="dispo-check"><input type="checkbox" value="flexible" name="dispo"> Flexible / à définir</label>
+              </div>
+              <span class="field-err" id="perr-pdispo">Veuillez cocher au moins une disponibilité.</span>
+            </div>
+            <div class="pform-nav">
+              <button class="pbtn-back" id="pback2"><i class="fas fa-arrow-left"></i> Retour</button>
+              <button class="pbtn-next" id="pnext2">Suivant <i class="fas fa-arrow-right"></i></button>
+            </div>
+          </div>
+
+          <!-- ÉTAPE 3 : vous -->
+          <div class="pform-step hidden" id="pstep3">
+            <h4 class="pstep-title">Qui êtes-vous ?</h4>
+            <div class="fg">
+              <label for="ppseudo">Pseudo Discord <span class="req">*</span></label>
+              <input type="text" id="ppseudo" placeholder="ex : marie_dev ou marie#1234" autocomplete="off"/>
+              <span class="field-err" id="perr-ppseudo">Veuillez saisir votre pseudo Discord.</span>
+              <small class="field-hint"><i class="fab fa-discord"></i> On vous contactera sur Discord pour discuter de l'atelier.</small>
+            </div>
+            <div class="fg">
+              <label for="ppresnom">Prénom (optionnel)</label>
+              <input type="text" id="ppresnom" placeholder="Marie" autocomplete="given-name"/>
+            </div>
+            <div class="fg">
+              <label for="pemail">E-mail (optionnel)</label>
+              <input type="email" id="pemail" placeholder="marie@exemple.fr" autocomplete="email"/>
+              <small class="field-hint">Uniquement si vous préférez être contacté·e par mail.</small>
+            </div>
+
+            <!-- Récap -->
+            <div class="proposer-recap" id="proposerRecap"></div>
+
+            <div class="pform-nav">
+              <button class="pbtn-back" id="pback3"><i class="fas fa-arrow-left"></i> Retour</button>
+              <button class="pbtn-submit" id="psubmitBtn">
+                <i class="fas fa-paper-plane"></i> Envoyer ma proposition
+              </button>
+            </div>
+          </div>
+
+        </div><!-- /#proposerForm -->
+
+        <!-- Succès -->
+        <div class="proposer-success hidden" id="proposerSuccess">
+          <div class="psuccess-icon">🎉</div>
+          <h4>Proposition envoyée !</h4>
+          <p>Merci <strong id="psuccess-name"></strong> ! L'équipe va lire votre idée et vous recontactera sur Discord (<strong id="psuccess-pseudo"></strong>) très prochainement pour co-construire l'atelier ensemble.</p>
+          <button class="pbtn-reset" id="proposerReset"><i class="fas fa-plus"></i> Proposer un autre atelier</button>
+        </div>
+
+      </div><!-- /.proposer-form-box -->
+    </div><!-- /.proposer-layout -->
+  </div>
+</section>
+
+<!-- ══ FAQ ═══════════════════════════════════════════ -->
+<section id="faq">
+  <div class="section-inner">
+    <div class="section-label">Questions fréquentes</div>
+    <h2 class="section-title">On répond à vos <em>questions</em></h2>
+    <p class="section-desc">Tout ce que vous voulez savoir avant de nous rejoindre.</p>
+    <div class="faq-search-wrap">
+      <i class="fas fa-search"></i>
+      <input type="text" id="faqSearch" placeholder="Rechercher une question…" oninput="filterFaq(this.value)" autocomplete="off"/>
+    </div>
+    <p class="faq-no-results" id="faqNoResults">Aucune question ne correspond à votre recherche.</p>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q-text">Faut-il être développeur pour rejoindre ?</span>
+          <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-body"><div class="faq-body-inner">Absolument pas ! La communauté accueille tous les profils : débutants complets, curieux du numérique, entrepreneurs, étudiants, retraités, designers, ou experts confirmés. Votre niveau n'a aucune importance — votre bienveillance, si.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q-text">Comment participer aux ateliers gratuits ?</span>
+          <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-body"><div class="faq-body-inner">Les ateliers sont annoncés directement sur le serveur Discord, dans le canal dédié aux événements. Il vous suffit d'être membre du serveur pour accéder aux informations, aux liens de connexion et aux ressources partagées.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q-text">Qu'est-ce que la permanence numérique du samedi ?</span>
+          <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-body"><div class="faq-body-inner">C'est un rendez-vous hebdomadaire en ligne, chaque samedi de 14h à 16h. Venez poser vos questions techniques, obtenir de l'aide sur un projet, ou simplement discuter avec d'autres membres. Aucune inscription préalable, accès libre et gratuit.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q-text">Comment contribuer aux projets open source ?</span>
+          <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-body"><div class="faq-body-inner">Tous les projets de l'asso sont publiés sur GitHub en open source. Que vous soyez développeur, designer, rédacteur ou simplement motivé, vous pouvez contribuer. Les projets en cours sont présentés régulièrement sur le Discord.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q-text">L'association organise-t-elle des événements en présentiel ?</span>
+          <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
+        </div>
+        <div class="faq-body"><div class="faq-body-inner">Oui ! En plus des activités en ligne, nous organisons des événements physiques sur le territoire de l'Eure : meetups et potentiellement des ateliers en présentiel. Suivez le Discord pour ne rien rater.</div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ ACTUALITÉS ════════════════════════════════════ 
+<section id="actualites">
+  <div class="section-inner">
+    <div class="section-label">Blog</div>
+    <h2 class="section-title">Dernières <em>actualités</em></h2>
+    <p class="section-desc">Tutoriels, retours d'événements, interviews et coulisses de la communauté.</p>
+-->
+    <!-- Grille des 3 derniers articles 
+    <div class="actu-grid" id="actuGrid"></div>
+-->
+    <!-- CTA vers blog.html 
+    <div class="actu-cta">
+      <a href="blog.html" class="btn-actu-all">
+        <i class="fas fa-newspaper"></i> Voir tous les articles
+        <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+  </div>
+</section>
+-->
+<style>
+  /* ══ SECTION ACTUALITÉS ════════════════════════════ */
+  #actualites {
+    padding: 100px 0 80px;
+    background: var(--bg-section-b);
+  }
+  [data-theme="dark"] #actualites {
+    background: var(--bg-section-b);
+  }
+
+  /* Grille 3 colonnes → 2 → 1 */
+  .actu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 40px;
+  }
+  @media (max-width: 860px) { .actu-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 580px) { .actu-grid { grid-template-columns: 1fr; } }
+
+  /* Carte */
+  .actu-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform .25s, box-shadow .25s;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+  }
+  .actu-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 40px rgba(0,0,0,.11);
+  }
+  [data-theme="dark"] .actu-card:hover { box-shadow: 0 14px 40px rgba(0,0,0,.4); }
+
+  .actu-card-bar { height: 5px; flex-shrink: 0; }
+  .actu-card-body { padding: 20px 20px 16px; flex: 1; display: flex; flex-direction: column; gap: 10px; }
+  .actu-card-top  { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+
+  .actu-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--font-head);
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 100px;
+  }
+  .actu-date {
+    font-size: .76rem;
+    color: var(--text-muted);
+  }
+  .actu-card-title {
+    font-family: var(--font-head);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-heading);
+    line-height: 1.4;
+  }
+  .actu-card-excerpt {
+    font-size: .86rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .actu-card-footer {
+    padding: 12px 20px;
+    border-top: 1px solid var(--border-card);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .actu-card-author {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: .78rem;
+    color: var(--text-muted);
+  }
+  .actu-avatar {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--aed-blue), var(--aed-purple));
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-head);
+    font-size: .56rem;
+    font-weight: 800;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .actu-read-time {
+    font-size: .74rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .actu-link {
+    font-family: var(--font-head);
+    font-size: .78rem;
+    font-weight: 700;
+    color: var(--aed-blue);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: gap .2s;
+  }
+  .actu-card:hover .actu-link { gap: 9px; }
+
+  /* CTA "Voir tous" */
+  .actu-cta {
+    text-align: center;
+    margin-top: 40px;
+  }
+  .btn-actu-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: .95rem;
+    color: var(--aed-navy);
+    border: 2px solid var(--border-card);
+    background: var(--bg-card);
+    padding: 12px 28px;
+    border-radius: 12px;
+    transition: background .2s, border-color .2s, color .2s, transform .2s;
+  }
+  .btn-actu-all:hover {
+    background: var(--aed-navy);
+    border-color: var(--aed-navy);
+    color: #fff;
+    transform: translateY(-2px);
+  }
+  [data-theme="dark"] .btn-actu-all { color: #fff; }
+  [data-theme="dark"] .btn-actu-all:hover { background: var(--aed-blue); border-color: var(--aed-blue); }
+</style>
+
+<!-- ── Script actualités (à placer après <script src="articles.js">) ── -->
+<script>
+(function renderActu() {
+  // Catégories (reprises depuis articles.js)
+  const CATS = typeof ARTICLE_CATEGORIES !== 'undefined' ? ARTICLE_CATEGORIES : {};
+
+  function catInfo(cat) {
+    return CATS[cat] || { label: cat, icon: 'fa-circle', color: '#60a5fa' };
+  }
+  function initials(name) {
+    return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+  }
+  function formatDate(d) {
+    return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+
+  const grid = document.getElementById('actuGrid');
+  if (!grid || typeof ARTICLES_DATA === 'undefined') return;
+
+  // 3 articles les plus récents
+  const latest = [...ARTICLES_DATA]
+    .sort((a, b) => b.date - a.date)
+    .slice(0, 3);
+
+  grid.innerHTML = latest.map(article => {
+    const cat   = catInfo(article.category);
+    const bar   = `background: linear-gradient(90deg, ${cat.color}cc, ${cat.color}44)`;
+    const badge = `background:${cat.color}1a; color:${cat.color}`;
+    return `
+      <a class="actu-card" href="blog.html" aria-label="Lire : ${article.title}">
+        <div class="actu-card-bar" style="${bar}"></div>
+        <div class="actu-card-body">
+          <div class="actu-card-top">
+            <span class="actu-badge" style="${badge}">
+              <i class="fas ${cat.icon}"></i> ${cat.label}
+            </span>
+            <span class="actu-date">${formatDate(article.date)}</span>
+          </div>
+          <h3 class="actu-card-title">${article.title}</h3>
+          <p class="actu-card-excerpt">${article.excerpt}</p>
+        </div>
+        <div class="actu-card-footer">
+          <div class="actu-card-author">
+            <div class="actu-avatar">${initials(article.author)}</div>
+            <span>${article.author}</span>
+          </div>
+          <span class="actu-read-time"><i class="fas fa-clock"></i> ${article.readTime} min</span>
+          <span class="actu-link">Lire <i class="fas fa-arrow-right"></i></span>
+        </div>
+      </a>`;
+  }).join('');
+})();
+</script>
+
+
+<!-- ══ CONTACT ════════════════════════════════════════ -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-label">Nous écrire</div>
+    <h2 class="section-title">Prendre <em>contact</em></h2>
+    <p class="section-desc">Une question, un projet, une envie de s'impliquer ? On vous répond avec plaisir.</p>
+    <div class="contact-layout">
+      <div class="contact-info">
+        <div class="ci-item">
+          <div class="ci-ico purple"><i class="fas fa-map-marker-alt"></i></div>
+          <div>
+            <strong>Localisation</strong>
+            <p>Département de l'Eure, Normandie<br>Activités en ligne & en présentiel</p>
+          </div>
+        </div>
+        <div class="ci-item">
+          <div class="ci-ico green"><i class="fab fa-discord"></i></div>
+          <div>
+            <strong>Discord</strong>
+            <p>La façon la plus rapide de nous rejoindre et d'obtenir une réponse.</p>
+          </div>
+        </div>
+        <div class="ci-item">
+          <div class="ci-ico blue"><i class="fas fa-globe"></i></div>
+          <div>
+            <strong>Site internet</strong>
+            <p><a href="https://aleuredigitale.netlify.app/" target="_blank" style="color:var(--aed-blue);font-weight:600;">aleuredigitale.netlify.app</a></p>
+          </div>
+        </div>
+        <div class="contact-socials">
+          <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="soc-btn soc-discord"><i class="fab fa-discord"></i> Discord</a>
+          <a href="https://aleuredigitale.netlify.app/" target="_blank" class="soc-btn soc-site"><i class="fas fa-globe"></i> Site web</a>
+        </div>
+      </div>
+      <div class="contact-form-box">
+        <div id="contactForm">
+          <div class="form-row">
+            <div class="fg">
+              <label for="fname">Prénom</label>
+              <input type="text" id="fname" placeholder="Marie" autocomplete="given-name"/>
+              <span class="field-err" id="err-fname">Veuillez saisir votre prénom.</span>
+            </div>
+            <div class="fg">
+              <label for="lname">Nom</label>
+              <input type="text" id="lname" placeholder="Dupont" autocomplete="family-name"/>
+              <span class="field-err" id="err-lname">Veuillez saisir votre nom.</span>
+            </div>
+          </div>
+          <div class="fg">
+            <label for="femail">Adresse e-mail</label>
+            <input type="email" id="femail" placeholder="marie@exemple.fr" autocomplete="email"/>
+            <span class="field-err" id="err-femail">Veuillez saisir une adresse e-mail valide.</span>
+          </div>
+          <div class="fg">
+            <label for="fsubject">Sujet</label>
+            <select id="fsubject">
+              <option value="">— Choisissez un sujet —</option>
+              <option value="question">Question générale</option>
+              <option value="projet">Proposer un projet</option>
+              <option value="partenariat">Partenariat</option>
+              <option value="benevole">Devenir bénévole</option>
+              <option value="presse">Presse / Média</option>
+            </select>
+            <span class="field-err" id="err-fsubject">Veuillez choisir un sujet.</span>
+          </div>
+          <div class="fg">
+            <label for="fmessage">Message</label>
+            <textarea id="fmessage" placeholder="Décrivez votre demande…"></textarea>
+            <span class="field-err" id="err-fmessage">Veuillez écrire un message (10 caractères minimum).</span>
+          </div>
+          <button class="btn-submit" id="submitBtn" onclick="submitForm(event)">
+            <i class="fas fa-paper-plane"></i> Envoyer le message
+          </button>
+        </div>
+        <div class="form-success" id="formSuccess">
+          <div class="sico">✅</div>
+          <h4>Message envoyé !</h4>
+          <p>Merci pour votre message. Nous vous répondrons dans les plus brefs délais via Discord ou par e-mail.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ═════════════════════════════════════════ -->
+<footer class="aed-footer">
+  <div class="footer-top">
+
+    <div class="footer-col">
+      <div class="footer-brand">
+        <span class="lico">&lt;/&gt;</span>
+        <span>À l'<span style="color:#60a5fa">Eure</span> <span style="color:#2ecc71">Digitale</span></span>
+      </div>
+      <p class="footer-desc">Communauté numérique bienveillante et inclusive en Normandie. Ateliers gratuits, entraide, projets open source.</p>
+      <div class="footer-socials">
+        <a href="https://discord.gg/yHCAgYKwk" target="_blank" rel="noopener" class="fsoc fsoc-discord" aria-label="Discord"><i class="fab fa-discord"></i></a>
+        <a href="https://github.com/aleuredigitale" target="_blank" rel="noopener" class="fsoc fsoc-github" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4 class="footer-col-title">Navigation</h4>
+      <ul class="footer-links">
+        <li><a href="#about"><i class="fas fa-chevron-right"></i> L'association</a></li>
+        <li><a href="#agenda"><i class="fas fa-calendar-alt"></i> Agenda</a></li>
+        <li><a href="#projets"><i class="fas fa-code-branch"></i> Projets open source</a></li>
+        <li><a href="#discord"><i class="fas fa-chevron-right"></i> Discord</a></li>
+        <li><a href="#hackathon"><i class="fas fa-chevron-right"></i> Hackathon</a></li>
+        <li><a href="#proposer"><i class="fas fa-chevron-right"></i> Proposer un atelier</a></li>
+        <li><a href="#faq"><i class="fas fa-chevron-right"></i> FAQ</a></li>
+        <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+        <li><a href="adherer.html"><i class="fas fa-heart"></i> Adhérer</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4 class="footer-col-title">Ressources</h4>
+      <ul class="footer-links">
+        <li>
+          <a href="https://github.com/aleuredigitale" target="_blank" rel="noopener">
+            <i class="fab fa-github"></i> GitHub de l'asso
+          </a>
+        </li>
+        <li>
+          <a href="statuts.pdf" target="_blank" rel="noopener">
+            <i class="fas fa-file-pdf"></i> Statuts de l'association
+          </a>
+        </li>
+        <li>
+          <a href="https://discord.gg/yHCAgYKwk" target="_blank" rel="noopener">
+            <i class="fab fa-discord"></i> discord.gg/yHCAgYKwk
+          </a>
+        </li>
+        <li>
+          <a href="https://aleuredigitale.netlify.app/" target="_blank" rel="noopener">
+            <i class="fas fa-globe"></i> aleuredigitale.netlify.app
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4 class="footer-col-title">Légal</h4>
+      <ul class="footer-links">
+        <li><a href="mentions-legales.html"><i class="fas fa-chevron-right"></i> Mentions légales</a></li>
+        <li><a href="statuts.pdf" target="_blank" rel="noopener"><i class="fas fa-chevron-right"></i> Statuts (loi 1901)</a></li>
+        <li><a href="politique-confidentialite.html" id="footerRgpd"><i class="fas fa-chevron-right"></i> Politique de confidentialité</a></li>
+      </ul>
+      <div class="footer-badge-asso">
+        <i class="fas fa-landmark"></i> Association loi 1901
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2026 À l'Eure Digitale — Association loi 1901 — Normandie</span>
+    <span class="footer-bottom-links">
+      <a href="mentions-legales.html">Mentions légales</a>
+      <span class="sep">·</span>
+      <a href="statuts.pdf" target="_blank" rel="noopener">Statuts</a>
+      <span class="sep">·</span>
+      <a href="https://github.com/aleuredigitale" target="_blank" rel="noopener">GitHub</a>
+    </span>
+  </div>
+</footer>
+
+<!-- ══ AGENDA SCRIPT ════════════════════════════════════ -->
+<script src="events.js"></script>
+<script>
+/* ── Injection : Eure Tech & Inclusion ── */
+if (typeof EVENTS_DATA !== 'undefined') {
+  const etEvent = {
+    id: 9001,
+    title: 'Eure Tech & Inclusion',
+    type: 'conf',
+    date: new Date(2026, 10, 19), /* 19 novembre 2026 */
+    time: '10h00 – 17h00',
+    location: 'En ligne sur Discord',
+    level: 'Tous niveaux',
+    past: false,
+    recurrent: false,
+    desc: 'Une journée d\'échanges, d\'ateliers et de découvertes organisée par À l\'Eure Digitale. Au programme : conférences, ateliers pratiques (débutants, seniors, emploi, IA, sécurité…), espace partenaires, entraide & réseau, animations et surprises. 100% en ligne sur Discord. Rejoignez-nous pour rendre le numérique accessible à tous !',
+    tags: ['Inclusion numérique', 'Conférences', 'Ateliers', 'Partenaires', '#seeph2026'],
+  };
+  /* Évite les doublons en cas de rechargement */
+  if (!EVENTS_DATA.find(e => e.id === 9001)) {
+    EVENTS_DATA.unshift(etEvent);
+  }
+}
+</script>
+<script>
+(function() {
+/* ── DONNÉES ── */
+/* Les événements proviennent de events.js (EVENTS_DATA).
+   Ne modifiez plus cette liste ici — éditez events.js. */
+const EVENTS = EVENTS_DATA;
+
+const MONTHS       = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+const MONTHS_SHORT = ['Jan','Fév','Mar','Avr','Mai','Juin','Juil','Août','Sep','Oct','Nov','Déc'];
+const DAYS         = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+
+const TYPE_META = {
+  atelier:   { label:'Atelier',     icon:'fas fa-tools',          badgeCls:'ag-type-atelier',   accentCls:'ag-accent-atelier' },
+  formation: { label:'Formation',   icon:'fas fa-graduation-cap', badgeCls:'ag-type-formation', accentCls:'ag-accent-formation' },
+  conf:      { label:'Conférence',  icon:'fas fa-microphone',     badgeCls:'ag-type-conf',      accentCls:'ag-accent-conf' },
+  perm:      { label:'Permanence',  icon:'fas fa-headset',        badgeCls:'ag-type-perm',      accentCls:'ag-accent-perm' },
+  hack:      { label:'Hackathon',   icon:'fas fa-bolt',           badgeCls:'ag-type-hack',      accentCls:'ag-accent-hack' },
+};
+
+function fmtDate(d) {
+  return `${DAYS[d.getDay()]} ${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`;
+}
+
+let activeFilterInline = 'all';
+let activeViewInline   = 'list';
+
+/* ── RENDU LISTE ── */
+function buildListCard(ev) {
+  const m = TYPE_META[ev.type];
+  return `<article class="ag-event-card ${m.accentCls}${ev.past?' ag-card-past':''}"
+           data-type="${ev.type}" data-id-inline="${ev.id}"
+           role="button" tabindex="0" aria-label="Voir les détails : ${ev.title}">
+    <div class="ag-card-date">
+      <div class="ag-card-day">${ev.date.getDate()}</div>
+      <div class="ag-card-month">${MONTHS_SHORT[ev.date.getMonth()]}</div>
+    </div>
+    <div class="ag-card-body">
+      <div class="ag-card-header">
+        <span class="ag-type-badge ${m.badgeCls}"><i class="${m.icon}"></i> ${m.label}</span>
+        ${ev.recurrent ? '<span class="ag-recurrent"><i class="fas fa-redo"></i> Récurrent</span>' : ''}
+        ${ev.past ? '<span class="ag-past-label">Passé</span>' : ''}
+      </div>
+      <h3 class="ag-card-title">${ev.title}</h3>
+      <div class="ag-card-meta">
+        <span><i class="fas fa-clock"></i> ${ev.time}</span>
+        <span><i class="fas fa-map-marker-alt"></i> ${ev.location}</span>
+        <span><i class="fas fa-signal"></i> ${ev.level}</span>
+      </div>
+      <p class="ag-card-desc">${ev.desc}</p>
+      <div class="ag-card-footer">
+        <div class="ag-card-tags">${ev.tags.map(t=>`<span class="ag-tag">${t}</span>`).join('')}</div>
+        <i class="fas fa-chevron-right ag-card-arrow"></i>
+      </div>
+    </div>
+  </article>`;
+}
+
+function renderListInline(filtered) {
+  const upcoming = filtered.filter(e => !e.past);
+  const past     = filtered.filter(e => e.past);
+  const upGroups = {}, pastGroups = {};
+  upcoming.sort((a,b)=>a.date-b.date).forEach(ev => {
+    const key = `${ev.date.getFullYear()}-${ev.date.getMonth()}`;
+    if (!upGroups[key]) upGroups[key] = { label:`${MONTHS[ev.date.getMonth()]} ${ev.date.getFullYear()}`, evs:[] };
+    upGroups[key].evs.push(ev);
+  });
+  past.sort((a,b)=>b.date-a.date).forEach(ev => {
+    const key = `${ev.date.getFullYear()}-${ev.date.getMonth()}`;
+    if (!pastGroups[key]) pastGroups[key] = { label:`${MONTHS[ev.date.getMonth()]} ${ev.date.getFullYear()}`, evs:[] };
+    pastGroups[key].evs.push(ev);
+  });
+  let upHTML = upcoming.length === 0 ? '<p style="color:var(--text-muted);font-family:var(--font-head);padding:20px 0;">Aucun événement à venir pour ce filtre.</p>' : '';
+  Object.values(upGroups).forEach(g => {
+    upHTML += `<div class="ag-month-block"><div class="ag-month-title">${g.label}</div><div class="ag-events-stack">${g.evs.map(buildListCard).join('')}</div></div>`;
+  });
+  let pastHTML = '';
+  Object.values(pastGroups).forEach(g => {
+    pastHTML += `<div class="ag-month-block"><div class="ag-month-title">${g.label}</div><div class="ag-events-stack">${g.evs.map(buildListCard).join('')}</div></div>`;
+  });
+  document.getElementById('ag-upcoming-months-inline').innerHTML = upHTML;
+  document.getElementById('ag-past-months-inline').innerHTML = pastHTML;
+  document.getElementById('agPastCountInline').textContent = past.length;
+  attachCardListenersInline();
+}
+
+/* ── RENDU GRILLE ── */
+function buildGridCard(ev) {
+  const m = TYPE_META[ev.type];
+  return `<article class="ag-grid-card ${m.accentCls}${ev.past?' ag-card-past':''}"
+           data-type="${ev.type}" data-id-inline="${ev.id}"
+           role="button" tabindex="0" aria-label="Voir les détails : ${ev.title}">
+    <div class="ag-grid-top">
+      <div>
+        <span class="ag-type-badge ${m.badgeCls}" style="margin-bottom:8px;display:inline-flex;"><i class="${m.icon}"></i> ${m.label}</span>
+        <div class="ag-grid-title">${ev.title}</div>
+      </div>
+      <div class="ag-grid-date-box"><div class="day">${ev.date.getDate()}</div><div class="mon">${MONTHS_SHORT[ev.date.getMonth()]}</div></div>
+    </div>
+    <div class="ag-grid-meta">
+      <span><i class="fas fa-clock"></i> ${ev.time}</span>
+      <span><i class="fas fa-map-marker-alt"></i> ${ev.location}</span>
+      <span><i class="fas fa-signal"></i> ${ev.level}</span>
+    </div>
+    <p class="ag-card-desc">${ev.desc}</p>
+    <div class="ag-card-tags">${ev.tags.slice(0,3).map(t=>`<span class="ag-tag">${t}</span>`).join('')}</div>
+  </article>`;
+}
+
+function renderGridInline(filtered) {
+  const sorted = [...filtered].sort((a,b)=>{ if(a.past!==b.past) return a.past?1:-1; return a.date-b.date; });
+  document.getElementById('ag-grid-container-inline').innerHTML = sorted.map(buildGridCard).join('');
+  attachCardListenersInline();
+}
+
+/* ── MISE À JOUR ── */
+function updateDisplayInline() {
+  const filtered = activeFilterInline === 'all' ? EVENTS : EVENTS.filter(e => e.type === activeFilterInline);
+  const count = filtered.filter(e => !e.past).length;
+  document.getElementById('agCountInline').textContent = `${count} événement${count!==1?'s':''} à venir`;
+  const empty    = document.getElementById('agEmptyInline');
+  const listView = document.getElementById('ag-list-view-inline');
+  const gridView = document.getElementById('ag-grid-view-inline');
+  if (filtered.length === 0) {
+    empty.classList.add('show'); listView.style.display='none'; gridView.style.display='none'; return;
+  }
+  empty.classList.remove('show');
+  if (activeViewInline === 'list') {
+    listView.style.display='block'; gridView.style.display='none'; renderListInline(filtered);
+  } else {
+    listView.style.display='none'; gridView.style.display='block'; renderGridInline(filtered);
+  }
+}
+
+/* ── MODAL ── */
+function openModalInline(id) {
+  const ev = EVENTS.find(e => e.id === id);
+  if (!ev) return;
+  const m = TYPE_META[ev.type];
+  const overlay = document.getElementById('agModal');
+  document.getElementById('agModalBadge').className = `ag-modal-badge ${m.badgeCls}`;
+  document.getElementById('agModalBadge').innerHTML = `<i class="${m.icon}"></i> ${m.label}`;
+  document.getElementById('agModalTitle').textContent = ev.title;
+  document.getElementById('agModalDate').innerHTML = `<i class="fas fa-calendar"></i> ${fmtDate(ev.date)} &nbsp;·&nbsp; <i class="fas fa-clock"></i> ${ev.time}`;
+  document.getElementById('agModalDesc').textContent = ev.desc;
+  document.getElementById('agModalMeta').innerHTML = `
+    <div class="ag-modal-meta-item"><i class="fas fa-map-marker-alt"></i><span><strong>${ev.location}</strong></span></div>
+    <div class="ag-modal-meta-item"><i class="fas fa-signal"></i><span>Niveau : <strong>${ev.level}</strong></span></div>
+    <div class="ag-modal-meta-item"><i class="fas fa-euro-sign"></i><span><strong>Gratuit</strong> — aucune inscription requise</span></div>
+    ${ev.recurrent ? '<div class="ag-modal-meta-item"><i class="fas fa-redo"></i><span>Événement <strong>récurrent</strong> (toutes les semaines)</span></div>' : ''}
+  `;
+  document.getElementById('agModalTags').innerHTML = ev.tags.map(t=>`<span class="ag-tag">${t}</span>`).join('');
+  document.getElementById('agModalCalBtn').onclick = () => downloadIcsInline([ev]);
+  overlay.removeAttribute('hidden');
+  requestAnimationFrame(() => overlay.classList.add('open'));
+  document.body.style.overflow = 'hidden';
+  document.getElementById('agModalClose').focus();
+}
+
+function closeModalInline() {
+  const overlay = document.getElementById('agModal');
+  overlay.classList.remove('open');
+  setTimeout(() => { overlay.setAttribute('hidden',''); document.body.style.overflow=''; }, 280);
+}
+
+document.getElementById('agModalClose').addEventListener('click', closeModalInline);
+document.getElementById('agModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeModalInline(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalInline(); });
+
+/* ── CARD LISTENERS ── */
+function attachCardListenersInline() {
+  document.querySelectorAll('[data-id-inline]').forEach(el => {
+    const id = parseInt(el.dataset.idInline);
+    el.addEventListener('click', () => openModalInline(id));
+    el.addEventListener('keydown', e => { if (e.key==='Enter'||e.key===' ') { e.preventDefault(); openModalInline(id); } });
+  });
+}
+
+/* ── FILTRES ── */
+document.querySelectorAll('[data-filter-inline]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-filter-inline]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilterInline = btn.dataset.filterInline;
+    updateDisplayInline();
+  });
+});
+
+/* ── VUE ── */
+document.getElementById('btnListInline').addEventListener('click', () => {
+  activeViewInline = 'list';
+  document.getElementById('btnListInline').classList.add('active');
+  document.getElementById('btnGridInline').classList.remove('active');
+  document.getElementById('btnListInline').setAttribute('aria-pressed','true');
+  document.getElementById('btnGridInline').setAttribute('aria-pressed','false');
+  updateDisplayInline();
+});
+document.getElementById('btnGridInline').addEventListener('click', () => {
+  activeViewInline = 'grid';
+  document.getElementById('btnGridInline').classList.add('active');
+  document.getElementById('btnListInline').classList.remove('active');
+  document.getElementById('btnGridInline').setAttribute('aria-pressed','true');
+  document.getElementById('btnListInline').setAttribute('aria-pressed','false');
+  updateDisplayInline();
+});
+
+/* ── TOGGLE PASSÉS ── */
+const pastToggleInline  = document.getElementById('agPastToggleInline');
+const pastSectionInline = document.getElementById('ag-past-section-inline');
+pastToggleInline.addEventListener('click', () => {
+  const open = pastSectionInline.classList.toggle('open');
+  pastToggleInline.classList.toggle('open', open);
+  pastToggleInline.setAttribute('aria-expanded', String(open));
+});
+pastToggleInline.addEventListener('keydown', e => { if (e.key==='Enter'||e.key===' ') { e.preventDefault(); pastToggleInline.click(); } });
+
+/* ── EXPORT iCAL ── */
+function pad(n) { return String(n).padStart(2,'0'); }
+function toIcsDate(d) { return `${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}`; }
+function sanitizeIcs(s) { return s.replace(/[,;\\]/g,'\\$&').replace(/\n/g,'\\n'); }
+function downloadIcsInline(events) {
+  let ics = `BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//A l'Eure Digitale//Agenda//FR\r\nCALSCALE:GREGORIAN\r\n`;
+  events.forEach(ev => {
+    const dt = toIcsDate(ev.date);
+    ics += `BEGIN:VEVENT\r\nUID:aed-event-${ev.id}@aleuredigitale.netlify.app\r\nDTSTART;VALUE=DATE:${dt}\r\nDTEND;VALUE=DATE:${dt}\r\nSUMMARY:${sanitizeIcs(ev.title)}\r\nDESCRIPTION:${sanitizeIcs(ev.desc)}\r\nLOCATION:${sanitizeIcs(ev.location)}\r\nURL:https://discord.gg/yHCAgYKwk\r\nEND:VEVENT\r\n`;
+  });
+  ics += `END:VCALENDAR`;
+  const blob = new Blob([ics],{type:'text/calendar;charset=utf-8'});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href=url; a.download='agenda-aed.ics'; a.click(); URL.revokeObjectURL(url);
+}
+
+document.getElementById('btnExportIcalInline').addEventListener('click', () => {
+  const filtered = activeFilterInline === 'all' ? EVENTS : EVENTS.filter(e => e.type === activeFilterInline);
+  downloadIcsInline(filtered.filter(e => !e.past));
+});
+
+/* ── INIT ── */
+updateDisplayInline();
+})();
+</script>
+
+
+<button id="totop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Retour en haut">
+  <i class="fas fa-arrow-up"></i>
+</button>
+
+<!-- ══ LEAFLET ════════════════════════════════════════ -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<!-- canvas-confetti -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+<script src="script.js"></script>
+
+<!-- ══ MINECRAFT : copie IP + statut serveur ══════════ -->
+<script>
+  /* ── Copier l'IP Minecraft ─────────────────────── */
+  function copyMcIp() {
+    const ip  = document.getElementById('mcIpBox').textContent.trim();
+    const btn = document.getElementById('mcCopyBtn');
+    navigator.clipboard.writeText(ip).then(() => {
+      btn.innerHTML = '<i class="fas fa-check"></i> Copié !';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.innerHTML = '<i class="fas fa-copy"></i> Copier';
+        btn.classList.remove('copied');
+      }, 2200);
+    }).catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = ip; document.body.appendChild(ta);
+      ta.select(); document.execCommand('copy');
+      document.body.removeChild(ta);
+      btn.innerHTML = '<i class="fas fa-check"></i> Copié !';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.innerHTML = '<i class="fas fa-copy"></i> Copier';
+        btn.classList.remove('copied');
+      }, 2200);
+    });
+  }
+
+  /* ── Statut serveur via mcsrvstat.us ───────────── */
+  /* ⚠️  Remplacer MC_IP par la vraie adresse quand disponible */
+  (async function fetchMcStatus() {
+    const MC_IP     = 'mc.aleuredigitale.fr'; /* ← changer ici */
+    const dot       = document.getElementById('mcDot');
+    const label     = document.getElementById('mcStatusLabel');
+    const players   = document.getElementById('mcPlayers');
+    const versionEl = document.getElementById('mcVersion');
+    try {
+      const res  = await fetch(`https://api.mcsrvstat.us/3/${MC_IP}`);
+      const data = await res.json();
+      if (data.online) {
+        dot.classList.add('online');
+        label.textContent  = 'En ligne';
+        label.style.color  = '#4ade80';
+        const online = data.players?.online ?? 0;
+        const max    = data.players?.max    ?? '?';
+        players.textContent = `${online} / ${max} joueur${online !== 1 ? 's' : ''}`;
+        if (data.version) versionEl.textContent = data.version;
+      } else {
+        dot.classList.add('offline');
+        label.textContent  = 'Hors ligne';
+        label.style.color  = '#ef4444';
+        players.textContent = '0 joueur connecté';
+      }
+    } catch {
+      dot.style.background = '#6b7280';
+      label.textContent    = 'Statut indisponible';
+    }
+  })();
+</script>
+</body>
+</html>
