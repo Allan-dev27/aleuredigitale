@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Contactez-nous — À l'Eure Digitale</title>
+<meta name="description" content="Contactez l'équipe d'À l'Eure Digitale. Questions, partenariats, bénévolat : nous sommes disponibles par mail, Discord ou via notre formulaire."/>
+<link rel="canonical" href="https://aleuredigitale.netlify.app/contact.html"/>
+<link rel="icon" href="favicon.ico" type="image/x-icon"/>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<link rel="stylesheet" href="style.css"/>
+
+<style>
+/* ════════════════════════════════════════════════
+   TOKENS
+════════════════════════════════════════════════ */
+:root {
+  --aed-navy:   #0b1a3b;
+  --aed-blue:   #1a3a8f;
+  --aed-purple: #6c3fc5;
+  --aed-green:  #2ecc71;
+  --aed-orange: #e67e22;
+  --aed-teal:   #1abc9c;
+  --font-head:  'Sora', sans-serif;
+  --font-body:  'Inter', sans-serif;
+  --bg-nav:     rgba(11,26,59,.88);
+  --border-nav: rgba(255,255,255,.1);
+}
+[data-theme="dark"] {
+  --bg-nav:        rgba(10,18,34,.92);
+  --border-nav:    rgba(255,255,255,.07);
+  --bg-section-b:  #0e1930;
+  --bg-card:       #111f3c;
+  --border-card:   rgba(255,255,255,.08);
+  --text-heading:  #f0f4ff;
+  --text-main:     #c8d8f8;
+  --text-muted:    #7a8eaa;
+  --bg-input:      #0d1b36;
+}
+[data-theme="light"] {
+  --bg-section-b: #f0f4ff;
+  --bg-card:      #fff;
+  --border-card:  #dde6fa;
+  --text-heading: #0b1a3b;
+  --text-main:    #2d3748;
+  --text-muted:   #718096;
+  --bg-input:     #f7f9fc;
+}
+
+/* ════════════════════════════════════════════════
+   NAVBAR (identique)
+════════════════════════════════════════════════ */
+.ml-nav {
+  position: fixed; top:0; left:0; right:0;
+  height: 64px;
+  background: var(--bg-nav);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border-nav);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 28px;
+  z-index: 1000;
+}
+.ml-nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--font-head); font-weight: 800; font-size: 1rem;
+  color: #fff; text-decoration: none;
+}
+.ml-nav-logo .lico {
+  background: var(--aed-green); color: #fff;
+  width: 32px; height: 32px; border-radius: 8px;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: .85rem;
+}
+.ml-nav-links { display: flex; align-items: center; gap: 22px; }
+.ml-nav-links a {
+  font-family: var(--font-head); font-size: .85rem; font-weight: 600;
+  color: rgba(255,255,255,.72); text-decoration: none; transition: color .2s;
+}
+.ml-nav-links a:hover { color: #fff; }
+.ml-nav-links .nav-disc {
+  background: #5865f2; color: #fff !important;
+  font-weight: 700 !important; padding: 8px 16px; border-radius: 8px;
+  display: inline-flex; align-items: center; gap: 6px;
+  transition: background .2s !important;
+}
+.ml-nav-links .nav-disc:hover { background: #4752c4 !important; }
+.ml-nav-right { display: flex; align-items: center; gap: 10px; }
+.dark-btn {
+  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); color: #fff;
+  width: 36px; height: 36px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: .9rem; transition: background .2s;
+}
+.dark-btn:hover { background: rgba(255,255,255,.2); }
+.burger-btn {
+  display: none; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+  color: #fff; width: 36px; height: 36px; border-radius: 8px;
+  align-items: center; justify-content: center; cursor: pointer; font-size: 1rem;
+}
+.nav-mobile {
+  display: none; position: fixed; top: 64px; left:0; right:0;
+  background: #0d1e44; padding: 16px 24px; flex-direction: column; gap: 4px;
+  box-shadow: 0 12px 40px rgba(0,0,0,.5); z-index: 997;
+}
+.nav-mobile.open { display: flex; }
+.nav-mobile a {
+  font-family: var(--font-head); font-size: .95rem; font-weight: 600;
+  color: rgba(255,255,255,.8); padding: 13px 0;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  display: flex; align-items: center; gap: 10px; transition: color .2s; text-decoration: none;
+}
+.nav-mobile a:hover { color: var(--aed-green); }
+.nav-mobile a:last-child { border-bottom: none; }
+.mob-disc {
+  background: #5865f2 !important; color: #fff !important;
+  border-radius: 8px !important; padding: 13px 16px !important;
+  margin-top: 8px; justify-content: center !important; border: none !important;
+}
+@media (max-width: 860px) {
+  .ml-nav-links { display: none; }
+  .burger-btn { display: flex; }
+}
+
+/* ════════════════════════════════════════════════
+   HERO CONTACT
+════════════════════════════════════════════════ */
+.ct-hero {
+  background: linear-gradient(135deg, var(--aed-navy) 0%, #0d2055 50%, #0a1f2e 100%);
+  padding: 110px 0 80px;
+  position: relative; overflow: hidden;
+  text-align: center;
+}
+.ct-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 600px 400px at 80% 20%, rgba(108,63,197,.22) 0%, transparent 65%),
+    radial-gradient(ellipse 500px 350px at 10% 80%, rgba(46,204,113,.14) 0%, transparent 60%),
+    radial-gradient(ellipse 300px 300px at 50% 50%, rgba(26,188,156,.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+.ct-hero-inner {
+  max-width: 780px; margin: 0 auto; padding: 0 28px;
+  position: relative; z-index: 1;
+}
+.ct-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(108,63,197,.18); border: 1px solid rgba(108,63,197,.4);
+  color: #c4b5fd; font-family: var(--font-head); font-size: .75rem;
+  font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  padding: 5px 14px; border-radius: 100px; margin-bottom: 22px;
+}
+.ct-hero h1 {
+  font-family: var(--font-head); font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 800; color: #fff; line-height: 1.15; margin-bottom: 18px;
+}
+.ct-hero h1 .purple { color: #a78bfa; }
+.ct-hero h1 .green  { color: var(--aed-green); }
+.ct-hero-desc {
+  color: rgba(255,255,255,.68); font-size: 1.05rem; line-height: 1.8;
+  max-width: 560px; margin: 0 auto 42px;
+}
+
+/* Canaux rapides dans le hero */
+.ct-channels {
+  display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;
+  margin-bottom: 0;
+}
+.ct-channel {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 12px 20px; border-radius: 12px;
+  font-family: var(--font-head); font-weight: 700; font-size: .88rem;
+  text-decoration: none; transition: transform .2s, box-shadow .2s;
+}
+.ct-channel:hover { transform: translateY(-3px); }
+.ct-channel.discord {
+  background: #5865f2; color: #fff;
+  box-shadow: 0 4px 18px rgba(88,101,242,.4);
+}
+.ct-channel.discord:hover { box-shadow: 0 8px 28px rgba(88,101,242,.55); }
+.ct-channel.mail {
+  background: rgba(255,255,255,.1); color: #fff;
+  border: 1.5px solid rgba(255,255,255,.25);
+  box-shadow: 0 4px 14px rgba(0,0,0,.2);
+}
+.ct-channel.mail:hover { background: rgba(255,255,255,.18); box-shadow: 0 8px 22px rgba(0,0,0,.3); }
+.ct-channel.github {
+  background: rgba(255,255,255,.08); color: rgba(255,255,255,.85);
+  border: 1.5px solid rgba(255,255,255,.15);
+}
+.ct-channel.github:hover { background: rgba(255,255,255,.14); }
+
+/* ════════════════════════════════════════════════
+   LAYOUT PRINCIPAL
+════════════════════════════════════════════════ */
+.ct-main {
+  max-width: 1100px; margin: 0 auto; padding: 80px 28px 100px;
+  display: grid; grid-template-columns: 1fr 420px;
+  gap: 48px; align-items: start;
+}
+@media (max-width: 920px) {
+  .ct-main { grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* ════════════════════════════════════════════════
+   FORMULAIRE
+════════════════════════════════════════════════ */
+.ct-form-card {
+  background: var(--bg-card, #fff);
+  border: 1.5px solid var(--border-card, #dde6fa);
+  border-radius: 22px; padding: 44px 42px 40px;
+  box-shadow: 0 8px 40px rgba(0,0,0,.07);
+  position: relative; overflow: hidden;
+}
+.ct-form-card::before {
+  content: '';
+  position: absolute; top:0; left:0; right:0; height: 4px;
+  background: linear-gradient(90deg, var(--aed-purple), var(--aed-teal));
+}
+@media (max-width: 600px) { .ct-form-card { padding: 28px 20px 24px; } }
+
+.ct-form-title {
+  font-family: var(--font-head); font-size: 1.3rem; font-weight: 800;
+  color: var(--text-heading, #0b1a3b); margin-bottom: 6px;
+  display: flex; align-items: center; gap: 10px;
+}
+.ct-form-title i { color: var(--aed-purple); font-size: 1.1rem; }
+.ct-form-sub { font-size: .875rem; color: var(--text-muted, #718096); margin-bottom: 30px; line-height: 1.6; }
+
+/* Tabs sujet */
+.ct-subject-tabs {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 26px;
+}
+.ct-stab {
+  padding: 7px 14px; border-radius: 100px;
+  border: 1.5px solid var(--border-card, #dde6fa);
+  font-family: var(--font-head); font-size: .78rem; font-weight: 700;
+  color: var(--text-muted, #718096); cursor: pointer;
+  background: transparent;
+  transition: border-color .2s, color .2s, background .2s;
+}
+.ct-stab:hover { border-color: var(--aed-purple); color: var(--aed-purple); }
+.ct-stab.active {
+  border-color: var(--aed-purple);
+  background: var(--aed-purple); color: #fff;
+}
+
+.form-group { margin-bottom: 18px; }
+.form-group label {
+  display: block; font-family: var(--font-head); font-size: .82rem;
+  font-weight: 700; color: var(--text-heading, #0b1a3b); margin-bottom: 7px;
+}
+.form-group label .req { color: var(--aed-orange); }
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%; padding: 11px 14px;
+  background: var(--bg-input, #f7f9fc);
+  border: 1.5px solid var(--border-card, #dde6fa);
+  border-radius: 10px; font-family: var(--font-body);
+  font-size: .9rem; color: var(--text-main, #2d3748);
+  outline: none; transition: border-color .2s, box-shadow .2s;
+  box-sizing: border-box;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--aed-purple);
+  box-shadow: 0 0 0 3px rgba(108,63,197,.12);
+}
+.form-group textarea { resize: vertical; min-height: 120px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
+
+.form-check { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 22px; }
+.form-check input[type=checkbox] { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; cursor: pointer; accent-color: var(--aed-purple); }
+.form-check label { font-size: .83rem; color: var(--text-muted, #718096); line-height: 1.65; cursor: pointer; }
+.form-check label a { color: var(--aed-purple); text-decoration: underline; }
+
+.btn-ct-submit {
+  display: flex; align-items: center; gap: 10px; justify-content: center;
+  width: 100%; padding: 14px 28px;
+  background: linear-gradient(135deg, var(--aed-purple), #5c34a8);
+  color: #fff; border: none; border-radius: 12px;
+  font-family: var(--font-head); font-weight: 700; font-size: 1rem;
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s;
+  box-shadow: 0 4px 18px rgba(108,63,197,.4);
+}
+.btn-ct-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(108,63,197,.55); }
+
+/* Succès */
+.ct-success { display: none; text-align: center; padding: 52px 20px; }
+.ct-success-icon {
+  width: 76px; height: 76px; border-radius: 50%;
+  background: rgba(108,63,197,.1); margin: 0 auto 22px;
+  display: flex; align-items: center; justify-content: center;
+}
+.ct-success-icon i { font-size: 1.9rem; color: var(--aed-purple); }
+.ct-success h3 {
+  font-family: var(--font-head); font-size: 1.3rem; font-weight: 800;
+  color: var(--text-heading, #0b1a3b); margin-bottom: 10px;
+}
+.ct-success p { font-size: .9rem; color: var(--text-muted, #718096); line-height: 1.7; max-width: 400px; margin: 0 auto; }
+
+/* ════════════════════════════════════════════════
+   SIDEBAR INFOS
+════════════════════════════════════════════════ */
+.ct-sidebar { display: flex; flex-direction: column; gap: 20px; }
+
+.ct-info-card {
+  background: var(--bg-card, #fff);
+  border: 1.5px solid var(--border-card, #dde6fa);
+  border-radius: 18px; padding: 28px 26px;
+  transition: transform .25s, box-shadow .25s;
+}
+.ct-info-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,.08); }
+
+.ct-info-header {
+  display: flex; align-items: center; gap: 14px; margin-bottom: 16px;
+}
+.ct-info-ico {
+  width: 46px; height: 46px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; flex-shrink: 0;
+}
+.ct-info-ico.purple { background: rgba(108,63,197,.12); color: var(--aed-purple); }
+.ct-info-ico.discord-bg { background: rgba(88,101,242,.12); color: #5865f2; }
+.ct-info-ico.green  { background: rgba(46,204,113,.12);  color: var(--aed-green); }
+.ct-info-ico.orange { background: rgba(230,126,34,.12);  color: var(--aed-orange); }
+
+.ct-info-header-text strong {
+  display: block; font-family: var(--font-head); font-size: .97rem;
+  font-weight: 800; color: var(--text-heading, #0b1a3b);
+}
+.ct-info-header-text span {
+  font-size: .78rem; color: var(--text-muted, #718096);
+}
+.ct-info-body { font-size: .875rem; color: var(--text-muted, #718096); line-height: 1.7; }
+.ct-info-body a {
+  color: var(--aed-purple); text-decoration: none; font-weight: 600;
+  transition: color .2s;
+}
+.ct-info-body a:hover { color: var(--aed-blue); text-decoration: underline; }
+
+.ct-info-action {
+  display: inline-flex; align-items: center; gap: 7px; margin-top: 14px;
+  font-family: var(--font-head); font-size: .82rem; font-weight: 700;
+  padding: 9px 16px; border-radius: 9px; text-decoration: none;
+  transition: background .2s, transform .2s;
+}
+.ct-info-action.purple {
+  background: rgba(108,63,197,.1); color: var(--aed-purple);
+  border: 1px solid rgba(108,63,197,.2);
+}
+.ct-info-action.purple:hover { background: var(--aed-purple); color: #fff; }
+.ct-info-action.discord {
+  background: rgba(88,101,242,.1); color: #5865f2;
+  border: 1px solid rgba(88,101,242,.2);
+}
+.ct-info-action.discord:hover { background: #5865f2; color: #fff; }
+.ct-info-action.green {
+  background: rgba(46,204,113,.1); color: var(--aed-green);
+  border: 1px solid rgba(46,204,113,.2);
+}
+.ct-info-action.green:hover { background: var(--aed-green); color: #fff; }
+
+/* Délais de réponse */
+.ct-delays {
+  display: flex; flex-direction: column; gap: 10px; margin-top: 2px;
+}
+.ct-delay-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 10px 14px; border-radius: 10px;
+  background: var(--bg-section-b, #f0f4ff);
+}
+.ct-delay-label {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--font-head); font-size: .82rem; font-weight: 600;
+  color: var(--text-heading, #0b1a3b);
+}
+.ct-delay-label i { font-size: .8rem; }
+.ct-delay-badge {
+  font-family: var(--font-head); font-size: .72rem; font-weight: 700;
+  padding: 3px 10px; border-radius: 100px;
+}
+.ct-delay-badge.fast  { background: rgba(46,204,113,.12);  color: var(--aed-green); }
+.ct-delay-badge.mid   { background: rgba(230,126,34,.12);  color: var(--aed-orange); }
+.ct-delay-badge.slow  { background: rgba(108,63,197,.12);  color: var(--aed-purple); }
+
+/* ════════════════════════════════════════════════
+   SECTION FAQ RAPIDE
+════════════════════════════════════════════════ */
+.ct-faq-section {
+  background: var(--bg-section-b, #f0f4ff);
+  padding: 72px 0;
+  border-top: 1px solid var(--border-card, #dde6fa);
+  transition: background .35s;
+}
+.ct-faq-inner { max-width: 760px; margin: 0 auto; padding: 0 28px; }
+.ct-faq-head { text-align: center; margin-bottom: 44px; }
+.ct-eyebrow {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-family: var(--font-head); font-size: .72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .1em;
+  color: var(--aed-purple); background: rgba(108,63,197,.09);
+  border: 1px solid rgba(108,63,197,.22);
+  padding: 4px 12px; border-radius: 100px; margin-bottom: 14px;
+}
+.ct-faq-head h2 {
+  font-family: var(--font-head); font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800; color: var(--text-heading, #0b1a3b); margin-bottom: 10px;
+}
+.ct-faq-head p { font-size: .95rem; color: var(--text-muted, #718096); line-height: 1.7; }
+
+.ct-faq-item {
+  background: var(--bg-card, #fff);
+  border: 1.5px solid var(--border-card, #dde6fa);
+  border-radius: 14px; margin-bottom: 10px;
+  cursor: pointer; overflow: hidden;
+  transition: border-color .2s, box-shadow .2s;
+}
+.ct-faq-item:hover, .ct-faq-item.open {
+  border-color: var(--aed-purple);
+  box-shadow: 0 4px 20px rgba(108,63,197,.1);
+}
+.ct-faq-q {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 16px; padding: 18px 22px;
+}
+.ct-faq-q h4 {
+  font-family: var(--font-head); font-size: .93rem; font-weight: 700;
+  color: var(--text-heading, #0b1a3b); transition: color .2s;
+}
+.ct-faq-item.open .ct-faq-q h4 { color: var(--aed-purple); }
+.ct-faq-toggle {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: rgba(108,63,197,.1); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--aed-purple); font-size: .75rem;
+  transition: background .2s, transform .3s;
+}
+.ct-faq-item.open .ct-faq-toggle { background: var(--aed-purple); color: #fff; transform: rotate(45deg); }
+.ct-faq-answer {
+  max-height: 0; overflow: hidden;
+  transition: max-height .35s ease, padding .3s;
+  font-size: .9rem; color: var(--text-muted, #718096); line-height: 1.75;
+  padding: 0 22px;
+}
+.ct-faq-item.open .ct-faq-answer { max-height: 300px; padding: 0 22px 22px; }
+
+/* ════════════════════════════════════════════════
+   FOOTER (identique)
+════════════════════════════════════════════════ */
+.aed-footer { background: var(--aed-navy); color: rgba(255,255,255,.55); font-family: var(--font-head); }
+.footer-top {
+  max-width: 1140px; margin: 0 auto; padding: 56px 28px 48px;
+  display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.1fr; gap: 40px;
+}
+@media (max-width: 900px) {
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .footer-col:first-child { grid-column: 1 / -1; }
+}
+@media (max-width: 540px) { .footer-top { grid-template-columns: 1fr; } }
+.footer-brand-logo {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--font-head); font-weight: 800; font-size: 1rem; color: #fff; margin-bottom: 14px;
+}
+.footer-brand-logo .lico {
+  background: var(--aed-green); color: #fff; width: 32px; height: 32px;
+  border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; font-size: .85rem;
+}
+.footer-desc { font-size: .84rem; line-height: 1.65; color: rgba(255,255,255,.5); margin-bottom: 20px; }
+.footer-socials { display: flex; gap: 8px; }
+.fsoc {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: rgba(255,255,255,.08); color: rgba(255,255,255,.7);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .9rem; transition: background .2s, color .2s;
+  text-decoration: none;
+}
+.fsoc:hover { background: var(--aed-green); color: #fff; }
+.footer-col-title {
+  font-size: .78rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .1em; color: rgba(255,255,255,.5); margin-bottom: 16px;
+}
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.footer-links a {
+  color: rgba(255,255,255,.6); font-size: .85rem; text-decoration: none;
+  display: flex; align-items: center; gap: 6px; transition: color .2s;
+}
+.footer-links a:hover { color: var(--aed-green); }
+.footer-links i { font-size: .7rem; }
+.footer-badge-asso {
+  margin-top: 18px; display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+  color: rgba(255,255,255,.5); font-size: .75rem; font-weight: 600;
+  padding: 5px 12px; border-radius: 8px;
+}
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,.08);
+  max-width: 1140px; margin: 0 auto; padding: 18px 28px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap;
+  font-size: .78rem; color: rgba(255,255,255,.3);
+}
+.footer-bottom-links { display: flex; align-items: center; gap: 10px; }
+.footer-bottom-links a { color: rgba(255,255,255,.45); text-decoration: none; transition: color .2s; }
+.footer-bottom-links a:hover { color: var(--aed-green); }
+.footer-bottom-links .sep { color: rgba(255,255,255,.15); }
+
+/* Scroll-to-top */
+#totop {
+  position: fixed; bottom: 28px; right: 28px;
+  width: 42px; height: 42px; border-radius: 50%;
+  background: var(--aed-purple); color: #fff; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .9rem; box-shadow: 0 4px 16px rgba(108,63,197,.4);
+  opacity: 0; pointer-events: none; transition: opacity .3s, transform .3s;
+  z-index: 900;
+}
+#totop.show { opacity: 1; pointer-events: all; }
+#totop:hover { transform: translateY(-2px); }
+
+/* Fade-up */
+.fade-up {
+  opacity: 0; transform: translateY(26px);
+  transition: opacity .55s ease, transform .55s ease;
+}
+.fade-up.visible { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<!-- ══ NAVBAR ══════════════════════════════════════════ -->
+<nav class="ml-nav">
+  <a href="index.html" class="ml-nav-logo">
+    <span class="lico">&lt;/&gt;</span>
+    <span>À l'<span style="color:#60a5fa">Eure</span> <span style="color:var(--aed-green)">Digitale</span></span>
+  </a>
+  <div class="ml-nav-links">
+    <a href="index.html#about">Association</a>
+    <a href="index.html#minecraft" style="display:inline-flex;align-items:center;gap:5px;"><i class="fas fa-cubes" style="font-size:.8rem;color:#4ade80"></i> Minecraft</a>
+    <a href="index.html#hackathon">Hackathon</a>
+    <a href="index.html#faq">FAQ</a>
+    <a href="adherer.html" style="background:var(--aed-green);color:#fff;font-weight:700;padding:8px 16px;border-radius:8px;display:inline-flex;align-items:center;gap:6px;" onmouseover="this.style.background='#27ae60'" onmouseout="this.style.background='var(--aed-green)'"><i class="fas fa-heart"></i> Adhérer</a>
+    <a href="benevoles.html" style="color:rgba(255,255,255,.72)!important;"><i class="fas fa-hands-helping"></i> Bénévolat</a>
+    <a href="contact.html" style="color:#fff!important;font-weight:700!important;"><i class="fas fa-envelope"></i> Contact</a>
+    <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="nav-disc"><i class="fab fa-discord"></i> Rejoindre</a>
+  </div>
+  <div class="ml-nav-right">
+    <button class="dark-btn" id="darkToggle" aria-label="Mode sombre"><i class="fas fa-moon" id="darkIcon"></i></button>
+    <button class="burger-btn" id="burgerBtn" aria-label="Menu"><i class="fas fa-bars" id="burgerIcon"></i></button>
+  </div>
+</nav>
+
+<!-- Menu mobile -->
+<div class="nav-mobile" id="navMobile">
+  <a href="index.html#about"     onclick="closeMobile()"><i class="fas fa-info-circle"></i> Association</a>
+  <a href="index.html#minecraft" onclick="closeMobile()"><i class="fas fa-cubes" style="color:#4ade80"></i> Minecraft</a>
+  <a href="index.html#hackathon" onclick="closeMobile()"><i class="fas fa-trophy"></i> Hackathon</a>
+  <a href="index.html#faq"       onclick="closeMobile()"><i class="fas fa-question-circle"></i> FAQ</a>
+  <a href="adherer.html"         onclick="closeMobile()"><i class="fas fa-heart"></i> Adhérer</a>
+  <a href="benevoles.html"       onclick="closeMobile()"><i class="fas fa-hands-helping"></i> Bénévolat</a>
+  <a href="contact.html"         onclick="closeMobile()"><i class="fas fa-envelope"></i> Contact</a>
+  <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="mob-disc"><i class="fab fa-discord"></i> Rejoindre le Discord</a>
+</div>
+
+<!-- ══ HERO ════════════════════════════════════════════ -->
+<section class="ct-hero">
+  <div class="ct-hero-inner">
+    <div class="ct-badge fade-up"><i class="fas fa-envelope"></i> Contact — À l'Eure Digitale</div>
+    <h1 class="fade-up">Une question ?<br><span class="purple">On est là</span> pour vous <span class="green">répondre</span></h1>
+    <p class="ct-hero-desc fade-up">Que vous souhaitiez rejoindre l'équipe, proposer un partenariat, signaler un problème ou simplement dire bonjour — nous lisons chaque message avec attention.</p>
+    <div class="ct-channels fade-up">
+      <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="ct-channel discord">
+        <i class="fab fa-discord"></i> Rejoindre le Discord
+      </a>
+      <a href="mailto:aleuredudigitale@gmail.com" class="ct-channel mail">
+        <i class="fas fa-envelope"></i> aleuredudigitale@gmail.com
+      </a>
+      <a href="https://github.com/aleuredigitale" target="_blank" class="ct-channel github">
+        <i class="fab fa-github"></i> GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTENU PRINCIPAL ═══════════════════════════════ -->
+<div class="ct-main">
+
+  <!-- Formulaire -->
+  <div class="ct-form-card fade-up">
+    <div id="ctFormContainer">
+      <div class="ct-form-title"><i class="fas fa-paper-plane"></i> Envoyez-nous un message</div>
+      <p class="ct-form-sub">Remplissez ce formulaire et nous vous répondrons dans les meilleurs délais. Les champs marqués <span style="color:var(--aed-orange)">*</span> sont obligatoires.</p>
+
+      <!-- Sélection du sujet -->
+      <div style="margin-bottom:22px;">
+        <p style="font-family:var(--font-head);font-size:.82rem;font-weight:700;color:var(--text-heading,#0b1a3b);margin-bottom:10px;">Sujet de votre message</p>
+        <div class="ct-subject-tabs">
+          <button class="ct-stab active" onclick="selectTab(this)">💬 Question générale</button>
+          <button class="ct-stab" onclick="selectTab(this)">🤝 Bénévolat</button>
+          <button class="ct-stab" onclick="selectTab(this)">🏢 Partenariat</button>
+          <button class="ct-stab" onclick="selectTab(this)">🐛 Signaler un bug</button>
+          <button class="ct-stab" onclick="selectTab(this)">💡 Proposer un atelier</button>
+          <button class="ct-stab" onclick="selectTab(this)">📰 Presse / Média</button>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="prenom">Prénom <span class="req">*</span></label>
+          <input type="text" id="prenom" placeholder="Marie" required/>
+        </div>
+        <div class="form-group">
+          <label for="nom">Nom <span class="req">*</span></label>
+          <input type="text" id="nom" placeholder="Dupont" required/>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Adresse e-mail <span class="req">*</span></label>
+        <input type="email" id="email" placeholder="marie.dupont@exemple.fr" required/>
+      </div>
+
+      <div class="form-group">
+        <label for="organisation">Organisation / Commune <span style="color:var(--text-muted,#718096);font-weight:400;">(facultatif)</span></label>
+        <input type="text" id="organisation" placeholder="Mairie de Bernay, Lycée Victor-Hugo…"/>
+      </div>
+
+      <div class="form-group">
+        <label for="message">Votre message <span class="req">*</span></label>
+        <textarea id="message" placeholder="Décrivez votre demande, question ou projet en quelques lignes…"></textarea>
+      </div>
+
+      <div class="form-check">
+        <input type="checkbox" id="rgpd" required/>
+        <label for="rgpd">J'accepte que mes données soient utilisées pour traiter ma demande, conformément à la <a href="politique-confidentialite.html">politique de confidentialité</a> d'À l'Eure Digitale.</label>
+      </div>
+
+      <button class="btn-ct-submit" onclick="submitContact()">
+        <i class="fas fa-paper-plane"></i> Envoyer mon message
+      </button>
+    </div>
+
+    <div class="ct-success" id="ctSuccess">
+      <div class="ct-success-icon"><i class="fas fa-check"></i></div>
+      <h3>Message envoyé ! ✨</h3>
+      <p>Merci pour votre message ! Nous vous répondrons dans les meilleurs délais. En attendant, venez échanger avec la communauté sur Discord.</p>
+      <a href="https://discord.gg/yHCAgYKwk" target="_blank" style="display:inline-flex;align-items:center;gap:8px;margin-top:24px;background:#5865f2;color:#fff;font-family:var(--font-head);font-weight:700;padding:12px 22px;border-radius:12px;font-size:.9rem;text-decoration:none;">
+        <i class="fab fa-discord"></i> Rejoindre le Discord
+      </a>
+    </div>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="ct-sidebar">
+
+    <!-- Discord -->
+    <div class="ct-info-card fade-up">
+      <div class="ct-info-header">
+        <div class="ct-info-ico discord-bg"><i class="fab fa-discord"></i></div>
+        <div class="ct-info-header-text">
+          <strong>Discord communautaire</strong>
+          <span>La réponse la plus rapide</span>
+        </div>
+      </div>
+      <div class="ct-info-body">
+        Notre serveur Discord est actif tous les jours. Posez vos questions dans les salons dédiés et la communauté vous répondra souvent en quelques minutes.
+        <br><br>
+        <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="ct-info-action discord">
+          <i class="fab fa-discord"></i> Rejoindre le serveur
+        </a>
+      </div>
+    </div>
+
+    <!-- E-mail -->
+    <div class="ct-info-card fade-up">
+      <div class="ct-info-header">
+        <div class="ct-info-ico purple"><i class="fas fa-envelope"></i></div>
+        <div class="ct-info-header-text">
+          <strong>E-mail</strong>
+          <span>Pour les demandes formelles</span>
+        </div>
+      </div>
+      <div class="ct-info-body">
+        Pour les partenariats, demandes de presse ou questions administratives, contactez-nous directement à :<br><br>
+        <a href="mailto:aleuredudigitale@gmail.com">aleuredudigitale@gmail.com</a><br>
+        <a href="mailto:benevoles@aleuredigitale.fr">benevoles@aleuredigitale.fr</a>
+        <br><br>
+        <a href="mailto:contact@aleuredigitale.fr" class="ct-info-action purple">
+          <i class="fas fa-envelope"></i> Écrire un e-mail
+        </a>
+      </div>
+    </div>
+
+    <!-- Délais de réponse -->
+    <div class="ct-info-card fade-up">
+      <div class="ct-info-header">
+        <div class="ct-info-ico green"><i class="fas fa-clock"></i></div>
+        <div class="ct-info-header-text">
+          <strong>Délais de réponse</strong>
+          <span>Nos engagements</span>
+        </div>
+      </div>
+      <div class="ct-delays">
+        <div class="ct-delay-row">
+          <span class="ct-delay-label"><i class="fab fa-discord" style="color:#5865f2"></i> Discord</span>
+          <span class="ct-delay-badge fast">Quelques heures</span>
+        </div>
+        <div class="ct-delay-row">
+          <span class="ct-delay-label"><i class="fas fa-paper-plane" style="color:var(--aed-purple)"></i> Formulaire</span>
+          <span class="ct-delay-badge mid">24 – 48 h</span>
+        </div>
+        <div class="ct-delay-row">
+          <span class="ct-delay-label"><i class="fas fa-envelope" style="color:var(--text-muted,#718096)"></i> E-mail direct</span>
+          <span class="ct-delay-badge mid">48 – 72 h</span>
+        </div>
+        <div class="ct-delay-row">
+          <span class="ct-delay-label"><i class="fas fa-handshake" style="color:var(--aed-orange)"></i> Partenariat</span>
+          <span class="ct-delay-badge slow">Sous 1 semaine</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bénévolat -->
+    <div class="ct-info-card fade-up">
+      <div class="ct-info-header">
+        <div class="ct-info-ico orange"><i class="fas fa-hands-helping"></i></div>
+        <div class="ct-info-header-text">
+          <strong>Devenir bénévole</strong>
+          <span>Rejoignez notre équipe</span>
+        </div>
+      </div>
+      <div class="ct-info-body">
+        Vous souhaitez vous engager concrètement ? Remplissez notre formulaire de candidature bénévole dédié pour que nous puissions vous orienter au mieux.
+        <br><br>
+        <a href="benevoles.html#candidature" class="ct-info-action green">
+          <i class="fas fa-user-plus"></i> Candidater au bénévolat
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ FAQ RAPIDE ══════════════════════════════════════ -->
+<section class="ct-faq-section">
+  <div class="ct-faq-inner">
+    <div class="ct-faq-head fade-up">
+      <div class="ct-eyebrow"><i class="fas fa-question-circle"></i> Questions fréquentes</div>
+      <h2>Vous avez peut-être déjà votre réponse</h2>
+      <p>Consultez nos questions fréquentes avant d'envoyer un message — vous gagnerez du temps !</p>
+    </div>
+
+    <div class="ct-faq-item fade-up" onclick="toggleFaq(this)">
+      <div class="ct-faq-q">
+        <h4>L'association est-elle ouverte à tous, même sans compétences techniques ?</h4>
+        <div class="ct-faq-toggle"><i class="fas fa-plus"></i></div>
+      </div>
+      <div class="ct-faq-answer">Absolument ! À l'Eure Digitale accueille tout le monde, que vous soyez grand débutant ou expert du numérique. Nos ateliers sont conçus pour des niveaux très variés, et nos bénévoles adaptent toujours leur accompagnement.</div>
+    </div>
+
+    <div class="ct-faq-item fade-up" onclick="toggleFaq(this)">
+      <div class="ct-faq-q">
+        <h4>Comment proposer un atelier ou une intervention dans ma commune ?</h4>
+        <div class="ct-faq-toggle"><i class="fas fa-plus"></i></div>
+      </div>
+      <div class="ct-faq-answer">Utilisez le formulaire ci-dessus en sélectionnant le sujet "Proposer un atelier", ou écrivez-nous à contact@aleuredigitale.fr. Précisez votre commune, le public visé et la thématique souhaitée. Nous étudions toutes les demandes.</div>
+    </div>
+
+    <div class="ct-faq-item fade-up" onclick="toggleFaq(this)">
+      <div class="ct-faq-q">
+        <h4>Puis-je adhérer à l'association en ligne ?</h4>
+        <div class="ct-faq-toggle"><i class="fas fa-plus"></i></div>
+      </div>
+      <div class="ct-faq-answer">Oui ! Rendez-vous sur notre page <a href="adherer.html" style="color:var(--aed-purple)">Adhérer</a> pour rejoindre l'association. La cotisation annuelle est libre et accessible à tous. Votre adhésion soutient directement nos actions sur le territoire.</div>
+    </div>
+
+    <div class="ct-faq-item fade-up" onclick="toggleFaq(this)">
+      <div class="ct-faq-q">
+        <h4>Vous cherchez des partenaires institutionnels ou associatifs ?</h4>
+        <div class="ct-faq-toggle"><i class="fas fa-plus"></i></div>
+      </div>
+      <div class="ct-faq-answer">Oui, nous sommes toujours à la recherche de partenaires pour développer la médiation numérique dans l'Eure. Mairies, CCAS, associations, médiathèques, écoles… contactez-nous via le formulaire (sujet "Partenariat") et nous reviendrons vers vous sous 1 semaine.</div>
+    </div>
+
+    <div class="ct-faq-item fade-up" onclick="toggleFaq(this)">
+      <div class="ct-faq-q">
+        <h4>Comment signaler un problème sur le site ou une erreur d'information ?</h4>
+        <div class="ct-faq-toggle"><i class="fas fa-plus"></i></div>
+      </div>
+      <div class="ct-faq-answer">Utilisez le formulaire en sélectionnant "Signaler un bug", ou ouvrez directement une issue sur notre <a href="https://github.com/aleuredigitale" target="_blank" style="color:var(--aed-purple)">dépôt GitHub</a>. Les contributions au code sont également les bienvenues !</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ FOOTER ══════════════════════════════════════════ -->
+<footer class="aed-footer">
+  <div class="footer-top">
+    <div class="footer-col">
+      <div class="footer-brand-logo">
+        <span class="lico">&lt;/&gt;</span>
+        <span>À l'<span style="color:#60a5fa">Eure</span> <span style="color:#2ecc71">Digitale</span></span>
+      </div>
+      <p class="footer-desc">Communauté numérique bienveillante et inclusive en Normandie. Ateliers gratuits, entraide, projets open source.</p>
+      <div class="footer-socials">
+        <a href="https://discord.gg/yHCAgYKwk" target="_blank" class="fsoc" aria-label="Discord"><i class="fab fa-discord"></i></a>
+        <a href="https://github.com/aleuredigitale" target="_blank" class="fsoc" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4 class="footer-col-title">Navigation</h4>
+      <ul class="footer-links">
+        <li><a href="index.html#about"><i class="fas fa-chevron-right"></i> L'association</a></li>
+        <li><a href="index.html#discord"><i class="fas fa-chevron-right"></i> Discord</a></li>
+        <li><a href="index.html#hackathon"><i class="fas fa-chevron-right"></i> Hackathon</a></li>
+        <li><a href="index.html#proposer"><i class="fas fa-chevron-right"></i> Proposer un atelier</a></li>
+        <li><a href="index.html#faq"><i class="fas fa-chevron-right"></i> FAQ</a></li>
+        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4 class="footer-col-title">S'impliquer</h4>
+      <ul class="footer-links">
+        <li><a href="benevoles.html"><i class="fas fa-hands-helping"></i> Devenir bénévole</a></li>
+        <li><a href="adherer.html"><i class="fas fa-heart"></i> Adhérer à l'association</a></li>
+        <li><a href="cartes.html"><i class="fas fa-map"></i> Carte des lieux</a></li>
+        <li><a href="https://github.com/aleuredigitale" target="_blank"><i class="fab fa-github"></i> GitHub de l'asso</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4 class="footer-col-title">Légal</h4>
+      <ul class="footer-links">
+        <li><a href="mentions-legales.html"><i class="fas fa-chevron-right"></i> Mentions légales</a></li>
+        <li><a href="statuts.pdf" target="_blank"><i class="fas fa-chevron-right"></i> Statuts (loi 1901)</a></li>
+        <li><a href="politique-confidentialite.html"><i class="fas fa-chevron-right"></i> Politique de confidentialité</a></li>
+      </ul>
+      <div class="footer-badge-asso"><i class="fas fa-landmark"></i> Association loi 1901</div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 À l'Eure Digitale — Association loi 1901 — Normandie</span>
+    <span class="footer-bottom-links">
+      <a href="mentions-legales.html">Mentions légales</a>
+      <span class="sep">·</span>
+      <a href="statuts.pdf" target="_blank">Statuts</a>
+      <span class="sep">·</span>
+      <a href="https://github.com/aleuredigitale" target="_blank">GitHub</a>
+    </span>
+  </div>
+</footer>
+
+<button id="totop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Retour en haut">
+  <i class="fas fa-arrow-up"></i>
+</button>
+
+<script>
+/* ── Dark mode ─────────────────────────────── */
+const html     = document.documentElement;
+const darkBtn  = document.getElementById('darkToggle');
+const darkIcon = document.getElementById('darkIcon');
+function applyTheme(t) {
+  html.setAttribute('data-theme', t);
+  darkIcon.className = t === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+  localStorage.setItem('aed-theme', t);
+}
+darkBtn.addEventListener('click', () => {
+  applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+});
+const saved = localStorage.getItem('aed-theme');
+if (saved) applyTheme(saved);
+else if (window.matchMedia('(prefers-color-scheme: dark)').matches) applyTheme('dark');
+
+/* ── Burger menu ───────────────────────────── */
+const burgerBtn  = document.getElementById('burgerBtn');
+const burgerIcon = document.getElementById('burgerIcon');
+const navMobile  = document.getElementById('navMobile');
+function closeMobile() {
+  navMobile.classList.remove('open');
+  burgerIcon.className = 'fas fa-bars';
+}
+burgerBtn.addEventListener('click', () => {
+  const open = navMobile.classList.toggle('open');
+  burgerIcon.className = open ? 'fas fa-times' : 'fas fa-bars';
+});
+
+/* ── Tabs sujet ────────────────────────────── */
+function selectTab(el) {
+  document.querySelectorAll('.ct-stab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+/* ── FAQ ───────────────────────────────────── */
+function toggleFaq(item) {
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.ct-faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+/* ── Formulaire ────────────────────────────── */
+function submitContact() {
+  const prenom  = document.getElementById('prenom').value.trim();
+  const nom     = document.getElementById('nom').value.trim();
+  const email   = document.getElementById('email').value.trim();
+  const message = document.getElementById('message').value.trim();
+  const rgpd    = document.getElementById('rgpd').checked;
+
+  const fields = [['prenom', prenom], ['nom', nom], ['email', email], ['message', message]];
+  let hasError = false;
+  fields.forEach(([id, val]) => {
+    const el = document.getElementById(id);
+    if (!val) { el.style.borderColor = 'var(--aed-orange)'; hasError = true; }
+    else { el.style.borderColor = ''; }
+  });
+  if (!rgpd) {
+    document.getElementById('rgpd').style.outline = '2px solid var(--aed-orange)';
+    hasError = true;
+  } else {
+    document.getElementById('rgpd').style.outline = '';
+  }
+  if (hasError) return;
+
+  document.getElementById('ctFormContainer').style.display = 'none';
+  document.getElementById('ctSuccess').style.display = 'block';
+  document.getElementById('ctSuccess').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+/* ── Scroll fade-up ────────────────────────── */
+if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(el => {
+      if (el.isIntersecting) { el.target.classList.add('visible'); obs.unobserve(el.target); }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-up').forEach((el, i) => {
+    el.style.transitionDelay = (i * 0.05) + 's';
+    obs.observe(el);
+  });
+}
+
+/* ── Scroll-to-top ─────────────────────────── */
+const totop = document.getElementById('totop');
+window.addEventListener('scroll', () => {
+  totop.classList.toggle('show', window.scrollY > 400);
+});
+</script>
+</body>
+</html>

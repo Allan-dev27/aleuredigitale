@@ -532,6 +532,325 @@
       .plenary-card { padding: 22px 18px; }
       .slot-body { padding-left: 16px; }
     }
+
+    /* ===== FORMULAIRE D'INSCRIPTION ===== */
+    #tab-inscription { background: var(--cream); }
+    .inscription-section { padding: 70px 0; }
+
+    /* Layout 2 colonnes */
+    .inscription-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 48px;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .inscription-layout { grid-template-columns: 1fr; }
+      .inscription-aside { order: -1; }
+    }
+
+    /* ── Infos latérales ── */
+    .inscription-aside { display: flex; flex-direction: column; gap: 16px; }
+
+    .aside-event-card {
+      background: var(--green-dark);
+      border-radius: 8px; padding: 28px;
+      position: relative; overflow: hidden;
+    }
+    .aside-event-card::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(46,192,106,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(46,192,106,0.06) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+    .aside-event-tag {
+      font-family: var(--font-mono); font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--green-accent); margin-bottom: 12px; display: block;
+      position: relative; z-index: 1;
+    }
+    .aside-event-title {
+      font-family: var(--font-mono); font-size: 1.1rem;
+      color: var(--white); margin-bottom: 20px; line-height: 1.3;
+      position: relative; z-index: 1;
+    }
+    .aside-event-details { display: flex; flex-direction: column; gap: 10px; position: relative; z-index: 1; }
+    .aside-detail {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.85rem; color: rgba(255,255,255,0.7);
+    }
+    .aside-detail i { color: var(--green-accent); width: 16px; flex-shrink: 0; }
+    .aside-detail strong { color: var(--white); }
+
+    .aside-gratuit {
+      background: rgba(46,192,106,0.15); border: 1px solid rgba(46,192,106,0.3);
+      border-radius: 4px; padding: 10px 14px; margin-top: 16px;
+      font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700;
+      color: var(--green-accent); text-align: center; letter-spacing: 0.06em;
+      position: relative; z-index: 1;
+    }
+
+    .aside-chiffres {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 8px; padding: 22px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    }
+    .aside-chiffre { text-align: center; }
+    .aside-chiffre .num {
+      font-family: var(--font-mono); font-size: 1.6rem; font-weight: 700;
+      color: var(--green-dark); line-height: 1;
+    }
+    .aside-chiffre .num span { color: var(--green-accent); }
+    .aside-chiffre p { font-size: 0.72rem; color: var(--ink-muted); margin-top: 4px; }
+
+    .aside-discord {
+      background: #5865F2; border-radius: 6px; padding: 14px 18px;
+      display: flex; align-items: center; gap: 12px;
+      text-decoration: none; transition: background 0.2s;
+    }
+    .aside-discord:hover { background: #4752c4; }
+    .aside-discord i { color: var(--white); font-size: 1.4rem; flex-shrink: 0; }
+    .aside-discord div { flex: 1; }
+    .aside-discord strong { font-family: var(--font-mono); font-size: 0.82rem; color: var(--white); display: block; }
+    .aside-discord span  { font-size: 0.75rem; color: rgba(255,255,255,0.7); }
+
+    /* ── Formulaire ── */
+    .reg-form-wrap {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .reg-form-header {
+      background: var(--green-dark); padding: 28px 32px;
+      position: relative; overflow: hidden;
+    }
+    .reg-form-header::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(46,192,106,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(46,192,106,0.06) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+    .reg-form-header .form-tag {
+      font-family: var(--font-mono); font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--green-accent); margin-bottom: 8px; display: block;
+      position: relative; z-index: 1;
+    }
+    .reg-form-header h2 {
+      font-size: 1.3rem; color: var(--white);
+      position: relative; z-index: 1; margin-bottom: 6px;
+    }
+    .reg-form-header p {
+      font-size: 0.85rem; color: rgba(255,255,255,0.6);
+      position: relative; z-index: 1;
+    }
+
+    /* Étapes visuelles */
+    .form-steps {
+      display: flex; padding: 20px 32px;
+      border-bottom: 1px solid var(--border);
+      gap: 0; background: var(--cream);
+    }
+    .form-step {
+      flex: 1; display: flex; align-items: center; gap: 10px;
+      font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-muted);
+    }
+    .form-step:not(:last-child)::after {
+      content: ''; flex: 1; height: 1px; background: var(--border); margin: 0 8px;
+    }
+    .step-dot {
+      width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
+      display: grid; place-items: center;
+      font-size: 0.65rem; font-weight: 700;
+      background: var(--cream); border: 2px solid var(--border);
+      color: var(--ink-muted); transition: all 0.3s;
+    }
+    .form-step.active .step-dot {
+      background: var(--green-dark); border-color: var(--green-dark); color: var(--white);
+    }
+    .form-step.done .step-dot {
+      background: var(--green-accent); border-color: var(--green-accent); color: var(--green-dark);
+    }
+    .form-step.active { color: var(--green-dark); }
+    .form-step.done   { color: var(--green-mid); }
+
+    /* Corps du formulaire */
+    .reg-form-body { padding: 32px; }
+
+    /* Pages multi-étapes */
+    .form-page { display: none; }
+    .form-page.active { display: block; }
+
+    .form-section-title {
+      font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700;
+      color: var(--ink-muted); letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 18px;
+      padding-bottom: 8px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .form-section-title i { color: var(--green-accent); }
+
+    .form-grid { display: grid; gap: 18px; margin-bottom: 20px; }
+    .form-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+    @media (max-width: 600px) { .form-grid.cols-2 { grid-template-columns: 1fr; } }
+
+    .form-field { display: flex; flex-direction: column; gap: 6px; }
+    .form-label {
+      font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700;
+      color: var(--ink-soft); letter-spacing: 0.04em;
+    }
+    .form-label .required { color: var(--green-accent); margin-left: 2px; }
+    .form-input, .form-select, .form-textarea {
+      font-family: var(--font-body); font-size: 0.9rem; color: var(--ink);
+      background: var(--cream); border: 1.5px solid var(--border);
+      border-radius: 4px; padding: 10px 14px;
+      outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+      width: 100%;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--green-accent);
+      box-shadow: 0 0 0 3px rgba(46,192,106,0.1);
+      background: var(--white);
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--ink-muted); }
+    .form-select { appearance: none; cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='6 9 12 15 18 9' fill='none' stroke='%235a7566' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 12px center; background-size: 16px;
+    }
+    .form-textarea { min-height: 90px; resize: vertical; }
+    .form-hint { font-size: 0.75rem; color: var(--ink-muted); }
+
+    /* Sessions checkbox */
+    .sessions-checkboxes { display: flex; flex-direction: column; gap: 10px; }
+    .session-checkbox-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 14px; border-radius: 4px;
+      border: 1.5px solid var(--border); cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      background: var(--cream);
+    }
+    .session-checkbox-item:has(input:checked) {
+      border-color: var(--green-accent); background: rgba(46,192,106,0.04);
+    }
+    .session-checkbox-item input[type="checkbox"] {
+      margin-top: 2px; accent-color: var(--green-accent);
+      width: 16px; height: 16px; flex-shrink: 0; cursor: pointer;
+    }
+    .session-check-info { flex: 1; }
+    .session-check-label {
+      font-family: var(--font-mono); font-size: 0.78rem; color: var(--green-dark);
+      font-weight: 700; display: block; margin-bottom: 2px;
+    }
+    .session-check-meta { font-size: 0.75rem; color: var(--ink-muted); }
+    .session-check-badge {
+      font-family: var(--font-mono); font-size: 0.6rem; font-weight: 700;
+      letter-spacing: 0.06em; padding: 2px 7px; border-radius: 2px;
+      float: right; margin-left: 8px;
+    }
+
+    /* RGPD & consentement */
+    .consent-box {
+      background: rgba(46,192,106,0.04); border: 1px solid var(--border);
+      border-radius: 4px; padding: 16px;
+      display: flex; align-items: flex-start; gap: 12px; cursor: pointer;
+    }
+    .consent-box input[type="checkbox"] {
+      margin-top: 3px; accent-color: var(--green-accent);
+      width: 16px; height: 16px; flex-shrink: 0;
+    }
+    .consent-text { font-size: 0.8rem; color: var(--ink-muted); line-height: 1.6; }
+    .consent-text a { color: var(--green-mid); }
+
+    /* Boutons navigation étapes */
+    .form-nav {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border);
+      gap: 12px;
+    }
+    .btn-form-next, .btn-form-prev, .btn-form-submit {
+      font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.05em; padding: 11px 24px; border-radius: 4px;
+      cursor: pointer; border: none; transition: all 0.22s;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .btn-form-next, .btn-form-submit {
+      background: var(--green-accent); color: var(--green-dark);
+      border: 2px solid var(--green-accent);
+    }
+    .btn-form-next:hover, .btn-form-submit:hover {
+      background: var(--green-dark); color: var(--green-light); border-color: var(--green-dark);
+    }
+    .btn-form-prev {
+      background: transparent; color: var(--ink-muted);
+      border: 2px solid var(--border);
+    }
+    .btn-form-prev:hover { border-color: var(--ink-muted); color: var(--ink-soft); }
+    .btn-form-submit:disabled { opacity: 0.55; cursor: not-allowed; }
+    .form-step-count { font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-muted); }
+
+    /* Page de confirmation */
+    .form-confirm {
+      text-align: center; padding: 48px 24px;
+    }
+    .confirm-icon {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: rgba(46,192,106,0.12); border: 2px solid var(--green-accent);
+      display: grid; place-items: center; margin: 0 auto 24px;
+      font-size: 2rem;
+    }
+    .form-confirm h3 {
+      font-size: 1.4rem; color: var(--green-dark); margin-bottom: 10px;
+    }
+    .form-confirm p { color: var(--ink-muted); max-width: 440px; margin: 0 auto 24px; }
+    .confirm-recap {
+      background: var(--cream); border: 1px solid var(--border);
+      border-radius: 6px; padding: 20px; text-align: left; margin-bottom: 24px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .confirm-recap-row {
+      display: flex; gap: 10px; font-size: 0.85rem;
+      align-items: flex-start;
+    }
+    .confirm-recap-row i { color: var(--green-accent); flex-shrink: 0; margin-top: 2px; }
+    .confirm-recap-row strong { color: var(--green-dark); margin-right: 4px; }
+
+    /* Barre de progression */
+    .progress-bar-wrap {
+      height: 3px; background: var(--border);
+      position: relative; overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%; background: var(--green-accent);
+      transition: width 0.4s ease;
+      width: 33%;
+    }
+
+    /* Compteur places */
+    .places-counter {
+      background: rgba(46,192,106,0.06); border: 1px solid var(--border);
+      border-radius: 4px; padding: 10px 14px;
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 20px;
+    }
+    .places-counter i { color: var(--green-accent); }
+    .places-counter span { font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-soft); }
+    .places-counter strong { color: var(--green-mid); }
+
+    /* Badge nouveau */
+    .new-badge {
+      display: inline-block;
+      background: var(--green-accent); color: var(--green-dark);
+      font-family: var(--font-mono); font-size: 0.55rem; font-weight: 700;
+      letter-spacing: 0.1em; padding: 2px 6px; border-radius: 2px;
+      vertical-align: middle; margin-left: 6px; text-transform: uppercase;
+    }
   </style>
 </head>
 <body>
@@ -564,6 +883,7 @@
     <div class="tab-nav">
       <button class="tab-btn active" onclick="switchTab('programme')"><i class="bi bi-calendar3"></i>&nbsp; Programme</button>
       <button class="tab-btn" onclick="switchTab('intervenants')"><i class="bi bi-mic-fill"></i>&nbsp; Intervenants</button>
+      <button class="tab-btn" onclick="switchTab('inscription')"><i class="bi bi-pencil-square"></i>&nbsp; S'inscrire<span class="new-badge" style="background:var(--green-accent);color:var(--green-dark);font-family:var(--font-mono);font-size:0.5rem;font-weight:700;letter-spacing:.1em;padding:2px 6px;border-radius:2px;margin-left:8px;vertical-align:middle;text-transform:uppercase;">New</span></button>
     </div>
   </div>
   <svg class="wave" viewBox="0 0 1440 48" xmlns="http://www.w3.org/2000/svg">
@@ -1096,6 +1416,373 @@
 </div><!-- /tab-intervenants -->
 
 
+<!-- ══════════════════════════
+     TAB 3 : INSCRIPTION
+══════════════════════════════ -->
+<div id="tab-inscription" class="tab-content">
+<section class="inscription-section">
+  <div class="container">
+
+    <div class="inscription-layout">
+
+      <!-- ─── FORMULAIRE (colonne principale) ─── -->
+      <div>
+        <div class="reg-form-wrap reveal">
+
+          <!-- En-tête -->
+          <div class="reg-form-header">
+            <span class="form-tag">Eure Tech &amp; Inclusion 2026</span>
+            <h2>Formulaire d'inscription</h2>
+            <p>Événement 100% gratuit · 19 Novembre 2026 · 10h00–17h00 · En ligne sur Discord</p>
+          </div>
+
+          <!-- Barre de progression -->
+          <div class="progress-bar-wrap">
+            <div class="progress-bar-fill" id="progressBar"></div>
+          </div>
+
+          <!-- Étapes -->
+          <div class="form-steps">
+            <div class="form-step active" id="step-indicator-1">
+              <div class="step-dot">1</div>
+              <span>Identité</span>
+            </div>
+            <div class="form-step" id="step-indicator-2">
+              <div class="step-dot">2</div>
+              <span>Profil</span>
+            </div>
+            <div class="form-step" id="step-indicator-3">
+              <div class="step-dot">3</div>
+              <span>Sessions</span>
+            </div>
+          </div>
+
+          <!-- Corps du formulaire -->
+          <div class="reg-form-body">
+
+            <!-- Compteur places -->
+            <div class="places-counter">
+              <i class="bi bi-people-fill"></i>
+              <span><strong>47</strong> inscrits sur 200 places disponibles — encore <strong>153 places</strong> libres</span>
+            </div>
+
+            <!-- ── PAGE 1 : Identité ── -->
+            <div class="form-page active" id="form-page-1">
+              <div class="form-section-title"><i class="bi bi-person-fill"></i> Vos coordonnées</div>
+              <div class="form-grid cols-2">
+                <div class="form-field">
+                  <label class="form-label" for="prenom">Prénom <span class="required">*</span></label>
+                  <input class="form-input" type="text" id="prenom" name="prenom" placeholder="ex. Marie" required>
+                </div>
+                <div class="form-field">
+                  <label class="form-label" for="nom">Nom <span class="required">*</span></label>
+                  <input class="form-input" type="text" id="nom" name="nom" placeholder="ex. Dupont" required>
+                </div>
+              </div>
+              <div class="form-grid">
+                <div class="form-field">
+                  <label class="form-label" for="email">Adresse e-mail <span class="required">*</span></label>
+                  <input class="form-input" type="email" id="email" name="email" placeholder="marie.dupont@exemple.fr" required>
+                  <span class="form-hint">Vous recevrez votre lien Discord et la confirmation à cette adresse.</span>
+                </div>
+              </div>
+              <div class="form-grid cols-2">
+                <div class="form-field">
+                  <label class="form-label" for="telephone">Téléphone</label>
+                  <input class="form-input" type="tel" id="telephone" name="telephone" placeholder="06 00 00 00 00">
+                  <span class="form-hint">Facultatif — uniquement pour vous recontacter si besoin.</span>
+                </div>
+                <div class="form-field">
+                  <label class="form-label" for="commune">Commune de résidence <span class="required">*</span></label>
+                  <input class="form-input" type="text" id="commune" name="commune" placeholder="ex. Évreux, Bernay…">
+                </div>
+              </div>
+
+              <div class="form-nav">
+                <div class="form-step-count">Étape 1 sur 3</div>
+                <button class="btn-form-next" onclick="goToStep(2)">Suivant <i class="bi bi-arrow-right"></i></button>
+              </div>
+            </div>
+
+            <!-- ── PAGE 2 : Profil ── -->
+            <div class="form-page" id="form-page-2">
+              <div class="form-section-title"><i class="bi bi-briefcase-fill"></i> Votre profil</div>
+              <div class="form-grid">
+                <div class="form-field">
+                  <label class="form-label" for="statut">Vous êtes <span class="required">*</span></label>
+                  <select class="form-select" id="statut" name="statut">
+                    <option value="" disabled selected>— Choisir votre statut —</option>
+                    <option value="particulier">Particulier / Citoyen</option>
+                    <option value="professionnel">Professionnel du numérique</option>
+                    <option value="association">Membre d'une association</option>
+                    <option value="collectivite">Agent de collectivité / service public</option>
+                    <option value="entreprise">Salarié d'entreprise</option>
+                    <option value="etudiant">Étudiant / en formation</option>
+                    <option value="demandeur">Demandeur d'emploi</option>
+                    <option value="aidant">Aidant numérique / bénévole</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-grid">
+                <div class="form-field">
+                  <label class="form-label" for="organisation">Nom de votre structure / organisation</label>
+                  <input class="form-input" type="text" id="organisation" name="organisation" placeholder="ex. Mairie d'Évreux, LADAPT, Indépendant…">
+                  <span class="form-hint">Facultatif</span>
+                </div>
+              </div>
+              <div class="form-grid">
+                <div class="form-field">
+                  <label class="form-label" for="niveau">Votre niveau avec le numérique <span class="required">*</span></label>
+                  <select class="form-select" id="niveau" name="niveau">
+                    <option value="" disabled selected>— Choisir —</option>
+                    <option value="debutant">Débutant — j'ai peu d'expérience</option>
+                    <option value="intermediaire">Intermédiaire — j'utilise le numérique au quotidien</option>
+                    <option value="avance">Avancé — je suis à l'aise avec les outils numériques</option>
+                    <option value="expert">Expert / Professionnel du secteur</option>
+                  </select>
+                  <span class="form-hint">Cela nous aide à adapter le contenu des ateliers.</span>
+                </div>
+              </div>
+              <div class="form-grid">
+                <div class="form-field">
+                  <label class="form-label" for="handicap">Avez-vous un besoin d'accessibilité spécifique ?</label>
+                  <select class="form-select" id="handicap" name="handicap">
+                    <option value="non">Non, pas de besoin particulier</option>
+                    <option value="visuel">Déficience visuelle (sous-titres, contraste…)</option>
+                    <option value="auditif">Déficience auditive (transcription, LSF…)</option>
+                    <option value="moteur">Handicap moteur (accessibilité interface)</option>
+                    <option value="cognitif">Trouble cognitif ou DYS</option>
+                    <option value="autre">Autre — je le précise dans les remarques</option>
+                  </select>
+                  <span class="form-hint">Information confidentielle, utilisée uniquement pour adapter l'accueil.</span>
+                </div>
+              </div>
+
+              <div class="form-nav">
+                <button class="btn-form-prev" onclick="goToStep(1)"><i class="bi bi-arrow-left"></i> Retour</button>
+                <div class="form-step-count">Étape 2 sur 3</div>
+                <button class="btn-form-next" onclick="goToStep(3)">Suivant <i class="bi bi-arrow-right"></i></button>
+              </div>
+            </div>
+
+            <!-- ── PAGE 3 : Sessions + envoi ── -->
+            <div class="form-page" id="form-page-3">
+              <div class="form-section-title"><i class="bi bi-calendar-check-fill"></i> Sessions qui vous intéressent</div>
+              <p style="font-size:0.85rem;color:var(--ink-muted);margin-bottom:16px;">Cochez les sessions que vous souhaitez suivre en priorité. Toutes les sessions sont ouvertes à tous — votre sélection nous aide à anticiper les salles Discord.</p>
+
+              <div class="sessions-checkboxes" style="margin-bottom:22px;">
+                <label class="session-checkbox-item">
+                  <input type="checkbox" name="sessions" value="ouverture">
+                  <div class="session-check-info">
+                    <span class="session-check-label">
+                      <span class="session-check-badge badge-open" style="float:none;margin:0 0 2px;display:inline-block;">🌟 Plénière</span>
+                      Cérémonie d'ouverture
+                    </span>
+                    <span class="session-check-meta"><i class="bi bi-clock" style="font-size:0.7rem"></i> 10h00 · 45 min</span>
+                  </div>
+                </label>
+                <label class="session-checkbox-item">
+                  <input type="checkbox" name="sessions" value="ia-accessibilite">
+                  <div class="session-check-info">
+                    <span class="session-check-label">
+                      <span class="session-check-badge badge-conf" style="float:none;margin:0 0 2px;display:inline-block;">🎤 Conf.</span>
+                      IA et accessibilité : quelles opportunités ?
+                    </span>
+                    <span class="session-check-meta"><i class="bi bi-clock" style="font-size:0.7rem"></i> 10h45 · 60 min · Nadia Ouali</span>
+                  </div>
+                </label>
+                <label class="session-checkbox-item">
+                  <input type="checkbox" name="sessions" value="premiers-pas">
+                  <div class="session-check-info">
+                    <span class="session-check-label">
+                      <span class="session-check-badge badge-atelier" style="float:none;margin:0 0 2px;display:inline-block;">💻 Atelier</span>
+                      Mes premiers pas sur Internet
+                    </span>
+                    <span class="session-check-meta"><i class="bi bi-clock" style="font-size:0.7rem"></i> 10h45 · 60 min · Karim Benali</span>
+                  </div>
+                </label>
+                <label class="session-checkbox-item">
+                  <input type="checkbox" name="sessions" value="cybersecurite">
+                  <div class="session-check-info">
+                    <span class="session-check-label">
+                      <span class="session-check-badge badge-atelier" style="float:none;margin:0 0 2px;display:inline-block;">💻 Atelier</span>
+                      Cybersécurité du quotidien
+                    </span>
+                    <span class="session-check-meta"><i class="bi bi-clock" style="font-size:0.7rem"></i> 11h00 · 75 min · Thomas Leclerc</span>
+                  </div>
+                </label>
+                <label class="session-checkbox-item">
+                  <input type="checkbox" name="sessions" value="duoday">
+                  <div class="session-check-info">
+                    <span class="session-check-label">
+                      <span class="session-check-badge badge-reseau" style="float:none;margin:0 0 2px;display:inline-block;">👥 Réseau</span>
+                      DuoDay 2026 : binômes &amp; métiers du numérique
+                    </span>
+                    <span class="session-check-meta"><i class="bi bi-clock" style="font-size:0.7rem"></i> 11h00 · 75 min · Élodie Rousseau</span>
+                  </div>
+                </label>
+                <label class="session-checkbox-item">
+                  <input type="checkbox" name="sessions" value="table-ronde">
+                  <div class="session-check-info">
+                    <span class="session-check-label">
+                      <span class="session-check-badge badge-conf" style="float:none;margin:0 0 2px;display:inline-block;">🎤 Table ronde</span>
+                      Fracture numérique en milieu rural
+                    </span>
+                    <span class="session-check-meta"><i class="bi bi-clock" style="font-size:0.7rem"></i> 14h00 · 75 min</span>
+                  </div>
+                </label>
+                <label class="session-checkbox-item">
+                  <input type="checkbox" name="sessions" value="cv-numerique">
+                  <div class="session-check-info">
+                    <span class="session-check-label">
+                      <span class="session-check-badge badge-atelier" style="float:none;margin:0 0 2px;display:inline-block;">💻 Atelier</span>
+                      Créer un CV numérique accessible
+                    </span>
+                    <span class="session-check-meta"><i class="bi bi-clock" style="font-size:0.7rem"></i> 15h15 · 60 min · Élodie Rousseau</span>
+                  </div>
+                </label>
+                <label class="session-checkbox-item">
+                  <input type="checkbox" name="sessions" value="accessibilite-web">
+                  <div class="session-check-info">
+                    <span class="session-check-label">
+                      <span class="session-check-badge badge-conf" style="float:none;margin:0 0 2px;display:inline-block;">🎤 Conf.</span>
+                      Accessibilité web en 2026 : ce que dit la loi
+                    </span>
+                    <span class="session-check-meta"><i class="bi bi-clock" style="font-size:0.7rem"></i> 15h15 · 60 min · Nadia Ouali</span>
+                  </div>
+                </label>
+                <label class="session-checkbox-item">
+                  <input type="checkbox" name="sessions" value="seniors">
+                  <div class="session-check-info">
+                    <span class="session-check-label">
+                      <span class="session-check-badge badge-atelier" style="float:none;margin:0 0 2px;display:inline-block;">💻 Atelier</span>
+                      Seniors &amp; Numérique : smartphone en confiance
+                    </span>
+                    <span class="session-check-meta"><i class="bi bi-clock" style="font-size:0.7rem"></i> 15h30 · 60 min · Thomas Leclerc</span>
+                  </div>
+                </label>
+                <label class="session-checkbox-item">
+                  <input type="checkbox" name="sessions" value="seeph">
+                  <div class="session-check-info">
+                    <span class="session-check-label">
+                      <span class="session-check-badge badge-reseau" style="float:none;margin:0 0 2px;display:inline-block;">👥 SEEPH</span>
+                      « Et si le handicap était notre force ? »
+                    </span>
+                    <span class="session-check-meta"><i class="bi bi-clock" style="font-size:0.7rem"></i> 15h30 · 60 min · Isabelle Fontaine</span>
+                  </div>
+                </label>
+              </div>
+
+              <div class="form-section-title" style="margin-top:8px;"><i class="bi bi-chat-left-text-fill"></i> Remarques</div>
+              <div class="form-grid" style="margin-bottom:20px;">
+                <div class="form-field">
+                  <label class="form-label" for="remarques">Message ou question à l'organisateur</label>
+                  <textarea class="form-textarea" id="remarques" name="remarques" placeholder="Besoin particulier, question, message libre…"></textarea>
+                </div>
+              </div>
+
+              <div class="form-section-title"><i class="bi bi-shield-check-fill"></i> Consentement RGPD</div>
+              <label class="consent-box" style="margin-bottom:12px;">
+                <input type="checkbox" id="rgpd" required>
+                <span class="consent-text">J'accepte que mes données soient utilisées par À l'Eure Digitale uniquement dans le cadre de cet événement et pour m'envoyer les informations de connexion. Elles ne seront pas transmises à des tiers. <a href="#">Politique de confidentialité →</a></span>
+              </label>
+              <label class="consent-box">
+                <input type="checkbox" id="newsletter">
+                <span class="consent-text">J'accepte de recevoir les actualités de À l'Eure Digitale (prochains événements, ateliers, newsletter). Je peux me désinscrire à tout moment.</span>
+              </label>
+
+              <div class="form-nav">
+                <button class="btn-form-prev" onclick="goToStep(2)"><i class="bi bi-arrow-left"></i> Retour</button>
+                <div class="form-step-count">Étape 3 sur 3</div>
+                <button class="btn-form-submit" id="submitBtn" onclick="submitForm()">
+                  <i class="bi bi-send-fill"></i> Confirmer mon inscription
+                </button>
+              </div>
+            </div>
+
+            <!-- ── PAGE CONFIRMATION ── -->
+            <div class="form-page" id="form-page-confirm">
+              <div class="form-confirm">
+                <div class="confirm-icon">✅</div>
+                <h3>Inscription confirmée !</h3>
+                <p>Merci pour votre inscription à <strong>Eure Tech &amp; Inclusion 2026</strong>. Vous allez recevoir un e-mail de confirmation avec le lien Discord pour rejoindre l'événement.</p>
+                <div class="confirm-recap" id="confirmRecap">
+                  <div class="confirm-recap-row"><i class="bi bi-calendar-event-fill"></i><span><strong>Date :</strong> Jeudi 19 Novembre 2026, 10h00–17h00</span></div>
+                  <div class="confirm-recap-row"><i class="bi bi-discord"></i><span><strong>Plateforme :</strong> 100% en ligne sur Discord</span></div>
+                  <div class="confirm-recap-row"><i class="bi bi-envelope-fill"></i><span><strong>E-mail de confirmation</strong> envoyé à l'adresse renseignée.</span></div>
+                </div>
+                <a href="https://discord.gg/hxyp2qFFAN" target="_blank" style="
+                  display:inline-flex; align-items:center; gap:10px;
+                  background:#5865F2; color:#fff;
+                  padding:12px 28px; border-radius:4px;
+                  font-family:var(--font-mono); font-weight:700; font-size:0.85rem;
+                  text-decoration:none; letter-spacing:0.05em; transition:background .2s;
+                " onmouseover="this.style.background='#4752c4'" onmouseout="this.style.background='#5865F2'">
+                  <i class="bi bi-discord"></i> Rejoindre le serveur Discord maintenant
+                </a>
+              </div>
+            </div>
+
+          </div><!-- /reg-form-body -->
+        </div><!-- /reg-form-wrap -->
+      </div><!-- /colonne principale -->
+
+      <!-- ─── COLONNE LATÉRALE ─── -->
+      <div class="inscription-aside">
+
+        <!-- Card événement -->
+        <div class="aside-event-card reveal">
+          <span class="aside-event-tag">Eure Tech &amp; Inclusion 2026</span>
+          <div class="aside-event-title">Une journée pour rendre le numérique accessible à tous</div>
+          <div class="aside-event-details">
+            <div class="aside-detail"><i class="bi bi-calendar-event-fill"></i><span><strong>Jeudi 19 Novembre 2026</strong></span></div>
+            <div class="aside-detail"><i class="bi bi-clock-fill"></i><span>10h00 – 17h00 (7h de contenu)</span></div>
+            <div class="aside-detail"><i class="bi bi-discord"></i><span>100% en ligne sur Discord</span></div>
+            <div class="aside-detail"><i class="bi bi-geo-alt-fill"></i><span>Depuis partout dans l'Eure</span></div>
+            <div class="aside-detail"><i class="bi bi-flag-fill"></i><span>Dans le cadre de la <strong>SEEPH 2026</strong> &amp; <strong>DuoDay</strong></span></div>
+            <div class="aside-detail"><i class="bi bi-people-fill"></i><span>8 intervenants · 10 sessions</span></div>
+          </div>
+          <div class="aside-gratuit">🎉 ÉVÉNEMENT 100% GRATUIT · OUVERT À TOUS</div>
+        </div>
+
+        <!-- Chiffres -->
+        <div class="aside-chiffres reveal">
+          <div class="aside-chiffre">
+            <div class="num">47<span>+</span></div>
+            <p>inscrits déjà</p>
+          </div>
+          <div class="aside-chiffre">
+            <div class="num">153</div>
+            <p>places restantes</p>
+          </div>
+          <div class="aside-chiffre">
+            <div class="num">8</div>
+            <p>intervenants</p>
+          </div>
+          <div class="aside-chiffre">
+            <div class="num">10</div>
+            <p>sessions</p>
+          </div>
+        </div>
+
+        <!-- Lien Discord -->
+        <a href="https://discord.gg/hxyp2qFFAN" target="_blank" class="aside-discord reveal">
+          <i class="bi bi-discord"></i>
+          <div>
+            <strong>Rejoindre le Discord maintenant</strong>
+            <span>Accédez aux salles de discussion dès aujourd'hui</span>
+          </div>
+          <i class="bi bi-arrow-right-circle"></i>
+        </a>
+
+      </div><!-- /aside -->
+
+    </div><!-- /inscription-layout -->
+  </div>
+</section>
+</div><!-- /tab-inscription -->
+
+
 <!-- CTA DISCORD -->
 <section class="cta-discord">
   <div class="container">
@@ -1139,7 +1826,150 @@
   }, { threshold: 0.08 });
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  /* ─── FORMULAIRE MULTI-ÉTAPES ─── */
+  let currentStep = 1;
+  const totalSteps = 3;
+  const progressValues = { 1: '33%', 2: '66%', 3: '100%' };
+
+  function goToStep(step) {
+    // Validation simple étape 1
+    if (step > 1 && currentStep === 1) {
+      const prenom = document.getElementById('prenom').value.trim();
+      const nom    = document.getElementById('nom').value.trim();
+      const email  = document.getElementById('email').value.trim();
+      const commune= document.getElementById('commune').value.trim();
+      if (!prenom || !nom || !email || !commune) {
+        shakeForm(); return;
+      }
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      if (!emailOk) { document.getElementById('email').focus(); shakeForm(); return; }
+    }
+    // Validation simple étape 2
+    if (step > 2 && currentStep === 2) {
+      const statut = document.getElementById('statut').value;
+      const niveau = document.getElementById('niveau').value;
+      if (!statut || !niveau) { shakeForm(); return; }
+    }
+
+    // Masquer page courante, afficher nouvelle
+    document.getElementById('form-page-' + currentStep).classList.remove('active');
+    currentStep = step;
+    document.getElementById('form-page-' + currentStep).classList.add('active');
+
+    // Mettre à jour indicateurs
+    updateStepIndicators();
+    // Scroller en haut du form
+    document.querySelector('.reg-form-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function updateStepIndicators() {
+    const bar = document.getElementById('progressBar');
+    if (bar) bar.style.width = progressValues[currentStep] || '100%';
+    for (let i = 1; i <= totalSteps; i++) {
+      const el = document.getElementById('step-indicator-' + i);
+      if (!el) continue;
+      el.classList.remove('active', 'done');
+      if (i < currentStep)  el.classList.add('done');
+      if (i === currentStep) el.classList.add('active');
+      // Mettre à jour le dot pour les étapes terminées
+      const dot = el.querySelector('.step-dot');
+      if (i < currentStep) dot.innerHTML = '<i class="bi bi-check-lg" style="font-size:0.65rem"></i>';
+      else dot.textContent = i;
+    }
+  }
+
+  async function submitForm() {
+    // Vérifier RGPD
+    if (!document.getElementById('rgpd').checked) {
+      document.getElementById('rgpd').closest('.consent-box').style.borderColor = 'red';
+      setTimeout(() => document.getElementById('rgpd').closest('.consent-box').style.borderColor = '', 2000);
+      return;
+    }
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="bi bi-hourglass-split"></i> Envoi en cours…';
+
+    // Recueillir les données
+    const prenom = document.getElementById('prenom').value.trim();
+    const nom    = document.getElementById('nom').value.trim();
+    const email  = document.getElementById('email').value.trim();
+
+    // Tentative Formspree
+    try {
+      const formData = new FormData();
+      formData.append('name', prenom + ' ' + nom);
+      formData.append('email', email);
+      formData.append('commune', document.getElementById('commune').value);
+      formData.append('statut', document.getElementById('statut').value);
+      formData.append('niveau', document.getElementById('niveau').value);
+      formData.append('handicap', document.getElementById('handicap').value);
+      formData.append('organisation', document.getElementById('organisation').value);
+      formData.append('remarques', document.getElementById('remarques').value);
+      const sessions = [...document.querySelectorAll('input[name="sessions"]:checked')].map(c => c.value).join(', ');
+      formData.append('sessions_choisies', sessions || 'Non précisé');
+      formData.append('newsletter', document.getElementById('newsletter').checked ? 'Oui' : 'Non');
+      formData.append('_subject', 'Inscription Eure Tech & Inclusion 2026 — ' + prenom + ' ' + nom);
+
+      const res = await fetch('https://formspree.io/f/aleuredudigitale@gmail.com', {
+        method: 'POST', body: formData, headers: { 'Accept': 'application/json' }
+      });
+
+      if (!res.ok) throw new Error('Formspree error');
+    } catch {
+      // Fallback mailto si Formspree échoue
+      const sessions = [...document.querySelectorAll('input[name="sessions"]:checked')].map(c => c.value).join(', ');
+      const body = `Nom : ${prenom} ${nom}\nEmail : ${email}\nStatut : ${document.getElementById('statut').value}\nNiveau : ${document.getElementById('niveau').value}\nSessions : ${sessions || 'Non précisé'}\nRemarques : ${document.getElementById('remarques').value}`;
+      window.location.href = `mailto:aleuredudigitale@gmail.com?subject=${encodeURIComponent('Inscription Eure Tech & Inclusion 2026')}&body=${encodeURIComponent(body)}`;
+    }
+
+    // Afficher page confirmation
+    showConfirmation(prenom, nom, email);
+  }
+
+  function showConfirmation(prenom, nom, email) {
+    document.getElementById('form-page-3').classList.remove('active');
+    document.getElementById('form-page-confirm').classList.add('active');
+    document.getElementById('progressBar').style.width = '100%';
+
+    // Mettre à jour le récap
+    const recap = document.getElementById('confirmRecap');
+    const nameRow = document.createElement('div');
+    nameRow.className = 'confirm-recap-row';
+    nameRow.innerHTML = `<i class="bi bi-person-fill"></i><span><strong>Inscrit(e) :</strong> ${prenom} ${nom}</span>`;
+    recap.insertBefore(nameRow, recap.firstChild);
+
+    // Passer tous les steps en "done"
+    for (let i = 1; i <= totalSteps; i++) {
+      const el = document.getElementById('step-indicator-' + i);
+      if (!el) continue;
+      el.classList.remove('active');
+      el.classList.add('done');
+      el.querySelector('.step-dot').innerHTML = '<i class="bi bi-check-lg" style="font-size:0.65rem"></i>';
+    }
+
+    document.querySelector('.reg-form-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function shakeForm() {
+    const body = document.querySelector('.reg-form-body');
+    body.style.animation = 'none';
+    body.offsetHeight; // reflow
+    body.style.animation = 'shake 0.4s ease';
+    setTimeout(() => body.style.animation = '', 500);
+  }
 </script>
+
+<style>
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%       { transform: translateX(-6px); }
+    40%       { transform: translateX(6px); }
+    60%       { transform: translateX(-4px); }
+    80%       { transform: translateX(4px); }
+  }
+</style>
 
 </body>
 </html>

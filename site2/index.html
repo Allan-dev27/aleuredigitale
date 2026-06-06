@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>A l'Eure Digitale – Apprendre · Partager · Construire ensemble</title>
+  <meta name="description" content="À l'Eure Digitale est une association loi 1901 qui rassemble citoyens, associations et collectivités pour un numérique inclusif, solidaire et collaboratif dans le département de l'Eure (27).">
+  <meta name="keywords" content="numérique, association, Eure, ateliers, open source, inclusion, digital">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── RÉSEAU PROFESSIONNEL ── */
+    .reseau-pro {
+      padding: 90px 0 100px;
+      background: #f7fdf9;
+    }
+    .reseau-pro .section-title {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .reseau-pro .section-title h2 em {
+      color: var(--green-accent);
+      font-style: normal;
+    }
+    .reseau-pro-intro {
+      text-align: center;
+      color: var(--ink-muted);
+      font-size: 1rem;
+      line-height: 1.75;
+      max-width: 560px;
+      margin: 0 auto 48px;
+    }
+    /* Stats bar */
+    .reseau-stats-bar {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.07);
+      border-radius: 14px;
+      padding: 24px 0;
+      margin-bottom: 56px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+    }
+    .reseau-stat-item {
+      flex: 1;
+      text-align: center;
+    }
+    .reseau-stat-item:not(:last-child) {
+      border-right: 1px solid #eee;
+    }
+    .reseau-stat-item strong {
+      display: block;
+      font-size: 1.8rem;
+      font-family: var(--font-mono);
+      color: var(--green-dark);
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .reseau-stat-item span {
+      font-size: 0.75rem;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    /* Profile cards grid */
+    .reseau-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+    .reseau-card {
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.07);
+      border-radius: 16px;
+      padding: 28px 24px 24px;
+      transition: box-shadow 0.2s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .reseau-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--card-accent, var(--green-accent));
+      border-radius: 16px 16px 0 0;
+    }
+    .reseau-card:hover {
+      box-shadow: 0 12px 36px rgba(0,0,0,0.10);
+      transform: translateY(-3px);
+    }
+    .reseau-card-head {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    .reseau-avatar {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+      font-family: var(--font-mono);
+    }
+    .reseau-card-meta h4 {
+      font-size: 0.97rem;
+      color: var(--green-dark);
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .reseau-card-meta .reseau-role {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--card-accent, var(--green-accent));
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .reseau-card-location {
+      font-size: 0.78rem;
+      color: var(--ink-muted);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 12px;
+    }
+    .reseau-card p {
+      font-size: 0.85rem;
+      color: var(--ink-muted);
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }
+    .reseau-card-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    .reseau-skill-tag {
+      background: #f0faf5;
+      border: 1px solid rgba(46,192,106,0.2);
+      color: var(--green-dark);
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    .reseau-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid #f0f0f0;
+      padding-top: 14px;
+      margin-top: 4px;
+    }
+    .reseau-dispo {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .reseau-dispo::before {
+      content: '';
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--dispo-color, var(--green-accent));
+    }
+    .reseau-discord-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.75rem;
+      color: #5865F2;
+      text-decoration: none;
+      font-weight: 600;
+      font-family: var(--font-mono);
+    }
+    .reseau-discord-link:hover { text-decoration: underline; }
+    /* CTA bottom */
+    .reseau-cta-bottom {
+      text-align: center;
+    }
+    .reseau-discord-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--green-dark);
+      color: #fff;
+      text-decoration: none;
+      padding: 16px 28px;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+    .reseau-discord-cta:hover { background: #0f2e1e; }
+    .reseau-discord-cta > div { display: flex; flex-direction: column; line-height: 1.3; }
+    .reseau-discord-cta strong { font-size: 0.95rem; font-weight: 700; }
+    .reseau-discord-cta span { font-family: var(--font-mono); font-size: 0.74rem; opacity: 0.6; }
+    .reseau-cta-note {
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+      margin-top: 12px;
+      font-family: var(--font-mono);
+    }
+    @media (max-width: 900px) {
+      .reseau-cards-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .reseau-cards-grid { grid-template-columns: 1fr; }
+      .reseau-stats-bar { gap: 0; padding: 18px 0; }
+      .reseau-stat-item strong { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="topbar-contact">
+        <span><i class="bi bi-envelope-fill"></i><a href="mailto:aleuredudigitale@gmail.com">aleuredudigitale@gmail.com</a></span>
+        <span><i class="bi bi-telephone-fill"></i><a href="tel:0658209902">06 58 20 99 02</a></span>
+        <span><i class="bi bi-geo-alt-fill"></i>Évreux &amp; département de l'Eure (27)</span>
+      </div>
+      <div>RNA&nbsp;:&nbsp;W272007431&nbsp;·&nbsp;SIREN&nbsp;:&nbsp;101049781</div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <nav class="nav-inner">
+      <a href="#hero" class="logo">A l'Eure<span>_</span>Digitale</a>
+      <nav class="navmenu" id="navmenu">
+        <ul>
+          <li><a href="#hero" class="active">Accueil</a></li>
+          <li><a href="#about">À propos</a></li>
+          <li><a href="#actions">Nos actions</a></li>
+          <li><a href="#permanences">Permanences</a></li>
+          <li><a href="#agenda">Agenda</a></li>
+          <li><a href="#projet">Match'Emploi</a></li>
+          <li><a href="#adherer">Adhérer</a></li>
+          <li><a href="cartes.html">Cartes</a></li>
+          <li><a href="https://discord.gg/hxyp2qFFAN" target="_blank" style="display:flex;align-items:center;gap:5px;"><i class="bi bi-discord"></i> Discord</a></li>
+          <li><a href="#contact" class="nav-cta">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="mobile-toggle" onclick="document.getElementById('navmenu').classList.toggle('open')">
+        <i class="bi bi-list"></i>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section id="hero" class="hero">
+      <div class="hero-inner">
+        <div class="hero-text">
+          <div class="hero-tag">Association loi 1901 · Eure (27)</div>
+          <h1>Apprendre.<br>Partager.<br><em>Construire ensemble.</em></h1>
+          <p class="hero-desc">Incubateur associatif de compétences numériques et de projets collaboratifs. Le numérique comme levier d'autonomie, d'inclusion et d'innovation locale.</p>
+          <div class="hero-buttons">
+            <a href="#actions" class="btn-primary">Découvrir nos actions</a>
+            <a href="#adherer" class="btn-outline">Rejoindre l'association</a>
+          </div>
+          <div class="hero-badges">
+            <span class="badge">Open Source</span>
+            <span class="badge">Inclusion numérique</span>
+            <span class="badge">Ateliers pratiques</span>
+            <span class="badge">Impact social</span>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-card">
+            <div class="hero-card-icon"><i class="bi bi-code-slash"></i></div>
+            <div>
+              <h4>Ateliers numériques</h4>
+              <p>Web · Git · Linux · Sécurité · Open Source</p>
+            </div>
+          </div>
+          <div class="hero-card">
+            <div class="hero-card-icon"><i class="bi bi-people-fill"></i></div>
+            <div>
+              <h4>Sessions d'entraide</h4>
+              <p>Revue de code et projets collaboratifs</p>
+            </div>
+          </div>
+          <div class="hero-card">
+            <div class="hero-card-icon"><i class="bi bi-rocket-takeoff"></i></div>
+            <div>
+              <h4>Match'Emploi</h4>
+              <p>Le « Tinder de l'emploi » pour notre territoire</p>
+            </div>
+          </div>
+          <div class="hero-card">
+            <div class="hero-card-icon"><i class="bi bi-building-check"></i></div>
+            <div>
+              <h4>Accompagnement associatif</h4>
+              <p>Usages numériques des structures locales</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ICON BOXES -->
+    <div class="icon-boxes">
+      <div class="icon-boxes-inner">
+        <div class="icon-box">
+          <div class="icon"><i class="bi bi-laptop"></i></div>
+          <h4>Ateliers pratiques</h4>
+        </div>
+        <div class="icon-box">
+          <div class="icon"><i class="bi bi-heart-pulse"></i></div>
+          <h4>Impact social mesurable</h4>
+        </div>
+        <div class="icon-box">
+          <div class="icon"><i class="bi bi-globe2"></i></div>
+          <h4>Outils responsables</h4>
+        </div>
+        <div class="icon-box">
+          <div class="icon"><i class="bi bi-puzzle"></i></div>
+          <h4>Projets Open Source</h4>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <section id="about" class="about">
+      <div class="container">
+        <div class="section-title fade-up">
+          <div class="section-label">À propos</div>
+          <h2>Qui sommes-nous ?</h2>
+          <p>Une association locale qui accompagne l'apprentissage, la coopération et la création de projets numériques à impact social.</p>
+        </div>
+        <div class="about-grid">
+          <div class="about-text fade-up">
+            <h3>Un espace pour apprendre, expérimenter et contribuer</h3>
+            <p>A l'Eure Digitale crée un lieu où chacun peut développer ses compétences numériques, expérimenter des solutions et transformer une idée en projet collectif — dans une logique de partage des connaissances et d'entraide.</p>
+            <p>Nous fonctionnons comme un <strong>laboratoire local d'apprentissage et d'innovation</strong>, favorisant une dynamique participative plutôt qu'une logique de prestation commerciale.</p>
+            <ul class="about-checklist">
+              <li><i class="bi bi-check-circle-fill"></i><span>Rendre les compétences numériques accessibles à tous</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span>Favoriser l'autonomie digitale des citoyens</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span>Accompagner les structures associatives dans leurs usages numériques</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span>Encourager l'émergence de projets collaboratifs open source</span></li>
+              <li><i class="bi bi-check-circle-fill"></i><span>Valoriser les talents et initiatives locales</span></li>
+            </ul>
+            <div class="info-box">
+              <h4>Coordonnées</h4>
+              <div class="info-row"><i class="bi bi-geo-alt-fill"></i><span>Évreux &amp; département de l'Eure (27)</span></div>
+              <div class="info-row"><i class="bi bi-telephone-fill"></i><a href="tel:0658209902">06 58 20 99 02</a></div>
+              <div class="info-row"><i class="bi bi-envelope-fill"></i><a href="mailto:aleuredudigitale@gmail.com">aleuredudigitale@gmail.com</a></div>
+              <div class="info-row"><i class="bi bi-globe"></i><a href="https://aleuredigitale.netlify.app/" target="_blank">aleuredigitale.netlify.app</a></div>
+            </div>
+          </div>
+          <div class="fade-up">
+            <h3 style="font-size:1.2rem;color:var(--green-dark);margin-bottom:20px;">Nos valeurs</h3>
+            <div class="values-grid">
+              <div class="value-chip"><i class="bi bi-heart-fill"></i><span>Bienveillance</span></div>
+              <div class="value-chip"><i class="bi bi-people-fill"></i><span>Inclusion</span></div>
+              <div class="value-chip"><i class="bi bi-book-fill"></i><span>Partage des connaissances</span></div>
+              <div class="value-chip"><i class="bi bi-star-fill"></i><span>Gestion désintéressée</span></div>
+              <div class="value-chip"><i class="bi bi-geo-alt-fill"></i><span>Ancrage local</span></div>
+              <div class="value-chip"><i class="bi bi-shield-check"></i><span>Numérique éthique</span></div>
+            </div>
+            <div style="margin-top: 32px;">
+              <h3 style="font-size:1.2rem;color:var(--green-dark);margin-bottom:20px;">À qui s'adresse le projet ?</h3>
+              <div class="project-target-list" style="gap:10px;">
+                <span class="project-tag" style="background:var(--green-dark);border-color:rgba(46,192,106,0.3);color:var(--green-light);padding:8px 14px;border-radius:6px;font-size:0.84rem;">🎓 Débutants et curieux du numérique</span>
+                <span class="project-tag" style="background:var(--green-dark);border-color:rgba(46,192,106,0.3);color:var(--green-light);padding:8px 14px;border-radius:6px;font-size:0.84rem;">🔄 Adultes en reconversion</span>
+                <span class="project-tag" style="background:var(--green-dark);border-color:rgba(46,192,106,0.3);color:var(--green-light);padding:8px 14px;border-radius:6px;font-size:0.84rem;">💻 Développeurs contributeurs</span>
+                <span class="project-tag" style="background:var(--green-dark);border-color:rgba(46,192,106,0.3);color:var(--green-light);padding:8px 14px;border-radius:6px;font-size:0.84rem;">🏢 Associations et structures ESS</span>
+                <span class="project-tag" style="background:var(--green-dark);border-color:rgba(46,192,106,0.3);color:var(--green-light);padding:8px 14px;border-radius:6px;font-size:0.84rem;">💡 Porteurs de projets à impact</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACTIONS / SERVICES -->
+    <section id="actions" class="services">
+      <div class="container">
+        <div class="section-title fade-up">
+          <div class="section-label">Ce que nous faisons</div>
+          <h2>Nos actions</h2>
+          <p>Des programmes concrets pour développer vos compétences et contribuer à des projets locaux à impact.</p>
+        </div>
+        <div class="services-grid">
+          <div class="service-card fade-up">
+            <div class="service-icon"><i class="bi bi-code-square"></i></div>
+            <h4>Ateliers Web</h4>
+            <p>Apprenez à créer des sites, des applications et à maîtriser les langages du web à travers des séances pratiques adaptées à tous les niveaux.</p>
+          </div>
+          <div class="service-card fade-up">
+            <div class="service-icon"><i class="bi bi-git"></i></div>
+            <h4>Git & Versioning</h4>
+            <p>Maîtrisez Git pour collaborer efficacement sur des projets de code, gérer les versions et contribuer à des dépôts open source.</p>
+          </div>
+          <div class="service-card fade-up">
+            <div class="service-icon"><i class="bi bi-terminal"></i></div>
+            <h4>Linux & Systèmes</h4>
+            <p>Découvrez l'environnement Linux, la ligne de commande et les bases de l'administration système pour une plus grande autonomie technique.</p>
+          </div>
+          <div class="service-card fade-up">
+            <div class="service-icon"><i class="bi bi-shield-lock"></i></div>
+            <h4>Sécurité numérique</h4>
+            <p>Initiation aux bonnes pratiques de sécurité : protection des données, navigation sécurisée, gestion des mots de passe et sensibilisation aux risques.</p>
+          </div>
+          <div class="service-card fade-up">
+            <div class="service-icon"><i class="bi bi-arrow-repeat"></i></div>
+            <h4>Sessions d'entraide & revue de code</h4>
+            <p>Des rendez-vous réguliers pour partager vos problèmes, faire relire votre code et progresser collectivement dans une ambiance bienveillante.</p>
+          </div>
+          <div class="service-card fade-up">
+            <div class="service-icon"><i class="bi bi-building-heart"></i></div>
+            <h4>Accompagnement associatif</h4>
+            <p>Aide aux associations et structures locales pour intégrer des outils numériques responsables dans leurs pratiques et développer leur présence en ligne.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PERMANENCES -->
+    <section id="permanences" class="permanences">
+      <div class="container">
+        <div class="section-title fade-up">
+          <div class="section-label">Nous retrouver</div>
+          <h2>Nos permanences</h2>
+          <p>Venez nous rencontrer lors de nos permanences régulières dans le département de l'Eure. Entrée libre, sans inscription.</p>
+        </div>
+        <div class="permanences-grid">
+
+          <div class="permanence-card fade-up">
+            <div class="permanence-header">
+              <div class="permanence-icon"><i class="bi bi-building"></i></div>
+              <div class="permanence-badge">Hebdomadaire</div>
+            </div>
+            <h4>Bernay — Café de la Gare</h4>
+            <div class="permanence-details">
+              <div class="permanence-detail"><i class="bi bi-calendar3"></i><span>Tous les samedis</span></div>
+              <div class="permanence-detail"><i class="bi bi-clock"></i><span>14h00 – 17h00</span></div>
+              <div class="permanence-detail"><i class="bi bi-geo-alt-fill"></i><span>Café de la Gare, Bernay</span></div>
+            </div>
+            <p class="permanence-desc">Aide à l'utilisation des outils numériques, accompagnement démarches en ligne, initiation au code.</p>
+            <span class="permanence-tag">Tout public</span>
+            <span class="permanence-tag">Sans RDV</span>
+          </div>
+
+          <div class="permanence-card fade-up">
+            <div class="permanence-header">
+              <div class="permanence-icon"><i class="bi bi-house-heart"></i></div>
+              <div class="permanence-badge permanence-badge--alt">Mensuel</div>
+            </div>
+            <h4>Evreux — BeeCowork</h4>
+            <div class="permanence-details">
+              <div class="permanence-detail"><i class="bi bi-calendar3"></i><span>1er et 3e mercredi du mois</span></div>
+              <div class="permanence-detail"><i class="bi bi-clock"></i><span>10h00 – 12h30</span></div>
+              <div class="permanence-detail"><i class="bi bi-geo-alt-fill"></i><span>BeeCowork, Évreux</span></div>
+            </div>
+            <p class="permanence-desc">Ateliers numériques, aide à la création de compte, sécurité en ligne et accompagnement.</p>
+            <span class="permanence-tag">Associations</span>
+            <span class="permanence-tag">Entrepreneurs</span>
+          </div>
+
+          <div class="permanence-card fade-up">
+            <div class="permanence-header">
+              <div class="permanence-icon"><i class="bi bi-people"></i></div>
+              <div class="permanence-badge">Mensuel</div>
+            </div>
+            <h4>Broglie — Webradio</h4>
+            <div class="permanence-details">
+              <div class="permanence-detail"><i class="bi bi-calendar3"></i><span>Le jeudi</span></div>
+              <div class="permanence-detail"><i class="bi bi-clock"></i><span>14h00 - 17h00</span></div>
+              <div class="permanence-detail"><i class="bi bi-geo-alt-fill"></i><span>Webradio, Broglie</span></div>
+            </div>
+            <p class="permanence-desc">Accompagnement aux démarches administratives en ligne, aide à la mobilité numérique et initiation aux smartphones.</p>
+            <span class="permanence-tag">Démarches admin</span>
+            <span class="permanence-tag">Sans RDV</span>
+          </div>
+
+          <div class="permanence-card fade-up">
+            <div class="permanence-header">
+              <div class="permanence-icon"><i class="bi bi-laptop"></i></div>
+              <div class="permanence-badge permanence-badge--alt">Mensuel</div>
+            </div>
+            <h4>Bernay — Bibliothèque municipale</h4>
+            <div class="permanence-details">
+              <div class="permanence-detail"><i class="bi bi-calendar3"></i><span>2e vendredi du mois</span></div>
+              <div class="permanence-detail"><i class="bi bi-clock"></i><span>15h00 – 18h00</span></div>
+              <div class="permanence-detail"><i class="bi bi-geo-alt-fill"></i><span>Bibliothèque municipale de Bernay</span></div>
+            </div>
+            <p class="permanence-desc">Atelier numérique mensuel ouvert à tous : bases informatique, internet, réseaux sociaux et outils collaboratifs.</p>
+            <span class="permanence-tag">Débutants</span>
+            <span class="permanence-tag">Tout public</span>
+          </div>
+
+        </div>
+        <div class="permanences-note fade-up">
+          <i class="bi bi-info-circle-fill"></i>
+          <p>Les horaires peuvent évoluer selon les disponibilités. Pour confirmer une permanence ou organiser un accompagnement sur mesure, <a href="#contact">contactez-nous</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- AGENDA -->
+    <section id="agenda" class="agenda-section">
+      <div class="container">
+        <div class="section-title fade-up">
+          <div class="section-label" style="justify-content:flex-start;">Calendrier</div>
+          <h2>Agenda des événements</h2>
+          <p>Retrouvez tous nos prochains ateliers, permanences et événements. <strong id="agenda-count">0</strong> événement(s) à venir.</p>
+        </div>
+
+        <!-- Filtres -->
+        <div id="agenda-filters" class="agenda-filters fade-up"></div>
+
+        <!-- Liste des événements -->
+        <div id="agenda-liste" class="agenda-liste"></div>
+
+        <!-- Message vide -->
+        <div id="agenda-empty" class="agenda-empty" style="display:none;">
+          <i class="bi bi-calendar-x"></i>
+          <p>Aucun événement dans cette catégorie pour le moment.<br>
+          <a href="#contact">Contactez-nous</a> pour être informé des prochaines dates.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TERRITOIRE -->
+    <section id="territoire" class="territoire">
+      <div class="container">
+        <div class="section-title fade-up">
+          <div class="section-label">Notre rôle</div>
+          <h2>Un tiers-lieu numérique associatif</h2>
+          <p>A l'Eure Digitale agit comme un laboratoire local d'apprentissage et d'innovation.</p>
+        </div>
+        <div class="territoire-grid">
+          <div class="territoire-text fade-up">
+            <h3>Ce que vous pouvez faire ici</h3>
+            <p>Que vous soyez débutant ou développeur confirmé, notre association vous offre un cadre pour progresser à votre rythme et contribuer à des projets collectifs concrets.</p>
+            <div class="territory-items">
+              <div class="territory-item">
+                <i class="bi bi-mortarboard-fill"></i>
+                <p>Développer ses compétences techniques par la pratique</p>
+              </div>
+              <div class="territory-item">
+                <i class="bi bi-diagram-3-fill"></i>
+                <p>Collaborer sur des projets concrets avec d'autres membres</p>
+              </div>
+              <div class="territory-item">
+                <i class="bi bi-lightbulb-fill"></i>
+                <p>Expérimenter des solutions numériques ouvertes et responsables</p>
+              </div>
+              <div class="territory-item">
+                <i class="bi bi-rocket-takeoff-fill"></i>
+                <p>Transformer une idée en projet collectif à impact local</p>
+              </div>
+            </div>
+          </div>
+          <div class="fade-up">
+            <div class="section-label" style="margin-bottom:20px;">Impact social mesurable</div>
+            <div class="impact-stats">
+              <div class="impact-stat"><i class="bi bi-graph-up-arrow"></i><span>Développer les compétences numériques locales</span></div>
+              <div class="impact-stat"><i class="bi bi-briefcase-fill"></i><span>Faciliter l'insertion et la reconversion professionnelle</span></div>
+              <div class="impact-stat"><i class="bi bi-buildings-fill"></i><span>Renforcer le tissu associatif territorial</span></div>
+              <div class="impact-stat"><i class="bi bi-hand-thumbs-up-fill"></i><span>Créer une communauté contributive et solidaire</span></div>
+              <div class="impact-stat"><i class="bi bi-globe2"></i><span>Promouvoir un numérique éthique et accessible</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MATCH'EMPLOI PROJECT -->
+    <section id="projet" class="project">
+      <div class="container">
+        <div class="project-grid">
+          <div class="fade-up">
+            <div class="section-title">
+              <div class="section-label project-label">Projet en cours de développement</div>
+              <h2>Match'Emploi</h2>
+              <p>Un dispositif numérique à impact social pour fluidifier la rencontre entre compétences, projets et opportunités professionnelles à l'échelle locale.</p>
+            </div>
+            <p class="project-desc">En s'appuyant sur une logique collaborative et inclusive, Match'Emploi propose une plateforme de mise en relation basée sur les compétences, les besoins et la proximité locale.</p>
+            <ul class="project-points">
+              <li><i class="bi bi-check2-circle"></i><span>Favoriser l'insertion professionnelle locale</span></li>
+              <li><i class="bi bi-check2-circle"></i><span>Valoriser les compétences du territoire</span></li>
+              <li><i class="bi bi-check2-circle"></i><span>Réduire l'isolement face à l'emploi</span></li>
+            </ul>
+            <div>
+              <p style="font-family:var(--font-mono);font-size:0.78rem;color:rgba(255,255,255,0.4);margin-bottom:12px;letter-spacing:0.08em;text-transform:uppercase;">À qui s'adresse Match'Emploi ?</p>
+              <div class="project-target-list">
+                <span class="project-tag">Jeunes en reconversion</span>
+                <span class="project-tag">Demandeurs d'emploi</span>
+                <span class="project-tag">Associations locales</span>
+                <span class="project-tag">Porteurs de projets</span>
+                <span class="project-tag">Entreprises de proximité</span>
+              </div>
+            </div>
+          </div>
+          <div class="project-card-block fade-up">
+            <div class="match-logo">Match'Emploi</div>
+            <div class="match-tagline">Le Tinder de l'Emploi — pour notre territoire</div>
+            <div class="problem-box">
+              <h5>Le problème (impact social)</h5>
+              <p>De nombreuses personnes possèdent des compétences mais peinent à trouver des opportunités adaptées, tandis que des structures locales manquent de profils disponibles.</p>
+            </div>
+            <div class="problem-box">
+              <h5>La solution (notre projet)</h5>
+              <p>Une plateforme de mise en relation basée sur les compétences, les besoins et la proximité locale — Match'Emploi vise à réduire ce décalage grâce au numérique.</p>
+            </div>
+            <div style="margin-top:24px;">
+              <p style="font-family:var(--font-mono);font-size:0.75rem;color:rgba(255,255,255,0.4);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:14px;">Soutenu par</p>
+              <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                <span class="project-tag">Évreux Portes de Normandie</span>
+                <span class="project-tag">CCI Portes de Normandie</span>
+                <span class="project-tag">Chambre des Métiers</span>
+                <span class="project-tag">France Travail</span>
+                <span class="project-tag">Académie de Normandie</span>
+                <span class="project-tag">FDVA</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PARTENAIRES -->
+    <section class="partners">
+      <div class="container">
+        <h3>Nos partenaires et soutiens</h3>
+        <div class="partners-list">
+          <div class="partner-pill">Évreux Portes de Normandie</div>
+          <div class="partner-pill">CCI Portes de Normandie</div>
+          <div class="partner-pill">Chambre des Métiers et de l'Artisanat</div>
+          <div class="partner-pill">France Travail</div>
+          <div class="partner-pill">Académie de Normandie</div>
+          <div class="partner-pill">FDVA — Fonds de Développement de la Vie Associative</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RÉSEAU PROFESSIONNEL -->
+    <section id="reseau" class="reseau-pro">
+      <div class="container">
+
+        <div class="section-title fade-up">
+          <div class="section-label">Réseau professionnel</div>
+          <h2>Le réseau des <em>talents</em></h2>
+        </div>
+        <p class="reseau-pro-intro fade-up">Développeurs, designers, communicants… la communauté regroupe des profils complémentaires prêts à collaborer, s'entraider et co-construire des projets à impact local dans l'Eure.</p>
+
+        <!-- Stats -->
+        <div class="reseau-stats-bar fade-up">
+          <div class="reseau-stat-item"><strong>15+</strong><span>Membres actifs</span></div>
+          <div class="reseau-stat-item"><strong>7</strong><span>Métiers représentés</span></div>
+          <div class="reseau-stat-item"><strong>3</strong><span>Projets en cours</span></div>
+          <div class="reseau-stat-item"><strong>27</strong><span>Département</span></div>
+        </div>
+
+        <!-- Profils -->
+        <div class="reseau-cards-grid">
+
+          <!-- Carte 1 — Dev -->
+          <div class="reseau-card fade-up" style="--card-accent: #2ec06a;">
+            <div class="reseau-card-head">
+              <div class="reseau-avatar" style="background:#e6f9ef;color:#1a7a42;">TM</div>
+              <div class="reseau-card-meta">
+                <h4>Thomas M.</h4>
+                <div class="reseau-role"><i class="bi bi-code-slash"></i> Développeur web</div>
+              </div>
+            </div>
+            <div class="reseau-card-location"><i class="bi bi-geo-alt-fill"></i> Évreux (27)</div>
+            <p>Développeur full-stack passionné par le web et les projets à impact social. Il contribue à Match'Emploi et anime les ateliers JavaScript du mercredi soir.</p>
+            <div class="reseau-card-skills">
+              <span class="reseau-skill-tag">JavaScript</span>
+              <span class="reseau-skill-tag">React</span>
+              <span class="reseau-skill-tag">Node.js</span>
+              <span class="reseau-skill-tag">Git</span>
+              <span class="reseau-skill-tag">Linux</span>
+            </div>
+            <div class="reseau-card-footer">
+              <span class="reseau-dispo" style="--dispo-color:#2ec06a;color:var(--green-dark);">Disponible</span>
+              <a href="https://discord.gg/tPaWcCz8qq" target="_blank" class="reseau-discord-link"><i class="bi bi-discord"></i> @thomas_dev</a>
+            </div>
+          </div>
+
+          <!-- Carte 2 — Designer -->
+          <div class="reseau-card fade-up" style="--card-accent: #a855f7;">
+            <div class="reseau-card-head">
+              <div class="reseau-avatar" style="background:#f5eeff;color:#7c3aed;">SL</div>
+              <div class="reseau-card-meta">
+                <h4>Sophie L.</h4>
+                <div class="reseau-role" style="color:#a855f7;"><i class="bi bi-palette2"></i> UX/UI Designer</div>
+              </div>
+            </div>
+            <div class="reseau-card-location"><i class="bi bi-geo-alt-fill"></i> Bernay (27)</div>
+            <p>Designer freelance spécialisée en accessibilité numérique. Elle aide les associations locales à améliorer l'expérience utilisateur de leurs outils en ligne.</p>
+            <div class="reseau-card-skills">
+              <span class="reseau-skill-tag">Figma</span>
+              <span class="reseau-skill-tag">Accessibilité</span>
+              <span class="reseau-skill-tag">HTML/CSS</span>
+              <span class="reseau-skill-tag">Wireframing</span>
+            </div>
+            <div class="reseau-card-footer">
+              <span class="reseau-dispo" style="--dispo-color:#2ec06a;color:var(--green-dark);">Disponible</span>
+              <a href="https://discord.gg/tPaWcCz8qq" target="_blank" class="reseau-discord-link"><i class="bi bi-discord"></i> @sophie_ux</a>
+            </div>
+          </div>
+
+          <!-- Carte 3 — Communicant -->
+          <div class="reseau-card fade-up" style="--card-accent: #f59e0b;">
+            <div class="reseau-card-head">
+              <div class="reseau-avatar" style="background:#fff8e6;color:#b45309;">KD</div>
+              <div class="reseau-card-meta">
+                <h4>Karim D.</h4>
+                <div class="reseau-role" style="color:#f59e0b;"><i class="bi bi-megaphone-fill"></i> Chargé de communication</div>
+              </div>
+            </div>
+            <div class="reseau-card-location"><i class="bi bi-geo-alt-fill"></i> Louviers (27)</div>
+            <p>Expert en communication digitale et réseaux sociaux pour les structures associatives. Il produit les contenus LinkedIn et les kits de communication d'À l'Eure Digitale.</p>
+            <div class="reseau-card-skills">
+              <span class="reseau-skill-tag">Canva</span>
+              <span class="reseau-skill-tag">LinkedIn</span>
+              <span class="reseau-skill-tag">Rédaction</span>
+              <span class="reseau-skill-tag">Community mgmt</span>
+            </div>
+            <div class="reseau-card-footer">
+              <span class="reseau-dispo" style="--dispo-color:#f59e0b;color:#b45309;">En mission</span>
+              <a href="https://discord.gg/tPaWcCz8qq" target="_blank" class="reseau-discord-link"><i class="bi bi-discord"></i> @karim_com</a>
+            </div>
+          </div>
+
+          <!-- Carte 4 — Chef de projet -->
+          <div class="reseau-card fade-up" style="--card-accent: #3b82f6;">
+            <div class="reseau-card-head">
+              <div class="reseau-avatar" style="background:#eff6ff;color:#1d4ed8;">MV</div>
+              <div class="reseau-card-meta">
+                <h4>Marie V.</h4>
+                <div class="reseau-role" style="color:#3b82f6;"><i class="bi bi-kanban-fill"></i> Chef de projet numérique</div>
+              </div>
+            </div>
+            <div class="reseau-card-location"><i class="bi bi-geo-alt-fill"></i> Évreux (27)</div>
+            <p>Pilote des projets associatifs numériques avec méthode agile. Elle coordonne l'équipe Match'Emploi et anime les ateliers de gestion de projet ouverts aux bénévoles.</p>
+            <div class="reseau-card-skills">
+              <span class="reseau-skill-tag">Agile / Scrum</span>
+              <span class="reseau-skill-tag">Notion</span>
+              <span class="reseau-skill-tag">Trello</span>
+              <span class="reseau-skill-tag">Documentation</span>
+            </div>
+            <div class="reseau-card-footer">
+              <span class="reseau-dispo" style="--dispo-color:#2ec06a;color:var(--green-dark);">Disponible</span>
+              <a href="https://discord.gg/tPaWcCz8qq" target="_blank" class="reseau-discord-link"><i class="bi bi-discord"></i> @marie_pm</a>
+            </div>
+          </div>
+
+          <!-- Carte 5 — Sécu -->
+          <div class="reseau-card fade-up" style="--card-accent: #ef4444;">
+            <div class="reseau-card-head">
+              <div class="reseau-avatar" style="background:#fef2f2;color:#b91c1c;">RB</div>
+              <div class="reseau-card-meta">
+                <h4>Romain B.</h4>
+                <div class="reseau-role" style="color:#ef4444;"><i class="bi bi-shield-lock-fill"></i> Expert cybersécurité</div>
+              </div>
+            </div>
+            <div class="reseau-card-location"><i class="bi bi-geo-alt-fill"></i> Vernon (27)</div>
+            <p>Consultant en sécurité informatique et formateur bénévole. Il anime les ateliers "mots de passe et phishing" pour les séniors et les structures associatives de l'Eure.</p>
+            <div class="reseau-card-skills">
+              <span class="reseau-skill-tag">Cybersécurité</span>
+              <span class="reseau-skill-tag">Linux</span>
+              <span class="reseau-skill-tag">Réseau</span>
+              <span class="reseau-skill-tag">Sensibilisation</span>
+            </div>
+            <div class="reseau-card-footer">
+              <span class="reseau-dispo" style="--dispo-color:#2ec06a;color:var(--green-dark);">Disponible</span>
+              <a href="https://discord.gg/tPaWcCz8qq" target="_blank" class="reseau-discord-link"><i class="bi bi-discord"></i> @romain_sec</a>
+            </div>
+          </div>
+
+          <!-- Carte 6 — Formatrice -->
+          <div class="reseau-card fade-up" style="--card-accent: #06b6d4;">
+            <div class="reseau-card-head">
+              <div class="reseau-avatar" style="background:#ecfeff;color:#0e7490;">AC</div>
+              <div class="reseau-card-meta">
+                <h4>Amina C.</h4>
+                <div class="reseau-role" style="color:#06b6d4;"><i class="bi bi-mortarboard-fill"></i> Formatrice médiation numérique</div>
+              </div>
+            </div>
+            <div class="reseau-card-location"><i class="bi bi-geo-alt-fill"></i> Gisors (27)</div>
+            <p>Médiatrice numérique spécialisée dans l'accompagnement des publics éloignés du numérique. Elle intervient dans les médiathèques et centres sociaux du département.</p>
+            <div class="reseau-card-skills">
+              <span class="reseau-skill-tag">Médiation</span>
+              <span class="reseau-skill-tag">Formation adultes</span>
+              <span class="reseau-skill-tag">e-inclusion</span>
+              <span class="reseau-skill-tag">Démarches en ligne</span>
+            </div>
+            <div class="reseau-card-footer">
+              <span class="reseau-dispo" style="--dispo-color:#f59e0b;color:#b45309;">En mission</span>
+              <a href="https://discord.gg/tPaWcCz8qq" target="_blank" class="reseau-discord-link"><i class="bi bi-discord"></i> @amina_form</a>
+            </div>
+          </div>
+
+        </div><!-- /reseau-cards-grid -->
+
+        <!-- CTA -->
+        <div class="reseau-cta-bottom fade-up">
+          <a href="https://discord.gg/tPaWcCz8qq" target="_blank" class="reseau-discord-cta">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.003.027.015.052.036.066a19.93 19.93 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .036-.065c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+            <div>
+              <strong>Rejoindre le réseau sur Discord</strong>
+              <span>discord.gg/tPaWcCz8qq</span>
+            </div>
+          </a>
+          <p class="reseau-cta-note">Profils fictifs à titre illustratif · Rejoins le réseau pour créer ton propre profil</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- DISCORD -->
+    <section id="discord" style="background:var(--green-dark);padding:80px 0;position:relative;overflow:hidden;">
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(88,101,242,0.12) 0%,transparent 60%);pointer-events:none;"></div>
+      <div class="container" style="position:relative;z-index:1;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;">
+          <div class="fade-up">
+            <div class="section-label" style="color:rgba(88,101,242,0.9);">Communauté</div>
+            <h2 style="font-family:var(--font-mono);font-size:clamp(1.8rem,3vw,2.4rem);color:var(--white);margin-bottom:16px;">Rejoins notre communauté<br>sur <span style="color:#7289DA;">Discord</span>&nbsp;!</h2>
+            <p style="color:rgba(255,255,255,0.65);margin-bottom:32px;font-size:0.97rem;line-height:1.7;">Un espace convivial et bienveillant, ouvert à toutes et à tous. Échangez, apprenez et participez ensemble aux projets de l'association.</p>
+            <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:32px;">
+              <div style="display:flex;align-items:flex-start;gap:14px;background:rgba(255,255,255,0.05);border-radius:8px;padding:14px 18px;">
+                <i class="bi bi-chat-dots-fill" style="color:#7289DA;font-size:1.2rem;margin-top:2px;flex-shrink:0;"></i>
+                <div><h4 style="font-family:var(--font-mono);font-size:0.85rem;color:var(--white);margin-bottom:4px;">Discussions</h4><p style="font-size:0.82rem;color:rgba(255,255,255,0.55);margin:0;">Échange sur le numérique, tes passions et tes projets.</p></div>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:14px;background:rgba(255,255,255,0.05);border-radius:8px;padding:14px 18px;">
+                <i class="bi bi-mortarboard-fill" style="color:var(--green-accent);font-size:1.2rem;margin-top:2px;flex-shrink:0;"></i>
+                <div><h4 style="font-family:var(--font-mono);font-size:0.85rem;color:var(--white);margin-bottom:4px;">Entraide</h4><p style="font-size:0.82rem;color:rgba(255,255,255,0.55);margin:0;">Pose tes questions, obtiens de l'aide et partage tes connaissances.</p></div>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:14px;background:rgba(255,255,255,0.05);border-radius:8px;padding:14px 18px;">
+                <i class="bi bi-controller" style="color:var(--green-accent);font-size:1.2rem;margin-top:2px;flex-shrink:0;"></i>
+                <div><h4 style="font-family:var(--font-mono);font-size:0.85rem;color:var(--white);margin-bottom:4px;">Jeux &amp; Activités</h4><p style="font-size:0.82rem;color:rgba(255,255,255,0.55);margin:0;">Des événements et activités régulières !</p></div>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:14px;background:rgba(255,255,255,0.05);border-radius:8px;padding:14px 18px;">
+                <i class="bi bi-megaphone-fill" style="color:var(--green-accent);font-size:1.2rem;margin-top:2px;flex-shrink:0;"></i>
+                <div><h4 style="font-family:var(--font-mono);font-size:0.85rem;color:var(--white);margin-bottom:4px;">Actualités</h4><p style="font-size:0.82rem;color:rgba(255,255,255,0.55);margin:0;">Reste informé des actus de l'association et de nos projets.</p></div>
+              </div>
+            </div>
+            <a href="https://discord.gg/hxyp2qFFAN" target="_blank" class="btn-primary" style="display:inline-flex;align-items:center;gap:8px;background:#5865F2;border-color:#5865F2;color:#fff;padding:12px 28px;">
+              <i class="bi bi-discord"></i> Rejoindre le Discord
+            </a>
+          </div>
+          <div class="fade-up" style="text-align:center;">
+            <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(88,101,242,0.25);border-radius:12px;padding:40px 32px;">
+              <i class="bi bi-discord" style="font-size:4rem;color:#7289DA;margin-bottom:20px;display:block;"></i>
+              <h3 style="font-family:var(--font-mono);font-size:1.3rem;color:var(--white);margin-bottom:12px;">Un espace convivial<br>et bienveillant</h3>
+              <p style="color:rgba(255,255,255,0.6);font-size:0.9rem;margin-bottom:28px;line-height:1.7;">Ouvert à toutes et à tous, notre serveur Discord est le cœur de la communauté À l'Eure Digitale.</p>
+              <a href="https://discord.gg/hxyp2qFFAN" target="_blank" class="btn-primary" style="display:block;text-align:center;background:#5865F2;border-color:#5865F2;color:#fff;">
+                Rejoindre maintenant
+              </a>
+              <div style="margin-top:16px;background:rgba(255,255,255,0.05);border-radius:6px;padding:10px 14px;font-family:var(--font-mono);font-size:0.78rem;color:rgba(255,255,255,0.45);">
+                discord.gg/hxyp2qFFAN
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ADHÉRER -->
+    <section id="adherer" class="membership">
+      <div class="container">
+        <div class="section-title fade-up" style="text-align:center;">
+          <div class="section-label" style="justify-content:center;">Nous rejoindre</div>
+          <h2>Adhérer à l'association</h2>
+          <p>Une cotisation annuelle simple pour accéder à tous nos ateliers et contribuer au projet collectif.</p>
+        </div>
+        <div class="membership-grid fade-up" style="margin:0 auto;max-width:900px;">
+          <div class="membership-card fade-up">
+            <div class="price-label">Cotisation</div>
+            <div class="price">20€</div>
+            <h3>Adhésion annuelle</h3>
+            <p>Devenez membre de l'association et participez à la gouvernance du projet.</p>
+            <a href="mailto:aleuredudigitale@gmail.com?subject=Demande+d'adhésion" class="btn-outline-dark">Demander le formulaire</a>
+          </div>
+          <div class="membership-card featured fade-up">
+            <div class="price-label">Membre</div>
+            <div class="price">Gratuit</div>
+            <h3>Ateliers membres</h3>
+            <p>Accès gratuit à tous nos ateliers numériques : web, Git, Linux, sécurité, open source et plus.</p>
+            <a href="mailto:aleuredudigitale@gmail.com?subject=Demande+d'adhésion" class="btn-primary">Rejoindre maintenant</a>
+          </div>
+          <div class="membership-card fade-up">
+            <div class="price-label">Non-membre</div>
+            <div class="price">15€</div>
+            <h3>Atelier à la carte</h3>
+            <p>Participez à un atelier sans adhésion. Tarif par session, sans engagement.</p>
+            <a href="mailto:aleuredudigitale@gmail.com?subject=Participation+atelier" class="btn-outline-dark">Nous contacter</a>
+          </div>
+        </div>
+        <p style="text-align:center;margin-top:28px;font-family:var(--font-mono);font-size:0.82rem;color:var(--ink-muted);">
+          <i class="bi bi-envelope"></i>&nbsp; Formulaire d'adhésion à demander par mail :&nbsp;
+          <a href="mailto:aleuredudigitale@gmail.com" style="color:var(--green-mid);font-weight:700;">aleuredudigitale@gmail.com</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact">
+      <div class="container">
+        <div class="section-title fade-up">
+          <div class="section-label">Nous écrire</div>
+          <h2>Contact</h2>
+          <p>Une question, une idée de projet ou envie de rejoindre la communauté ? N'hésitez pas.</p>
+        </div>
+        <div class="contact-grid">
+          <div class="contact-info-block fade-up">
+            <div class="contact-item">
+              <div class="contact-icon"><i class="bi bi-telephone-fill"></i></div>
+              <div>
+                <h4>Téléphone</h4>
+                <a href="tel:0658209902"><p>06 58 20 99 02</p></a>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon"><i class="bi bi-envelope-fill"></i></div>
+              <div>
+                <h4>Email</h4>
+                <a href="mailto:aleuredudigitale@gmail.com"><p>aleuredudigitale@gmail.com</p></a>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon"><i class="bi bi-geo-alt-fill"></i></div>
+              <div>
+                <h4>Localisation</h4>
+                <p>Évreux &amp; département de l'Eure (27)</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon"><i class="bi bi-globe"></i></div>
+              <div>
+                <h4>Site web</h4>
+                <a href="https://aleuredigitale.netlify.app/" target="_blank"><p>aleuredigitale.netlify.app</p></a>
+              </div>
+            </div>
+            <div class="rna-box">
+              <p>RNA&nbsp;: <strong>W272007431</strong></p>
+              <p>SIREN&nbsp;: <strong>101049781</strong></p>
+            </div>
+          </div>
+          <div class="contact-form fade-up">
+            <form id="contactForm" onsubmit="handleForm(event)">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                <input type="text" name="nom" placeholder="Votre prénom et nom" required>
+                <input type="email" name="email" placeholder="Votre email" required>
+              </div>
+              <input type="text" name="sujet" placeholder="Sujet (adhésion, atelier, partenariat…)">
+              <textarea name="message" placeholder="Votre message…" required></textarea>
+              <button type="submit" class="btn-primary" id="submitBtn">Envoyer le message&nbsp;<i class="bi bi-send"></i></button>
+              <p id="form-status" style="margin-top:12px;font-size:0.85rem;display:none;"></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#hero" class="logo" style="color:var(--white);">A l'Eure<span>_</span>Digitale</a>
+          <p>Incubateur associatif de compétences numériques et de projets collaboratifs à impact social. Ancré dans le département de l'Eure, ouvert à tout le territoire.</p>
+          <div style="font-family:var(--font-mono);font-size:0.72rem;color:rgba(255,255,255,0.3);">
+            *Apprendre – Partager – Construire ensemble
+          </div>
+        </div>
+        <div class="footer-links">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="#hero">Accueil</a></li>
+            <li><a href="#about">À propos</a></li>
+            <li><a href="#actions">Nos actions</a></li>
+            <li><a href="#permanences">Permanences</a></li>
+            <li><a href="#agenda">Agenda</a></li>
+            <li><a href="#reseau">Réseau pro</a></li>
+          <li><a href="#discord">Communauté Discord</a></li>
+            <li><a href="#projet">Match'Emploi</a></li>
+            <li><a href="#adherer">Adhérer</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h4>Nous contacter</h4>
+          <p><a href="tel:0658209902">06 58 20 99 02</a></p>
+          <p><a href="mailto:aleuredudigitale@gmail.com">aleuredudigitale@gmail.com</a></p>
+          <p>Évreux &amp; département de l'Eure (27)</p>
+          <p style="margin-top:14px;"><a href="https://discord.gg/hxyp2qFFAN" target="_blank" style="display:inline-flex;align-items:center;gap:7px;background:#5865F2;color:#fff;padding:8px 16px;border-radius:4px;font-family:var(--font-mono);font-size:0.78rem;font-weight:700;text-decoration:none;"><i class="bi bi-discord"></i> Discord</a></p>
+          <p style="margin-top:12px;font-family:var(--font-mono);font-size:0.78rem;color:rgba(255,255,255,0.3);">RNA : W272007431<br>SIREN : 101049781</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 A l'Eure Digitale — Association loi 1901</p>
+        <p class="footer-siren">Numérique éthique · Open Source · Ancrage local</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCROLL TOP -->
+  <a href="#hero" id="scroll-top"><i class="bi bi-arrow-up-short"></i></a>
+
+  <script src="agenda.js"></script>
+  <script src="script.js"></script>
+
+</body>
+</html>
