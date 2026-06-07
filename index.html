@@ -646,7 +646,428 @@
         </div>
       </div>
     </section>
+    
+<style id="eure-tech-styles-a-deplacer-dans-head">
+  /* ── EURE TECH & INCLUSION — BLOC ÉVÉNEMENT ── */
+  .eure-tech-section {
+    padding: 90px 0 100px;
+    background: var(--green-dark);
+    position: relative;
+    overflow: hidden;
+  }
+  /* Grille de fond */
+  .eure-tech-section::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(46,192,106,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(46,192,106,0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+  /* Halo vert à droite */
+  .eure-tech-section::after {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center, rgba(46,192,106,0.10) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .eure-tech-inner {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 60px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+  /* ── Label événement ── */
+  .eure-tech-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green-accent);
+    border: 1px solid rgba(46,192,106,0.35);
+    padding: 5px 12px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+    width: fit-content;
+  }
+  .eure-tech-label::before {
+    content: '';
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--green-accent);
+    animation: et-pulse 2s ease-in-out infinite;
+  }
+  @keyframes et-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.4; transform: scale(0.7); }
+  }
+  .eure-tech-title {
+    font-family: var(--font-mono);
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .eure-tech-title em {
+    font-style: normal;
+    color: var(--green-accent);
+  }
+  .eure-tech-desc {
+    color: rgba(255,255,255,0.65);
+    font-size: 1rem;
+    line-height: 1.75;
+    margin-bottom: 32px;
+    max-width: 520px;
+  }
+  /* ── Infos rapides ── */
+  .eure-tech-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+  .eure-tech-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: rgba(255,255,255,0.75);
+    font-size: 0.9rem;
+  }
+  .eure-tech-meta-item i {
+    color: var(--green-accent);
+    font-size: 1rem;
+    width: 18px;
+    flex-shrink: 0;
+  }
+  .eure-tech-meta-item strong {
+    color: var(--white);
+  }
+  /* ── Boutons ── */
+  .eure-tech-buttons {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .btn-et-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--green-accent);
+    color: var(--green-dark);
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.88rem;
+    letter-spacing: 0.04em;
+    padding: 12px 24px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-et-primary:hover {
+    background: var(--green-light);
+    transform: translateY(-2px);
+  }
+  .btn-et-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: rgba(255,255,255,0.75);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    padding: 12px 22px;
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.2);
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-et-outline:hover {
+    border-color: var(--green-accent);
+    color: var(--green-accent);
+  }
+  /* ── Carte événement (droite) ── */
+  .eure-tech-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(46,192,106,0.2);
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+  }
+  .eure-tech-card-header {
+    background: rgba(46,192,106,0.1);
+    border-bottom: 1px solid rgba(46,192,106,0.15);
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .eure-tech-card-header span {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--green-accent);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .eure-tech-gratuit {
+    background: var(--green-accent);
+    color: var(--green-dark);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+  .eure-tech-card-body {
+    padding: 24px;
+  }
+  /* Compteur */
+  .eure-tech-countdown {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+  .et-count-item {
+    text-align: center;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(46,192,106,0.15);
+    border-radius: 8px;
+    padding: 12px 6px 10px;
+  }
+  .et-count-num {
+    font-family: var(--font-mono);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--green-accent);
+    line-height: 1;
+    display: block;
+  }
+  .et-count-label {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: block;
+    margin-top: 6px;
+  }
+  /* Chiffres clés */
+  .eure-tech-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+  .et-stat {
+    background: rgba(255,255,255,0.04);
+    border-radius: 8px;
+    padding: 14px 12px;
+    text-align: center;
+  }
+  .et-stat strong {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 1.4rem;
+    color: var(--white);
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 5px;
+  }
+  .et-stat span {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.45);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    font-family: var(--font-mono);
+  }
+  /* Thèmes */
+  .eure-tech-themes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 24px;
+  }
+  .et-theme {
+    background: rgba(46,192,106,0.1);
+    border: 1px solid rgba(46,192,106,0.2);
+    color: var(--green-accent);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    padding: 4px 10px;
+    border-radius: 2px;
+    font-weight: 600;
+  }
+  /* CTA dans la carte */
+  .btn-et-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    background: var(--green-accent);
+    color: var(--green-dark);
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    padding: 13px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .btn-et-card:hover { background: var(--green-light); }
+  /* Responsive */
+  @media (max-width: 960px) {
+    .eure-tech-inner {
+      grid-template-columns: 1fr;
+    }
+    .eure-tech-card { max-width: 480px; }
+  }
+  @media (max-width: 600px) {
+    .eure-tech-countdown { gap: 6px; }
+    .et-count-num { font-size: 1.3rem; }
+    .eure-tech-buttons { flex-direction: column; }
+    .btn-et-primary, .btn-et-outline { justify-content: center; }
+  }
+</style>
+<!-- ╚═══════════════════════════════════════════════════════════════════════╝ -->
+<section id="eure-tech" class="eure-tech-section">
+  <div class="container">
+    <div class="eure-tech-inner">
 
+      <!-- Colonne gauche — texte -->
+      <div class="fade-up">
+        <div class="eure-tech-label">
+          <i class="bi bi-lightning-charge-fill"></i> Prochain grand événement
+        </div>
+        <h2 class="eure-tech-title">
+          Eure Tech<br>&amp; <em>Inclusion</em> 2026
+        </h2>
+        <p class="eure-tech-desc">
+          Une journée de conférences, ateliers et networking 100&nbsp;% en ligne et gratuite, organisée par À l'Eure Digitale. Débutants, développeurs, associations et curieux du numérique — tout le monde est bienvenu.
+        </p>
+        <div class="eure-tech-meta">
+          <div class="eure-tech-meta-item">
+            <i class="bi bi-calendar-event-fill"></i>
+            <span>Jeudi <strong>19&nbsp;novembre&nbsp;2026</strong>, 10h00 – 17h00</span>
+          </div>
+          <div class="eure-tech-meta-item">
+            <i class="bi bi-discord"></i>
+            <span>Événement <strong>100&nbsp;% en ligne</strong> — sur Discord</span>
+          </div>
+          <div class="eure-tech-meta-item">
+            <i class="bi bi-people-fill"></i>
+            <span><strong>11&nbsp;intervenants</strong> · 10&nbsp;créneaux · accès libre</span>
+          </div>
+          <div class="eure-tech-meta-item">
+            <i class="bi bi-geo-alt-fill"></i>
+            <span>Organisé par <strong>À l'Eure Digitale</strong> — Évreux, Normandie</span>
+          </div>
+        </div>
+        <div class="eure-tech-buttons">
+          <a href="EureTech_Inclusion_Site.html" class="btn-et-primary">
+            <i class="bi bi-arrow-right-circle-fill"></i> Voir le programme complet
+          </a>
+          <a href="https://discord.gg/hxyp2qFFAN" target="_blank" class="btn-et-outline">
+            <i class="bi bi-discord"></i> Rejoindre le Discord
+          </a>
+        </div>
+      </div>
+
+      <!-- Colonne droite — carte événement -->
+      <div class="fade-up">
+        <div class="eure-tech-card">
+          <div class="eure-tech-card-header">
+            <span><i class="bi bi-calendar3"></i>&nbsp; 19 Nov. 2026</span>
+            <span class="eure-tech-gratuit">100&nbsp;% Gratuit</span>
+          </div>
+          <div class="eure-tech-card-body">
+
+            <!-- Compteur -->
+            <div style="font-family:var(--font-mono);font-size:0.68rem;color:rgba(255,255,255,0.4);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:12px;">Compte à rebours</div>
+            <div class="eure-tech-countdown" id="et-countdown">
+              <div class="et-count-item"><span class="et-count-num" id="et-j">—</span><span class="et-count-label">Jours</span></div>
+              <div class="et-count-item"><span class="et-count-num" id="et-h">—</span><span class="et-count-label">Heures</span></div>
+              <div class="et-count-item"><span class="et-count-num" id="et-m">—</span><span class="et-count-label">Min</span></div>
+              <div class="et-count-item"><span class="et-count-num" id="et-s">—</span><span class="et-count-label">Sec</span></div>
+            </div>
+
+            <!-- Chiffres clés -->
+            <div class="eure-tech-stats">
+              <div class="et-stat"><strong>11</strong><span>Intervenants</span></div>
+              <div class="et-stat"><strong>10</strong><span>Créneaux</span></div>
+              <div class="et-stat"><strong>7h</strong><span>De programme</span></div>
+              <div class="et-stat"><strong>0€</strong><span>Participation</span></div>
+            </div>
+
+            <!-- Thèmes -->
+            <div style="font-family:var(--font-mono);font-size:0.68rem;color:rgba(255,255,255,0.4);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;">Thèmes abordés</div>
+            <div class="eure-tech-themes">
+              <span class="et-theme">Inclusion numérique</span>
+              <span class="et-theme">IA & éthique</span>
+              <span class="et-theme">Open Source</span>
+              <span class="et-theme">Accessibilité</span>
+              <span class="et-theme">Sécurité web</span>
+              <span class="et-theme">Emploi & numérique</span>
+            </div>
+
+            <!-- CTA -->
+            <a href="EureTech_Inclusion_Site.html" class="btn-et-card">
+              <i class="bi bi-calendar-check-fill"></i> S'inscrire gratuitement
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Script compteur — à placer avant </body> ou avec les autres scripts -->
+<script>
+(function () {
+  const target = new Date('2026-11-19T10:00:00');
+  const els = {
+    j: document.getElementById('et-j'),
+    h: document.getElementById('et-h'),
+    m: document.getElementById('et-m'),
+    s: document.getElementById('et-s'),
+  };
+  if (!els.j) return;
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  function tick() {
+    const diff = target - Date.now();
+    if (diff <= 0) {
+      els.j.textContent = els.h.textContent = els.m.textContent = '00';
+      els.s.textContent = '00';
+      return;
+    }
+    const totalSec = Math.floor(diff / 1000);
+    els.j.textContent = pad(Math.floor(totalSec / 86400));
+    els.h.textContent = pad(Math.floor((totalSec % 86400) / 3600));
+    els.m.textContent = pad(Math.floor((totalSec % 3600) / 60));
+    els.s.textContent = pad(totalSec % 60);
+  }
+
+  tick();
+  setInterval(tick, 1000);
+})();
+</script>
     <!-- PARTENAIRES -->
     <section class="partners">
       <div class="container">
