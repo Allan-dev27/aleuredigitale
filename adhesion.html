@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Adhérer à l'association – A l'Eure Digitale</title>
+  <meta name="description" content="Adhérez à À l'Eure Digitale : association loi 1901 pour un numérique inclusif, solidaire et collaboratif dans le département de l'Eure (27). Cotisation 20€/an.">
+  <meta name="keywords" content="adhésion, association, numérique, Eure, ateliers, inclusion, digital">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* ── HERO ADHÉSION ── */
+    .adh-hero {
+      background: var(--green-dark);
+      padding: 64px 0 70px;
+      position: relative;
+      overflow: hidden;
+    }
+    .adh-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(46,192,106,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(46,192,106,0.06) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+    .adh-hero-inner { position: relative; z-index: 1; text-align: center; max-width: 720px; margin: 0 auto; }
+    .adh-breadcrumb {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 22px;
+    }
+    .adh-breadcrumb a { color: rgba(255,255,255,0.6); text-decoration: none; }
+    .adh-breadcrumb a:hover { color: var(--green-accent); }
+    .adh-hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--green-accent);
+      border: 1px solid rgba(46,192,106,0.35);
+      padding: 5px 12px;
+      border-radius: 2px;
+      margin-bottom: 20px;
+    }
+    .adh-hero h1 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      color: var(--white);
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .adh-hero h1 em { font-style: normal; color: var(--green-accent); }
+    .adh-hero p { color: rgba(255,255,255,0.65); font-size: 1.02rem; line-height: 1.75; margin-bottom: 28px; }
+    .adh-hero-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    /* ── POURQUOI ADHÉRER ── */
+    .adh-why { background: var(--cream); padding: 90px 0; }
+    .adh-why-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .adh-why-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 26px 22px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .adh-why-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.07); }
+    .adh-why-card i { font-size: 1.5rem; color: var(--green-accent); margin-bottom: 14px; display: block; }
+    .adh-why-card h4 { font-size: 0.95rem; color: var(--green-dark); margin-bottom: 8px; }
+    .adh-why-card p { font-size: 0.85rem; color: var(--ink-muted); line-height: 1.6; margin: 0; }
+    @media (max-width: 900px) { .adh-why-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .adh-why-grid { grid-template-columns: 1fr; } }
+
+    /* ── TARIFS (réutilise .membership-card) ── */
+    .adh-tarifs { background: var(--white); padding: 90px 0; }
+    .adh-tarifs .membership-grid { max-width: 980px; margin: 0 auto; }
+    .membership-card ul.adh-feature-list { list-style: none; text-align: left; margin-top: 18px; display: flex; flex-direction: column; gap: 8px; }
+    .membership-card ul.adh-feature-list li { font-size: 0.83rem; color: var(--ink-soft); display: flex; align-items: flex-start; gap: 8px; }
+    .membership-card.featured ul.adh-feature-list li { color: rgba(255,255,255,0.75); }
+    .membership-card ul.adh-feature-list li i { color: var(--green-accent); margin-top: 2px; flex-shrink: 0; }
+
+    /* ── ÉTAPES ── */
+    .adh-steps { background: var(--cream); padding: 90px 0; }
+    .adh-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      position: relative;
+    }
+    .adh-step { position: relative; padding-top: 8px; }
+    .adh-step-num {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--white);
+      background: var(--green-accent);
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px;
+    }
+    .adh-step h4 { font-size: 0.92rem; color: var(--green-dark); margin-bottom: 8px; }
+    .adh-step p { font-size: 0.85rem; color: var(--ink-muted); line-height: 1.6; margin: 0; }
+    @media (max-width: 900px) { .adh-steps-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .adh-steps-grid { grid-template-columns: 1fr; } }
+
+    /* ── FORMULAIRE ── */
+    .adh-form-section { background: var(--ink); padding: 90px 0 100px; }
+    .adh-form-section .section-label { color: var(--green-accent); }
+    .adh-form-section .section-title h2 { color: var(--white); }
+    .adh-form-section .section-title p { color: rgba(255,255,255,0.5); }
+    .adh-form-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(46,192,106,0.18);
+      border-radius: 14px;
+      padding: 40px 36px;
+    }
+    .adh-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .adh-form-wrap label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin: 18px 0 6px;
+    }
+    .adh-form-wrap label:first-of-type { margin-top: 0; }
+    .adh-form-wrap input,
+    .adh-form-wrap select,
+    .adh-form-wrap textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 6px;
+      padding: 12px 14px;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .adh-form-wrap select option { color: var(--ink); }
+    .adh-form-wrap input:focus,
+    .adh-form-wrap select:focus,
+    .adh-form-wrap textarea:focus { border-color: var(--green-accent); }
+    .adh-form-wrap input::placeholder,
+    .adh-form-wrap textarea::placeholder { color: rgba(255,255,255,0.3); }
+    .adh-form-wrap textarea { min-height: 100px; resize: vertical; }
+    .adh-checkbox-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .adh-checkbox-row input[type="checkbox"] {
+      width: 17px; height: 17px;
+      margin-top: 2px;
+      accent-color: var(--green-accent);
+      flex-shrink: 0;
+    }
+    .adh-checkbox-row span { font-size: 0.84rem; color: rgba(255,255,255,0.6); line-height: 1.5; }
+    .adh-checkbox-row a { color: var(--green-accent); text-decoration: none; }
+    .adh-checkbox-row a:hover { text-decoration: underline; }
+    .adh-form-wrap .btn-primary {
+      margin-top: 28px;
+      width: 100%;
+      justify-content: center;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 2px solid var(--green-accent);
+      cursor: pointer;
+      font-family: var(--font-mono);
+    }
+    .adh-form-note {
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.4);
+      margin-top: 18px;
+    }
+    @media (max-width: 700px) {
+      .adh-form-wrap { padding: 30px 22px; }
+      .adh-form-row { grid-template-columns: 1fr; }
+    }
+
+    /* ── FAQ ── */
+    .adh-faq { background: var(--cream); padding: 90px 0; }
+    .adh-faq-list { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+    .adh-faq-item {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .adh-faq-q {
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      padding: 18px 22px;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: var(--green-dark);
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .adh-faq-q i { transition: transform 0.25s; color: var(--green-accent); flex-shrink: 0; }
+    .adh-faq-item.open .adh-faq-q i { transform: rotate(45deg); }
+    .adh-faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .adh-faq-a p { padding: 0 22px 18px; font-size: 0.88rem; color: var(--ink-muted); line-height: 1.7; margin: 0; }
+  </style>
+</head>
+
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="topbar-contact">
+        <span><i class="bi bi-envelope-fill"></i><a href="mailto:aleuredudigitale@gmail.com">aleuredudigitale@gmail.com</a></span>
+        <span><i class="bi bi-telephone-fill"></i><a href="tel:0658209902">06 58 20 99 02</a></span>
+        <span><i class="bi bi-geo-alt-fill"></i>Évreux &amp; département de l'Eure (27)</span>
+      </div>
+      <div>RNA&nbsp;:&nbsp;W272007431&nbsp;·&nbsp;SIREN&nbsp;:&nbsp;101049781</div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <nav class="nav-inner">
+      <a href="index.html#hero" class="logo">A l'Eure<span>_</span>Digitale</a>
+      <nav class="navmenu" id="navmenu">
+        <ul>
+          <li><a href="index.html#hero">Accueil</a></li>
+          <li><a href="index.html#about">À propos</a></li>
+          <li><a href="index.html#actions">Nos actions</a></li>
+          <li><a href="index.html#permanences">Permanences</a></li>
+          <li><a href="index.html#agenda">Agenda</a></li>
+          <li><a href="index.html#projet">Match'Emploi</a></li>
+          <li><a href="adhesion.html" class="active">Adhérer</a></li>
+          <li><a href="cartes.html">Cartes</a></li>
+          <li><a href="https://discord.gg/hxyp2qFFAN" target="_blank" style="display:flex;align-items:center;gap:5px;"><i class="bi bi-discord"></i> Discord</a></li>
+          <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="mobile-toggle" onclick="document.getElementById('navmenu').classList.toggle('open')">
+        <i class="bi bi-list"></i>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="adh-hero">
+      <div class="container">
+        <div class="adh-hero-inner">
+          <div class="adh-breadcrumb"><a href="index.html">Accueil</a> &nbsp;/&nbsp; Adhérer</div>
+          <div class="adh-hero-label"><i class="bi bi-person-plus-fill"></i> Rejoindre l'association</div>
+          <h1>Devenez <em>membre</em> de À l'Eure Digitale</h1>
+          <p>Une cotisation annuelle simple et accessible pour accéder à tous nos ateliers, participer à la gouvernance de l'association et contribuer à des projets numériques à impact local dans l'Eure.</p>
+          <div class="adh-hero-buttons">
+            <a href="#formulaire" class="btn-primary">Remplir le formulaire d'adhésion</a>
+            <a href="#tarifs" class="btn-outline">Voir les tarifs</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- POURQUOI ADHÉRER -->
+    <section class="adh-why">
+      <div class="container">
+        <div class="section-title fade-up" style="text-align:center;margin:0 auto 48px;">
+          <div class="section-label" style="justify-content:center;">Vos avantages</div>
+          <h2>Pourquoi adhérer ?</h2>
+          <p style="margin:0 auto;">L'adhésion vous donne accès à toute la vie de l'association et à son réseau de membres.</p>
+        </div>
+        <div class="adh-why-grid">
+          <div class="adh-why-card fade-up">
+            <i class="bi bi-laptop"></i>
+            <h4>Accès aux ateliers</h4>
+            <p>Participez gratuitement à tous nos ateliers numériques : Web, Git, Linux, sécurité, open source.</p>
+          </div>
+          <div class="adh-why-card fade-up">
+            <i class="bi bi-people-fill"></i>
+            <h4>Réseau de membres</h4>
+            <p>Intégrez une communauté de développeurs, designers et porteurs de projets prêts à s'entraider.</p>
+          </div>
+          <div class="adh-why-card fade-up">
+            <i class="bi bi-ballot"></i>
+            <h4>Gouvernance</h4>
+            <p>Votez à l'Assemblée Générale et participez aux décisions qui orientent les actions de l'association.</p>
+          </div>
+          <div class="adh-why-card fade-up">
+            <i class="bi bi-rocket-takeoff"></i>
+            <h4>Projets collectifs</h4>
+            <p>Contribuez à des projets à impact local comme Match'Emploi et l'événement EureTech & Inclusion.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TARIFS -->
+    <section id="tarifs" class="adh-tarifs">
+      <div class="container">
+        <div class="section-title fade-up" style="text-align:center;margin:0 auto 48px;">
+          <div class="section-label" style="justify-content:center;">Cotisation</div>
+          <h2>Choisissez votre formule</h2>
+          <p style="margin:0 auto;">Une cotisation annuelle accessible — aucune démarche bancaire en ligne requise.</p>
+        </div>
+        <div class="membership-grid fade-up">
+
+          <div class="membership-card fade-up">
+            <div class="price-label">Cotisation</div>
+            <div class="price">20€</div>
+            <h3>Adhésion annuelle</h3>
+            <p>Devenez membre de l'association et participez à sa gouvernance.</p>
+            <ul class="adh-feature-list">
+              <li><i class="bi bi-check2"></i><span>Droit de vote en Assemblée Générale</span></li>
+              <li><i class="bi bi-check2"></i><span>Carte de membre</span></li>
+              <li><i class="bi bi-check2"></i><span>Accès au Discord des membres</span></li>
+            </ul>
+            <a href="#formulaire" class="btn-outline-dark">Choisir cette formule</a>
+          </div>
+
+          <div class="membership-card featured fade-up">
+            <div class="price-label">Membre actif</div>
+            <div class="price">Gratuit*</div>
+            <h3>Ateliers membres</h3>
+            <p>Accès gratuit à tous nos ateliers numériques, inclus dans l'adhésion.</p>
+            <ul class="adh-feature-list">
+              <li><i class="bi bi-check2"></i><span>Tous les ateliers : Web, Git, Linux, sécurité…</span></li>
+              <li><i class="bi bi-check2"></i><span>Sessions d'entraide & revue de code</span></li>
+              <li><i class="bi bi-check2"></i><span>Priorité d'inscription aux événements</span></li>
+            </ul>
+            <a href="#formulaire" class="btn-primary">Rejoindre maintenant</a>
+          </div>
+
+          <div class="membership-card fade-up">
+            <div class="price-label">Non-membre</div>
+            <div class="price">15€</div>
+            <h3>Atelier à la carte</h3>
+            <p>Participez à un atelier sans adhésion, sans engagement.</p>
+            <ul class="adh-feature-list">
+              <li><i class="bi bi-check2"></i><span>Accès à un atelier ponctuel</span></li>
+              <li><i class="bi bi-check2"></i><span>Tarif par session</span></li>
+              <li><i class="bi bi-check2"></i><span>Sans engagement annuel</span></li>
+            </ul>
+            <a href="index.html#contact" class="btn-outline-dark">Nous contacter</a>
+          </div>
+
+        </div>
+        <p style="text-align:center;margin-top:24px;font-family:var(--font-mono);font-size:0.78rem;color:var(--ink-muted);">
+          *Inclus dans la cotisation annuelle de 20€
+        </p>
+      </div>
+    </section>
+
+    <!-- ÉTAPES -->
+    <section class="adh-steps">
+      <div class="container">
+        <div class="section-title fade-up" style="text-align:center;margin:0 auto 48px;">
+          <div class="section-label" style="justify-content:center;">Processus</div>
+          <h2>Comment adhérer ?</h2>
+          <p style="margin:0 auto;">Quatre étapes simples pour devenir membre de l'association.</p>
+        </div>
+        <div class="adh-steps-grid">
+          <div class="adh-step fade-up">
+            <div class="adh-step-num">1</div>
+            <h4>Remplissez le formulaire</h4>
+            <p>Complétez le formulaire d'adhésion ci-dessous avec vos informations.</p>
+          </div>
+          <div class="adh-step fade-up">
+            <div class="adh-step-num">2</div>
+            <h4>Recevez une confirmation</h4>
+            <p>Notre équipe vous répond par email avec les modalités de règlement.</p>
+          </div>
+          <div class="adh-step fade-up">
+            <div class="adh-step-num">3</div>
+            <h4>Réglez la cotisation</h4>
+            <p>Paiement par virement, espèces ou chèque — 20€ pour l'année en cours.</p>
+          </div>
+          <div class="adh-step fade-up">
+            <div class="adh-step-num">4</div>
+            <h4>Accédez aux ateliers</h4>
+            <p>Rejoignez le Discord des membres et inscrivez-vous aux ateliers.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FORMULAIRE D'ADHÉSION -->
+    <section id="formulaire" class="adh-form-section">
+      <div class="container">
+        <div class="section-title fade-up" style="text-align:center;margin:0 auto 40px;">
+          <div class="section-label" style="justify-content:center;">Formulaire</div>
+          <h2>Demande d'adhésion</h2>
+          <p style="margin:0 auto;">Remplissez ce formulaire, nous revenons vers vous rapidement par email.</p>
+        </div>
+
+        <div class="adh-form-wrap fade-up">
+          <form id="adhesionForm" onsubmit="handleAdhesionForm(event)">
+
+            <div class="adh-form-row">
+              <div>
+                <label for="adh-prenom">Prénom</label>
+                <input type="text" id="adh-prenom" name="prenom" placeholder="Votre prénom" required>
+              </div>
+              <div>
+                <label for="adh-nom">Nom</label>
+                <input type="text" id="adh-nom" name="nom" placeholder="Votre nom" required>
+              </div>
+            </div>
+
+            <div class="adh-form-row">
+              <div>
+                <label for="adh-email">Email</label>
+                <input type="email" id="adh-email" name="email" placeholder="vous@exemple.fr" required>
+              </div>
+              <div>
+                <label for="adh-tel">Téléphone</label>
+                <input type="tel" id="adh-tel" name="telephone" placeholder="06 12 34 56 78">
+              </div>
+            </div>
+
+            <label for="adh-ville">Ville / Commune</label>
+            <input type="text" id="adh-ville" name="ville" placeholder="Ex. Évreux, Bernay…">
+
+            <label for="adh-formule">Formule souhaitée</label>
+            <select id="adh-formule" name="formule">
+              <option value="Adhésion annuelle (20€)">Adhésion annuelle — 20€</option>
+              <option value="Atelier à la carte (15€, sans adhésion)">Atelier à la carte — 15€ (sans adhésion)</option>
+              <option value="Je ne sais pas encore">Je ne sais pas encore</option>
+            </select>
+
+            <label for="adh-motivation">Pourquoi souhaitez-vous nous rejoindre ? (optionnel)</label>
+            <textarea id="adh-motivation" name="motivation" placeholder="Vos attentes, vos compétences, vos envies de contribuer…"></textarea>
+
+            <div class="adh-checkbox-row">
+              <input type="checkbox" id="adh-statuts" name="statuts" required>
+              <span>J'ai pris connaissance des statuts de l'association et j'accepte d'y adhérer.</span>
+            </div>
+            <div class="adh-checkbox-row">
+              <input type="checkbox" id="adh-newsletter" name="newsletter">
+              <span>Je souhaite recevoir les actualités de l'association par email.</span>
+            </div>
+
+            <button type="submit" class="btn-primary" id="adhSubmitBtn">Envoyer ma demande d'adhésion <i class="bi bi-send"></i></button>
+            <p id="adh-form-status" style="margin-top:14px;font-size:0.85rem;text-align:center;display:none;"></p>
+          </form>
+        </div>
+
+        <p class="adh-form-note">
+          <i class="bi bi-envelope"></i>&nbsp; Vous pouvez aussi nous écrire directement à
+          <a href="mailto:aleuredudigitale@gmail.com" style="color:var(--green-accent);">aleuredudigitale@gmail.com</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="adh-faq">
+      <div class="container">
+        <div class="section-title fade-up" style="text-align:center;margin:0 auto 40px;">
+          <div class="section-label" style="justify-content:center;">Questions fréquentes</div>
+          <h2>FAQ adhésion</h2>
+        </div>
+        <div class="adh-faq-list">
+          <div class="adh-faq-item fade-up">
+            <button class="adh-faq-q">Combien coûte l'adhésion ? <i class="bi bi-plus"></i></button>
+            <div class="adh-faq-a"><p>La cotisation annuelle est de 20€ et donne accès à tous les ateliers gratuitement pendant l'année civile en cours, ainsi qu'au droit de vote en Assemblée Générale.</p></div>
+          </div>
+          <div class="adh-faq-item fade-up">
+            <button class="adh-faq-q">Comment régler ma cotisation ? <i class="bi bi-plus"></i></button>
+            <div class="adh-faq-a"><p>Après votre demande via le formulaire, nous vous recontactons par email pour organiser le règlement par virement, espèces ou chèque lors d'une permanence.</p></div>
+          </div>
+          <div class="adh-faq-item fade-up">
+            <button class="adh-faq-q">Dois-je adhérer pour participer à un atelier ? <i class="bi bi-plus"></i></button>
+            <div class="adh-faq-a"><p>Non, vous pouvez participer à un atelier ponctuel sans adhésion pour 15€ par session. L'adhésion annuelle est plus avantageuse si vous comptez venir régulièrement.</p></div>
+          </div>
+          <div class="adh-faq-item fade-up">
+            <button class="adh-faq-q">L'adhésion est-elle valable toute l'année ? <i class="bi bi-plus"></i></button>
+            <div class="adh-faq-a"><p>L'adhésion court sur l'année civile. Elle est à renouveler chaque année pour continuer à bénéficier des avantages membres.</p></div>
+          </div>
+          <div class="adh-faq-item fade-up">
+            <button class="adh-faq-q">Puis-je adhérer même si je suis débutant en numérique ? <i class="bi bi-plus"></i></button>
+            <div class="adh-faq-a"><p>Bien sûr ! Nos ateliers et permanences sont ouverts à tous les niveaux, des débutants curieux aux développeurs confirmés.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html#hero" class="logo" style="color:var(--white);">A l'Eure<span>_</span>Digitale</a>
+          <p>Incubateur associatif de compétences numériques et de projets collaboratifs à impact social. Ancré dans le département de l'Eure, ouvert à tout le territoire.</p>
+          <div style="font-family:var(--font-mono);font-size:0.72rem;color:rgba(255,255,255,0.3);">
+            *Apprendre – Partager – Construire ensemble
+          </div>
+        </div>
+        <div class="footer-links">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html#hero">Accueil</a></li>
+            <li><a href="index.html#about">À propos</a></li>
+            <li><a href="index.html#actions">Nos actions</a></li>
+            <li><a href="index.html#permanences">Permanences</a></li>
+            <li><a href="index.html#agenda">Agenda</a></li>
+            <li><a href="index.html#reseau">Réseau pro</a></li>
+            <li><a href="index.html#discord">Communauté Discord</a></li>
+            <li><a href="index.html#projet">Match'Emploi</a></li>
+            <li><a href="adhesion.html">Adhérer</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h4>Nous contacter</h4>
+          <p><a href="tel:0658209902">06 58 20 99 02</a></p>
+          <p><a href="mailto:aleuredudigitale@gmail.com">aleuredudigitale@gmail.com</a></p>
+          <p>Évreux &amp; département de l'Eure (27)</p>
+          <p style="margin-top:14px;"><a href="https://discord.gg/hxyp2qFFAN" target="_blank" style="display:inline-flex;align-items:center;gap:7px;background:#5865F2;color:#fff;padding:8px 16px;border-radius:4px;font-family:var(--font-mono);font-size:0.78rem;font-weight:700;text-decoration:none;"><i class="bi bi-discord"></i> Discord</a></p>
+          <p style="margin-top:12px;font-family:var(--font-mono);font-size:0.78rem;color:rgba(255,255,255,0.3);">RNA : W272007431<br>SIREN : 101049781</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 A l'Eure Digitale — Association loi 1901</p>
+        <p class="footer-siren">Numérique éthique · Open Source · Ancrage local</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCROLL TOP -->
+  <a href="#hero" id="scroll-top"><i class="bi bi-arrow-up-short"></i></a>
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Scroll top button
+    const scrollTop = document.getElementById('scroll-top');
+    window.addEventListener('scroll', () => {
+      scrollTop.classList.toggle('visible', window.scrollY > 400);
+    });
+
+    // Mobile nav close on link click
+    document.querySelectorAll('.navmenu a').forEach(a => {
+      a.addEventListener('click', () => document.getElementById('navmenu').classList.remove('open'));
+    });
+
+    // FAQ accordion
+    document.querySelectorAll('.adh-faq-q').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.adh-faq-item');
+        const answer = item.querySelector('.adh-faq-a');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.adh-faq-item.open').forEach(other => {
+          if (other !== item) {
+            other.classList.remove('open');
+            other.querySelector('.adh-faq-a').style.maxHeight = null;
+          }
+        });
+        if (isOpen) {
+          item.classList.remove('open');
+          answer.style.maxHeight = null;
+        } else {
+          item.classList.add('open');
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+        }
+      });
+    });
+
+    // Formulaire d'adhésion — Formspree avec repli mailto
+    async function handleAdhesionForm(e) {
+      e.preventDefault();
+      const btn = document.getElementById('adhSubmitBtn');
+      const status = document.getElementById('adh-form-status');
+      const form = e.target;
+      btn.textContent = 'Envoi en cours…';
+      btn.disabled = true;
+      status.style.display = 'none';
+
+      try {
+        const data = new FormData(form);
+        const res = await fetch('https://formspree.io/f/aleuredudigitale@gmail.com', {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          status.textContent = '✓ Demande envoyée avec succès — Merci ! Nous revenons vers vous très vite.';
+          status.style.color = 'var(--green-accent)';
+          form.reset();
+        } else {
+          throw new Error();
+        }
+      } catch {
+        // Repli : ouverture du client mail
+        const prenom = form.querySelector('[name="prenom"]').value;
+        const nom = form.querySelector('[name="nom"]').value;
+        const email = form.querySelector('[name="email"]').value;
+        const telephone = form.querySelector('[name="telephone"]').value;
+        const ville = form.querySelector('[name="ville"]').value;
+        const formule = form.querySelector('[name="formule"]').value;
+        const motivation = form.querySelector('[name="motivation"]').value;
+        const newsletter = form.querySelector('[name="newsletter"]').checked ? 'Oui' : 'Non';
+
+        const corps =
+          `Prénom : ${prenom}\n` +
+          `Nom : ${nom}\n` +
+          `Email : ${email}\n` +
+          `Téléphone : ${telephone}\n` +
+          `Ville : ${ville}\n` +
+          `Formule souhaitée : ${formule}\n` +
+          `Motivation : ${motivation}\n` +
+          `Inscription newsletter : ${newsletter}`;
+
+        window.location.href = `mailto:aleuredudigitale@gmail.com?subject=${encodeURIComponent('Demande d\'adhésion — ' + prenom + ' ' + nom)}&body=${encodeURIComponent(corps)}`;
+        status.textContent = 'Redirection vers votre messagerie…';
+        status.style.color = 'rgba(255,255,255,0.6)';
+      }
+
+      status.style.display = 'block';
+      btn.textContent = "Envoyer ma demande d'adhésion";
+      btn.disabled = false;
+    }
+  </script>
+
+</body>
+</html>
