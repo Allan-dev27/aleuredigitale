@@ -206,6 +206,31 @@
       .adh-form-row { grid-template-columns: 1fr; }
     }
 
+    /* ── WIDGET HELLOASSO ── */
+    .adh-ha-wrap { padding: 24px; }
+    .adh-ha-iframe {
+      display: block;
+      width: 100%;
+      min-height: 780px;
+      height: 1400px; /* ajusté dynamiquement par le script ci-dessous */
+      border: none;
+      border-radius: 8px;
+      background: #fff;
+    }
+    .adh-ha-powered {
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.35);
+      margin-top: 14px;
+    }
+    .adh-ha-powered a { color: var(--green-accent); text-decoration: none; }
+    .adh-ha-powered a:hover { text-decoration: underline; }
+    @media (max-width: 700px) {
+      .adh-ha-wrap { padding: 14px; }
+      .adh-ha-iframe { height: 1700px; }
+    }
+
     /* ── FAQ ── */
     .adh-faq { background: var(--cream); padding: 90px 0; }
     .adh-faq-list { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
@@ -429,61 +454,23 @@
           <p style="margin:0 auto;">Remplissez ce formulaire, nous revenons vers vous rapidement par email.</p>
         </div>
 
-        <div class="adh-form-wrap fade-up">
-          <form id="adhesionForm" onsubmit="handleAdhesionForm(event)">
-
-            <div class="adh-form-row">
-              <div>
-                <label for="adh-prenom">Prénom</label>
-                <input type="text" id="adh-prenom" name="prenom" placeholder="Votre prénom" required>
-              </div>
-              <div>
-                <label for="adh-nom">Nom</label>
-                <input type="text" id="adh-nom" name="nom" placeholder="Votre nom" required>
-              </div>
-            </div>
-
-            <div class="adh-form-row">
-              <div>
-                <label for="adh-email">Email</label>
-                <input type="email" id="adh-email" name="email" placeholder="vous@exemple.fr" required>
-              </div>
-              <div>
-                <label for="adh-tel">Téléphone</label>
-                <input type="tel" id="adh-tel" name="telephone" placeholder="06 12 34 56 78">
-              </div>
-            </div>
-
-            <label for="adh-ville">Ville / Commune</label>
-            <input type="text" id="adh-ville" name="ville" placeholder="Ex. Évreux, Bernay…">
-
-            <label for="adh-formule">Formule souhaitée</label>
-            <select id="adh-formule" name="formule">
-              <option value="Adhésion annuelle (20€)">Adhésion annuelle — 20€</option>
-              <option value="Atelier à la carte (15€, sans adhésion)">Atelier à la carte — 15€ (sans adhésion)</option>
-              <option value="Je ne sais pas encore">Je ne sais pas encore</option>
-            </select>
-
-            <label for="adh-motivation">Pourquoi souhaitez-vous nous rejoindre ? (optionnel)</label>
-            <textarea id="adh-motivation" name="motivation" placeholder="Vos attentes, vos compétences, vos envies de contribuer…"></textarea>
-
-            <div class="adh-checkbox-row">
-              <input type="checkbox" id="adh-statuts" name="statuts" required>
-              <span>J'ai pris connaissance des statuts de l'association et j'accepte d'y adhérer.</span>
-            </div>
-            <div class="adh-checkbox-row">
-              <input type="checkbox" id="adh-newsletter" name="newsletter">
-              <span>Je souhaite recevoir les actualités de l'association par email.</span>
-            </div>
-
-            <button type="submit" class="btn-primary" id="adhSubmitBtn">Envoyer ma demande d'adhésion <i class="bi bi-send"></i></button>
-            <p id="adh-form-status" style="margin-top:14px;font-size:0.85rem;text-align:center;display:none;"></p>
-          </form>
+        <div class="adh-form-wrap adh-ha-wrap fade-up">
+          <iframe
+            id="haWidget"
+            class="adh-ha-iframe"
+            title="Formulaire d'adhésion HelloAsso — A l'Eure Digitale"
+            src="https://www.helloasso.com/associations/a-l-eure-digitale/adhesions/adhesion-2026/widget"
+            style="width:100%;border:none;"
+            allowtransparency="true"
+            scrolling="auto"
+            loading="lazy">
+          </iframe>
+          <div class="adh-ha-powered">Propulsé par <a href="https://www.helloasso.com" target="_blank" rel="nofollow noopener">HelloAsso</a></div>
         </div>
 
         <p class="adh-form-note">
-          <i class="bi bi-envelope"></i>&nbsp; Vous pouvez aussi nous écrire directement à
-          <a href="mailto:aleuredudigitale@gmail.com" style="color:var(--green-accent);">aleuredudigitale@gmail.com</a>
+          <i class="bi bi-shield-lock"></i>&nbsp; Paiement 100% sécurisé via HelloAsso, sans frais pour l'association. Une question ?
+          <a href="mailto:aleuredudigitale@gmail.com" style="color:var(--green-accent);">Écrivez-nous</a>
         </p>
       </div>
     </section>
@@ -607,60 +594,17 @@
       });
     });
 
-    // Formulaire d'adhésion — Formspree avec repli mailto
-    async function handleAdhesionForm(e) {
-      e.preventDefault();
-      const btn = document.getElementById('adhSubmitBtn');
-      const status = document.getElementById('adh-form-status');
-      const form = e.target;
-      btn.textContent = 'Envoi en cours…';
-      btn.disabled = true;
-      status.style.display = 'none';
-
-      try {
-        const data = new FormData(form);
-        const res = await fetch('https://formspree.io/f/aleuredudigitale@gmail.com', {
-          method: 'POST',
-          body: data,
-          headers: { 'Accept': 'application/json' }
-        });
-        if (res.ok) {
-          status.textContent = '✓ Demande envoyée avec succès — Merci ! Nous revenons vers vous très vite.';
-          status.style.color = 'var(--green-accent)';
-          form.reset();
-        } else {
-          throw new Error();
-        }
-      } catch {
-        // Repli : ouverture du client mail
-        const prenom = form.querySelector('[name="prenom"]').value;
-        const nom = form.querySelector('[name="nom"]').value;
-        const email = form.querySelector('[name="email"]').value;
-        const telephone = form.querySelector('[name="telephone"]').value;
-        const ville = form.querySelector('[name="ville"]').value;
-        const formule = form.querySelector('[name="formule"]').value;
-        const motivation = form.querySelector('[name="motivation"]').value;
-        const newsletter = form.querySelector('[name="newsletter"]').checked ? 'Oui' : 'Non';
-
-        const corps =
-          `Prénom : ${prenom}\n` +
-          `Nom : ${nom}\n` +
-          `Email : ${email}\n` +
-          `Téléphone : ${telephone}\n` +
-          `Ville : ${ville}\n` +
-          `Formule souhaitée : ${formule}\n` +
-          `Motivation : ${motivation}\n` +
-          `Inscription newsletter : ${newsletter}`;
-
-        window.location.href = `mailto:aleuredudigitale@gmail.com?subject=${encodeURIComponent('Demande d\'adhésion — ' + prenom + ' ' + nom)}&body=${encodeURIComponent(corps)}`;
-        status.textContent = 'Redirection vers votre messagerie…';
-        status.style.color = 'rgba(255,255,255,0.6)';
-      }
-
-      status.style.display = 'block';
-      btn.textContent = "Envoyer ma demande d'adhésion";
-      btn.disabled = false;
-    }
+    // Widget HelloAsso — ajustement automatique de la hauteur de l'iframe
+    // HelloAsso envoie un postMessage avec la hauteur réelle du contenu.
+    window.addEventListener('message', (event) => {
+      if (typeof event.origin !== 'string' || !event.origin.includes('helloasso.com')) return;
+      const haFrame = document.getElementById('haWidget');
+      if (!haFrame) return;
+      let data = event.data;
+      try { if (typeof data === 'string') data = JSON.parse(data); } catch { /* pas du JSON, on ignore */ }
+      const height = (data && (data.height || data.frameHeight)) || null;
+      if (height) haFrame.style.height = height + 'px';
+    });
   </script>
 
 </body>
