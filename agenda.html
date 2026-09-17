@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Agenda – A l'Eure Digitale</title>
+  <meta name="description" content="Retrouvez tous les ateliers, permanences, formations et événements à venir de À l'Eure Digitale, association loi 1901 pour un numérique inclusif dans l'Eure (27).">
+  <meta name="keywords" content="agenda, événements, ateliers, permanences, association, numérique, Eure">
+
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* ===== Bandeau spécifique à la page Agenda ===== */
+    .age-hero {
+      background: var(--green-dark);
+      padding: 56px 0 44px;
+      position: relative;
+      overflow: hidden;
+    }
+    .age-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 60% at 80% 50%, rgba(46,192,106,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 80% at 20% 100%, rgba(46,192,106,0.08) 0%, transparent 50%);
+    }
+    .age-hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(46,192,106,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(46,192,106,0.06) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .age-hero-inner { position: relative; z-index: 1; }
+    .age-breadcrumb {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 18px;
+    }
+    .age-breadcrumb a { color: rgba(255,255,255,0.5); text-decoration: none; }
+    .age-breadcrumb a:hover { color: var(--green-accent); }
+    .age-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-mono); font-size: 0.72rem;
+      color: var(--green-accent); border: 1px solid var(--green-accent);
+      padding: 5px 12px; border-radius: 2px;
+      letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 20px;
+    }
+    .age-hero h1 {
+      font-size: clamp(1.9rem, 3.6vw, 2.9rem);
+      color: var(--white); margin-bottom: 14px;
+    }
+    .age-hero h1 em { font-style: normal; color: var(--green-accent); }
+    .age-hero p {
+      color: rgba(255,255,255,0.65); font-size: 1rem; max-width: 620px; margin-bottom: 22px;
+    }
+    .age-count {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(46,192,106,0.25);
+      border-radius: 30px; padding: 8px 18px;
+      font-family: var(--font-mono); font-size: 0.82rem; color: rgba(255,255,255,0.85);
+    }
+    .age-count strong { color: var(--green-accent); font-size: 1rem; }
+  </style>
+</head>
+
+<body>
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="topbar-contact">
+        <span><i class="bi bi-envelope-fill"></i><a href="mailto:aleuredudigitale@gmail.com">aleuredudigitale@gmail.com</a></span>
+        <span><i class="bi bi-telephone-fill"></i><a href="tel:0658209902">06 58 20 99 02</a></span>
+        <span><i class="bi bi-geo-alt-fill"></i>Évreux &amp; département de l'Eure (27)</span>
+      </div>
+      <div class="topbar-legal">RNA : W272007431 · SIREN : 101049781</div>
+    </div>
+  </div>
+
+  <header>
+    <nav class="nav-inner">
+      <a href="index.html#hero" class="logo">A l'Eure<span>_</span>Digitale</a>
+      <nav class="navmenu" id="navmenu">
+        <ul>
+          <li><a href="index.html#hero">Accueil</a></li>
+          <li><a href="index.html#about">À propos</a></li>
+          <li><a href="index.html#actions">Nos actions</a></li>
+          <li><a href="index.html#permanences">Permanences</a></li>
+          <li><a href="agenda.html" class="active">Agenda</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="benevoles.html">Bénévoles</a></li>
+          <li><a href="index.html#projet">Match'Emploi</a></li>
+          <li><a href="adhesion.html">Adhérer</a></li>
+          <li><a href="cartes.html">Cartes</a></li>
+          <li><a href="https://discord.gg/hxyp2qFFAN" target="_blank" rel="noopener"><i class="bi bi-discord"></i> Discord</a></li>
+          <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="mobile-toggle" onclick="document.getElementById('navmenu').classList.toggle('open')" aria-label="Ouvrir le menu">
+        <i class="bi bi-list"></i>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="age-hero">
+      <div class="container age-hero-inner">
+        <div class="age-breadcrumb"><a href="index.html">Accueil</a> / Agenda</div>
+        <div class="age-label"><i class="bi bi-calendar-week"></i> Vie de l'association</div>
+        <h1>L'<em>agenda</em> de À l'Eure Digitale</h1>
+        <p>Ateliers, permanences, formations, réunions et événements : retrouvez ici toutes les prochaines dates de l'association et inscrivez-vous en un clic.</p>
+        <div class="age-count"><i class="bi bi-calendar-check"></i> <strong id="agenda-count">0</strong>&nbsp;événement(s) à venir</div>
+      </div>
+    </section>
+
+    <section class="agenda-section">
+      <div class="container">
+        <div class="section-title fade-up">
+          <div class="section-label">Calendrier</div>
+          <h2>Prochains événements</h2>
+          <p>Filtrez par type d'événement pour trouver rapidement ce qui vous intéresse. De nouvelles dates sont ajoutées régulièrement.</p>
+        </div>
+
+        <div id="agenda-filters" class="agenda-filters"></div>
+
+        <div id="agenda-liste" class="agenda-liste"></div>
+
+        <div id="agenda-empty" class="agenda-empty" style="display:none;">
+          <i class="bi bi-calendar-x"></i>
+          <p>Aucun événement à venir pour ce filtre pour le moment.<br>Revenez bientôt ou <a href="index.html#contact">contactez-nous</a> pour proposer une date.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html#hero" class="logo">A l'Eure<span>_</span>Digitale</a>
+          <p>Incubateur associatif de compétences numériques et de projets collaboratifs à impact social. Ancré dans le département de l'Eure, ouvert à tout le territoire.</p>
+          <div class="footer-slogan">*Apprendre – Partager – Construire ensemble</div>
+        </div>
+        <div class="footer-links">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html#hero">Accueil</a></li>
+            <li><a href="index.html#about">À propos</a></li>
+            <li><a href="index.html#actions">Nos actions</a></li>
+            <li><a href="index.html#permanences">Permanences</a></li>
+            <li><a href="agenda.html">Agenda</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="benevoles.html">Bénévoles</a></li>
+            <li><a href="index.html#reseau">Réseau pro</a></li>
+            <li><a href="index.html#discord">Communauté Discord</a></li>
+            <li><a href="index.html#projet">Match'Emploi</a></li>
+            <li><a href="adhesion.html">Adhérer</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h4>Nous contacter</h4>
+          <p><a href="tel:0658209902">06 58 20 99 02</a></p>
+          <p><a href="mailto:aleuredudigitale@gmail.com">aleuredudigitale@gmail.com</a></p>
+          <p>Évreux &amp; département de l'Eure (27)</p>
+          <p class="footer-discord-btn">
+            <a href="https://discord.gg/hxyp2qFFAN" target="_blank" rel="noopener"><i class="bi bi-discord"></i> Discord</a>
+          </p>
+          <p class="footer-legal-info">RNA : W272007431<br>SIREN : 101049781</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© <span id="current-year"></span> A l'Eure Digitale — Association loi 1901</p>
+        <p class="footer-siren">Numérique éthique · Open Source · Ancrage local</p>
+      </div>
+    </div>
+  </footer>
+
+  <a href="#hero" id="scroll-top" aria-label="Remonter en haut de la page"><i class="bi bi-arrow-up-short"></i></a>
+
+  <script>
+    const scrollTop = document.getElementById('scroll-top');
+    const navMenu = document.getElementById('navmenu');
+    const yearSpan = document.getElementById('current-year');
+
+    yearSpan.textContent = new Date().getFullYear();
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    window.addEventListener('scroll', () => {
+      scrollTop.classList.toggle('visible', window.scrollY > 400);
+    });
+
+    document.querySelectorAll('.navmenu a').forEach(a => {
+      a.addEventListener('click', () => navMenu.classList.remove('open'));
+    });
+  </script>
+
+  <script src="agenda.js"></script>
+
+</body>
+</html>

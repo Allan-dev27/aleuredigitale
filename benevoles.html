@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Bénévoles – A l'Eure Digitale</title>
+  <meta name="description" content="Devenez bénévole chez À l'Eure Digitale : formation, développement, communication, accompagnement, logistique. Découvrez toutes nos missions ouvertes dans l'Eure (27).">
+  <meta name="keywords" content="bénévolat, missions, association, numérique, Eure, engagement, aide">
+
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* ===== Bandeau spécifique à la page Bénévoles ===== */
+    .ben-hero {
+      background: var(--green-dark);
+      padding: 56px 0 44px;
+      position: relative;
+      overflow: hidden;
+    }
+    .ben-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 60% at 80% 50%, rgba(46,192,106,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 80% at 20% 100%, rgba(46,192,106,0.08) 0%, transparent 50%);
+    }
+    .ben-hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(46,192,106,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(46,192,106,0.06) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .ben-hero-inner { position: relative; z-index: 1; }
+    .ben-breadcrumb {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 18px;
+    }
+    .ben-breadcrumb a { color: rgba(255,255,255,0.5); text-decoration: none; }
+    .ben-breadcrumb a:hover { color: var(--green-accent); }
+    .ben-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-mono); font-size: 0.72rem;
+      color: var(--green-accent); border: 1px solid var(--green-accent);
+      padding: 5px 12px; border-radius: 2px;
+      letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 20px;
+    }
+    .ben-hero h1 {
+      font-size: clamp(1.9rem, 3.6vw, 2.9rem);
+      color: var(--white); margin-bottom: 14px;
+    }
+    .ben-hero h1 em { font-style: normal; color: var(--green-accent); }
+    .ben-hero p {
+      color: rgba(255,255,255,0.65); font-size: 1rem; max-width: 620px; margin-bottom: 22px;
+    }
+    .ben-count {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(46,192,106,0.25);
+      border-radius: 30px; padding: 8px 18px;
+      font-family: var(--font-mono); font-size: 0.82rem; color: rgba(255,255,255,0.85);
+    }
+    .ben-count strong { color: var(--green-accent); font-size: 1rem; }
+  </style>
+</head>
+
+<body>
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="topbar-contact">
+        <span><i class="bi bi-envelope-fill"></i><a href="mailto:aleuredudigitale@gmail.com">aleuredudigitale@gmail.com</a></span>
+        <span><i class="bi bi-telephone-fill"></i><a href="tel:0658209902">06 58 20 99 02</a></span>
+        <span><i class="bi bi-geo-alt-fill"></i>Évreux &amp; département de l'Eure (27)</span>
+      </div>
+      <div class="topbar-legal">RNA : W272007431 · SIREN : 101049781</div>
+    </div>
+  </div>
+
+  <header>
+    <nav class="nav-inner">
+      <a href="index.html#hero" class="logo">A l'Eure<span>_</span>Digitale</a>
+      <nav class="navmenu" id="navmenu">
+        <ul>
+          <li><a href="index.html#hero">Accueil</a></li>
+          <li><a href="index.html#about">À propos</a></li>
+          <li><a href="index.html#actions">Nos actions</a></li>
+          <li><a href="index.html#permanences">Permanences</a></li>
+          <li><a href="agenda.html">Agenda</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="benevoles.html" class="active">Bénévoles</a></li>
+          <li><a href="index.html#projet">Match'Emploi</a></li>
+          <li><a href="adhesion.html">Adhérer</a></li>
+          <li><a href="cartes.html">Cartes</a></li>
+          <li><a href="https://discord.gg/hxyp2qFFAN" target="_blank" rel="noopener"><i class="bi bi-discord"></i> Discord</a></li>
+          <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="mobile-toggle" onclick="document.getElementById('navmenu').classList.toggle('open')" aria-label="Ouvrir le menu">
+        <i class="bi bi-list"></i>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="ben-hero">
+      <div class="container ben-hero-inner">
+        <div class="ben-breadcrumb"><a href="index.html">Accueil</a> / Bénévoles</div>
+        <div class="ben-label"><i class="bi bi-heart-fill"></i> Rejoindre l'équipe</div>
+        <h1>Devenez <em>bénévole</em> chez À l'Eure Digitale</h1>
+        <p>Formation, développement, communication, accompagnement, logistique ou administration : chaque mission compte, quel que soit le temps que vous pouvez y consacrer.</p>
+        <div class="ben-count"><i class="bi bi-heart"></i> <strong id="benevolat-count">0</strong>&nbsp;mission(s) à pourvoir</div>
+      </div>
+    </section>
+
+    <section class="benevolat-section">
+      <div class="container">
+        <div class="section-title fade-up">
+          <div class="section-label">Missions</div>
+          <h2>Offres de bénévolat</h2>
+          <p>Filtrez par domaine pour trouver la mission qui correspond à vos compétences et à vos disponibilités.</p>
+        </div>
+
+        <div id="benevolat-filters" class="benevolat-filters"></div>
+
+        <div id="benevolat-liste" class="benevolat-liste"></div>
+
+        <div id="benevolat-empty" class="benevolat-empty" style="display:none;">
+          <i class="bi bi-heart"></i>
+          <p>Aucune mission dans ce domaine pour le moment.<br>Écrivez-nous, on trouvera peut-être une place pour vous : <a href="mailto:aleuredudigitale@gmail.com">contactez-nous</a>.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html#hero" class="logo">A l'Eure<span>_</span>Digitale</a>
+          <p>Incubateur associatif de compétences numériques et de projets collaboratifs à impact social. Ancré dans le département de l'Eure, ouvert à tout le territoire.</p>
+          <div class="footer-slogan">*Apprendre – Partager – Construire ensemble</div>
+        </div>
+        <div class="footer-links">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html#hero">Accueil</a></li>
+            <li><a href="index.html#about">À propos</a></li>
+            <li><a href="index.html#actions">Nos actions</a></li>
+            <li><a href="index.html#permanences">Permanences</a></li>
+            <li><a href="agenda.html">Agenda</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="benevoles.html">Bénévoles</a></li>
+            <li><a href="index.html#reseau">Réseau pro</a></li>
+            <li><a href="index.html#discord">Communauté Discord</a></li>
+            <li><a href="index.html#projet">Match'Emploi</a></li>
+            <li><a href="adhesion.html">Adhérer</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h4>Nous contacter</h4>
+          <p><a href="tel:0658209902">06 58 20 99 02</a></p>
+          <p><a href="mailto:aleuredudigitale@gmail.com">aleuredudigitale@gmail.com</a></p>
+          <p>Évreux &amp; département de l'Eure (27)</p>
+          <p class="footer-discord-btn">
+            <a href="https://discord.gg/hxyp2qFFAN" target="_blank" rel="noopener"><i class="bi bi-discord"></i> Discord</a>
+          </p>
+          <p class="footer-legal-info">RNA : W272007431<br>SIREN : 101049781</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© <span id="current-year"></span> A l'Eure Digitale — Association loi 1901</p>
+        <p class="footer-siren">Numérique éthique · Open Source · Ancrage local</p>
+      </div>
+    </div>
+  </footer>
+
+  <a href="#hero" id="scroll-top" aria-label="Remonter en haut de la page"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Détail d'une mission -->
+  <div id="benevolat-modal" class="benevolat-modal-overlay" data-benevolat-close>
+    <div class="benevolat-modal" onclick="event.stopPropagation()">
+      <button class="benevolat-modal-close" data-benevolat-close aria-label="Fermer la mission"><i class="bi bi-x-lg"></i></button>
+      <div class="benevolat-modal-domaine"></div>
+      <h3 class="benevolat-modal-title"></h3>
+      <div class="benevolat-modal-meta"></div>
+      <p class="benevolat-modal-desc"></p>
+      <h5>Ce que vous ferez</h5>
+      <ul class="benevolat-modal-missions"></ul>
+      <h5>Compétences ou qualités recherchées</h5>
+      <div class="benevolat-modal-tags"></div>
+      <a href="#" class="benevolat-modal-apply"><i class="bi bi-send-fill"></i> Je suis intéressé(e)</a>
+    </div>
+  </div>
+
+  <script>
+    const scrollTop = document.getElementById('scroll-top');
+    const navMenu = document.getElementById('navmenu');
+    const yearSpan = document.getElementById('current-year');
+
+    yearSpan.textContent = new Date().getFullYear();
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    window.addEventListener('scroll', () => {
+      scrollTop.classList.toggle('visible', window.scrollY > 400);
+    });
+
+    document.querySelectorAll('.navmenu a').forEach(a => {
+      a.addEventListener('click', () => navMenu.classList.remove('open'));
+    });
+  </script>
+
+  <script src="benevolat.js"></script>
+
+</body>
+</html>
