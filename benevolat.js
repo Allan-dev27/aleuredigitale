@@ -36,10 +36,10 @@ const DOMAINES = {
 const OFFRES = [
   {
     id: "ben-001",
-    titre: "Formateur / formatrice ateliers numériques",
+    titre: "Animateur / animatrice d'ateliers numériques",
     domaine: "formation",
     engagement: "3h / mois",
-    lieu: "Évreux & Bernay",
+    lieu: "Broglie (27)",
     niveau: "Confirmé",
     description: "Animez nos ateliers Git, Linux, sécurité ou web auprès de publics débutants à intermédiaires, une fois par mois environ.",
     missions: [
@@ -90,7 +90,7 @@ const OFFRES = [
     titre: "Bénévole permanences numériques",
     domaine: "accompagnement",
     engagement: "2h / mois",
-    lieu: "Bernay",
+    lieu: "Broglie (27)",
     niveau: "Débutant accepté",
     description: "Accueillez et accompagnez les habitants dans leurs démarches administratives en ligne lors des permanences en bibliothèque.",
     missions: [
@@ -107,7 +107,7 @@ const OFFRES = [
     titre: "Bénévole logistique événements",
     domaine: "logistique",
     engagement: "Ponctuel",
-    lieu: "Évreux",
+    lieu: "Broglie (27)",
     niveau: "Débutant accepté",
     description: "Prêtez main-forte lors de nos temps forts (Hackathon Match'Emploi, Assemblée Générale, EureTech & Inclusion) : installation, accueil, rangement.",
     missions: [
@@ -120,12 +120,12 @@ const OFFRES = [
   },
   {
     id: "ben-006",
-    titre: "Trésorier / trésorière adjoint(e)",
+    titre: "Trésorier / trésorière",
     domaine: "administration",
     engagement: "2h / mois",
     lieu: "À distance",
     niveau: "Confirmé",
-    description: "Épaulez notre trésorier dans le suivi comptable de l'association : cotisations, subventions, notes de frais.",
+    description: "Épaulez notre président dans le suivi comptable de l'association : cotisations, subventions, notes de frais.",
     missions: [
       "Suivre les entrées et sorties (cotisations HelloAsso, subventions, achats)",
       "Préparer les documents comptables pour l'Assemblée Générale",
