@@ -65,4 +65,3 @@ async function handleForm(e) {
 document.querySelectorAll('.navmenu a').forEach(a => {
   a.addEventListener('click', () => document.getElementById('navmenu').classList.remove('open'));
 });
-  </script>
