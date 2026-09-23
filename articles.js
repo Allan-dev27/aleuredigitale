@@ -56,7 +56,7 @@ const ARTICLES = [
     categorie: "atelier",
     icone: "bi-desktop",
     extrait: "L'atelier numérique du 1er septembre a permis un accompagnement individuel aux participants.",
-    contenu: "L'atelier « Git & GitHub — débutants » du 5 juillet a fait salle comble à BeeCowork. Quinze participants, du curieux complet au développeur en reconversion, ont découvert ensemble les commandes de base : init, add, commit, push, et la logique des branches.\n\nAu programme également : la création d'un premier dépôt public et l'ouverture d'une première pull request, souvent vécue comme un petit rite de passage.\n\nDevant le succès de la session, une deuxième édition est à l'étude pour l'automne. Suivez notre agenda pour ne pas la manquer.",
+    contenu: "L'atelier numérique du 1er septembre à bien démarré et a permis de démarrer les accompagnements individuels à la Webradio Radio Broglie.\n\nAu programme également : La création d'un tableau Excel pour lister les participants de son association, dans le cadre de l'Assemblée Générale annuel de son association..\n\nDurant la séance, Liliane à adhérer à l'association et a pu bénéficier d'un accompagnement personnalisé pour la création de son tableau Excel. Elle a pu poser toutes ses questions et repartir avec un tableau fonctionnel et adapté à ses besoins.",
     tempsLecture: 2,
     lien: "",
     labelLien: "",

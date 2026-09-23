@@ -125,6 +125,19 @@ const EVENTS = [
     labelLien: "Participer",
     complet: false,
   },
+   {
+    id: "evt-008",
+    titre: "Eure Tech Inclusion",
+    date: "2026-11-19",
+    heureDebut: "10:00",
+    heureFin: "16:00",
+    lieu: "Radio Broglie, 26, Rue de la Victoire, Brogile",
+    type: "evenement",
+    description: "Événement dédié à l'inclusion numérique dans la région.",
+    lien: "mailto:aleuredudigitale@gmail.com?subject=Eure+Tech+Inclusion",
+    labelLien: "Participer",
+    complet: false,
+  },
 ];
 
 // ============================================================
