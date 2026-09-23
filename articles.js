@@ -82,7 +82,7 @@ const ARTICLES = [
     categorie: "partenariat",
     icone: "bi-handshake",
     extrait: "L'association officialise sa collaboration avec la Webradio locale pour accompagner davantage de structures locales dans leur transition numérique.",
-    contenu: "À l'Eure Digitale annonce un nouveau partenariat avec la CCI Portes de Normandie. Cette collaboration vise à mieux accompagner les artisans, commerçants et petites entreprises du territoire dans leurs usages numériques : présence en ligne, outils de gestion, sécurité informatique.\n\nConcrètement, ce partenariat se traduira par des ateliers dédiés aux professionnels et par la mise à disposition de nos bénévoles pour des sessions de conseil ponctuelles.\n\nUn premier rendez-vous est déjà prévu : le Hackathon Match'Emploi, organisé conjointement le 13 juillet 2027 dans les locaux de la Webradio partenaire : Radio Broglie.",
+    contenu: "À l'Eure Digitale annonce un nouveau partenariat avec la Webradio locale : Radio Broglie. Cette collaboration vise à mieux accompagner les artisans, commerçants et petites entreprises du territoire dans leurs usages numériques : présence en ligne, outils de gestion, sécurité informatique.\n\nConcrètement, ce partenariat se traduira par des ateliers dédiés aux particuliers et par la mise à disposition des locaux pour des ateliers numérique et pour des événements.\n\nUn premier rendez-vous est déjà prévu : la journée Eure Tech & Inclusion, organisé conjointement le 19 novembre 2026 dans les locaux de la Webradio partenaire : Radio Broglie.",
     tempsLecture: 2,
     lien: "",
     labelLien: "",
