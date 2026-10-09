@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Match'Emploi – A l'Eure Digitale</title>
+  <meta name="description" content="Match'Emploi : la plateforme de mise en relation entre compétences, projets et opportunités professionnelles dans l'Eure, portée par À l'Eure Digitale.">
+  <meta name="keywords" content="Match'Emploi, emploi, insertion, compétences, plateforme, Eure, association, numérique">
+
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* ===== Page Match'Emploi ===== */
+    .me-hero {
+      background: var(--green-dark);
+      padding: 64px 0 56px;
+      position: relative;
+      overflow: hidden;
+    }
+    .me-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 60% at 80% 50%, rgba(46,192,106,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 80% at 20% 100%, rgba(46,192,106,0.08) 0%, transparent 50%);
+    }
+    .me-hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(46,192,106,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(46,192,106,0.06) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .me-hero-inner { position: relative; z-index: 1; }
+    .me-breadcrumb { font-family: var(--font-mono); font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-bottom: 18px; }
+    .me-breadcrumb a { color: rgba(255,255,255,0.5); text-decoration: none; }
+    .me-breadcrumb a:hover { color: var(--green-accent); }
+    .me-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-mono); font-size: 0.72rem;
+      color: var(--green-accent); border: 1px solid var(--green-accent);
+      padding: 5px 12px; border-radius: 2px;
+      letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 20px;
+    }
+    .me-hero h1 { font-size: clamp(2.1rem, 4.4vw, 3.4rem); color: var(--white); margin-bottom: 10px; }
+    .me-tagline { font-family: var(--font-mono); font-style: italic; font-size: 0.95rem; color: var(--green-light); margin-bottom: 18px; }
+    .me-hero p.me-lead { color: rgba(255,255,255,0.7); font-size: 1.05rem; max-width: 640px; margin-bottom: 28px; }
+    .me-hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .me-section { padding: 72px 0; }
+    .me-section--alt { background: var(--white); }
+    .me-section--dark { background: var(--green-dark); }
+    .me-section--dark .section-title h2,
+    .me-section--dark h3 { color: var(--white); }
+    .me-section--dark .section-title p { color: rgba(255,255,255,0.6); }
+
+    .me-two { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 8px; }
+    .me-box {
+      background: var(--white); border: 1px solid var(--border);
+      border-left: 4px solid var(--green-accent);
+      border-radius: 6px; padding: 26px 26px 22px;
+    }
+    .me-box h3 { font-size: 1rem; margin-bottom: 10px; color: var(--green-dark); }
+    .me-box p { color: var(--ink-soft); font-size: 0.95rem; }
+
+    .me-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 8px; list-style: none; counter-reset: step; }
+    .me-step { counter-increment: step; position: relative; padding: 26px 24px; border: 1px solid var(--border); border-radius: 6px; background: var(--cream); }
+    .me-step::before {
+      content: counter(step);
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 34px; height: 34px; border-radius: 50%;
+      background: var(--green-dark); color: var(--green-accent);
+      font-family: var(--font-mono); font-weight: 700; margin-bottom: 14px;
+    }
+    .me-step h3 { font-size: 1rem; margin-bottom: 8px; color: var(--green-dark); }
+    .me-step p { font-size: 0.92rem; color: var(--ink-soft); }
+
+    .me-goals { list-style: none; display: grid; gap: 14px; max-width: 720px; }
+    .me-goals li { display: flex; gap: 12px; align-items: flex-start; font-size: 1.02rem; color: var(--ink-soft); }
+    .me-goals i { color: var(--green-accent); font-size: 1.3rem; line-height: 1.3; }
+
+    .me-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+    .me-tag {
+      font-family: var(--font-mono); font-size: 0.8rem;
+      padding: 8px 14px; border-radius: 30px;
+      border: 1px solid var(--green-accent); color: var(--green-dark); background: var(--cream);
+    }
+
+    .me-stack { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+    .me-stack span {
+      font-family: var(--font-mono); font-size: 0.78rem; padding: 7px 13px;
+      border: 1px solid rgba(46,192,106,0.35); border-radius: 4px; color: var(--green-light);
+      background: rgba(255,255,255,0.05);
+    }
+    .me-note { margin-top: 18px; font-size: 0.85rem; color: rgba(255,255,255,0.5); }
+
+    .me-join { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 8px; }
+    .me-join-card {
+      display: flex; flex-direction: column; gap: 10px;
+      background: var(--white); border: 1px solid var(--border); border-radius: 6px;
+      padding: 26px 24px; text-decoration: none; color: inherit;
+      transition: border-color .2s, transform .2s;
+    }
+    .me-join-card:hover { border-color: var(--green-accent); transform: translateY(-3px); }
+    .me-join-card i { font-size: 1.6rem; color: var(--green-accent); }
+    .me-join-card h3 { font-size: 1rem; color: var(--green-dark); }
+    .me-join-card p { font-size: 0.9rem; color: var(--ink-soft); flex: 1; }
+    .me-join-card span { font-family: var(--font-mono); font-size: 0.8rem; color: var(--green-mid); font-weight: 700; }
+
+    .me-cta { text-align: center; }
+    .me-cta p { max-width: 560px; margin: 0 auto 24px; color: rgba(255,255,255,0.7); }
+    .me-cta .me-hero-actions { justify-content: center; }
+
+    @media (max-width: 860px) {
+      .me-two, .me-steps, .me-join { grid-template-columns: 1fr; }
+      .me-section { padding: 52px 0; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="topbar-contact">
+        <span><i class="bi bi-envelope-fill"></i><a href="mailto:contact@aleuredigitale.fr">contact@aleuredigitale.fr</a></span>
+        <span><i class="bi bi-telephone-fill"></i><a href="tel:0658209902">06 58 20 99 02</a></span>
+        <span><i class="bi bi-geo-alt-fill"></i>Évreux &amp; département de l'Eure (27)</span>
+      </div>
+      <div class="topbar-legal">RNA : W272007431 · SIREN : 101049781</div>
+    </div>
+  </div>
+
+  <header>
+    <nav class="nav-inner">
+      <a href="index.html#hero" class="logo logo--header" aria-label="À l'Eure Digitale — accueil"><img src="logo_AED.png" alt="À l'Eure Digitale — Apprendre, partager, construire ensemble" class="logo-img" width="699" height="244"></a>
+      <nav class="navmenu" id="navmenu">
+         <ul>
+          <li><a href="#hero" class="active">Accueil</a></li>
+          <li><a href="#about">À propos</a></li>
+          <li><a href="#actions">Nos actions</a></li>
+          <li><a href="agenda.html">Agenda</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="benevoles.html">Bénévoles</a></li>
+          <li><a href="association.html">L'association</a></li>
+          <li class="has-dropdown">
+            <a href="#" class="dropdown-toggle" onclick="return false;">Découvrir <i class="bi bi-chevron-down"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="jeu.html">Jeu</a></li>
+              <li><a href="matchemploi.html">Match'Emploi</a></li>
+              <li><a href="https://discord.gg/hxyp2qFFAN" target="_blank"><i class="bi bi-discord"></i> Discord</a></li>
+            </ul>
+          </li>
+          <li><a href="#contact" class="nav-cta">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="mobile-toggle" onclick="document.getElementById('navmenu').classList.toggle('open')" aria-label="Ouvrir le menu">
+        <i class="bi bi-list"></i>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="me-hero">
+      <div class="container me-hero-inner">
+        <div class="me-breadcrumb"><a href="index.html">Accueil</a> / Match'Emploi</div>
+        <div class="me-label"><i class="bi bi-rocket-takeoff"></i> Projet en cours de développement</div>
+        <h1>Match'Emploi</h1>
+        <div class="me-tagline">Le Tinder de l'emploi, pour notre territoire</div>
+        <p class="me-lead">Une plateforme pour faire se rencontrer les compétences, les projets et les opportunités professionnelles de l'Eure, selon ce que chacun sait faire, ce dont il a besoin et où il habite.</p>
+        <div class="me-hero-actions">
+          <a href="benevoles.html" class="btn-primary"><i class="bi bi-code-slash"></i> Contribuer au projet</a>
+          <a href="https://discord.gg/hxyp2qFFAN" target="_blank" rel="noopener" class="btn-outline" style="color:var(--white);border-color:rgba(255,255,255,0.4);"><i class="bi bi-discord"></i> Rejoindre le Discord</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="me-section" id="constat">
+      <div class="container">
+        <div class="section-title fade-up">
+          <div class="section-label">Pourquoi ce projet</div>
+          <h2>Un décalage à réduire</h2>
+          <p>Des compétences existent sur le territoire, des structures locales cherchent des profils : il manque le lien entre les deux.</p>
+        </div>
+        <div class="me-two fade-up">
+          <div class="me-box">
+            <h3>Le problème</h3>
+            <p>De nombreuses personnes possèdent des compétences mais peinent à trouver des opportunités adaptées, tandis que des structures locales manquent de profils disponibles.</p>
+          </div>
+          <div class="me-box">
+            <h3>Notre solution</h3>
+            <p>Une plateforme de mise en relation basée sur les compétences, les besoins et la proximité locale. Match'Emploi réduit ce décalage grâce au numérique.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="me-section me-section--alt" id="fonctionnement">
+      <div class="container">
+        <div class="section-title fade-up">
+          <div class="section-label">Le principe</div>
+          <h2>Comment ça marche</h2>
+          <p>Un parcours simple, pensé pour être utilisable par tous, même sans aisance numérique.</p>
+        </div>
+        <ol class="me-steps fade-up">
+          <li class="me-step">
+            <h3>Je crée mon profil</h3>
+            <p>Compétences, envies, disponibilités : ou, pour une structure, les besoins et les missions à pourvoir.</p>
+          </li>
+          <li class="me-step">
+            <h3>Je découvre les propositions</h3>
+            <p>Les profils et les offres proches de chez moi défilent, comme on feuillette des cartes.</p>
+          </li>
+          <li class="me-step">
+            <h3>On se met en relation</h3>
+            <p>Quand l'intérêt est réciproque, c'est un match : les deux parties peuvent échanger.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="me-section" id="objectifs">
+      <div class="container">
+        <div class="section-title fade-up">
+          <div class="section-label">Impact</div>
+          <h2>Nos objectifs</h2>
+        </div>
+        <ul class="me-goals fade-up">
+          <li><i class="bi bi-check2-circle"></i><span>Favoriser l'insertion professionnelle locale</span></li>
+          <li><i class="bi bi-check2-circle"></i><span>Valoriser les compétences du territoire</span></li>
+          <li><i class="bi bi-check2-circle"></i><span>Réduire l'isolement face à l'emploi</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="me-section me-section--alt" id="public">
+      <div class="container">
+        <div class="section-title fade-up">
+          <div class="section-label">Pour qui</div>
+          <h2>À qui s'adresse Match'Emploi ?</h2>
+        </div>
+        <div class="me-tags fade-up">
+          <span class="me-tag">Jeunes en reconversion</span>
+          <span class="me-tag">Demandeurs d'emploi</span>
+          <span class="me-tag">Associations locales</span>
+          <span class="me-tag">Porteurs de projets</span>
+          <span class="me-tag">Entreprises de proximité</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="me-section me-section--dark" id="technique">
+      <div class="container">
+        <div class="section-title fade-up">
+          <div class="section-label">Sous le capot</div>
+          <h2>La stack technique prévue</h2>
+          <p>Un projet open source construit avec des technologies de production, sur lequel les bénévoles peuvent apprendre.</p>
+        </div>
+        <div class="me-stack fade-up">
+          <span>TypeScript</span>
+          <span>React Native</span>
+          <span>React.js</span>
+          <span>Next.js</span>
+          <span>NestJS</span>
+          <span>PostgreSQL</span>
+          <span>Redis</span>
+          <span>Elasticsearch</span>
+          <span>Firebase Auth</span>
+          <span>Stripe</span>
+        </div>
+        <p class="me-note">Architecture en cours de conception : elle peut évoluer au fil du projet.</p>
+      </div>
+    </section>
+
+    <section class="me-section" id="participer">
+      <div class="container">
+        <div class="section-title fade-up">
+          <div class="section-label">Participer</div>
+          <h2>Construisons-le ensemble</h2>
+          <p>Que vous sachiez coder ou non, il y a une place pour vous dans le projet.</p>
+        </div>
+        <div class="me-join fade-up">
+          <a href="benevoles.html" class="me-join-card">
+            <i class="bi bi-code-slash"></i>
+            <h3>Devenir développeur bénévole</h3>
+            <p>Front ou back, 2 à 4 h par semaine, à distance. Les débutants sont acceptés.</p>
+            <span>Voir la mission</span>
+          </a>
+          <a href="https://discord.gg/hxyp2qFFAN" target="_blank" rel="noopener" class="me-join-card">
+            <i class="bi bi-discord"></i>
+            <h3>Rejoindre l'équipe sur Discord</h3>
+            <p>Suivre l'avancement, poser vos questions et participer aux points d'équipe.</p>
+            <span>Ouvrir Discord</span>
+          </a>
+          <a href="agenda.html" class="me-join-card">
+            <i class="bi bi-calendar-event"></i>
+            <h3>Venir à un temps fort</h3>
+            <p>Ateliers et événements de co-création : design, développement, retours utilisateurs.</p>
+            <span>Consulter l'agenda</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="me-section me-section--dark me-cta">
+      <div class="container">
+        <h2 style="color:var(--white);margin-bottom:14px;">Une question, une idée, une structure à associer ?</h2>
+        <p>Entreprises, associations et porteurs de projets : écrivez-nous pour participer dès les premières versions.</p>
+        <div class="me-hero-actions">
+          <a href="mailto:contact@aleuredigitale.fr?subject=Match%27Emploi" class="btn-primary"><i class="bi bi-envelope-fill"></i> Nous écrire</a>
+          <a href="blog.html" class="btn-outline" style="color:var(--white);border-color:rgba(255,255,255,0.4);"><i class="bi bi-journal-richtext"></i> Lire les actualités</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html#hero" class="logo logo--footer" aria-label="À l'Eure Digitale — accueil"><img src="logo_AED.png" alt="À l'Eure Digitale — Apprendre, partager, construire ensemble" class="logo-img" width="699" height="244"></a>
+          <p>Incubateur associatif de compétences numériques et de projets collaboratifs à impact social. Ancré dans le département de l'Eure, ouvert à tout le territoire.</p>
+          <div class="footer-slogan" style="color:var(--white);">*Apprendre – Partager – Construire ensemble</div>
+        </div>
+        <div class="footer-links">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html#hero">Accueil</a></li>
+            <li><a href="index.html#about">À propos</a></li>
+            <li><a href="index.html#actions">Nos actions</a></li>
+            <li><a href="index.html#permanences">Permanences</a></li>
+            <li><a href="agenda.html">Agenda</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="jeu.html">Jeu</a></li>
+            <li><a href="benevoles.html">Bénévoles</a></li>
+            <li><a href="index.html#reseau">Réseau pro</a></li>
+            <li><a href="index.html#discord">Communauté Discord</a></li>
+            <li><a href="matchemploi.html">Match'Emploi</a></li>
+            <li><a href="adhesion.html">Adhérer</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h4>Nous contacter</h4>
+          <p><a href="tel:0658209902">06 58 20 99 02</a></p>
+          <p><a href="mailto:contact@aleuredigitale.fr">contact@aleuredigitale.fr</a></p>
+          <p>Évreux &amp; département de l'Eure (27)</p>
+          <p class="footer-discord-btn">
+            <a href="https://discord.gg/hxyp2qFFAN" target="_blank" rel="noopener"><i class="bi bi-discord"></i> Discord</a>
+          </p>
+          <p class="footer-legal-info">RNA : W272007431<br>SIREN : 101049781</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© <span id="current-year"></span> A l'Eure Digitale — Association loi 1901</p>
+        <p class="footer-siren">Numérique éthique · Open Source · Ancrage local</p>
+      </div>
+    </div>
+  </footer>
+
+  <a href="#hero" id="scroll-top" aria-label="Remonter en haut de la page"><i class="bi bi-arrow-up-short"></i></a>
+
+  <script>
+    const scrollTop = document.getElementById('scroll-top');
+    const navMenu = document.getElementById('navmenu');
+    const yearSpan = document.getElementById('current-year');
+
+    yearSpan.textContent = new Date().getFullYear();
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    window.addEventListener('scroll', () => {
+      scrollTop.classList.toggle('visible', window.scrollY > 400);
+    });
+
+    document.querySelectorAll('.navmenu a').forEach(a => {
+      a.addEventListener('click', () => navMenu.classList.remove('open'));
+    });
+  </script>
+
+</body>
+</html>

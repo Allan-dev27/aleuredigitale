@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Candidature — Agence de communication solidaire | A l'Eure Digitale</title>
+  <meta name="description" content="Candidatez au dispositif de mécénat de compétences en communication d'À l'Eure Digitale, réservé aux petites associations du département de l'Eure.">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* ===== Page candidature — spécifique ===== */
+    .candid-hero {
+      background: var(--green-dark);
+      padding: 64px 0 48px;
+      position: relative; overflow: hidden;
+    }
+    .candid-hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(46,192,106,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(46,192,106,0.06) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+    .candid-hero .container { position: relative; z-index: 1; }
+    .candid-hero h1 {
+      font-size: clamp(1.8rem, 3.2vw, 2.6rem); color: var(--white); margin-bottom: 14px;
+    }
+    .candid-hero p { color: rgba(255,255,255,0.65); max-width: 620px; font-size: 0.98rem; }
+
+    .candid-section { background: var(--cream); padding: 60px 0 90px; }
+    .candid-layout {
+      display: grid; grid-template-columns: 0.85fr 1.4fr; gap: 40px; align-items: start;
+    }
+    @media (max-width: 900px) { .candid-layout { grid-template-columns: 1fr; } }
+
+    .candid-criteria {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 8px; padding: 28px;
+    }
+    .candid-criteria h3 {
+      font-size: 0.95rem; color: var(--green-dark); margin-bottom: 16px;
+    }
+    .candid-criteria ul { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 22px; }
+    .candid-criteria li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.85rem; color: var(--ink-soft); line-height: 1.5; }
+    .candid-criteria li i { color: var(--green-accent); margin-top: 3px; flex-shrink: 0; }
+    .candid-criteria .form-hint { display: block; margin-top: 6px; }
+
+    .check-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 4px; }
+    .check-row input[type="checkbox"] { margin-top: 3px; accent-color: var(--green-accent); width: 16px; height: 16px; flex-shrink: 0; }
+    .check-row label { font-size: 0.85rem; color: var(--ink-soft); line-height: 1.5; }
+  </style>
+</head>
+
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="topbar-contact">
+        <span><i class="bi bi-envelope-fill"></i><a href="mailto:contact@aleuredigitale.fr">contact@aleuredigitale.fr</a></span>
+        <span><i class="bi bi-telephone-fill"></i><a href="tel:0658209902">06 58 20 99 02</a></span>
+        <span><i class="bi bi-geo-alt-fill"></i>Évreux &amp; département de l'Eure (27)</span>
+      </div>
+      <div>RNA&nbsp;:&nbsp;W272007431&nbsp;·&nbsp;SIREN&nbsp;:&nbsp;101049781</div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <nav class="nav-inner">
+      <a href="index.html" class="logo logo--header" aria-label="À l'Eure Digitale — accueil"><img src="logo_AED.png" alt="À l'Eure Digitale — Apprendre, partager, construire ensemble" class="logo-img" width="699" height="244"></a>
+      <nav class="navmenu" id="navmenu">
+        <ul>
+          <li><a href="index.html#hero">Accueil</a></li>
+          <li><a href="index.html#about">À propos</a></li>
+          <li><a href="index.html#actions">Nos actions</a></li>
+          <li><a href="agenda.html">Agenda</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="jeu.html">Jeu</a></li>
+          <li><a href="benevoles.html">Bénévoles</a></li>
+          <li><a href="association.html">L'association</a></li>
+          <li><a href="candidature-agence.html" class="active">Agence solidaire</a></li>
+          <li><a href="https://discord.gg/hxyp2qFFAN" target="_blank" style="display:flex;align-items:center;gap:5px;"><i class="bi bi-discord"></i> Discord</a></li>
+          <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="mobile-toggle" onclick="document.getElementById('navmenu').classList.toggle('open')">
+        <i class="bi bi-list"></i>
+      </button>
+    </nav>
+  </header>
+
+  <!-- BANDEAU ÉVÉNEMENT + COMPTE À REBOURS -->
+  <aside class="event-banner" id="event-banner"
+         data-start="2026-11-19T10:00:00+01:00"
+         data-end="2026-11-19T17:00:00+01:00"
+         aria-label="Prochain événement : Eure Tech &amp; Inclusion 2026" hidden>
+    <div class="event-banner-inner">
+      <div class="event-banner-info">
+        <div class="event-banner-kicker"><i class="bi bi-calendar-event"></i> Prochain événement</div>
+        <div class="event-banner-title">Eure Tech &amp; Inclusion 2026</div>
+        <div class="event-banner-meta">Jeudi 19 novembre, 10h à 17h, Radio Broglie</div>
+      </div>
+      <div class="event-countdown" id="event-countdown" role="timer" aria-live="off">
+        <div class="cd-cell"><span class="cd-num" data-unit="days">00</span><span class="cd-label">jours</span></div>
+        <div class="cd-cell"><span class="cd-num" data-unit="hours">00</span><span class="cd-label">heures</span></div>
+        <div class="cd-cell"><span class="cd-num" data-unit="minutes">00</span><span class="cd-label">min</span></div>
+        <div class="cd-cell"><span class="cd-num" data-unit="seconds">00</span><span class="cd-label">sec</span></div>
+      </div>
+      <div class="event-live" id="event-live" hidden>C'est aujourd'hui !</div>
+      <a href="euretechinclusion.html" class="event-banner-cta">Voir le programme <i class="bi bi-arrow-right-short"></i></a>
+      <button type="button" class="event-banner-close" id="event-banner-close" aria-label="Masquer le bandeau"><i class="bi bi-x-lg"></i></button>
+    </div>
+  </aside>
+
+  <main>
+
+    <!-- HERO PAGE -->
+    <section class="candid-hero">
+      <div class="container">
+        <div class="section-label" style="color:var(--green-accent);">Agence de communication solidaire</div>
+        <h1>Un accompagnement com', gratuit, pour les petites associations de l'Eure</h1>
+        <p>Dans le cadre de son agence de communication associative, À l'Eure Digitale propose un accompagnement gratuit, sous forme de mécénat de compétences, aux associations locales qui n'ont pas les moyens de recourir à une agence classique. Candidatures traitées au fil de l'eau.</p>
+      </div>
+    </section>
+
+    <!-- CANDIDATURE -->
+    <section class="candid-section">
+      <div class="container">
+        <div class="candid-layout">
+
+          <!-- CRITÈRES -->
+          <div class="candid-criteria fade-up">
+            <h3><i class="bi bi-clipboard-check" style="color:var(--green-accent);"></i>&nbsp; Avant de candidater</h3>
+            <ul>
+              <li><i class="bi bi-check-circle-fill"></i> Association loi 1901 (ou en cours de création), à but non lucratif</li>
+              <li><i class="bi bi-check-circle-fill"></i> Ancrée dans l'Eure ou à proximité</li>
+              <li><i class="bi bi-check-circle-fill"></i> Sans moyens financiers pour recourir à une agence commerciale</li>
+              <li><i class="bi bi-check-circle-fill"></i> Objet compatible avec les valeurs d'ALED (inclusion, intérêt général)</li>
+            </ul>
+            <span class="form-hint"><i class="bi bi-info-circle"></i>&nbsp; Priorité aux structures 100&nbsp;% bénévoles et aux projets précis, délimités dans le temps. L'association candidate fournit les contenus de base (textes, photos) ; nous apportons l'expertise.</span>
+          </div>
+
+          <!-- FORMULAIRE -->
+          <div class="reg-form-wrap fade-up">
+            <div class="reg-form-header">
+              <span class="form-tag">Candidature</span>
+              <h2>Votre demande d'accompagnement</h2>
+              <p>Comptez environ 5 minutes. Nous revenons vers vous sous 3 semaines maximum.</p>
+            </div>
+            <div class="reg-form-body">
+              <form id="candidature-form" action="https://formspree.io/f/aleuredudigitale@gmail.com" method="POST">
+
+                <div class="form-section-title"><i class="bi bi-building"></i> Votre association</div>
+                <div class="form-grid cols-2">
+                  <div class="form-field">
+                    <label class="form-label" for="c-nom">Nom de l'association<span class="required">*</span></label>
+                    <input class="form-input" type="text" id="c-nom" name="nom_association" required>
+                  </div>
+                  <div class="form-field">
+                    <label class="form-label" for="c-statut">Statut<span class="required">*</span></label>
+                    <select class="form-select" id="c-statut" name="statut" required>
+                      <option value="">Choisir…</option>
+                      <option>Association loi 1901 déclarée</option>
+                      <option>Association en cours de création</option>
+                      <option>Autre statut à but non lucratif</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-grid">
+                  <div class="form-field">
+                    <label class="form-label" for="c-zone">Commune / zone géographique<span class="required">*</span></label>
+                    <input class="form-input" type="text" id="c-zone" name="zone" placeholder="Ex : Évreux et environs" required>
+                  </div>
+                  <div class="form-field">
+                    <label class="form-label" for="c-objet">Objet de l'association<span class="required">*</span></label>
+                    <textarea class="form-textarea" id="c-objet" name="objet" placeholder="Quelle est votre mission ?" required></textarea>
+                  </div>
+                </div>
+
+                <div class="check-row">
+                  <input type="checkbox" id="c-moyens" name="sans_moyens" value="oui" required>
+                  <label for="c-moyens">Nous ne disposons pas de moyens financiers permettant de recourir à une agence de communication commerciale.</label>
+                </div>
+
+                <div class="form-section-title" style="margin-top:26px;"><i class="bi bi-megaphone"></i> Votre demande</div>
+                <div class="form-grid">
+                  <div class="form-field">
+                    <label class="form-label" for="c-type">Type de prestation souhaitée<span class="required">*</span></label>
+                    <select class="form-select" id="c-type" name="type_prestation" required>
+                      <option value="">Choisir…</option>
+                      <option>Création ou refonte de site web</option>
+                      <option>Identité visuelle / logo</option>
+                      <option>Supports de communication (flyers, affiches…)</option>
+                      <option>Réseaux sociaux</option>
+                      <option>Autre</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label class="form-label" for="c-projet">Décrivez votre projet<span class="required">*</span></label>
+                    <textarea class="form-textarea" id="c-projet" name="projet" placeholder="Objectif, contexte, contenus dont vous disposez déjà" required></textarea>
+                  </div>
+                </div>
+                <div class="form-grid cols-2">
+                  <div class="form-field">
+                    <label class="form-label" for="c-delai">Délai souhaité</label>
+                    <input class="form-input" type="text" id="c-delai" name="delai" placeholder="Ex : avant fin janvier">
+                  </div>
+                </div>
+
+                <div class="form-section-title" style="margin-top:26px;"><i class="bi bi-person-lines-fill"></i> Contact</div>
+                <div class="form-grid cols-2">
+                  <div class="form-field">
+                    <label class="form-label" for="c-contact-nom">Nom et prénom<span class="required">*</span></label>
+                    <input class="form-input" type="text" id="c-contact-nom" name="contact_nom" required>
+                  </div>
+                  <div class="form-field">
+                    <label class="form-label" for="c-contact-email">Email<span class="required">*</span></label>
+                    <input class="form-input" type="email" id="c-contact-email" name="contact_email" required>
+                  </div>
+                </div>
+                <div class="form-grid cols-2">
+                  <div class="form-field">
+                    <label class="form-label" for="c-contact-tel">Téléphone</label>
+                    <input class="form-input" type="tel" id="c-contact-tel" name="contact_tel">
+                  </div>
+                </div>
+
+                <div class="consent-box" style="margin-top:8px;">
+                  <input type="checkbox" id="c-rgpd" name="rgpd" required>
+                  <span class="consent-text">J'accepte que les informations transmises via ce formulaire soient utilisées par À l'Eure Digitale dans le cadre du traitement de ma candidature. <a href="#">Politique de confidentialité</a>.</span>
+                </div>
+
+                <div class="form-nav" style="justify-content:flex-end;">
+                  <button type="submit" class="btn-form-submit" id="candid-submit">Envoyer ma candidature <i class="bi bi-send"></i></button>
+                </div>
+
+                <p id="form-status" style="margin-top:14px;font-size:0.85rem;display:none;"></p>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html#hero" class="logo logo--footer" aria-label="À l'Eure Digitale — accueil"><img src="logo_AED.png" alt="À l'Eure Digitale — Apprendre, partager, construire ensemble" class="logo-img" width="699" height="244"></a>
+          <p>Incubateur associatif de compétences numériques et de projets collaboratifs à impact social. Ancré dans le département de l'Eure, ouvert à tout le territoire.</p>
+          <div style="font-family:var(--font-mono);font-size:0.72rem;color:rgba(255,255,255,0.3);">
+            *Apprendre – Partager – Construire ensemble
+          </div>
+        </div>
+        <div class="footer-links">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html#hero">Accueil</a></li>
+            <li><a href="index.html#about">À propos</a></li>
+            <li><a href="index.html#actions">Nos actions</a></li>
+            <li><a href="agenda.html">Agenda</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="jeu.html">Jeu</a></li>
+            <li><a href="benevoles.html">Bénévoles</a></li>
+            <li><a href="candidature-agence.html">Agence solidaire</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h4>Nous contacter</h4>
+          <p><a href="tel:0658209902">06 58 20 99 02</a></p>
+          <p><a href="mailto:aleuredudigitale@gmail.com">aleuredudigitale@gmail.com</a></p>
+          <p>Évreux &amp; département de l'Eure (27)</p>
+          <p style="margin-top:14px;"><a href="https://discord.gg/hxyp2qFFAN" target="_blank" style="display:inline-flex;align-items:center;gap:7px;background:#5865F2;color:#fff;padding:8px 16px;border-radius:4px;font-family:var(--font-mono);font-size:0.78rem;font-weight:700;text-decoration:none;"><i class="bi bi-discord"></i> Discord</a></p>
+          <p style="margin-top:12px;font-family:var(--font-mono);font-size:0.78rem;color:rgba(255,255,255,0.3);">RNA : W272007431<br>SIREN : 101049781</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 A l'Eure Digitale — Association loi 1901</p>
+        <p class="footer-siren">Numérique éthique · Open Source · Ancrage local</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCROLL TOP -->
+  <a href="index.html#hero" id="scroll-top"><i class="bi bi-arrow-up-short"></i></a>
+
+  <script src="script.js"></script>
+</body>
+</html>

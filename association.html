@@ -195,19 +195,25 @@
 
   <header>
     <nav class="nav-inner">
-      <a href="index.html#hero" class="logo">A l'Eure<span>_</span>Digitale</a>
+      <a href="index.html#hero" class="logo logo--header" aria-label="À l'Eure Digitale — accueil"><img src="logo_AED.png" alt="À l'Eure Digitale — Apprendre, partager, construire ensemble" class="logo-img" width="699" height="244"></a>
       <nav class="navmenu" id="navmenu">
         <ul>
-          <li><a href="index.html#hero">Accueil</a></li>
-          <li><a href="association.html" class="active">L'association</a></li>
-          <li><a href="index.html#actions">Nos actions</a></li>
-          <li><a href="index.html#permanences">Permanences</a></li>
+          <li><a href="#hero" class="active">Accueil</a></li>
+          <li><a href="#about">À propos</a></li>
+          <li><a href="#actions">Nos actions</a></li>
           <li><a href="agenda.html">Agenda</a></li>
           <li><a href="blog.html">Blog</a></li>
           <li><a href="benevoles.html">Bénévoles</a></li>
-          <li><a href="index.html#projet">Match'Emploi</a></li>
-          <li><a href="https://discord.gg/hxyp2qFFAN" target="_blank" rel="noopener"><i class="bi bi-discord"></i> Discord</a></li>
-          <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+          <li><a href="association.html">L'association</a></li>
+          <li class="has-dropdown">
+            <a href="#" class="dropdown-toggle" onclick="return false;">Découvrir <i class="bi bi-chevron-down"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="jeu.html">Jeu</a></li>
+              <li><a href="matchemploi.html">Match'Emploi</a></li>
+              <li><a href="https://discord.gg/hxyp2qFFAN" target="_blank"><i class="bi bi-discord"></i> Discord</a></li>
+            </ul>
+          </li>
+          <li><a href="#contact" class="nav-cta">Contact</a></li>
         </ul>
       </nav>
       <button class="mobile-toggle" onclick="document.getElementById('navmenu').classList.toggle('open')" aria-label="Ouvrir le menu">
@@ -399,7 +405,11 @@
         <!-- Remplacer chaque src par le logo réel du partenaire (PNG/SVG, fond transparent recommandé, ~300px de large) -->
         <div class="aso-partners-grid">
           <div class="aso-partner-logo fade-up"><img src="assets/logo-abbc.jpeg" alt="ABBC" loading="lazy"></div>
-          <div class="aso-partner-logo fade-up"><img src="assets/logo-radiobroglie.png" alt="Radio Broglie" loading="lazy"></div>
+          <div class="aso-partner-logo fade-up"><img src="assets/logo-radiobroglie.png" href="https://www.radiobroglie.fr" alt="Radio Broglie" loading="lazy"></div>
+          <div class="aso-partner-logo fade-up"><img src="assets/Logo-DuoDay-2026.png" alt="DuoDay" loading="lazy"></div>
+          <div class="aso-partner-logo fade-up"><img src="assets/logo_seeph_2026_bleu_rvb.png" alt="DuoDay" loading="lazy"></div>
+          <div class="aso-partner-logo fade-up"><img src="assets/741727315_122120122059351885_348723088067906314_n.jpg" alt="Code & Connexion" loading="lazy"></div>
+
         </div>
         <p class="aso-partners-note">Vous représentez une structure et souhaitez devenir partenaire ? <a href="index.html#contact" style="color:var(--green-mid);">Contactez-nous</a>.</p>
       </div>
@@ -423,7 +433,7 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <a href="#hero" class="logo" style="color:var(--white);">A l'Eure<span>_</span>Digitale</a>
+          <a href="#hero" class="logo logo--footer" aria-label="À l'Eure Digitale — accueil"><img src="logo_AED.png" alt="À l'Eure Digitale — Apprendre, partager, construire ensemble" class="logo-img" width="699" height="244"></a>
           <p class="background-color:var(--white);">Incubateur associatif de compétences numériques et de projets collaboratifs à impact social. Ancré dans le département de l'Eure, ouvert à tout le territoire.</p>
         </div>
         <div class="footer-links">

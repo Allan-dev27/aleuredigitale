@@ -41,7 +41,7 @@ const OFFRES = [
     engagement: "3h / mois",
     lieu: "Broglie (27)",
     niveau: "Confirmé",
-    description: "Animez nos ateliers Git, Linux, sécurité ou web auprès de publics débutants à intermédiaires, une fois par mois environ.",
+    description: "Animez nos ateliers numériques et contribuez à leur développement en fonction des niveaux de nos bénéficiaires.",
     missions: [
       "Préparer et animer un atelier thématique (2 à 3h) une fois par mois",
       "Adapter le contenu au niveau des participants présents",

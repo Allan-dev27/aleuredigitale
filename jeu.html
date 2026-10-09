@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Agenda – A l'Eure Digitale</title>
-  <meta name="description" content="Retrouvez tous les ateliers, permanences, formations et événements à venir de À l'Eure Digitale, association loi 1901 pour un numérique inclusif dans l'Eure (27).">
-  <meta name="keywords" content="agenda, événements, ateliers, permanences, association, numérique, Eure">
+  <title>Jeu : arnaque ou pas ? – A l'Eure Digitale</title>
+  <meta name="description" content="Jeu gratuit de À l'Eure Digitale : saurez-vous repérer les faux SMS, faux e-mails et faux sites ? Entraînez-vous à déjouer les arnaques en ligne.">
+  <meta name="keywords" content="jeu, arnaque, phishing, sécurité numérique, sensibilisation, Eure">
 
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
@@ -17,20 +17,20 @@
 
   <style>
     /* ===== Bandeau spécifique à la page Agenda ===== */
-    .age-hero {
+    .jeu-hero {
       background: var(--green-dark);
       padding: 56px 0 44px;
       position: relative;
       overflow: hidden;
     }
-    .age-hero::before {
+    .jeu-hero::before {
       content: '';
       position: absolute; inset: 0;
       background:
         radial-gradient(ellipse 60% 60% at 80% 50%, rgba(46,192,106,0.12) 0%, transparent 60%),
         radial-gradient(ellipse 40% 80% at 20% 100%, rgba(46,192,106,0.08) 0%, transparent 50%);
     }
-    .age-hero::after {
+    .jeu-hero::after {
       content: '';
       position: absolute; inset: 0;
       background-image:
@@ -38,37 +38,37 @@
         linear-gradient(90deg, rgba(46,192,106,0.06) 1px, transparent 1px);
       background-size: 60px 60px;
     }
-    .age-hero-inner { position: relative; z-index: 1; }
-    .age-breadcrumb {
+    .jeu-hero-inner { position: relative; z-index: 1; }
+    .jeu-breadcrumb {
       font-family: var(--font-mono);
       font-size: 0.75rem;
       color: rgba(255,255,255,0.5);
       margin-bottom: 18px;
     }
-    .age-breadcrumb a { color: rgba(255,255,255,0.5); text-decoration: none; }
-    .age-breadcrumb a:hover { color: var(--green-accent); }
-    .age-label {
+    .jeu-breadcrumb a { color: rgba(255,255,255,0.5); text-decoration: none; }
+    .jeu-breadcrumb a:hover { color: var(--green-accent); }
+    .jeu-label {
       display: inline-flex; align-items: center; gap: 8px;
       font-family: var(--font-mono); font-size: 0.72rem;
       color: var(--green-accent); border: 1px solid var(--green-accent);
       padding: 5px 12px; border-radius: 2px;
       letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 20px;
     }
-    .age-hero h1 {
+    .jeu-hero h1 {
       font-size: clamp(1.9rem, 3.6vw, 2.9rem);
       color: var(--white); margin-bottom: 14px;
     }
-    .age-hero h1 em { font-style: normal; color: var(--green-accent); }
-    .age-hero p {
+    .jeu-hero h1 em { font-style: normal; color: var(--green-accent); }
+    .jeu-hero p {
       color: rgba(255,255,255,0.65); font-size: 1rem; max-width: 620px; margin-bottom: 22px;
     }
-    .age-count {
+    .jeu-count {
       display: inline-flex; align-items: center; gap: 8px;
       background: rgba(255,255,255,0.07); border: 1px solid rgba(46,192,106,0.25);
       border-radius: 30px; padding: 8px 18px;
       font-family: var(--font-mono); font-size: 0.82rem; color: rgba(255,255,255,0.85);
     }
-    .age-count strong { color: var(--green-accent); font-size: 1rem; }
+    .jeu-count strong { color: var(--green-accent); font-size: 1rem; }
   </style>
 </head>
 
@@ -93,9 +93,9 @@
           <li><a href="index.html#hero">Accueil</a></li>
           <li><a href="index.html#about">À propos</a></li>
           <li><a href="index.html#actions">Nos actions</a></li>
-          <li><a href="agenda.html" class="active">Agenda</a></li>
+          <li><a href="agenda.html">Agenda</a></li>
           <li><a href="blog.html">Blog</a></li>
-          <li><a href="jeu.html">Jeu</a></li>
+          <li><a href="jeu.html" class="active">Jeu</a></li>
           <li><a href="benevoles.html">Bénévoles</a></li>
           <li><a href="index.html#projet">Match'Emploi</a></li>
           <li><a href="adhesion.html">Adhérer</a></li>
@@ -110,31 +110,58 @@
   </header>
 
   <main>
-    <section class="age-hero">
-      <div class="container age-hero-inner">
-        <div class="age-breadcrumb"><a href="index.html">Accueil</a> / Agenda</div>
-        <div class="age-label"><i class="bi bi-calendar-week"></i> Vie de l'association</div>
-        <h1>L'<em>agenda</em> de À l'Eure Digitale</h1>
-        <p>Ateliers, permanences, formations, réunions et événements : retrouvez ici toutes les prochaines dates de l'association et inscrivez-vous en un clic.</p>
-        <div class="age-count"><i class="bi bi-calendar-check"></i> <strong id="agenda-count">0</strong>&nbsp;événement(s) à venir</div>
+    <section class="jeu-hero">
+      <div class="container jeu-hero-inner">
+        <div class="jeu-breadcrumb"><a href="index.html">Accueil</a> / Jeu</div>
+        <div class="jeu-label"><i class="bi bi-shield-check"></i> Sécurité numérique</div>
+        <h1>Arnaque <em>ou pas</em> ?</h1>
+        <p>Faux colis, faux remboursement, faux message d'un proche : 10 situations réelles à analyser. Pour chacune, dites si c'est une arnaque, puis découvrez les indices à repérer.</p>
+        <div class="jeu-count"><i class="bi bi-clock"></i> Environ 3 minutes, sans inscription</div>
       </div>
     </section>
 
-    <section class="agenda-section">
+    <section class="jeu-section">
       <div class="container">
-        <div class="section-title fade-up">
-          <div class="section-label">Calendrier</div>
-          <h2>Prochains événements</h2>
-          <p>Filtrez par type d'événement pour trouver rapidement ce qui vous intéresse. De nouvelles dates sont ajoutées régulièrement.</p>
-        </div>
+        <div class="jeu-wrap">
+          <div id="jeu-play">
+            <div class="jeu-progress"><span id="jeu-step">Situation 1 sur 10</span><span id="jeu-score">Score : 0</span></div>
+            <div class="jeu-bar"><span id="jeu-bar-fill"></span></div>
 
-        <div id="agenda-filters" class="agenda-filters"></div>
+            <article class="jeu-msg" id="jeu-msg" aria-label="Message à analyser">
+              <div class="jeu-msg-head"><i id="jeu-canal-icon" class="bi bi-chat-dots-fill"></i><span id="jeu-canal"></span><span id="jeu-from"></span></div>
+              <div class="jeu-msg-body">
+                <p class="jeu-msg-subject" id="jeu-subject" hidden></p>
+                <p id="jeu-text"></p>
+              </div>
+            </article>
 
-        <div id="agenda-liste" class="agenda-liste"></div>
+            <div class="jeu-choices" id="jeu-choices">
+              <button type="button" class="jeu-btn jeu-btn--scam" data-answer="scam"><i class="bi bi-exclamation-triangle-fill"></i> C'est une arnaque</button>
+              <button type="button" class="jeu-btn jeu-btn--ok" data-answer="ok"><i class="bi bi-shield-check"></i> C'est légitime</button>
+            </div>
 
-        <div id="agenda-empty" class="agenda-empty" style="display:none;">
-          <i class="bi bi-calendar-x"></i>
-          <p>Aucun événement à venir pour ce filtre pour le moment.<br>Revenez bientôt ou <a href="index.html#contact">contactez-nous</a> pour proposer une date.</p>
+            <div class="jeu-feedback" id="jeu-feedback" tabindex="-1" hidden>
+              <h3 id="jeu-verdict"></h3>
+              <p id="jeu-explain"></p>
+              <ul id="jeu-clues"></ul>
+              <button type="button" class="btn-primary" id="jeu-next">Situation suivante</button>
+            </div>
+          </div>
+
+          <div class="jeu-end" id="jeu-end" tabindex="-1" hidden>
+            <div class="jeu-end-score" id="jeu-end-score"></div>
+            <h2 id="jeu-end-title"></h2>
+            <p id="jeu-end-text"></p>
+            <ul class="jeu-tips">
+              <li>Dans le doute, ne cliquez sur rien : passez par le site ou l'application officielle, ou appelez le numéro qui figure sur votre carte ou vos courriers.</li>
+              <li>Signalez les SMS suspects au 33700, et les sites ou e-mails frauduleux sur signal-spam.fr.</li>
+              <li>Victime d'une arnaque ? cybermalveillance.gouv.fr vous guide pas à pas.</li>
+            </ul>
+            <div class="jeu-end-actions">
+              <button type="button" class="btn-primary" id="jeu-replay">Rejouer</button>
+              <a href="index.html#contact" class="btn-outline jeu-end-link">Demander un atelier sécurité</a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -150,24 +177,21 @@
         </div>
         <div class="footer-links">
           <h4>Navigation</h4>
-           <ul>
-          <li><a href="#hero" class="active">Accueil</a></li>
-          <li><a href="#about">À propos</a></li>
-          <li><a href="#actions">Nos actions</a></li>
-          <li><a href="agenda.html">Agenda</a></li>
-          <li><a href="blog.html">Blog</a></li>
-          <li><a href="benevoles.html">Bénévoles</a></li>
-          <li><a href="association.html">L'association</a></li>
-          <li class="has-dropdown">
-            <a href="#" class="dropdown-toggle" onclick="return false;">Découvrir <i class="bi bi-chevron-down"></i></a>
-            <ul class="dropdown-menu">
-              <li><a href="jeu.html">Jeu</a></li>
-              <li><a href="matchemploi.html">Match'Emploi</a></li>
-              <li><a href="https://discord.gg/hxyp2qFFAN" target="_blank"><i class="bi bi-discord"></i> Discord</a></li>
-            </ul>
-          </li>
-          <li><a href="#contact" class="nav-cta">Contact</a></li>
-        </ul>
+          <ul>
+            <li><a href="index.html#hero">Accueil</a></li>
+            <li><a href="index.html#about">À propos</a></li>
+            <li><a href="index.html#actions">Nos actions</a></li>
+            <li><a href="index.html#permanences">Permanences</a></li>
+            <li><a href="agenda.html">Agenda</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="jeu.html">Jeu</a></li>
+            <li><a href="benevoles.html">Bénévoles</a></li>
+            <li><a href="index.html#reseau">Réseau pro</a></li>
+            <li><a href="index.html#discord">Communauté Discord</a></li>
+            <li><a href="index.html#projet">Match'Emploi</a></li>
+            <li><a href="adhesion.html">Adhérer</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+          </ul>
         </div>
         <div class="footer-contact">
           <h4>Nous contacter</h4>
@@ -212,7 +236,7 @@
     });
   </script>
 
-  <script src="agenda.js"></script>
+  <script src="jeu.js"></script>
 
 </body>
 </html>

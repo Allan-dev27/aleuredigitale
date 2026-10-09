@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>A l'Eure Digitale – Apprendre · Partager · Construire ensemble</title>
+  <title>A l'Eure Digitale – Ensemble, le numérique n'oublie personne.</title>
   <meta name="description" content="À l'Eure Digitale est une association loi 1901 qui rassemble citoyens, associations et collectivités pour un numérique inclusif, solidaire et collaboratif dans le département de l'Eure (27).">
   <meta name="keywords" content="numérique, association, Eure, ateliers, open source, inclusion, digital">
 
@@ -27,16 +27,14 @@
       <div class="topbar-contact">
         <span><i class="bi bi-envelope-fill"></i><a href="mailto:contact@aleuredigitale.fr">contact@aleuredigitale.fr</a></span>
         <span><i class="bi bi-telephone-fill"></i><a href="tel:0658209902">06 58 20 99 02</a></span>
-        <span><i class="bi bi-geo-alt-fill"></i>Évreux &amp; département de l'Eure (27)</span>
       </div>
-      <div>RNA&nbsp;:&nbsp;W272007431&nbsp;·&nbsp;SIREN&nbsp;:&nbsp;101049781</div>
     </div>
   </div>
 
   <!-- HEADER -->
   <header>
     <nav class="nav-inner">
-      <a href="#hero" class="logo">A l'Eure<span>_</span>Digitale</a>
+      <a href="#hero" class="logo logo--header" aria-label="À l'Eure Digitale — accueil"><img src="logo_AED.png" alt="À l'Eure Digitale — Apprendre, partager, construire ensemble" class="logo-img" width="699" height="244"></a>
       <nav class="navmenu" id="navmenu">
         <ul>
           <li><a href="#hero" class="active">Accueil</a></li>
@@ -46,8 +44,14 @@
           <li><a href="blog.html">Blog</a></li>
           <li><a href="benevoles.html">Bénévoles</a></li>
           <li><a href="association.html">L'association</a></li>
-          <li><a href="#projet">Match'Emploi</a></li>
-          <li><a href="https://discord.gg/hxyp2qFFAN" target="_blank" style="display:flex;align-items:center;gap:5px;"><i class="bi bi-discord"></i> Discord</a></li>
+          <li class="has-dropdown">
+            <a href="#" class="dropdown-toggle" onclick="return false;">Découvrir <i class="bi bi-chevron-down"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="jeu.html">Jeu</a></li>
+              <li><a href="matchemploi.html">Match'Emploi</a></li>
+              <li><a href="https://discord.gg/hxyp2qFFAN" target="_blank"><i class="bi bi-discord"></i> Discord</a></li>
+            </ul>
+          </li>
           <li><a href="#contact" class="nav-cta">Contact</a></li>
         </ul>
       </nav>
@@ -57,6 +61,31 @@
     </nav>
   </header>
 
+  <!-- BANDEAU ÉVÉNEMENT + COMPTE À REBOURS -->
+  <aside class="event-banner" id="event-banner"
+         data-start="2026-11-19T10:00:00+01:00"
+         data-end="2026-11-19T17:00:00+01:00"
+         aria-label="Prochain événement : Eure Tech &amp; Inclusion 2026" hidden>
+    <div class="event-banner-inner">
+      <div class="event-banner-info">
+        <div class="event-banner-kicker"><i class="bi bi-calendar-event"></i> Prochain événement</div>
+        <div class="event-banner-title">Eure Tech &amp; Inclusion 2026</div>
+        <div class="event-banner-meta">Jeudi 19 novembre, 10h à 17h, Radio Broglie</div>
+      </div>
+
+      <div class="event-countdown" id="event-countdown" role="timer" aria-live="off">
+        <div class="cd-cell"><span class="cd-num" data-unit="days">00</span><span class="cd-label">jours</span></div>
+        <div class="cd-cell"><span class="cd-num" data-unit="hours">00</span><span class="cd-label">heures</span></div>
+        <div class="cd-cell"><span class="cd-num" data-unit="minutes">00</span><span class="cd-label">min</span></div>
+        <div class="cd-cell"><span class="cd-num" data-unit="seconds">00</span><span class="cd-label">sec</span></div>
+      </div>
+      <div class="event-live" id="event-live" hidden>C'est aujourd'hui !</div>
+
+      <a href="#" class="event-banner-cta">Voir le programme <i class="bi bi-arrow-right-short"></i></a>
+      <button type="button" class="event-banner-close" id="event-banner-close" aria-label="Masquer le bandeau"><i class="bi bi-x-lg"></i></button>
+    </div>
+  </aside>
+
   <main>
 
     <!-- HERO -->
@@ -64,7 +93,7 @@
       <div class="hero-inner">
         <div class="hero-text">
           <div class="hero-tag">Association loi 1901 · Eure (27)</div>
-          <h1>Apprendre.<br>Partager.<br><em>Construire ensemble.</em></h1>
+          <h1>Le numérique pour tous.</h1>
           <p class="hero-desc">Incubateur associatif de compétences numériques et de projets collaboratifs. Le numérique comme levier d'autonomie, d'inclusion et d'innovation locale.</p>
           <div class="hero-buttons">
             <a href="#actions" class="btn-primary">Découvrir nos actions</a>
@@ -299,6 +328,7 @@
                 <span class="project-tag">Entreprises de proximité</span>
               </div>
             </div>
+            <a href="matchemploi.html" class="btn-primary" style="margin-top:24px;display:inline-flex;">Découvrir Match'Emploi</a>
           </div>
           <div class="project-card-block fade-up">
             <div class="match-logo">Match'Emploi</div>
@@ -449,7 +479,7 @@
       <div class="container" style="position:relative;z-index:1;">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;">
           <div class="fade-up">
-            <div class="section-label" style="color:rgba(88,101,242,0.9);">Communauté</div>
+            <div class="section-label" style="color:rgba(253, 253, 253, 0.9);">Communauté</div>
             <h2 style="font-family:var(--font-mono);font-size:clamp(1.8rem,3vw,2.4rem);color:var(--white);margin-bottom:16px;">Rejoins notre communauté<br>sur <span style="color:#7289DA;">Discord</span>&nbsp;!</h2>
             <p style="color:rgba(255,255,255,0.65);margin-bottom:32px;font-size:0.97rem;line-height:1.7;">Un espace convivial et bienveillant, ouvert à toutes et à tous. Échangez, apprenez et participez ensemble aux projets de l'association.</p>
             <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:32px;">
@@ -561,7 +591,7 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <a href="#hero" class="logo" style="color:var(--white);">A l'Eure<span>_</span>Digitale</a>
+          <a href="#hero" class="logo logo--footer" aria-label="À l'Eure Digitale — accueil"><img src="logo_AED.png" alt="À l'Eure Digitale — Apprendre, partager, construire ensemble" class="logo-img" width="699" height="244"></a>
           <p>Incubateur associatif de compétences numériques et de projets collaboratifs à impact social. Ancré dans le département de l'Eure, ouvert à tout le territoire.</p>
           <div style="font-family:var(--font-mono);font-size:0.72rem;color:rgba(255,255,255,0.3);">
             *Apprendre – Partager – Construire ensemble
@@ -575,10 +605,11 @@
             <li><a href="#actions">Nos actions</a></li>
             <li><a href="agenda.html">Agenda</a></li>
             <li><a href="blog.html">Blog</a></li>
+            <li><a href="jeu.html">Jeu</a></li>
             <li><a href="benevoles.html">Bénévoles</a></li>
             <li><a href="#reseau">Réseau pro</a></li>
           <li><a href="#discord">Communauté Discord</a></li>
-            <li><a href="#projet">Match'Emploi</a></li>
+            <li><a href="matchemploi.html">Match'Emploi</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
         </div>

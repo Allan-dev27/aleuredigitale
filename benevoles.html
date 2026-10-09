@@ -87,9 +87,9 @@
 
   <header>
     <nav class="nav-inner">
-      <a href="index.html#hero" class="logo">A l'Eure<span>_</span>Digitale</a>
+      <a href="index.html#hero" class="logo logo--header" aria-label="À l'Eure Digitale — accueil"><img src="logo_AED.png" alt="À l'Eure Digitale — Apprendre, partager, construire ensemble" class="logo-img" width="699" height="244"></a>
      <nav class="navmenu" id="navmenu">
-        <ul>
+         <ul>
           <li><a href="#hero" class="active">Accueil</a></li>
           <li><a href="#about">À propos</a></li>
           <li><a href="#actions">Nos actions</a></li>
@@ -97,8 +97,14 @@
           <li><a href="blog.html">Blog</a></li>
           <li><a href="benevoles.html">Bénévoles</a></li>
           <li><a href="association.html">L'association</a></li>
-          <li><a href="#projet">Match'Emploi</a></li>
-          <li><a href="https://discord.gg/hxyp2qFFAN" target="_blank" style="display:flex;align-items:center;gap:5px;"><i class="bi bi-discord"></i> Discord</a></li>
+          <li class="has-dropdown">
+            <a href="#" class="dropdown-toggle" onclick="return false;">Découvrir <i class="bi bi-chevron-down"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="jeu.html">Jeu</a></li>
+              <li><a href="matchemploi.html">Match'Emploi</a></li>
+              <li><a href="https://discord.gg/hxyp2qFFAN" target="_blank"><i class="bi bi-discord"></i> Discord</a></li>
+            </ul>
+          </li>
           <li><a href="#contact" class="nav-cta">Contact</a></li>
         </ul>
       </nav>
@@ -143,7 +149,7 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <a href="#hero" class="logo" style="color:var(--white);">A l'Eure<span>_</span>Digitale</a>
+          <a href="#hero" class="logo logo--footer" aria-label="À l'Eure Digitale — accueil"><img src="logo_AED.png" alt="À l'Eure Digitale — Apprendre, partager, construire ensemble" class="logo-img" width="699" height="244"></a>
           <p>Incubateur associatif de compétences numériques et de projets collaboratifs à impact social. Ancré dans le département de l'Eure, ouvert à tout le territoire.</p>
           <div class="footer-slogan" style="color:var(--white);">*Apprendre – Partager – Construire ensemble</div>
         </div>
@@ -156,6 +162,7 @@
             <li><a href="index.html#permanences">Permanences</a></li>
             <li><a href="agenda.html">Agenda</a></li>
             <li><a href="blog.html">Blog</a></li>
+            <li><a href="jeu.html">Jeu</a></li>
             <li><a href="benevoles.html">Bénévoles</a></li>
             <li><a href="index.html#reseau">Réseau pro</a></li>
             <li><a href="index.html#discord">Communauté Discord</a></li>

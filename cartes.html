@@ -99,6 +99,11 @@
       display: flex; align-items: center; gap: 4px;
     }
     .logo span { color: var(--green-accent); }
+    .logo-img { display: block; height: 46px; width: auto; max-width: 100%; }
+    .logo--header { flex-shrink: 0; }
+    .logo--footer { display: inline-flex; background: var(--white); padding: 10px 16px; border-radius: 10px; margin-bottom: 18px; }
+    .logo--footer .logo-img { height: 54px; }
+    @media (max-width: 640px) { .logo-img { height: 38px; } .logo--footer .logo-img { height: 46px; } }
     .navmenu ul { list-style: none; display: flex; gap: 8px; align-items: center; }
     .navmenu a {
       font-family: var(--font-mono); font-size: 0.8rem;
@@ -610,7 +615,7 @@
 <!-- HEADER STICKY -->
 <header>
   <nav class="nav-inner">
-    <a href="index.html" class="logo">A l'Eure<span>_</span>Digitale</a>
+    <a href="index.html" class="logo logo--header" aria-label="À l'Eure Digitale — accueil"><img src="logo_AED.png" alt="À l'Eure Digitale — Apprendre, partager, construire ensemble" class="logo-img" width="699" height="244"></a>
     <nav class="navmenu" id="navmenu">
       <ul>
         <li><a href="index.html">Accueil</a></li>
@@ -818,7 +823,7 @@
 <footer>
   <div class="footer-grid">
     <div class="footer-col footer-brand">
-      <a href="index.html" class="logo" style="color:var(--white); margin-bottom:14px; display:inline-flex;">A l'Eure<span style="color:var(--green-accent)">_</span>Digitale</a>
+      <a href="index.html" class="logo logo--footer" aria-label="À l'Eure Digitale — accueil"><img src="logo_AED.png" alt="À l'Eure Digitale — Apprendre, partager, construire ensemble" class="logo-img" width="699" height="244"></a>
       <p>Le numérique pour tous, partout dans l'Eure. Association loi 1901 ancrée dans le département de l'Eure.</p>
       <div class="socials">
         <a href="#" class="social-btn" title="Discord"><i class="bi bi-discord"></i></a>

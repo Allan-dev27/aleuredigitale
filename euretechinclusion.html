@@ -22,7 +22,6 @@
       --col-anim:    #5a7566;
       --col-part:    #2e4036;
       --col-pause:   rgba(46,192,106,0.15);
-    }
 
   </style>
 </head>
@@ -42,7 +41,7 @@
 <!-- HEADER STICKY -->
 <header>
   <nav class="nav-inner">
-    <a href="index.html" class="logo">A l'Eure<span>_</span>Digitale</a>
+    <a href="index.html" class="logo logo--header" aria-label="À l'Eure Digitale — accueil"><img src="logo_AED.png" alt="À l'Eure Digitale — Apprendre, partager, construire ensemble" class="logo-img" width="699" height="244"></a>
     <a href="index.html" class="back-link"><i class="bi bi-arrow-left"></i> Retour au site</a>
   </nav>
 </header>
@@ -52,7 +51,7 @@
   <div class="hero-inner">
     <div class="hero-tag">Eure Tech &amp; Inclusion 2026</div>
     <h1>Programme <em>&amp;</em> Intervenants</h1>
-    <p class="hero-sub">Une journée structurée autour de 5 espaces thématiques, animée par des experts engagés du territoire</p>
+    <p class="hero-sub">Conférences, tables rondes, ateliers et stands partenaires, animés par des experts engagés du territoire</p>
     <div class="tab-nav">
       <button class="tab-btn active" onclick="switchTab('programme')"><i class="bi bi-calendar3"></i>&nbsp; Programme</button>
       <button class="tab-btn" onclick="switchTab('intervenants')"><i class="bi bi-mic-fill"></i>&nbsp; Intervenants</button>
@@ -79,329 +78,61 @@
 
     <!-- En-tête section -->
     <div class="section-title-block reveal">
-      <div class="section-label">Déroulé de la journée</div>
-      <h2>Programme complet</h2>
-      <p>5 espaces thématiques en parallèle, accessibles à tous les niveaux.</p>
+      <div class="section-label">Une journée, plusieurs formats</div>
+      <h2>Ce qui vous attend</h2>
+      <p>Conférences, tables rondes, ateliers de médiation numérique et stands partenaires : une journée pensée pour tous les niveaux, du grand débutant au professionnel du secteur.</p>
     </div>
 
-    <!-- Légende -->
-    <div class="legend reveal">
-      <div class="leg-item"><div class="leg-dot" style="background:var(--green-mid)"></div> Conférence</div>
-      <div class="leg-item"><div class="leg-dot" style="background:var(--green-accent)"></div> Atelier pratique</div>
-      <div class="leg-item"><div class="leg-dot" style="background:var(--ink-soft)"></div> Espace partenaires</div>
-      <div class="leg-item"><div class="leg-dot" style="background:var(--ink)"></div> Entraide &amp; Réseau</div>
-      <div class="leg-item"><div class="leg-dot" style="background:var(--ink-muted)"></div> Animation</div>
+    <!-- Formats -->
+    <div class="sessions-row reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-bottom:32px;">
+
+      <div class="session-card col-conf">
+        <div class="session-badge badge-conf">🎤 Conférences</div>
+        <div class="session-title">Conférences thématiques</div>
+        <div class="session-desc">Des interventions d'experts sur l'intelligence artificielle et l'accessibilité, l'accessibilité web, la fracture numérique... pour comprendre les grands enjeux du secteur.</div>
+      </div>
+
+      <div class="session-card col-conf">
+        <div class="session-badge badge-conf">🗣️ Tables rondes</div>
+        <div class="session-title">Tables rondes &amp; débats</div>
+        <div class="session-desc">Des échanges ouverts réunissant acteurs publics, associations et entreprises autour des enjeux de l'inclusion numérique sur le territoire.</div>
+      </div>
+
+      <div class="session-card col-atelier">
+        <div class="session-badge badge-atelier">💻 Ateliers</div>
+        <div class="session-title">Ateliers de médiation numérique</div>
+        <div class="session-desc">Des sessions pratiques et accessibles à tous les niveaux : premiers pas sur internet, cybersécurité au quotidien, CV numérique, usages du smartphone pour les seniors...</div>
+      </div>
+
+      <div class="session-card col-part">
+        <div class="session-badge badge-part">🤝 Partenaires</div>
+        <div class="session-title">Stands partenaires</div>
+        <div class="session-desc">Associations, collectivités et entreprises du territoire présentent leurs actions et leurs ressources : échanges en direct, dépliants et documentation à télécharger.</div>
+      </div>
+
+      <div class="session-card col-reseau">
+        <div class="session-badge badge-reseau">👥 Réseau</div>
+        <div class="session-title">Entraide &amp; networking</div>
+        <div class="session-desc">Des temps dédiés à la rencontre entre participants, bénévoles et partenaires : DuoDay, speed networking et moments conviviaux tout au long de la journée.</div>
+      </div>
+
+      <div class="session-card col-anim" style="border-left:none;border-top:4px solid var(--ink-muted);">
+        <div class="session-badge badge-anim">🎉 Animations</div>
+        <div class="session-title">Animations &amp; temps conviviaux</div>
+        <div class="session-desc">Quiz numérique, pause déjeuner en ligne et moments d'échange informel pour rythmer la journée entre deux sessions.</div>
+      </div>
+
     </div>
 
-    <div class="timeline">
-
-      <!-- ─ 10h00 : OUVERTURE ─ -->
-      <div class="time-slot reveal">
-        <div class="slot-time">10h00</div>
-        <div class="slot-body">
-          <div class="plenary-card">
-            <div class="plenary-badge">🌟 Séance plénière · 45 min</div>
-            <div class="plenary-title">Cérémonie d'ouverture — Le numérique, levier d'inclusion pour l'Eure</div>
-            <div class="plenary-desc">
-              Accueil des participants, présentation de la journée et des partenaires. Discours inaugural sur les enjeux du numérique inclusif en milieu rural et péri-urbain. Présentation des chiffres clés sur la fracture numérique dans l'Eure.
-            </div>
-            <div class="plenary-speakers">
-              <div class="plenary-chip">
-                <div class="plenary-chip-avatar" style="background:rgba(46,192,106,0.15);">🏛️</div>
-                <div>
-                  <div class="plenary-chip-name">Sandrine Moreau</div>
-                  <div class="plenary-chip-role">Préfecture de l'Eure</div>
-                </div>
-              </div>
-              <div class="plenary-chip">
-                <div class="plenary-chip-avatar" style="background:rgba(46,192,106,0.15);">👨‍💻</div>
-                <div>
-                  <div class="plenary-chip-name">Marc Dupuis</div>
-                  <div class="plenary-chip-role">France Services Eure</div>
-                </div>
-              </div>
-              <div class="plenary-chip">
-                <div class="plenary-chip-avatar" style="background:rgba(46,192,106,0.15);">🌸</div>
-                <div>
-                  <div class="plenary-chip-name">Isabelle Fontaine</div>
-                  <div class="plenary-chip-role">LADAPT Normandie</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <!-- Infos pratiques -->
+    <div class="plenary-card reveal">
+      <div class="plenary-badge">📅 Infos pratiques</div>
+      <div class="plenary-title">19 novembre 2026 · 10h00 – 17h00</div>
+      <div class="plenary-desc">
+        Événement 100% en ligne sur Discord, ouvert à tous et gratuit. Retrouvez le détail des intervenants dans l'onglet « Intervenants » et inscrivez-vous dans l'onglet « S'inscrire ».
       </div>
+    </div>
 
-      <!-- ─ 10h45 : 1ère vague ─ -->
-      <div class="time-slot reveal">
-        <div class="slot-time">10h45</div>
-        <div class="slot-body">
-          <div class="sessions-row cols-2">
-
-            <div class="session-card col-conf">
-              <span class="duration-chip">60 min</span>
-              <div class="session-badge badge-conf">🎤 Conférence</div>
-              <div class="session-title">IA et accessibilité : quelles opportunités pour les personnes en situation de handicap ?</div>
-              <div class="session-desc">Comment les outils d'intelligence artificielle — synthèse vocale, reconnaissance d'image, assistance à la rédaction — transforment le quotidien des personnes handicapées. Retours d'expériences et démonstrations.</div>
-              <div class="session-speaker">
-                <div class="speaker-avatar">🔬</div>
-                <div class="speaker-info">
-                  <div class="speaker-name">Nadia Ouali</div>
-                  <div class="speaker-role">Chercheuse en IA éthique · Université de Caen</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="session-card col-atelier">
-              <span class="duration-chip">60 min</span>
-              <div class="session-badge badge-atelier">💻 Atelier</div>
-              <div class="session-title">Mes premiers pas sur Internet — Atelier grands débutants</div>
-              <div class="session-desc">Pour celles et ceux qui n'osent pas encore se lancer : naviguer sur le web, créer une adresse e-mail, faire une recherche Google. Accompagnement bienveillant, rythme adapté.</div>
-              <div class="session-speaker">
-                <div class="speaker-avatar">🧑‍🏫</div>
-                <div class="speaker-info">
-                  <div class="speaker-name">Karim Benali</div>
-                  <div class="speaker-role">Formateur numérique · Asso. Clic &amp; Lien, Évreux</div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <!-- ─ 11h00 : Ateliers parallèles ─ -->
-      <div class="time-slot reveal">
-        <div class="slot-time">11h00</div>
-        <div class="slot-body">
-          <div class="sessions-row cols-3">
-
-            <div class="session-card col-atelier">
-              <span class="duration-chip">75 min</span>
-              <div class="session-badge badge-atelier">💻 Atelier</div>
-              <div class="session-title">Cybersécurité du quotidien : protégez-vous des arnaques en ligne</div>
-              <div class="session-desc">Phishing, mots de passe, réseaux Wi-Fi publics, faux supports techniques… Apprenez à reconnaître et éviter les pièges les plus courants sur Internet.</div>
-              <div class="session-speaker">
-                <div class="speaker-avatar">🔒</div>
-                <div class="speaker-info">
-                  <div class="speaker-name">Thomas Leclerc</div>
-                  <div class="speaker-role">Expert cybersécurité · Bénévole numérique</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="session-card col-reseau">
-              <span class="duration-chip">75 min</span>
-              <div class="session-badge badge-reseau">👥 Réseau</div>
-              <div class="session-title">DuoDay 2026 : binômes, témoignages &amp; découverte des métiers du numérique</div>
-              <div class="session-desc">Présentation du dispositif DuoDay, témoignages de participants des éditions précédentes et présentation des entreprises partenaires prêtes à accueillir des personnes en situation de handicap.</div>
-              <div class="session-speaker">
-                <div class="speaker-avatar">💼</div>
-                <div class="speaker-info">
-                  <div class="speaker-name">Élodie Rousseau</div>
-                  <div class="speaker-role">DRH · Ambassadrice DuoDay 2026</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="session-card col-part">
-              <span class="duration-chip">75 min</span>
-              <div class="session-badge badge-part">🤝 Partenaires</div>
-              <div class="session-title">Espace partenaires ouvert — Associations &amp; Collectivités</div>
-              <div class="session-desc">Découvrez les stands virtuels des partenaires : LADAPT, France Services, APAJH, maisons France Travail, CCAS... Échanges en direct, dépliants, ressources à télécharger.</div>
-              <div class="speakers-mini">
-                <div class="speaker-chip"><div class="chip-avatar">🌸</div><div class="chip-name">Isabelle Fontaine</div></div>
-                <div class="speaker-chip"><div class="chip-avatar">🗺️</div><div class="chip-name">Marc Dupuis</div></div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <!-- ─ 12h30 : PAUSE ─ -->
-      <div class="time-slot reveal">
-        <div class="slot-time">12h30</div>
-        <div class="slot-body">
-          <div class="pause-card">
-            <div class="pause-icon">🍽️</div>
-            <div>
-              <div class="pause-title">Pause déjeuner &amp; Networking libre</div>
-              <div class="pause-desc">60 minutes — Salon de discussion libre sur Discord · Échanges informels · Fil de questions-réponses</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ─ 13h30 : Quiz ─ -->
-      <div class="time-slot reveal">
-        <div class="slot-time">13h30</div>
-        <div class="slot-body">
-          <div class="session-card col-anim" style="border-left:none;border-top:4px solid var(--ink-muted);">
-            <span class="duration-chip">30 min</span>
-            <div class="session-badge badge-anim">🎉 Animation</div>
-            <div class="session-title">Grand Quiz Numérique — Jouez en équipe !</div>
-            <div class="session-desc">Culture numérique, inclusion, sécurité en ligne, curiosités du web… 20 questions pour se retrouver entre participants. Des lots à gagner pour les équipes gagnantes !</div>
-            <div class="session-speaker">
-              <div class="speaker-avatar">🎬</div>
-              <div class="speaker-info">
-                <div class="speaker-name">Julien Petit</div>
-                <div class="speaker-role">Créateur de contenu accessible · YouTube &amp; Twitch</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ─ 14h00 : TABLE RONDE ─ -->
-      <div class="time-slot reveal">
-        <div class="slot-time">14h00</div>
-        <div class="slot-body">
-          <div class="plenary-card">
-            <div class="plenary-badge">🎤 Table ronde · 75 min</div>
-            <div class="plenary-title">« Fracture numérique en milieu rural : comment agir ensemble ? »</div>
-            <div class="plenary-desc">
-              Un débat ouvert réunissant acteurs publics, associations et entreprises autour de la question de l'inclusion numérique dans les territoires ruraux et péri-urbains. Comment mutualiser les efforts ? Quelles politiques publiques sont efficaces ? Quels sont les besoins non couverts ?
-            </div>
-            <div class="plenary-speakers">
-              <div class="plenary-chip">
-                <div class="plenary-chip-avatar" style="background:rgba(46,192,106,0.15);">🏛️</div>
-                <div><div class="plenary-chip-name">Sandrine Moreau</div><div class="plenary-chip-role">Modératrice</div></div>
-              </div>
-              <div class="plenary-chip">
-                <div class="plenary-chip-avatar" style="background:rgba(46,192,106,0.15);">👨‍💻</div>
-                <div><div class="plenary-chip-name">Karim Benali</div><div class="plenary-chip-role">Formateur numérique</div></div>
-              </div>
-              <div class="plenary-chip">
-                <div class="plenary-chip-avatar" style="background:rgba(46,192,106,0.15);">🗺️</div>
-                <div><div class="plenary-chip-name">Marc Dupuis</div><div class="plenary-chip-role">France Services Eure</div></div>
-              </div>
-              <div class="plenary-chip">
-                <div class="plenary-chip-avatar" style="background:rgba(46,192,106,0.15);">💼</div>
-                <div><div class="plenary-chip-name">Élodie Rousseau</div><div class="plenary-chip-role">Entreprise inclusive</div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ─ 15h15 : Ateliers après-midi ─ -->
-      <div class="time-slot reveal">
-        <div class="slot-time">15h15</div>
-        <div class="slot-body">
-          <div class="sessions-row cols-2">
-
-            <div class="session-card col-atelier">
-              <span class="duration-chip">60 min</span>
-              <div class="session-badge badge-atelier">💻 Atelier</div>
-              <div class="session-title">Créer un CV numérique accessible : Word, PDF et outils gratuits</div>
-              <div class="session-desc">Démonstration pas à pas pour créer un CV lisible par les lecteurs d'écran, bien structuré et envoyable par e-mail. Accessible à tous les niveaux, avec des modèles téléchargeables.</div>
-              <div class="session-speaker">
-                <div class="speaker-avatar">💼</div>
-                <div class="speaker-info">
-                  <div class="speaker-name">Élodie Rousseau</div>
-                  <div class="speaker-role">DRH · Spécialiste recrutement inclusif</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="session-card col-conf">
-              <span class="duration-chip">60 min</span>
-              <div class="session-badge badge-conf">🎤 Conférence</div>
-              <div class="session-title">Accessibilité web en 2026 : où en sommes-nous ? Ce que dit la loi, ce qu'il faut faire</div>
-              <div class="session-desc">Bilan de la directive européenne sur l'accessibilité numérique, obligations légales pour les entreprises, outils de vérification. Présentation de bonnes pratiques avec exemples concrets.</div>
-              <div class="session-speaker">
-                <div class="speaker-avatar">🔬</div>
-                <div class="speaker-info">
-                  <div class="speaker-name">Nadia Ouali</div>
-                  <div class="speaker-role">Chercheuse · IA éthique &amp; accessibilité</div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <!-- ─ 15h30 : Atelier seniors ─ -->
-      <div class="time-slot reveal">
-        <div class="slot-time">15h30</div>
-        <div class="slot-body">
-          <div class="sessions-row cols-2">
-
-            <div class="session-card col-atelier">
-              <span class="duration-chip">60 min</span>
-              <div class="session-badge badge-atelier">💻 Atelier</div>
-              <div class="session-title">Seniors &amp; Numérique : utiliser son smartphone en toute confiance</div>
-              <div class="session-desc">Configurer les paramètres d'accessibilité, agrandir le texte, gérer les contacts, passer un appel vidéo avec ses proches, et éviter les pièges. Session calme et bienveillante.</div>
-              <div class="session-speaker">
-                <div class="speaker-avatar">🔒</div>
-                <div class="speaker-info">
-                  <div class="speaker-name">Thomas Leclerc</div>
-                  <div class="speaker-role">Expert numérique · Bénévole seniors</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="session-card col-reseau">
-              <span class="duration-chip">60 min</span>
-              <div class="session-badge badge-reseau">👥 Réseau</div>
-              <div class="session-title">SEEPH 2026 : « Et si le handicap était notre force ? » — Atelier inclusion en entreprise</div>
-              <div class="session-desc">Dans le cadre de la Semaine Européenne pour l'Emploi des Personnes Handicapées : exercices pratiques de mise en situation, kit manager inclusif, témoignages d'employés concernés.</div>
-              <div class="session-speaker">
-                <div class="speaker-avatar">🌸</div>
-                <div class="speaker-info">
-                  <div class="speaker-name">Isabelle Fontaine</div>
-                  <div class="speaker-role">Directrice régionale · LADAPT Normandie</div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <!-- ─ 16h30 : Speed networking ─ -->
-      <div class="time-slot reveal">
-        <div class="slot-time">16h30</div>
-        <div class="slot-body">
-          <div class="session-card col-anim" style="border-left:none;border-top:4px solid var(--ink-muted);">
-            <span class="duration-chip">20 min</span>
-            <div class="session-badge badge-anim">🎉 Animation</div>
-            <div class="session-title">Speed Networking — Rencontrez la communauté en 5 minutes chrono !</div>
-            <div class="session-desc">Des salles Discord en rotation rapide pour rencontrer d'autres participants, échanger vos coordonnées et trouver vos futurs partenaires ou mentors numériques.</div>
-            <div class="session-speaker">
-              <div class="speaker-avatar">🎬</div>
-              <div class="speaker-info">
-                <div class="speaker-name">Julien Petit</div>
-                <div class="speaker-role">Animateur de la communauté</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ─ 16h50 : CLÔTURE ─ -->
-      <div class="time-slot reveal">
-        <div class="slot-time">16h50</div>
-        <div class="slot-body">
-          <div class="plenary-card closing">
-            <div class="plenary-badge" style="background:rgba(255,255,255,0.15);border-color:rgba(255,255,255,0.25);color:var(--white);">🎁 Séance de clôture · 30 min</div>
-            <div class="plenary-title">Remise des prix, synthèse &amp; au revoir !</div>
-            <div class="plenary-desc">
-              Bilan de la journée, annonce des lauréats du Quiz Numérique, remise des ressources partagées (liens, guides, fiches pratiques). Rendez-vous annoncé pour 2027 !
-            </div>
-            <div class="plenary-speakers">
-              <div class="plenary-chip">
-                <div class="plenary-chip-avatar" style="background:rgba(255,255,255,0.12);">🖥️</div>
-                <div><div class="plenary-chip-name">Toute l'équipe</div><div class="plenary-chip-role">A l'Eure Digitale</div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /timeline -->
   </div>
 </section>
 </div><!-- /tab-programme -->
@@ -970,169 +701,14 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
+    <a href="index.html" class="logo logo--footer" aria-label="À l'Eure Digitale — accueil"><img src="logo_AED.png" alt="À l'Eure Digitale — Apprendre, partager, construire ensemble" class="logo-img" width="699" height="244"></a>
     <p><strong>Eure Tech &amp; Inclusion</strong> — 19 Novembre 2026, 10h00–17h00</p>
     <p>Organisé par <strong>A l'Eure Digitale</strong> · Événement 100% en ligne sur Discord</p>
     <p><a href="index.html">Retour au site</a> · <a href="#">Mentions légales</a> · <a href="#">Accessibilité</a></p>
   </div>
 </footer>
 
-<script>
-  /* ─── TABS ─── */
-  function switchTab(tab) {
-    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('tab-' + tab).classList.add('active');
-    document.querySelector(`[onclick="switchTab('${tab}')"]`).classList.add('active');
-    document.querySelectorAll('#tab-' + tab + ' .reveal').forEach(el => {
-      if (!el.classList.contains('visible')) observer.observe(el);
-    });
-  }
-
-  /* ─── SCROLL REVEAL ─── */
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 60);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.08 });
-
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-  /* ─── FORMULAIRE MULTI-ÉTAPES ─── */
-  let currentStep = 1;
-  const totalSteps = 3;
-  const progressValues = { 1: '33%', 2: '66%', 3: '100%' };
-
-  function goToStep(step) {
-    // Validation simple étape 1
-    if (step > 1 && currentStep === 1) {
-      const prenom = document.getElementById('prenom').value.trim();
-      const nom    = document.getElementById('nom').value.trim();
-      const email  = document.getElementById('email').value.trim();
-      const commune= document.getElementById('commune').value.trim();
-      if (!prenom || !nom || !email || !commune) {
-        shakeForm(); return;
-      }
-      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-      if (!emailOk) { document.getElementById('email').focus(); shakeForm(); return; }
-    }
-    // Validation simple étape 2
-    if (step > 2 && currentStep === 2) {
-      const statut = document.getElementById('statut').value;
-      const niveau = document.getElementById('niveau').value;
-      if (!statut || !niveau) { shakeForm(); return; }
-    }
-
-    // Masquer page courante, afficher nouvelle
-    document.getElementById('form-page-' + currentStep).classList.remove('active');
-    currentStep = step;
-    document.getElementById('form-page-' + currentStep).classList.add('active');
-
-    // Mettre à jour indicateurs
-    updateStepIndicators();
-    // Scroller en haut du form
-    document.querySelector('.reg-form-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  function updateStepIndicators() {
-    const bar = document.getElementById('progressBar');
-    if (bar) bar.style.width = progressValues[currentStep] || '100%';
-    for (let i = 1; i <= totalSteps; i++) {
-      const el = document.getElementById('step-indicator-' + i);
-      if (!el) continue;
-      el.classList.remove('active', 'done');
-      if (i < currentStep)  el.classList.add('done');
-      if (i === currentStep) el.classList.add('active');
-      // Mettre à jour le dot pour les étapes terminées
-      const dot = el.querySelector('.step-dot');
-      if (i < currentStep) dot.innerHTML = '<i class="bi bi-check-lg" style="font-size:0.65rem"></i>';
-      else dot.textContent = i;
-    }
-  }
-
-  async function submitForm() {
-    // Vérifier RGPD
-    if (!document.getElementById('rgpd').checked) {
-      document.getElementById('rgpd').closest('.consent-box').style.borderColor = 'red';
-      setTimeout(() => document.getElementById('rgpd').closest('.consent-box').style.borderColor = '', 2000);
-      return;
-    }
-
-    const btn = document.getElementById('submitBtn');
-    btn.disabled = true;
-    btn.innerHTML = '<i class="bi bi-hourglass-split"></i> Envoi en cours…';
-
-    // Recueillir les données
-    const prenom = document.getElementById('prenom').value.trim();
-    const nom    = document.getElementById('nom').value.trim();
-    const email  = document.getElementById('email').value.trim();
-
-    // Tentative Formspree
-    try {
-      const formData = new FormData();
-      formData.append('name', prenom + ' ' + nom);
-      formData.append('email', email);
-      formData.append('commune', document.getElementById('commune').value);
-      formData.append('statut', document.getElementById('statut').value);
-      formData.append('niveau', document.getElementById('niveau').value);
-      formData.append('handicap', document.getElementById('handicap').value);
-      formData.append('organisation', document.getElementById('organisation').value);
-      formData.append('remarques', document.getElementById('remarques').value);
-      const sessions = [...document.querySelectorAll('input[name="sessions"]:checked')].map(c => c.value).join(', ');
-      formData.append('sessions_choisies', sessions || 'Non précisé');
-      formData.append('newsletter', document.getElementById('newsletter').checked ? 'Oui' : 'Non');
-      formData.append('_subject', 'Inscription Eure Tech & Inclusion 2026 — ' + prenom + ' ' + nom);
-
-      const res = await fetch('https://formspree.io/f/aleuredudigitale@gmail.com', {
-        method: 'POST', body: formData, headers: { 'Accept': 'application/json' }
-      });
-
-      if (!res.ok) throw new Error('Formspree error');
-    } catch {
-      // Fallback mailto si Formspree échoue
-      const sessions = [...document.querySelectorAll('input[name="sessions"]:checked')].map(c => c.value).join(', ');
-      const body = `Nom : ${prenom} ${nom}\nEmail : ${email}\nStatut : ${document.getElementById('statut').value}\nNiveau : ${document.getElementById('niveau').value}\nSessions : ${sessions || 'Non précisé'}\nRemarques : ${document.getElementById('remarques').value}`;
-      window.location.href = `mailto:aleuredudigitale@gmail.com?subject=${encodeURIComponent('Inscription Eure Tech & Inclusion 2026')}&body=${encodeURIComponent(body)}`;
-    }
-
-    // Afficher page confirmation
-    showConfirmation(prenom, nom, email);
-  }
-
-  function showConfirmation(prenom, nom, email) {
-    document.getElementById('form-page-3').classList.remove('active');
-    document.getElementById('form-page-confirm').classList.add('active');
-    document.getElementById('progressBar').style.width = '100%';
-
-    // Mettre à jour le récap
-    const recap = document.getElementById('confirmRecap');
-    const nameRow = document.createElement('div');
-    nameRow.className = 'confirm-recap-row';
-    nameRow.innerHTML = `<i class="bi bi-person-fill"></i><span><strong>Inscrit(e) :</strong> ${prenom} ${nom}</span>`;
-    recap.insertBefore(nameRow, recap.firstChild);
-
-    // Passer tous les steps en "done"
-    for (let i = 1; i <= totalSteps; i++) {
-      const el = document.getElementById('step-indicator-' + i);
-      if (!el) continue;
-      el.classList.remove('active');
-      el.classList.add('done');
-      el.querySelector('.step-dot').innerHTML = '<i class="bi bi-check-lg" style="font-size:0.65rem"></i>';
-    }
-
-    document.querySelector('.reg-form-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  function shakeForm() {
-    const body = document.querySelector('.reg-form-body');
-    body.style.animation = 'none';
-    body.offsetHeight; // reflow
-    body.style.animation = 'shake 0.4s ease';
-    setTimeout(() => body.style.animation = '', 500);
-  }
-</script>
+<script src="intervenants.js"></script>
 
 <style>
   @keyframes shake {
